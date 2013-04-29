@@ -6,6 +6,7 @@ public class Main {
 		System.out.println("Roger that@Karol");
 		System.out.println("Pull z laptopa");
 		System.out.println("a tera ze stogu siana w stodole");
+		System.out.println("trolololo!");
 	}
 
 }
