@@ -17,10 +17,10 @@ View
  - Hand
  - Board
  - Abstract Selector
- - CellSelector (any, empty, card with certain type, ...)
- - AccessibleSelector	// dla np. auta
+ - CellSelector (any, empty, card with certain type, accessible, ... )
  - ColumnSelector
  - NetSelector 			// dla np. sieci
+ - HandSelector
 
 Controller
  - Selection
@@ -46,5 +46,9 @@ nie jestem pewien czy karta nie powinna implementowac funkcji use,
 ale cos mi sie wydaje ze jej miejsce jest w controllerze :P
 Selekcja ma parametry (zalezne od karty), selectory przymuja referencje do selekcji i
 uzupelaniaja ja o wybory gracza.
+
 Mozemy sie pokusic o skromny jezyk skryptowy, w ktorym karty opisuja efekt ich dzialania,
-ktory jest parsowany przez use.
+ktory jest parsowany przez use, takze do 'dziwnych restrykcji' poszczegolnych kart co do selekcji.
+
+Inne podejscie - zrobic wiecej selektorow, ale za to z mniejsza liczba parametrow (m. in. rozbic CellSelector),
+bo np. taka karta Mur ma dosc dziwne restrykcje.
