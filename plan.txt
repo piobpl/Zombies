@@ -1,8 +1,8 @@
 Jeżeli będziemy chcieli robić diagramy, to Dia wydaje mi się fajnym, prostym programem.
 
 [pakiet]
- - klasa
-	:metoda
+ - [klasa]
+	:[metoda]
 
 Lobby
 
@@ -17,20 +17,34 @@ View
  - Hand
  - Board
  - Abstract Selector
- - CardSelector
+ - CellSelector (any, empty, card with certain type, ...)
+ - AccessibleSelector	// dla np. auta
  - ColumnSelector
- - NetSelector
+ - NetSelector 			// dla np. sieci
 
 Controller
+ - Selection
  - Controller
+ 	:use
 	:advance
 	:draw
 	:discard
 	:play
+	:game
 
 1. Nie mam dobrego pomysłu na kontakty View <=> Controller.
 Controller powinien wiedzieć jaka jest faza gry i czekać na odpowiednie ruchy gracza,
 W jaki sposób powinien czekać ? 
 
 2. Takich np. Selectorow jest duzo, nie slyszalem w javie o subpakietach,
-zostawiamy wiele klas, czy tworzymy klase Selectors, i Selectory beda statycznymi podklasami?
+zostawiamy wiele klas, czy tworzymy klase Selectors, i Selectory bedace jej statycznymi podklasami?
+
+3. Co do zagrywania kart wymyslilem tak:
+Karta ma zapisana liste selekcji, kontroler patrzy co trzeba,
+uruchamia odpowiednie selektory i przesyła zebrane informacje funkcji use,
+nie jestem pewien czy karta nie powinna implementowac funkcji use,
+ale cos mi sie wydaje ze jej miejsce jest w controllerze :P
+Selekcja ma parametry (zalezne od karty), selectory przymuja referencje do selekcji i
+uzupelaniaja ja o wybory gracza.
+Mozemy sie pokusic o skromny jezyk skryptowy, w ktorym karty opisuja efekt ich dzialania,
+ktory jest parsowany przez use.
