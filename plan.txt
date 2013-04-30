@@ -1,1 +1,36 @@
 Jeżeli będziemy chcieli robić diagramy, to Dia wydaje mi się fajnym, prostym programem.
+
+[pakiet]
+ - klasa
+	:metoda
+
+Lobby
+
+Model
+ - Card
+ - Stack
+ - Hand
+ - Board
+ - GameState
+
+View
+ - Hand
+ - Board
+ - Abstract Selector
+ - CardSelector
+ - ColumnSelector
+ - NetSelector
+
+Controller
+ - Controller
+	:advance
+	:draw
+	:discard
+	:play
+
+1. Nie mam dobrego pomysłu na kontakty View <=> Controller.
+Controller powinien wiedzieć jaka jest faza gry i czekać na odpowiednie ruchy gracza,
+W jaki sposób powinien czekać ? 
+
+2. Takich np. Selectorow jest duzo, nie slyszalem w javie o subpakietach,
+zostawiamy wiele klas, czy tworzymy klase Selectors, i Selectory beda statycznymi podklasami?
