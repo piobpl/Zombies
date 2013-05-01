@@ -26,11 +26,12 @@ View
  - ColumnSelector
  - GroupSelector
  - HandSelector
+ - abstract Handler
  - GUI
-	:setToAdvancingState()
-	:setToCardDiscardingState()
-	:setToCardChoosingState()
-	:setToCardPlayingState(Selector)
+	:setBoardClickedHandler(Handler)
+	:setHandClickedHandler(Handler)
+	:setApplyButtonHandler(Handler)
+	:setCancelButtonHandler(Handler)
 
 Controller
  - abstract Selection
@@ -39,10 +40,10 @@ Controller
  - GroupSelection
  - HandSelection
  - Controller
- 	:advanceStage()
-	:drawStage()
-	:discardStage()
-	:playStage()
+ 	:advancingStage()
+	:drawingStage()
+	:discardingStage()
+	:playingStage()
 	:game()
 
 1. Beda sobie dwa watki (GUI i kontroli gry), Controller wywoluje funkcje odpowiadające za kolejne fazy gry,
