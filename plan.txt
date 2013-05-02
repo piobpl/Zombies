@@ -1,16 +1,17 @@
-Jeżeli będziemy chcieli robić diagramy, to Dia wydaje mi się fajnym, prostym programem.
-
 [pakiet]
  - [klasa]
 	:[składowa]
 
 Lobby
+ - Lobby
 
 Model
  - enum Card
 	:abstract selectionType
  	:abstract isSelectionCorrect(Selection)
  	:abstract makeEffect(Selection, GameState)
+ - enum Effect
+ - Effects
  - Stack
  - Hand
  - Board
@@ -18,20 +19,21 @@ Model
 
 View
  - Cell
+ 	:static Cell registerNewCell(JPanel)
  - Hand
+ 	:static Hand registerNewHand(JPanel)
  - Board
- - abstract Selector
-	:HandCardClicked
-	:BoardCardClicked
- - CellSelector
- - ColumnSelector
- - GroupSelector
- - HandSelector
- - abstract Handler
+ 	:static Board registerNewBoard(JPanel)
  - GUI
+ - abstract BoardClickedHandler
+ 	:clicked(int x, int y)
+ - abstract HandClickedHandler
+ 	:clicked(boolean player, int x)
+ - abstract Handler
+ 	:clicked()
  - GUIController
-	:setBoardClickedHandler(Handler)
-	:setHandClickedHandler(Handler)
+	:setBoardClickedHandler(BoardClickedHandler)
+	:setHandClickedHandler(HandClickedHandler)
 	:setApplyButtonHandler(Handler)
 	:setCancelButtonHandler(Handler)
 	:resetBoardClickedHandler()
@@ -45,6 +47,12 @@ Controller
  - ColumnSelection
  - GroupSelection
  - HandSelection
+ - abstract Selector
+	:static getSelection(Card)
+ - CellSelector
+ - ColumnSelector
+ - GroupSelector
+ - HandSelector
  - Controller
  	:advancingStage()
 	:drawingStage()
@@ -55,9 +63,10 @@ Controller
 1. Beda sobie dwa watki (GUI i kontroli gry), Controller wywoluje funkcje odpowiadające za kolejne fazy gry,
 jezeli cos potrzebuje jakiejs informacji od gracza to rejestruje sie w GUI i zasypia.
 
-2. Takich np. Selectorow jest duzo, nie slyszalem w javie o subpakietach,
-zostawiamy wiele klas, czy tworzymy klase Selectors, i Selectory bedace jej statycznymi podklasami?
-
-3. Selekcje: karta mowi czego porzebuje (pojedynczej karty, kolumny, ...),
+2. Selekcje: karta mowi czego porzebuje (pojedynczej karty, kolumny, ...),
 selector pozwala na wybieranie, po kazdej modyfiykacji wyboru wywoluje sprawdzenie poprawnosci selekcji
 (mysle ze poprawnie zalozylem ze podzbior poprawnego wyboru jest zawsze poprawny)
+
+3. Karty specjalne (typu terror) - mysle, ze pienknie sie tej sprawy nie rozwiaze - 
+narazie mam taki pomysl, ze trzymamy zestaw obowiazujacych w danym momencie efektow,
+w odpowiednich momentach ifujemy czy jakis efekt nie obowiazuje.
