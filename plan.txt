@@ -7,7 +7,7 @@ Jeżeli będziemy chcieli robić diagramy, to Dia wydaje mi się fajnym, prostym
 Lobby
 
 Model
- - Card
+ - enum Card
 	:abstract selectionType
  	:abstract isSelectionCorrect(Selection)
  	:abstract makeEffect(Selection, GameState)
@@ -17,6 +17,7 @@ Model
  - GameState
 
 View
+ - Cell
  - Hand
  - Board
  - abstract Selector
@@ -28,10 +29,15 @@ View
  - HandSelector
  - abstract Handler
  - GUI
+ - GUIController
 	:setBoardClickedHandler(Handler)
 	:setHandClickedHandler(Handler)
 	:setApplyButtonHandler(Handler)
 	:setCancelButtonHandler(Handler)
+	:resetBoardClickedHandler()
+	:resetHandClickedHandler()
+	:resetApplyButtonHandler()
+	:resetCancelButtonHandler()
 
 Controller
  - abstract Selection
