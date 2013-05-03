@@ -2,71 +2,75 @@
  - [klasa]
 	:[składowa]
 
-Lobby
- - Lobby
-
-Model
+model
  - enum Card
-	:abstract selectionType
- 	:abstract isSelectionCorrect(Selection)
- 	:abstract makeEffect(Selection, GameState)
- - enum Effect
+	:selectionType
+	:abstract isSelectionCorrect(Selection)
+	:abstract makeEffect(Selection, GameState)
  - Effects
- - Stack
+	 - enum Effect
+ - Deck
  - Hand
  - Board
  - GameState
 
-View
+view
  - Cell
- 	:static Cell registerNewCell(JPanel)
+	:static Cell registerNewCell(JPanel)
  - Hand
- 	:static Hand registerNewHand(JPanel)
+	:static Hand registerNewHand(JPanel)
  - Board
- 	:static Board registerNewBoard(JPanel)
+	:static Board registerNewBoard(JPanel)
  - GUI
- - abstract BoardClickedHandler
- 	:clicked(int x, int y)
- - abstract HandClickedHandler
- 	:clicked(boolean player, int x)
- - abstract Handler
- 	:clicked()
  - GUIController
-	:setBoardClickedHandler(BoardClickedHandler)
-	:setHandClickedHandler(HandClickedHandler)
-	:setApplyButtonHandler(Handler)
-	:setCancelButtonHandler(Handler)
+	 - abstract Handler<DataType>
+		:send(DataType data)
+	:setBoardClickedHandler(Handler<Pair<Integer, Integer>> handler)
+	:setHandClickedHandler(Handler<Integer> handler)
+	:setApplyButtonHandler(Handler<Void> handler)
+	:setCancelButtonHandler(Handler<Void> handler)
 	:resetBoardClickedHandler()
 	:resetHandClickedHandler()
 	:resetApplyButtonHandler()
 	:resetCancelButtonHandler()
 
-Controller
+controller
  - abstract Selection
- - CellSelection
- - ColumnSelection
- - GroupSelection
- - HandSelection
- - abstract Selector
+	 - CellSelection
+	 - ColumnSelection
+	 - GroupSelection
+	 - HandSelection
+ - Selector
 	:static getSelection(Card)
- - CellSelector
- - ColumnSelector
- - GroupSelector
- - HandSelector
  - Controller
- 	:advancingStage()
+	:advancingStage()
 	:drawingStage()
 	:discardingStage()
 	:playingStage()
 	:game()
+	:main()
 
-1. Beda sobie dwa watki (GUI i kontroli gry), Controller wywoluje funkcje odpowiadające za kolejne fazy gry,
-jezeli cos potrzebuje jakiejs informacji od gracza to rejestruje sie w GUI i zasypia.
+utility
+ - Courier<DataType>
+	:synchronized call(DataType data)
+	:synchronized DataType receive()
+ - Pair<FirstType, SecondType>
+
+1. Beda sobie dwa watki (GUI i kontroli gry),
+Controller wywoluje funkcje odpowiadające za kolejne fazy gry,
+jezeli cos potrzebuje jakiejs informacji od gracza
+to rejestruje sie w GUI i zasypia (po to Courier - to cos ma samo czekac
+az gui zlapie akcje gracza)
 
 2. Selekcje: karta mowi czego porzebuje (pojedynczej karty, kolumny, ...),
-selector pozwala na wybieranie, po kazdej modyfiykacji wyboru wywoluje sprawdzenie poprawnosci selekcji
-(mysle ze poprawnie zalozylem ze podzbior poprawnego wyboru jest zawsze poprawny)
+selector pozwala na wybieranie, po kazdej modyfiykacji wyboru
+wywoluje sprawdzenie poprawnosci selekcji (mysle ze poprawnie zalozylem
+ze podzbior poprawnego wyboru jest zawsze poprawny)
 
-3. Karty specjalne (typu terror) - mysle, ze pienknie sie tej sprawy nie rozwiaze - 
+3. Karty specjalne (typu terror) - 
+mysle, ze pienknie sie tej sprawy nie rozwiaze - 
 narazie mam taki pomysl, ze trzymamy zestaw obowiazujacych w danym momencie efektow,
 w odpowiednich momentach ifujemy czy jakis efekt nie obowiazuje.
+
+4. Jak napiszecie //TODO, w Tasks (nie Task List)
+pojawi sie to miejsce na liscie (przydatne np. zeby nie zapomniec czegos w kodzie)
