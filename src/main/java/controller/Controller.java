@@ -1,6 +1,7 @@
 package controller;
 
 import model.GameState;
+import utility.Player;
 import view.GUI;
 
 public class Controller {
@@ -13,7 +14,10 @@ public class Controller {
 		gui = gameState.gui;
 		System.err.println("DONE");
 	}
-
+	
+	@SuppressWarnings("unused")
+	private Player turn = Player.ZOMBIE;
+	
 	// TODO
 
 	private void advancingStage() {

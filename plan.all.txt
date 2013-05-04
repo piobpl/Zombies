@@ -22,18 +22,19 @@ view
  - Board
 	:static Board registerNewBoard(JPanel)
  - GUI
- - GUIController
-	 - abstract Handler<DataType>
-		:send(DataType data)
-	:setBoardClickedHandler(Handler<Pair<Integer, Integer>> handler)
-	:setHandClickedHandler(Handler<Integer> handler)
-	:setApplyButtonHandler(Handler<Void> handler)
-	:setCancelButtonHandler(Handler<Void> handler)
-	:resetBoardClickedHandler()
-	:resetHandClickedHandler()
-	:resetApplyButtonHandler()
-	:resetCancelButtonHandler()
-
+	:getEventReceiver()
+	:removeEventReceiver()
+ - EventReceiver
+	 - enum EventType
+	 - abstract Event
+	 - BoardClickedEvent extends Event
+	 - HandClickedEvent extends Event
+	 - ApplyButtonClickedEvent extends Event
+	 - CancelButtonClickedEvent extends Event
+	:Event receive()
+}
+	
+	
 controller
  - abstract Selection
 	 - CellSelection
@@ -59,8 +60,7 @@ utility
 1. Beda sobie dwa watki (GUI i kontroli gry),
 Controller wywoluje funkcje odpowiadające za kolejne fazy gry,
 jezeli cos potrzebuje jakiejs informacji od gracza
-to rejestruje sie w GUI i zasypia (po to Courier - to cos ma samo czekac
-az gui zlapie akcje gracza)
+to bierze sobie od gui EventReceiver.
 
 2. Selekcje: karta mowi czego porzebuje (pojedynczej karty, kolumny, ...),
 selector pozwala na wybieranie, po kazdej modyfiykacji wyboru
