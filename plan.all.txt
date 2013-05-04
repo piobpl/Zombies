@@ -23,7 +23,6 @@ view
 	:static Board registerNewBoard(JPanel)
  - GUI
 	:getEventReceiver()
-	:removeEventReceiver()
  - EventReceiver
 	 - enum EventType
 	 - abstract Event
@@ -31,9 +30,7 @@ view
 	 - HandClickedEvent extends Event
 	 - ApplyButtonClickedEvent extends Event
 	 - CancelButtonClickedEvent extends Event
-	:Event receive()
-}
-	
+	:Event getNextEvent()
 	
 controller
  - abstract Selection
@@ -52,9 +49,6 @@ controller
 	:main()
 
 utility
- - Courier<DataType>
-	:synchronized call(DataType data)
-	:synchronized DataType receive()
  - Pair<FirstType, SecondType>
 
 1. Beda sobie dwa watki (GUI i kontroli gry),

@@ -5,4 +5,8 @@ public class Effects {
 	}
 
 	// TODO
+	
+	public boolean isInEffect(Effect e){
+		return false;
+	}
 }

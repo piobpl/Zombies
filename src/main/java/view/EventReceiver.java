@@ -48,7 +48,7 @@ public class EventReceiver {
 
 	// TODO
 
-	public Event receive() {
+	public Event getNextEvent() {
 		return null;
 	}
 
