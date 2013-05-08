@@ -8,6 +8,7 @@ public class Main {
 		System.out.println("Pull z laptopa");
 		System.out.println("a tera ze stogu siana w stodole");
 		System.out.println("patataj");
+		System.out.println("no witam");
 	}
 
 }
