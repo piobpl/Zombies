@@ -1,10 +1,10 @@
 package view;
 
+import model.Player;
 import utility.Pair;
-import utility.Player;
 
 public class EventReceiver {
-
+		
 	public static enum EventType {
 		BoardClicked, HandClicked, ApplyButtonClicked, CancelButtonClicked,
 	}
@@ -46,6 +46,12 @@ public class EventReceiver {
 		}
 	}
 
+	public final GUI gui;
+	
+	public EventReceiver(GUI gui){
+		this.gui = gui;
+	}
+	
 	// TODO
 
 	public Event getNextEvent() {

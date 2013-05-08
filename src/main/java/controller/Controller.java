@@ -1,17 +1,19 @@
 package controller;
 
 import model.GameState;
-import utility.Player;
+import model.Player;
 import view.GUI;
 
 public class Controller {
 	public final GameState gameState;
 	public final GUI gui;
-
+	public final Selector selector;
+	
 	public Controller() {
 		System.err.println("Creating Controller...");
-		gameState = new GameState(this);
+		gameState = new GameState();
 		gui = gameState.gui;
+		selector = new Selector(gui.eventReceiver);
 		System.err.println("DONE");
 	}
 	

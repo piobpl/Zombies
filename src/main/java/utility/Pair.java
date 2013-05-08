@@ -1,5 +1,7 @@
 package utility;
 
 public class Pair<FirstType, SecondType> {
-	// TODO
+	// exception - writable public variables
+	public FirstType first;
+	public SecondType second;
 }

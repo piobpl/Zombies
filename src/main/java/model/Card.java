@@ -7,6 +7,7 @@ import controller.Selection.SelectionType;
 public enum Card {
 	// TODO
 	A() {
+		
 		@SuppressWarnings("unused")
 		@Override
 		public boolean isSelectionCorrect(Selection unknownTypeSelection) {

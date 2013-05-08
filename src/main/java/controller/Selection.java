@@ -1,5 +1,9 @@
 package controller;
 
+import java.util.List;
+
+import utility.Pair;
+
 public abstract class Selection {
 	public static enum SelectionType {
 		CELL, COLUMN, GROUP, HAND;
@@ -8,14 +12,18 @@ public abstract class Selection {
 	// TODO
 
 	public static class CellSelection extends Selection {
+		public final Pair<Integer, Integer> cell = null;
 	}
 
 	public static class ColumnSelection extends Selection {
+		public final Integer column = 0;;
 	}
 
 	public static class GroupSelection extends Selection {
+		public final List<Pair<Integer, Integer>> cells = null;
 	}
 
 	public static class HandSelection extends Selection {
+		public final List<Integer> cards = null;
 	}
 }
