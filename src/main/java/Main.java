@@ -12,7 +12,7 @@ public class Main {
 		System.out.println("a tera ze stogu siana w stodole");
 		System.out.println("patataj");
 		System.out.println("no witam");
-		System.out.println("pykam jeszcze raz, dodalem doskonalego javadoca");
+		System.out.println("pykam jeszcze raz, dodalem doskonalego javadoca"); //anything
 	}
 
 }
