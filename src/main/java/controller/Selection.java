@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import model.Player;
 import utility.Pair;
 
 public abstract class Selection {
@@ -24,6 +25,7 @@ public abstract class Selection {
 	}
 
 	public static class HandSelection extends Selection {
-		public final List<Integer> cards = null;
+		public final Player player = null;
+		public final Integer card = null;
 	}
 }
