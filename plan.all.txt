@@ -16,11 +16,11 @@ model
 
 view
  - Cell
-	:static Cell registerNewCell(JPanel)
+	:Cell(JPanel)
  - Hand
-	:static Hand registerNewHand(JPanel)
+	:Hand(JPanel)
  - Board
-	:static Board registerNewBoard(JPanel)
+	:Board(JPanel)
  - GUI
 	:getEventReceiver()
  - EventReceiver
@@ -68,3 +68,32 @@ w odpowiednich momentach ifujemy czy jakis efekt nie obowiazuje.
 
 4. Jak napiszecie //TODO, w Tasks (nie Task List)
 pojawi sie to miejsce na liscie (przydatne np. zeby nie zapomniec czegos w kodzie)
+
+5. Plansza to tablica kart, a nie tablica list kart!
+Karty typu człowiek, auto, i inne ktore lamia zasade "jedna karta na jednym polu" beda "efektami" (czyt. zajmiemy sie nimi pozniej,
+nie bojcie sie ze ciezko bedzie je dodac, mam plan, w sumie tego, ze mam plan mozecie sie bac :P)
+
+6. Karty na 1. tydzien (im wiecej tym lepiej, z wykrzyknikiem to karty ktore koniecznie chcialbym zobaczyc)
+Jak widac, odradzam podzial ze jeden robi zombiakow, inny ludzi.
+Zombiakow:
+Głód
+Masa! (olejcie to zalozenie, ze zombi ma sie juz w turze nie ruszac)
+Mięso
+Pazury
+Spadaj!
+Zombi!
+
+Ludzi:
+Granat
+Krew (sprawdzajcie tylko, czy wybrane pole jest puste)
+Reflektor!
+Ropa!
+Seria (nie sprawdzajcie czy ktos jest chroniony czlowiekiem, mozna sie cofnac jake pole jest puste)
+Snajper
+Strzał
+Ulica w ogniu
+Wynocha!
+Zmiataj
+
+7. Wszystko mniej lub bardziej testujcie, np. test selektora moze wygladac tak,
+ze podpinamy mu cos co generuje losowe eventy i karte ktora akceptuje tylko konkretna selekcje i patrzymy czy zwroci to co chcielismy.
