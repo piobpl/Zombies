@@ -14,7 +14,7 @@ public class Controller {
 		gameState = new GameState();
 		gui = gameState.gui;
 		selector = new Selector(gui.eventReceiver);
-		System.err.println("DONE");
+		System.err.println("Done");
 	}
 	
 	@SuppressWarnings("unused")
