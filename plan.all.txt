@@ -106,3 +106,9 @@ Test powinien najlepiej dotyczyc jakiejs jednej klasy (grup klas), ktora spinamy
 8. Wykryte bugi mozecie zglaszac przez Issues.
 
 9. Jak macie jakiekolwiek watpliwosci to piszcie na gmaila, gtalka, gadu, telefon, zwykle jestem online 24/7.
+
+10. Jezeli commit sie nie uda (rejected, czy cos), to w Git Repositories:
+pullnijce
+zmergujcie
+zcommitujcie (potwierdzcie, potem commit and push)
+Dzieje sie tak gdy, pomiedzy waszym pullem, a commitem i pushem, ktos inny zcommitowal i zpushowal, wtedy wy musicie domergowac wlasny kod.
