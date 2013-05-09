@@ -103,3 +103,6 @@ bedzie takie karty wyswietlac (brak switcha na to co my wlasciwie wyswietlac mam
 ze podpinamy mu cos co generuje losowe eventy i karte ktora akceptuje tylko konkretna selekcje i patrzymy czy zwroci to co chcielismy.
 Test powinien najlepiej dotyczyc jakiejs jednej klasy (grup klas), ktora spinamy ze sztucznymi klasami, ktore sa potrzebne.
 
+8. Wykryte bugi mozecie zglaszac przez Issues.
+
+9. Jak macie jakiekolwiek watpliwosci to piszcie na gmaila, gtalka, gadu, telefon, zwykle jestem online 24/7.
