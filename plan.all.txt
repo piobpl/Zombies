@@ -95,5 +95,11 @@ Ulica w ogniu
 Wynocha!
 Zmiataj
 
+Preferowalbym zeby karty mialy jak najwiecej wspolnych cech,
+np. jestem za tym, by wszystkie karty mialy zmienna sila, jak karta tej zmiennej nie potrzebuje to nic to nie przeskadza, a duzo prosciej
+bedzie takie karty wyswietlac (brak switcha na to co my wlasciwie wyswietlac mamy)
+
 7. Wszystko mniej lub bardziej testujcie, np. test selektora moze wygladac tak,
 ze podpinamy mu cos co generuje losowe eventy i karte ktora akceptuje tylko konkretna selekcje i patrzymy czy zwroci to co chcielismy.
+Test powinien najlepiej dotyczyc jakiejs jednej klasy (grup klas), ktora spinamy ze sztucznymi klasami, ktore sa potrzebne.
+
