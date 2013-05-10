@@ -112,3 +112,5 @@ pullnijce
 zmergujcie
 zcommitujcie (potwierdzcie, potem commit and push)
 Dzieje sie tak gdy, pomiedzy waszym pullem, a commitem i pushem, ktos inny zcommitowal i zpushowal, wtedy wy musicie domergowac wlasny kod.
+
+11. Unikajcie jakichkolwiek warningow, w ekstreamalnych (bardzo) sytuacjach supresujcie.

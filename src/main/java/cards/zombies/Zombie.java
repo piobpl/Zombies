@@ -25,7 +25,7 @@ public class Zombie extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer x = ((CellSelection)selection).cell.first;
 		Integer y = ((CellSelection)selection).cell.second;
-		gameState.getBoard().addCardAtPosition(x, y, this);
+		gameState.getBoard().set(x, y, this);
 	}
 
 }

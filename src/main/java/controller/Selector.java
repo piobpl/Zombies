@@ -1,6 +1,5 @@
 package controller;
 
-import controller.Selection.SelectionType;
 import view.EventReceiver;
 import model.Card;
 

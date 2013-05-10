@@ -1,38 +1,27 @@
 package model;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class Board {
 	
-	private List<Card>[][] board;
+	private Card[][] board;
 	
-	@SuppressWarnings("unchecked")
 	public Board(){
-		board = new LinkedList[5][3];
+		board = new Card[5][3];
 	}
 
-	public boolean removeCardAtPosition(int x, int y, Card card){
-		return board[x][y].remove(card);
+	public void remove(int x, int y){
+		board[x][y] = null;
 	}
 	
-	public boolean addCardAtPosition(int x, int y, Card card){
-	//	if(board[x][y]!=null){
-			//TODO czy mam tu sprawdzac czy mozna polozyc?
-		//	return false;
-		//}else{
-			board[x][y].add(card);
-			return true;
-		//}
+	public void set(int x, int y, Card card){
+		board[x][y] = card;
 	}
 	
-	public List<Card> getCardsAtPosition(int x, int y){
+	public Card get(int x, int y){
 		return board[x][y];
 	}
 	
 	public boolean isEmpty(int x, int y) {
-		// TODO
-		return false;
+		return board[x][y] == null;
 	}
 	
 }
