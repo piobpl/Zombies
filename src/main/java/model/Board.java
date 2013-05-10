@@ -30,4 +30,9 @@ public class Board {
 		return board[x][y];
 	}
 	
+	public boolean isEmpty(int x, int y) {
+		// TODO
+		return false;
+	}
+	
 }
