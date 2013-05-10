@@ -114,3 +114,32 @@ zcommitujcie (potwierdzcie, potem commit and push)
 Dzieje sie tak gdy, pomiedzy waszym pullem, a commitem i pushem, ktos inny zcommitowal i zpushowal, wtedy wy musicie domergowac wlasny kod.
 
 11. Unikajcie jakichkolwiek warningow, w ekstreamalnych (bardzo) sytuacjach supresujcie.
+
+12. O Kartach rzeczy kilka:
+- karty powinny byc takie same - jakis zestaw zmiennych, 2 funkcje i tyle.
+	Jezeli jakas karta czegos nie potrzebuje to w danej zmiennej trzyma null.
+	Wynika to z tego ze nie chcemy miec w gui switchy - jak karta zombiak wyswietlamy tak, jak inaczej, to inaczej.
+- sugeruje zrobienie podobnych klas "ulatwiajacych" sprawdzanie poprawnosc selekcji, dla funkcje makeEffect,
+	czyli np. zadajObrazenia, cofnij, itp. Nie powinno byc tak, ze karta zombiak bedzie implementowala metode cofnij sie,
+	kod wyszedlby gorszy - trust me - chociazby nie dalo by sie uniknac brzydkiego rzutowania, ktore pojawia sie np. przy selekcjach,
+	patrzymy na karte - kodzimy jak sie wybiera jej obszar dzialania, kodzimy jej efekt i to wszystko w tej wlasnie karcie.
+- jezeli w wyniku jakiegos zagrania jakiejs karty zombiaki wygrywaja, funkcja makeEffect ma rzucic wyjatek GameOver(Player.ZOMBIE),
+ 	nie dodawajcie throws - to jest runtimeException.
+- karty nie moga byc modyfikowalne! board musi wiedziec ze karta sie zmienila, zeby powiedziec o tym gui,
+	wiec potrzeba zmiany karty niech tworzy nowa karte i ja dodaje na planszy. 
+- jezeli potrzeba to w groupselection kolejnosc ma znaczenie! (chyba np. taka ropa tego potrzebuje),
+	czyli selektor powinien dbac by dodana karta byla na koncu listy
+	oraz ze usuniecie karty (o ile w ogole isSelectionCorrect sie na nie zgodzi)
+	nie powinno psuc porzadku.
+	
+13. Kiedy Integer, a kiedy int? Ja bym robil tak: zmienne pomocnicze moga byc intami, ale nie musza, za to zmienne w klasie to Integer,
+pewno sie zdarzy nie raz, ze wykorzystamy to, ze mozemy tam sobie trzymac null-a.
+
+14. Uklad rzeczy w klasie: ja bym robil tak:
+na gorze zmienne, potem konstrutkor, potem metody prywatne, potem metody publiczne.
+
+15. Do kazdej klasy zrobcie jakiegos javadoca, moze byc ultraprosty.
+Jak jest jakas funkcja co do niech koniecznie chcecie zrobic javadoca to nie odmawiam,
+ale wydaje mi sie ze starczy 1 prosty komentarz na klase.
+javaDoc generujemy: Project/Generate JavaDoc..., zaznaczanie zombiaki i next next next...
+Gitowi ustawilem by ignorowal folder docsow - za duzo syfu sie robi na stronie, kazdy moze generowac sobie sam.

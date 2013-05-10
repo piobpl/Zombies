@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 class NoMoreCardsException extends Exception{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -6892455103503069575L;
 
 	public NoMoreCardsException() {

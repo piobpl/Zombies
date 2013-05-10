@@ -8,7 +8,9 @@ import model.GameState;
 public class Zombie extends Card {
 
 	public final String name = "Zombie";
+	@SuppressWarnings("unused")
 	private int strength;
+	@SuppressWarnings("unused")
 	private boolean hasShield = false; // zombie can use a man as a shield
 
 	public Zombie(int strength) {
