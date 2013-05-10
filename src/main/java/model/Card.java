@@ -13,7 +13,6 @@ public abstract class Card {
 
 	// TODO
 	public final String name = "Abstract";
-	public final int strength = -1;
 	public final SelectionType selectionType = SelectionType.CELL;
 	public abstract boolean isSelectionCorrect(GameState gameState, Selection selection);
 	public abstract void makeEffect(Selection selection, GameState gameState);
