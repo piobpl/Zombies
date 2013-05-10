@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controller.Selection;
@@ -7,7 +8,7 @@ import controller.Selection.SelectionType;
 
 public abstract class Card {
 	public static List<Card> getCompleteDeck(Player player){
-		return null;
+		return new ArrayList<Card>();
 	}
 
 	// TODO
