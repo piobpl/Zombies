@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Player;
@@ -10,18 +11,38 @@ public abstract class Selection {
 		CELL, COLUMN, GROUP, HAND;
 	}
 
-	// TODO
+	public Selection add(Pair<Integer, Integer> p){return this;}
 
 	public static class CellSelection extends Selection {
-		public final Pair<Integer, Integer> cell = null;
+		public final Pair<Integer, Integer> cell;
+		CellSelection(Pair<Integer, Integer> cell){
+			this.cell=cell;
+		}
+		public Selection add(Pair<Integer, Integer> p){
+			return new CellSelection(p);
+		}
 	}
 
 	public static class ColumnSelection extends Selection {
-		public final Integer column = 0;;
+		public final Integer column;
+		ColumnSelection(Integer column){
+			this.column=column;
+		}
+		public Selection add(Pair<Integer, Integer> p){
+			return new ColumnSelection(p.first);
+		}
 	}
 
 	public static class GroupSelection extends Selection {
-		public final List<Pair<Integer, Integer>> cells = null;
+		public final List<Pair<Integer, Integer>> cells;
+		GroupSelection(List<Pair<Integer, Integer>> cells){
+			this.cells=cells;
+		}
+		public Selection add(Pair<Integer, Integer> p){
+			List<Pair<Integer, Integer>> l=new ArrayList<>(cells);
+			l.add(p);
+			return new GroupSelection(l);
+		} 
 	}
 
 	public static class HandSelection extends Selection {

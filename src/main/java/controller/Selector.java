@@ -1,5 +1,6 @@
 package controller;
 
+import controller.Selection.SelectionType;
 import view.EventReceiver;
 import model.Card;
 
@@ -11,7 +12,6 @@ public class Selector {
 	}
 
 	public static Selection getSelection(Card card) {
-		// TODO
 		return null;
 	}
 }
