@@ -1,66 +1,52 @@
 package model;
 
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * A class representing a hand.
  */
 public class Hand {
 
-	private List<Card> hand;
+	private Card[] hand;
 
 	/**
 	 * Creates a new empty hand.
 	 */
 	public Hand() {
-		hand = new LinkedList<Card>();
+		hand = new Card[4];
 	}
 
 	/**
-	 * Returns a list representing a hand.
+	 * Returns a card at a specified position. Null if there's no card at that
+	 * position.
 	 * 
-	 * @return a hand
+	 * @param i
+	 *            coordinate
+	 * @return a card at a specified position
 	 */
-	public List<Card> getHand() {
-		return hand;
+	public Card get(int i) {
+		return hand[i];
 	}
 
 	/**
-	 * Clears hand.
+	 * Places a card at a specified position.
 	 * 
-	 */
-	public void clearHand() {
-		hand.clear();
-	}
-
-	/**
-	 * Adds a card to the hand.
-	 * 
+	 * @param i
+	 *            coordinate
 	 * @param card
-	 *            a card to be added
+	 *            a card to be set
 	 */
-	public void addCard(Card card) {
-		hand.add(card);
+	public void set(int i, Card card) {
+		hand[i] = card;
 	}
 
 	/**
-	 * Removes a card from the hand.
+	 * Removes a card from the hand at a specified position.
 	 * 
-	 * @param card
-	 *            a card to be removed
+	 * @param i
+	 *            coordinate
 	 */
-	public boolean removeCard(Card card) {
-		return hand.remove(card);
+	public void remove(int i) {
+		hand[i] = null;
 	}
-
-	/**
-	 * Checks whether the hand is empty.
-	 * 
-	 * @return true if the hand is empty
-	 */
-	public boolean isEmpty() {
-		return hand.isEmpty();
-	}
-
+	
 }
