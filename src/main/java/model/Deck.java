@@ -1,53 +1,97 @@
 package model;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-
-class NoMoreCardsException extends Exception{
-	
-	private static final long serialVersionUID = -6892455103503069575L;
-
-	public NoMoreCardsException() {
-	}
-
-	public NoMoreCardsException(String s) {
-		super(s);
-	}
-
-	public NoMoreCardsException(String s, Throwable t) {
-		super(s, t);
-	}
-
-	public NoMoreCardsException(Throwable t) {
-		super(t);
-	}
-}
 
 public class Deck {
 
 	private List<Card> deck;
 
+	/**
+	 * Creates a new shuffled deck for the specified player.
+	 * 
+	 * @param player
+	 *            a player whose deck is to be created
+	 */
 	public Deck(Player player) {
-		deck = getShuffledDeck(player); //TODO czy tam jest karta swit? zapytac implementatorow kart
+		deck = getShuffledDeck(player);
 	}
-	
-	public Card getTopCard() throws NoMoreCardsException{
-		if(deck.isEmpty()){
-			throw new NoMoreCardsException();
+
+	/**
+	 * Returns a card from the top of the deck( and removes it ). Returns null
+	 * if the deck is empty.
+	 * 
+	 * @return a card from the top of the deck or null
+	 */
+	public Card getTopCard() {
+		if (isEmpty()) {
+			return null;
 		}
 		return deck.remove(0);
 	}
-	
-	public int getDeckSize(){
+
+	/**
+	 * Returns a list of cards from the top of the deck ( and removes them ).
+	 * Returns null if there are not enough cards in the deck.
+	 * 
+	 * @param i
+	 *            the number of cards to be taken from the deck
+	 * 
+	 * @return a list of cards from the top of the deck or null
+	 */
+	public List<Card> get(int i) {
+		if (i > getDeckSize()) {
+			return null;
+		} else {
+			List<Card> tmp = new LinkedList<>();
+			while (i > 0) {
+				tmp.add(deck.remove(0));
+				i--;
+			}
+			return tmp;
+		}
+	}
+
+	/**
+	 * Removes a specified number of cards from the top of the deck. If the
+	 * given number is bigger than or equals the size of the deck then the deck
+	 * will be empty after the call of this method.
+	 * 
+	 * @param i
+	 *            the number of cards to be removed
+	 */
+	public void remove(int i) {
+		while (i > 0 && !isEmpty()) {
+			deck.remove(0);
+			i--;
+		}
+	}
+
+	/**
+	 * Returns the current size of the deck.
+	 * 
+	 * @return a size of the deck
+	 */
+	public int getDeckSize() {
 		return deck.size();
 	}
 
-	public static List<Card> getShuffledDeck(Player player) {
+	/**
+	 * Checks whether the deck is empty.
+	 * 
+	 * @return true if the deck is empty
+	 */
+	public boolean isEmpty() {
+		return deck.isEmpty();
+	}
+
+	private List<Card> getShuffledDeck(Player player) {
 		return getShuffledDeck(player, null);
 	}
 
-	public static List<Card> getShuffledDeck(Player player, Random rnd) {
+	private List<Card> getShuffledDeck(Player player, Random rnd) {
 		if (rnd == null) {
 			rnd = new Random();
 		}

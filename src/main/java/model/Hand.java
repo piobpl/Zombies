@@ -1,20 +1,60 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Hand {
-	
-	GameState gameState;
-	Player player;
-	List<Card> hand;
-	
-	public Hand(GameState gameState, Player player){
-		this.gameState = gameState;
-		this.player = player;
+
+	private List<Card> hand;
+
+	public Hand() {
+		hand = new LinkedList<Card>();
 	}
-	
-	public boolean removeCard(Card card){
+
+	/**
+	 * Returns a list representing a hand.
+	 * 
+	 * @return a hand
+	 */
+	public List<Card> getHand() {
+		return hand;
+	}
+
+	/**
+	 * Clears hand.
+	 * 
+	 */
+	public void clearHand() {
+		hand.clear();
+	}
+
+	/**
+	 * Adds a card to the hand.
+	 * 
+	 * @param card
+	 *            a card to be added
+	 */
+	public void addCard(Card card) {
+		hand.add(card);
+	}
+
+	/**
+	 * Removes a card from the hand.
+	 * 
+	 * @param card
+	 *            a card to be removed
+	 */
+	public boolean removeCard(Card card) {
 		return hand.remove(card);
 	}
-	
+
+	/**
+	 * Checks whether the hand is empty.
+	 * 
+	 * @return true if the hand is empty
+	 */
+	public boolean isEmpty() {
+		return hand.isEmpty();
+	}
+
 }
