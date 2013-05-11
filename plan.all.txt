@@ -158,3 +158,6 @@ typów kart (te listy i podobne pierdoły), tym sprawniej pójdzie implementacja
 
 Na razie chyba tyle, pozdro
 
+2/3) narazie nie robicie obslugujecie takich kart, ich obsluga zajmiecie sie w 2. tygodniu, jutro wszystko opisze, narazie
+mozecie je olac i nie bedziecie kodzic nic na prozno.
+4) selekcje konstruuje selektor, po coz innym konstruktory?
