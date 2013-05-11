@@ -13,7 +13,7 @@ public class Controller {
 		System.err.println("Creating Controller...");
 		gameState = new GameState();
 		gui = gameState.gui;
-		selector = new Selector(gui.eventReceiver);
+		selector = new Selector(gui.eventReceiver, gameState);
 		System.err.println("Done");
 	}
 	

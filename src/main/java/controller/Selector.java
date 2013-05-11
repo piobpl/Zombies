@@ -3,6 +3,7 @@ package controller;
 import java.util.HashMap;
 
 import model.Card;
+import model.GameState;
 import view.EventReceiver;
 import view.EventReceiver.BoardClickedEvent;
 import view.EventReceiver.Event;
@@ -16,9 +17,11 @@ import controller.Selection.SelectionType;
 
 public class Selector {
 	public final EventReceiver eventReceiver;
+	private GameState gameState;
 	private HashMap<SelectionType, Selection> selectionMap;
-	public Selector(EventReceiver eventReceiver) {
+	public Selector(EventReceiver eventReceiver, GameState gameState) {
 		this.eventReceiver = eventReceiver;
+		this.gameState = gameState;
 		selectionMap=new HashMap<SelectionType, Selection>();
 		selectionMap.put(SelectionType.CELL, new CellSelection());
 		selectionMap.put(SelectionType.COLUMN, new ColumnSelection());
@@ -32,9 +35,9 @@ public class Selector {
 			if(e.type==EventType.HandClicked){
 				HandClickedEvent f=(HandClickedEvent) e;
 				s=new HandSelection(f.player, f.cardClicked);
-				/*if(card.isSelectionCorrect(gameState, s)){
+				if(card.isSelectionCorrect(gameState, s)){
 					return s;
-				}*/
+				}
 			}
 		}
 	}
@@ -51,9 +54,9 @@ public class Selector {
 			if(e.type==EventType.BoardClicked){
 				BoardClickedEvent f=(BoardClickedEvent) e;
 				Selection tmp=s.add(f.cardClicked);
-				/*if(card.isSelectionCorrect(gameState, tmp)){
+				if(card.isSelectionCorrect(gameState, tmp)){
 					s=tmp;
-				}*/
+				}
 			}
 		}
 		//return null;
