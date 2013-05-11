@@ -143,3 +143,18 @@ Jak jest jakas funkcja co do niech koniecznie chcecie zrobic javadoca to nie odm
 ale wydaje mi sie ze starczy 1 prosty komentarz na klase.
 javaDoc generujemy: Project/Generate JavaDoc..., zaznaczanie zombiaki i next next next...
 Gitowi ustawilem by ignorowal folder docsow - za duzo syfu sie robi na stronie, kazdy moze generowac sobie sam.
+
+
+
+Halo halo, tu jerzu.
+Kilka uwag ode mnie, do piszących pozostałe kawałki i do pioba:
+1) Fajnie by było, jakbyśmy dostali jakieś przykładowe boardy, selektory czy selekcje,
+po prostu pierdółki, do których używa się kart. Bardzo by to ułatwiło pisanie testów.
+2) Niektóre karty mają zadany czas przebywania na planszy - przy obsłudze rundy trzeba
+będzie uwzględnić jakiś garbage collecting.
+3) Mistrzu, im szybciej napiszesz, jak powinniśmy obsługiwać wrzucanie na planszę różnych
+typów kart (te listy i podobne pierdoły), tym sprawniej pójdzie implementacja.
+4) Konstruktory do Selection muszą być pochowane? oO
+
+Na razie chyba tyle, pozdro
+
