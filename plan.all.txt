@@ -144,20 +144,9 @@ ale wydaje mi sie ze starczy 1 prosty komentarz na klase.
 javaDoc generujemy: Project/Generate JavaDoc..., zaznaczanie zombiaki i next next next...
 Gitowi ustawilem by ignorowal folder docsow - za duzo syfu sie robi na stronie, kazdy moze generowac sobie sam.
 
+16. Zajmijcie sie wpierw kartami ktore powyzej zapodalem!
 
+17. Wszystkie rzeczy to testow powinny byc w katalogu src/test/java, nie ma to wplywu na to czego mozecie uzywac.
 
-Halo halo, tu jerzu.
-Kilka uwag ode mnie, do piszących pozostałe kawałki i do pioba:
-1) Fajnie by było, jakbyśmy dostali jakieś przykładowe boardy, selektory czy selekcje,
-po prostu pierdółki, do których używa się kart. Bardzo by to ułatwiło pisanie testów.
-2) Niektóre karty mają zadany czas przebywania na planszy - przy obsłudze rundy trzeba
-będzie uwzględnić jakiś garbage collecting.
-3) Mistrzu, im szybciej napiszesz, jak powinniśmy obsługiwać wrzucanie na planszę różnych
-typów kart (te listy i podobne pierdoły), tym sprawniej pójdzie implementacja.
-4) Konstruktory do Selection muszą być pochowane? oO
-
-Na razie chyba tyle, pozdro
-
-2/3) narazie nie robicie obslugi takich kart, ich obsluga zajmiecie sie w 2. tygodniu, jutro wszystko opisze, narazie
-mozecie je olac i nie bedziecie kodzic nic na prozno.
-4) selekcje konstruuje selektor, po coz innym konstruktory?
+18. Fake egzmeplarze klas do testow mozecie tworzyc anonimowo,
+nie dodawajcie do normalnych klas dodatkow tylko potrzebnych do testow
