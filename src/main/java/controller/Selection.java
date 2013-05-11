@@ -53,5 +53,9 @@ public abstract class Selection {
 		public final Player player;
 		public final Integer card;
 		HandSelection(){player=null; card=null;}
+		HandSelection(Player player, Integer card){
+			this.player=player;
+			this.card=card;
+		}
 	}
 }

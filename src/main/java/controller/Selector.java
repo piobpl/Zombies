@@ -7,6 +7,7 @@ import view.EventReceiver;
 import view.EventReceiver.BoardClickedEvent;
 import view.EventReceiver.Event;
 import view.EventReceiver.EventType;
+import view.EventReceiver.HandClickedEvent;
 import controller.Selection.CellSelection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.GroupSelection;
@@ -24,8 +25,22 @@ public class Selector {
 		selectionMap.put(SelectionType.GROUP, new GroupSelection());
 		selectionMap.put(SelectionType.HAND, new HandSelection());
 	}
-
+	private Selection handClick(Card card){
+		HandSelection s=null;
+		while(true){
+			Event e=eventReceiver.getNextEvent();
+			if(e.type==EventType.HandClicked){
+				HandClickedEvent f=(HandClickedEvent) e;
+				s=new HandSelection(f.player, f.cardClicked);
+				/*if(card.isSelectionCorrect(gameState, s)){
+					return s;
+				}*/
+			}
+		}
+	}
 	public Selection getSelection(Card card) {
+		if(card.getSelectionType()==SelectionType.HAND)
+			return handClick(card);
 		Selection s=selectionMap.get(card.getSelectionType());
 		while(true){
 			Event e=eventReceiver.getNextEvent();
