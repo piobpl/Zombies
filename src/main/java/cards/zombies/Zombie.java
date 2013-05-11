@@ -35,7 +35,9 @@ public class Zombie extends Card {
 		Integer x = ((CellSelection)selection).cell.first;
 		Integer y = ((CellSelection)selection).cell.second;
 		return gameState.getBoard().isEmpty(x,y);
-	}
+		//TODO warning: isEmpty doesn't mean cell is empty
+		//need to be corrected in appropriate time
+			}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
