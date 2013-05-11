@@ -5,6 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A class representing a deck.
+ */
 public class Deck {
 
 	private List<Card> deck;
@@ -17,6 +20,19 @@ public class Deck {
 	 */
 	public Deck(Player player) {
 		deck = getShuffledDeck(player);
+	}
+	
+	private List<Card> getShuffledDeck(Player player) {
+		return getShuffledDeck(player, null);
+	}
+
+	private List<Card> getShuffledDeck(Player player, Random rnd) {
+		if (rnd == null) {
+			rnd = new Random();
+		}
+		List<Card> Ltmp = Card.getCompleteDeck(player);
+		Collections.shuffle(Ltmp, rnd);
+		return Ltmp;
 	}
 
 	/**
@@ -86,17 +102,5 @@ public class Deck {
 	public boolean isEmpty() {
 		return deck.isEmpty();
 	}
-
-	private List<Card> getShuffledDeck(Player player) {
-		return getShuffledDeck(player, null);
-	}
-
-	private List<Card> getShuffledDeck(Player player, Random rnd) {
-		if (rnd == null) {
-			rnd = new Random();
-		}
-		List<Card> Ltmp = Card.getCompleteDeck(player);
-		Collections.shuffle(Ltmp, rnd);
-		return Ltmp;
-	}
+	
 }

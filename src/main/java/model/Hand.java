@@ -3,10 +3,16 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * A class representing a hand.
+ */
 public class Hand {
 
 	private List<Card> hand;
 
+	/**
+	 * Creates a new empty hand.
+	 */
 	public Hand() {
 		hand = new LinkedList<Card>();
 	}

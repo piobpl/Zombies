@@ -14,6 +14,19 @@ public class GameState {
 	private Hand humanHand;
 
 	/**
+	 * Creates a new gamestate.
+	 */
+	public GameState() {
+		System.err.println("Creating GameState...");
+		gui = new GUI();
+		board = new Board();
+		zombieDeck = new Deck(Player.ZOMBIE);
+		humanDeck = new Deck(Player.HUMAN);
+		zombieHand = new Hand();
+		humanHand = new Hand();
+	}
+
+	/**
 	 * Returns the board.
 	 * 
 	 * @return a board
@@ -23,7 +36,7 @@ public class GameState {
 	}
 
 	/**
-	 * Returns the a player's deck.
+	 * Returns the player's deck.
 	 * 
 	 * @param player
 	 *            a player whose deck is to be returned
@@ -39,7 +52,7 @@ public class GameState {
 	}
 
 	/**
-	 * Returns the a player's hand.
+	 * Returns the player's hand.
 	 * 
 	 * @param player
 	 *            a player whose hand is to be returned
@@ -52,19 +65,6 @@ public class GameState {
 		} else {
 			return humanHand;
 		}
-	}
-
-	/**
-	 * Creates a new gamestate.
-	 */
-	public GameState() {
-		System.err.println("Creating GameState...");
-		gui = new GUI();
-		board = new Board();
-		zombieDeck = new Deck(Player.ZOMBIE);
-		humanDeck = new Deck(Player.HUMAN);
-		zombieHand = new Hand();
-		humanHand = new Hand();
 	}
 
 }
