@@ -11,13 +11,15 @@ import model.Card;
 import model.GameState;
 
 public class Gasoline extends Card {
-
+	/**
+	 * important: function assumes, that selection is an ordered subset of board
+	 * (can be easily modified)
+	 */
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection)selection).cells;
 		for (int i=1; i<cells.size(); i++) {
-			if(!(cells.get(i).first.equals(cells.get(i-1).first)) &&
-					!(cells.get(i).second.equals(cells.get(i-1).second))) {
+			if(!areAdjacent(cells.get(i), cells.get(i-1))) {
 				return false;
 			}
 		}
@@ -69,5 +71,13 @@ public class Gasoline extends Card {
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
 	}
-
+	
+	
+	private static boolean areAdjacent(Pair<Integer, Integer> c1, Pair<Integer, Integer> c2) {
+		if (c1.first.equals(c2.first) && Math.abs(c1.second - c2.second) == 1)
+			return true;
+		if (c1.second.equals(c2.second) && Math.abs(c1.first - c2.first) == 1)
+			return true;
+		return false;
+	}
 }

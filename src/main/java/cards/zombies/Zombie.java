@@ -9,6 +9,12 @@ import model.GameState;
 public class Zombie extends Card {
 
 	private Integer strength;
+	//TODO remember to clean it after round!
+	@SuppressWarnings("unused")
+	private boolean cantMove = false;
+	public void banMoving() {
+		cantMove = true;
+	}
 	
 	public Zombie(Integer strength) {
 		this.strength = strength;
