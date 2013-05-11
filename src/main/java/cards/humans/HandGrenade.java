@@ -2,12 +2,27 @@ package cards.humans;
 
 import controller.Selection;
 import controller.Selection.CellSelection;
+import controller.Selection.SelectionType;
 import model.Card;
 import model.GameState;
 
 public class HandGrenade extends Card {
 
-	public final String name = "Hand grenade";
+	public String getName(){
+		return "Hand grenade";
+	}
+	
+	public SelectionType getSelectionType(){
+		return SelectionType.CELL;
+	}
+	
+	public Integer getStrength(){
+		return null;
+	}
+	
+	public void setStrength(Integer strength){
+		
+	}
 	
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {

@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,15 +13,19 @@ import javax.swing.JPanel;
 
 public class GUI {
 	public final EventReceiver eventReceiver;
-
+	
 	public GUI() {
 		System.err.println("Creating GUI...");
 		eventReceiver = new EventReceiver(this);
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createWindow();
-			}
-		});
+		try {
+			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
+				public void run() {
+					createWindow();
+				}
+			});
+		} catch (InvocationTargetException | InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	void createWindow(){
