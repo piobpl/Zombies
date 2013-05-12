@@ -34,7 +34,7 @@ public class Zombie extends Card {
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		return gameState.getBoard().isEmpty(x, y);
+		return gameState.getBoard().isEmpty(x, y) && x == 0;
 	}
 
 	@Override
