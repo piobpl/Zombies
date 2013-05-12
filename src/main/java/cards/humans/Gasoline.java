@@ -32,7 +32,6 @@ public class Gasoline extends Card {
 				return;
 			Integer x = cell.first;
 			Integer y = cell.second;
-			// TODO we need to deal with Dogs also
 			if (gameState.getBoard().get(x, y).getName().isEmpty()) {
 				--remainingStrength;
 			} else {
