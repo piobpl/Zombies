@@ -3,7 +3,7 @@ package cards.helpers;
 import model.Card;
 import model.GameState;
 
-public abstract class DamageDealer {
+public abstract class DamageDealer { // czemu abstract?
 
 	public static void dealDamage(GameState gameState, int x, int y, int dmg) {
 		if (!gameState.getBoard().isEmpty(x, y)) {
