@@ -6,6 +6,8 @@ import java.util.List;
 import cards.humans.Gasoline;
 import cards.humans.GetOut;
 import cards.humans.HandGrenade;
+import cards.humans.Searchlight;
+import cards.humans.Shot;
 import cards.zombies.Mass;
 import cards.zombies.Zombie;
 import controller.Selection;
@@ -37,6 +39,9 @@ public abstract class Card {
 			cards.add(new GetOut());
 			cards.add(new HandGrenade());
 			cards.add(new HandGrenade());
+			cards.add(new Shot());
+			cards.add(new Shot());
+			cards.add(new Searchlight());
 		}
 		return cards;
 	}

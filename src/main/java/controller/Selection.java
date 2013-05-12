@@ -43,7 +43,7 @@ public abstract class Selection {
 		}
 
 		public Selection add(Pair<Integer, Integer> p) {
-			return new ColumnSelection(p.first);
+			return new ColumnSelection(p.second);
 		}
 	}
 
