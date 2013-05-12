@@ -27,6 +27,7 @@ public class Board {
 	 */
 	public void remove(int x, int y) {
 		board[x][y] = null;
+		gameState.gui.getBoard().getCell(x, y).draw(null);
 	}
 
 	/**

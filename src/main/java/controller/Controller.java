@@ -101,6 +101,7 @@ public class Controller {
 					continue;
 				System.err.println("Selection received, applying.");
 				card.makeEffect(selection, gameState);
+				hand.remove(handClickedEvent.cardClicked);
 			}
 		}
 	}
