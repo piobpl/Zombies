@@ -20,6 +20,7 @@ public class GUI {
 	private Board board;
 	private JButton applyButton;
 	private JButton cancelButton;
+	private JFrame frame;
 	
 	public GUI() {
 		System.err.println("Creating GUI...");
@@ -55,7 +56,7 @@ public class GUI {
 	}
 	
 	private void createWindow() {
-		JFrame frame = new JFrame("Zombiaki");
+		frame = new JFrame("Zombiaki");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridBagLayout());
 
@@ -102,5 +103,17 @@ public class GUI {
 
 		frame.pack();
 
+	}
+	
+	public void exit(){
+		try {
+			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
+				public void run() {
+					frame.dispose();
+				}
+			});
+		} catch (InvocationTargetException | InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

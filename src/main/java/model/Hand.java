@@ -52,5 +52,15 @@ public class Hand {
 	public void remove(int i) {
 		hand[i] = null;
 	}
+	
+	/**
+	 * Tests if there is any card in hand.
+	 */
+	public boolean isEmpty(){
+		for(int i = 0; i < 4; ++i)
+			if(hand[i] != null)
+				return false;
+		return true;
+	}
 
 }

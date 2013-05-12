@@ -23,7 +23,7 @@ public class Cell {
 		panel.add(name = new JLabel("Karta"));
 		panel.add(strength = new JLabel("Sila: 0"));
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		panel.setPreferredSize(new Dimension(60, 80));
+		panel.setPreferredSize(new Dimension(120, 80));
 		name.setVisible(false);
 		strength.setVisible(false);
 	}
