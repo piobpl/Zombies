@@ -61,24 +61,29 @@ public class Controller {
 						return;
 				} else {
 					hand.set(i, deck.getTopCard());
+					System.err.println("Card drawn: " + hand.get(i).getName());
 				}
 			}
 	}
 
 	private void discardingStage(Player player) {
-		if (gameState.getHand(player).isEmpty())
-			return;
 		Event event;
-		HandClickedEvent handClickedEvent;
+		Hand hand = gameState.getHand(player);
+		int pos;
+		if (hand.isEmpty())
+			return;
 		for (;;) {
 			event = gui.eventReceiver.getNextEvent();
 			if (event.type != EventType.HandClicked)
 				continue;
-			handClickedEvent = (HandClickedEvent) event;
-			if (handClickedEvent.player == player)
+			pos = ((HandClickedEvent) event).cardClicked;
+			if (hand.isEmpty(pos))
+				continue;
+			if (((HandClickedEvent) event).player == player)
 				break;
 		}
-		gameState.getHand(player).set(handClickedEvent.cardClicked, null);
+		System.err.println("Discarded: " + hand.get(pos).getName());
+		hand.set(pos, null);
 	}
 
 	private void playingStage(Player player) {

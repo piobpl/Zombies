@@ -104,7 +104,7 @@ public class EventReceiver {
 							try {
 								eventQueue.put(new HandClickedEvent(index,
 										player));
-								System.err.println("Kliknieto: " + index + " na rece " + player);
+								System.err.println("Clicked: " + index + " on " + player + " hand");
 							} catch (InterruptedException e1) {
 								e1.printStackTrace();
 							}
@@ -123,7 +123,7 @@ public class EventReceiver {
 					public void mouseClicked(MouseEvent e) {
 						try {
 							eventQueue.put(new BoardClickedEvent(new Pair<Integer, Integer>(row, col)));
-							System.err.println("Kliknieto plansze (" + row + ", " + col + ")");
+							System.err.println("Clicked board at (" + row + ", " + col + ")");
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
 						}
@@ -139,7 +139,7 @@ public class EventReceiver {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					eventQueue.put(new ApplyButtonClickedEvent());
-					System.err.println("Kliknieto applyButton");
+					System.err.println("applyButton clicked");
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -150,7 +150,7 @@ public class EventReceiver {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					eventQueue.put(new ApplyButtonClickedEvent());
-					System.err.println("Kliknieto cancelButton");
+					System.err.println("cancelButton clicked");
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -168,7 +168,7 @@ public class EventReceiver {
 		try {
 			return eventQueue.take();
 		} catch (InterruptedException e) {
-			System.err.println("Czekanie na kolejny event zostalo przerwane:");
+			System.err.println("Waiting for next event interrupted");
 			e.printStackTrace();
 			return null;
 		}
