@@ -11,8 +11,8 @@ public abstract class SolidityTester {
 
 	public static Pair<Integer, Integer> getDist(Pair<Integer, Integer> pos1,
 			Pair<Integer, Integer> pos2) {
-		return new Pair<Integer, Integer>(pos1.first - pos2.first, pos1.second
-				- pos2.second);
+		return new Pair<Integer, Integer>(pos2.first - pos1.first, pos2.second
+				- pos1.second);
 	}
 
 	public static boolean areEdgeAdjacent(Pair<Integer, Integer> pos1,
