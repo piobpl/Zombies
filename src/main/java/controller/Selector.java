@@ -51,7 +51,7 @@ public class Selector {
 	public Selection getSelection(Card card) {
 		if (card.getSelectionType() == SelectionType.HAND)
 			return handClick(card);
-		Selection s = null;
+		Selection s = null, tmp = null;
 		while (true) {
 			Event e = eventReceiver.getNextEvent();
 			if (e.type == EventType.ApplyButtonClicked)
@@ -60,9 +60,10 @@ public class Selector {
 				return null;
 			if (e.type == EventType.BoardClicked) {
 				BoardClickedEvent f = (BoardClickedEvent) e;
-				if(s==null)
-					selectionMap.get(card.getSelectionType());
-				Selection tmp = s.add(f.cardClicked);
+				if(s == null)
+					tmp = selectionMap.get(card.getSelectionType()).add(f.cardClicked);
+				else
+					tmp = s.add(f.cardClicked);
 				if (card.isSelectionCorrect(gameState, tmp)) {
 					s = tmp;
 				}

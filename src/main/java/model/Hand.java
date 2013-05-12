@@ -62,5 +62,12 @@ public class Hand {
 				return false;
 		return true;
 	}
+	
+	/**
+	 * Tests if there is a card at a specified position.
+	 */
+	public boolean isEmpty(int i){
+		return hand[i] == null;
+	}
 
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import model.Board;
+import model.Card;
 import model.Deck;
 import model.GameState;
 import model.Hand;
@@ -81,7 +82,27 @@ public class Controller {
 	}
 
 	private void playingStage(Player player) {
-
+		Event event;
+		HandClickedEvent handClickedEvent;
+		Hand hand = gameState.getHand(player);
+		Card card;
+		Selection selection;
+		while ((event = gui.eventReceiver.getNextEvent()).type != EventType.ApplyButtonClicked) {
+			if(event.type == EventType.HandClicked){
+				handClickedEvent = (HandClickedEvent) event;
+				if(handClickedEvent.player != player)
+					continue;
+				card = hand.get(handClickedEvent.cardClicked);
+				if(card == null)
+					continue;
+				System.err.println("Card selected for playing: " + card.getName());
+				selection = selector.getSelection(card);
+				if(selection == null)
+					continue;
+				System.err.println("Selection received, applying.");
+				card.makeEffect(selection, gameState);
+			}
+		}
 	}
 
 	public void game() {
