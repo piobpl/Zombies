@@ -93,20 +93,25 @@ public class Controller {
 		Card card;
 		Selection selection;
 		while ((event = gui.eventReceiver.getNextEvent()).type != EventType.ApplyButtonClicked) {
-			if(event.type == EventType.HandClicked){
+			if (event.type == EventType.HandClicked) {
 				handClickedEvent = (HandClickedEvent) event;
-				if(handClickedEvent.player != player)
+				if (handClickedEvent.player != player)
 					continue;
 				card = hand.get(handClickedEvent.cardClicked);
-				if(card == null)
+				if (card == null)
 					continue;
-				System.err.println("Card selected for playing: " + card.getName());
+				System.err.println("Card selected for playing: "
+						+ card.getName());
+				gui.getHand(player).getCell(handClickedEvent.cardClicked)
+						.setHighlight(true);
 				selection = selector.getSelection(card);
-				if(selection == null)
-					continue;
-				System.err.println("Selection received, applying.");
-				card.makeEffect(selection, gameState);
-				hand.remove(handClickedEvent.cardClicked);
+				if (selection != null) {
+					System.err.println("Selection received, applying.");
+					card.makeEffect(selection, gameState);
+					hand.remove(handClickedEvent.cardClicked);
+				}
+				gui.getHand(player).getCell(handClickedEvent.cardClicked)
+						.setHighlight(false);
 			}
 		}
 	}

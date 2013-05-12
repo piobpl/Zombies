@@ -51,6 +51,7 @@ public class Hand {
 	 */
 	public void remove(int i) {
 		hand[i] = null;
+		gameState.gui.getHand(player).getCell(i).draw(null);
 	}
 	
 	/**
