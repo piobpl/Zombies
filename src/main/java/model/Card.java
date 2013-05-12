@@ -39,8 +39,8 @@ public abstract class Card {
 			cards.add(new GetOut());
 			cards.add(new HandGrenade());
 			cards.add(new HandGrenade());
-			cards.add(new Shot());
-			cards.add(new Shot());
+			cards.add(new Shot(1));
+			cards.add(new Shot(2));
 			cards.add(new Searchlight());
 		}
 		return cards;

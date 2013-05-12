@@ -1,22 +1,16 @@
 package cards.humans;
 
-import cards.helpers.DamageDealer;
-import cards.helpers.Mover;
 import model.Card;
 import model.GameState;
+import cards.helpers.DamageDealer;
+import cards.helpers.Mover;
 import controller.Selection;
-import controller.Selection.ColumnSelection;
+import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
 
 // TODO : obsluga dodatkowych efektow (czlowiek) i przeszkod (np. mur)
 
-public class Shot extends Card {
-	
-	private Integer strength;
-	
-	public Shot(Integer strength) {
-		this.strength = strength;
-	}
+public class Sniper extends Card {
 
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
@@ -25,28 +19,26 @@ public class Shot extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		int column = ((ColumnSelection) selection).column;
-		for (int i = 4; i >= 0; i--)
-			if (!gameState.getBoard().isEmpty(i, column)) {
-				DamageDealer.dealDamage(gameState, i, column, strength);
-				Mover.moveBackward(gameState, i, column);
-				break;
-			}
+		int x = ((CellSelection) selection).cell.first;
+		int y = ((CellSelection) selection).cell.second;
+		DamageDealer.dealDamage(gameState, x, y, 2);
+		Mover.moveBackward(gameState, x, y);
+
 	}
 
 	@Override
 	public String getName() {
-		return "Shot";
+		return "Sniper";
 	}
 
 	@Override
 	public SelectionType getSelectionType() {
-		return SelectionType.COLUMN;
+		return SelectionType.CELL;
 	}
 
 	@Override
 	public Integer getStrength() {
-		return strength;
+		return 2;
 	}
 
 	@Override
