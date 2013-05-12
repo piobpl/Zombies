@@ -4,13 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import view.GUI;
 import cards.zombies.Zombie;
 
 public class HandTest {
 
 	@Test
 	public void test() {
-		Hand hand = new Hand(new GameState(), Player.ZOMBIE);
+		Hand hand = new Hand(new GameState(new GUI()), Player.ZOMBIE);
 		for(int i = 0; i < 4; ++i)
 			assertEquals(null, hand.get(i));
 		Card[] cards = new Card[4];
