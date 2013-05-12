@@ -16,12 +16,12 @@ public class GameState {
 	/**
 	 * Creates a new gamestate.
 	 */
-	public GameState() {
+	public GameState(GUI gui) {
 		System.err.println("Creating GameState...");
-		gui = new GUI();
+		this.gui = gui;
 		board = new Board(this);
-		zombieDeck = new Deck(Player.ZOMBIE);
-		humanDeck = new Deck(Player.HUMAN);
+		zombieDeck = new Deck(this, Player.ZOMBIE);
+		humanDeck = new Deck(this, Player.HUMAN);
 		zombieHand = new Hand(this, Player.ZOMBIE);
 		humanHand = new Hand(this, Player.HUMAN);
 	}

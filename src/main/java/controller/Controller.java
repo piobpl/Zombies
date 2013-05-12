@@ -19,8 +19,8 @@ public class Controller {
 
 	public Controller() {
 		System.err.println("Creating Controller...");
-		gameState = new GameState();
-		gui = gameState.gui;
+		gui = new GUI();
+		gameState = new GameState(gui);
 		selector = new Selector(gui.eventReceiver, gameState);
 		System.err.println("Done");
 	}

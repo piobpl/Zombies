@@ -16,6 +16,7 @@ public class Cell {
 	private JPanel panel;
 	private JLabel name;
 	private JLabel strength;
+	private boolean isHighlighted;
 	
 	public Cell(JPanel panel) {
 		this.panel = panel;
@@ -26,6 +27,7 @@ public class Cell {
 		panel.setPreferredSize(new Dimension(120, 80));
 		name.setVisible(false);
 		strength.setVisible(false);
+		isHighlighted = false;
 	}
 	
 	public void draw(Card card){
@@ -48,4 +50,21 @@ public class Cell {
 	    panel.addMouseListener(a);
 	}
 	
+	public void setHighlight(boolean light){
+		isHighlighted = light;
+		if(light){
+			panel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
+		} else {
+			panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		}
+	}
+	
+	public void toggleHighlight(){
+		if(isHighlighted){
+			panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		} else {
+			panel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
+		}
+		isHighlighted = !isHighlighted;
+	}
 }

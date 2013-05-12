@@ -11,15 +11,20 @@ import java.util.Random;
 public class Deck {
 
 	private List<Card> deck;
-
+	private Player player;
+	private GameState gameState;
+	
 	/**
 	 * Creates a new shuffled deck for the specified player.
 	 * 
 	 * @param player
 	 *            a player whose deck is to be created
 	 */
-	public Deck(Player player) {
+	public Deck(GameState gameState, Player player) {
+		this.gameState = gameState;
+		this.player = player;
 		deck = getShuffledDeck(player);
+		gameState.gui.setCardsLeft(player, deck.size());
 	}
 
 	private List<Card> getShuffledDeck(Player player) {
@@ -45,6 +50,7 @@ public class Deck {
 		if (isEmpty()) {
 			return null;
 		}
+		gameState.gui.setCardsLeft(player, deck.size()-1);
 		return deck.remove(0);
 	}
 
@@ -63,6 +69,7 @@ public class Deck {
 		} else {
 			List<Card> tmp = new LinkedList<>();
 			while (i > 0) {
+				gameState.gui.setCardsLeft(player, deck.size()-1);
 				tmp.add(deck.remove(0));
 				i--;
 			}
@@ -80,6 +87,7 @@ public class Deck {
 	 */
 	public void remove(int i) {
 		while (i > 0 && !isEmpty()) {
+			gameState.gui.setCardsLeft(player, deck.size()-1);
 			deck.remove(0);
 			i--;
 		}
