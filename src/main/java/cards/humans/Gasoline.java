@@ -32,7 +32,7 @@ public class Gasoline extends Card {
 				return;
 			Integer x = cell.first;
 			Integer y = cell.second;
-			if (gameState.getBoard().get(x, y).getName().isEmpty()) {
+			if (gameState.getBoard().isEmpty(x, y)) {
 				--remainingStrength;
 			} else {
 				int zombieStrength = gameState.getBoard().get(x, y)

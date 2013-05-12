@@ -33,10 +33,9 @@ public class Mass extends Card {
 			if (gameState.getBoard().isEmpty(cell1.first, cell1.second)
 					|| gameState.getBoard().isEmpty(cell2.first, cell2.second))
 				return false;
-		if (!gameState.getBoard().get(cell1.first, cell1.second).getName()
-				.equals("Zombie")
-				|| !gameState.getBoard().get(cell2.first, cell2.second)
-						.getName().equals("Zombie"))
+		if (!gameState.getBoard().is(cell1.first, cell1.second, "Zombie")
+				|| !gameState.getBoard()
+						.is(cell2.first, cell2.second, "Zombie"))
 			return false;
 		return true;
 	}

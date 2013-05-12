@@ -8,7 +8,7 @@ public class Board {
 
 	private Card[][] board;
 	private GameState gameState;
-	
+
 	/**
 	 * Creates a new empty board.
 	 */
@@ -69,6 +69,19 @@ public class Board {
 	 */
 	public boolean isEmpty(int x, int y) {
 		return board[x][y] == null;
+	}
+
+	/**
+	 * Checks whether a specified position has card with specified name.
+	 * 
+	 * @param x
+	 *            first coordinate
+	 * @param y
+	 *            second coordinate
+	 * @return true if the specified position on the board is empty
+	 */
+	public boolean is(int x, int y, String name) {
+		return board[x][y] != null && board[x][y].getName() == name;
 	}
 
 }
