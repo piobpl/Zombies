@@ -3,7 +3,11 @@ package cards.helpers;
 import model.Card;
 import model.GameState;
 
-public abstract class DamageDealer { // czemu abstract?
+/**
+ * Klasa wspomagająca wykonywanie działań na planszy.
+ * @author piob
+ */
+public abstract class DamageDealer {
 
 	public static void dealDamage(GameState gameState, int x, int y, int dmg) {
 		if (!gameState.getBoard().isEmpty(x, y)) {

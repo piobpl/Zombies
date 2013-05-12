@@ -2,14 +2,24 @@ package cards.helpers;
 
 import utility.Pair;
 
+/**
+ * Klasa wspomagająca sprawdzanie selekcji dla kart.
+ * @author piob
+ */
 public abstract class SolidityTester {
 
+	public static Pair<Integer, Integer> getDist(Pair<Integer, Integer> pos1, Pair<Integer, Integer> pos2){
+		return new Pair<Integer, Integer>(pos1.first - pos2.first, pos1.second - pos2.second);
+	}
+	
 	public static boolean areEdgeAdjacent(Pair<Integer, Integer> pos1, Pair<Integer, Integer> pos2) {
-		if (pos1.first.equals(pos2.first) && Math.abs(pos1.second - pos2.second) == 1)
-			return true;
-		if (pos1.second.equals(pos2.second) && Math.abs(pos1.first - pos2.first) == 1)
-			return true;
-		return false;
+		Pair<Integer, Integer> dist = getDist(pos1, pos2);
+		return Math.abs(dist.first) + Math.abs(dist.second) == 1;
+	}
+	
+	public static boolean areVertexAdjacent(Pair<Integer, Integer> pos1, Pair<Integer, Integer> pos2) {
+		Pair<Integer, Integer> dist = getDist(pos1, pos2);
+		return Math.max(Math.abs(dist.first), Math.abs(dist.second)) == 1;
 	}
 	
 	public static boolean areInSameRow(Pair<Integer, Integer> pos1, Pair<Integer, Integer> pos2){
