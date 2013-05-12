@@ -8,33 +8,33 @@ import model.GameState;
 
 public class HandGrenade extends Card {
 
-	public String getName(){
+	public String getName() {
 		return "Hand grenade";
 	}
-	
-	public SelectionType getSelectionType(){
+
+	public SelectionType getSelectionType() {
 		return SelectionType.CELL;
 	}
-	
-	public Integer getStrength(){
+
+	public Integer getStrength() {
 		return null;
 	}
-	
-	public void setStrength(Integer strength){
-		
+
+	public void setStrength(Integer strength) {
+
 	}
-	
+
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		Integer x = ((CellSelection)selection).cell.first;
-		Integer y = ((CellSelection)selection).cell.second;
-		return gameState.getBoard().isEmpty(x,y);
+		Integer x = ((CellSelection) selection).cell.first;
+		Integer y = ((CellSelection) selection).cell.second;
+		return gameState.getBoard().isEmpty(x, y);
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		Integer x = ((CellSelection)selection).cell.first;
-		Integer y = ((CellSelection)selection).cell.second;
+		Integer x = ((CellSelection) selection).cell.first;
+		Integer y = ((CellSelection) selection).cell.second;
 		gameState.getBoard().remove(x, y);
 	}
 

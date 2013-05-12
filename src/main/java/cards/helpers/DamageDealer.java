@@ -5,6 +5,7 @@ import model.GameState;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
+ * 
  * @author piob
  */
 public abstract class DamageDealer {
@@ -13,7 +14,7 @@ public abstract class DamageDealer {
 		if (!gameState.getBoard().isEmpty(x, y)) {
 			Card c = gameState.getBoard().get(x, y);
 			c.setStrength(c.getStrength() - dmg);
-			if(c.getStrength() <= 0)
+			if (c.getStrength() <= 0)
 				c = null;
 			gameState.getBoard().set(x, y, c);
 		}

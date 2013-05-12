@@ -1,6 +1,5 @@
 package model;
 
-
 /**
  * A class representing a hand.
  */
@@ -48,5 +47,5 @@ public class Hand {
 	public void remove(int i) {
 		hand[i] = null;
 	}
-	
+
 }

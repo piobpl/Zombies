@@ -21,7 +21,7 @@ public class Deck {
 	public Deck(Player player) {
 		deck = getShuffledDeck(player);
 	}
-	
+
 	private List<Card> getShuffledDeck(Player player) {
 		return getShuffledDeck(player, null);
 	}
@@ -102,5 +102,5 @@ public class Deck {
 	public boolean isEmpty() {
 		return deck.isEmpty();
 	}
-	
+
 }

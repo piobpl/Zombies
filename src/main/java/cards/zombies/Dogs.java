@@ -9,21 +9,21 @@ import model.GameState;
 public class Dogs extends Card {
 
 	private Integer strength = 1;
-	
+
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		Integer x = ((CellSelection)selection).cell.first;
-		Integer y = ((CellSelection)selection).cell.second;
-		return gameState.getBoard().isEmpty(x,y);
+		Integer x = ((CellSelection) selection).cell.first;
+		Integer y = ((CellSelection) selection).cell.second;
+		return gameState.getBoard().isEmpty(x, y);
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		Integer x = ((CellSelection)selection).cell.first;
-		Integer y = ((CellSelection)selection).cell.second;
+		Integer x = ((CellSelection) selection).cell.first;
+		Integer y = ((CellSelection) selection).cell.second;
 		gameState.getBoard().set(x, y, this);
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Dogs";

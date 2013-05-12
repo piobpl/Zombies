@@ -27,5 +27,5 @@ public abstract class Card {
 	public abstract Integer getStrength();
 
 	public abstract void setStrength(Integer strength);
-	
+
 }
