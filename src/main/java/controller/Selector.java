@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 
 import model.Card;
 import model.GameState;
@@ -18,12 +18,12 @@ import controller.Selection.SelectionType;
 public class Selector {
 	public final EventReceiver eventReceiver;
 	private GameState gameState;
-	private HashMap<SelectionType, Selection> selectionMap;
+	private EnumMap<SelectionType, Selection> selectionMap;
 
 	public Selector(EventReceiver eventReceiver, GameState gameState) {
 		this.eventReceiver = eventReceiver;
 		this.gameState = gameState;
-		selectionMap = new HashMap<SelectionType, Selection>();
+		selectionMap = new EnumMap<SelectionType, Selection>(SelectionType.class);
 		selectionMap.put(SelectionType.CELL, new CellSelection());
 		selectionMap.put(SelectionType.COLUMN, new ColumnSelection());
 		selectionMap.put(SelectionType.GROUP, new GroupSelection());
@@ -34,11 +34,15 @@ public class Selector {
 		HandSelection s = null;
 		while (true) {
 			Event e = eventReceiver.getNextEvent();
+			if (e.type == EventType.ApplyButtonClicked)
+				return s;
+			if (e.type == EventType.CancelButtonClicked)
+				return null;
 			if (e.type == EventType.HandClicked) {
 				HandClickedEvent f = (HandClickedEvent) e;
-				s = new HandSelection(f.player, f.cardClicked);
+				HandSelection tmp = new HandSelection(f.player, f.cardClicked);
 				if (card.isSelectionCorrect(gameState, s)) {
-					return s;
+					s=tmp;
 				}
 			}
 		}
@@ -47,7 +51,7 @@ public class Selector {
 	public Selection getSelection(Card card) {
 		if (card.getSelectionType() == SelectionType.HAND)
 			return handClick(card);
-		Selection s = selectionMap.get(card.getSelectionType());
+		Selection s = null;
 		while (true) {
 			Event e = eventReceiver.getNextEvent();
 			if (e.type == EventType.ApplyButtonClicked)
@@ -56,12 +60,13 @@ public class Selector {
 				return null;
 			if (e.type == EventType.BoardClicked) {
 				BoardClickedEvent f = (BoardClickedEvent) e;
+				if(s==null)
+					selectionMap.get(card.getSelectionType());
 				Selection tmp = s.add(f.cardClicked);
 				if (card.isSelectionCorrect(gameState, tmp)) {
 					s = tmp;
 				}
 			}
 		}
-		// return null;
 	}
 }
