@@ -7,12 +7,14 @@ package model;
 public class Board {
 
 	private Card[][] board;
-
+	private GameState gameState;
+	
 	/**
 	 * Creates a new empty board.
 	 */
-	public Board() {
+	public Board(GameState gameState) {
 		board = new Card[5][3];
+		this.gameState = gameState;
 	}
 
 	/**
@@ -39,6 +41,7 @@ public class Board {
 	 */
 	public void set(int x, int y, Card card) {
 		board[x][y] = card;
+		gameState.gui.getBoard().getCell(x, y).draw(card);
 	}
 
 	/**

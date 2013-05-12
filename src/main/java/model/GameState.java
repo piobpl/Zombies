@@ -19,11 +19,11 @@ public class GameState {
 	public GameState() {
 		System.err.println("Creating GameState...");
 		gui = new GUI();
-		board = new Board();
+		board = new Board(this);
 		zombieDeck = new Deck(Player.ZOMBIE);
 		humanDeck = new Deck(Player.HUMAN);
-		zombieHand = new Hand();
-		humanHand = new Hand();
+		zombieHand = new Hand(this, Player.ZOMBIE);
+		humanHand = new Hand(this, Player.HUMAN);
 	}
 
 	/**

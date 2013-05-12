@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -57,17 +59,105 @@ public class EventReceiver {
 		}
 	}
 
-	@SuppressWarnings("unused")
+	private static class SimpleMouseListener implements MouseListener {
+
+		public void mouseClicked(MouseEvent e) {
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+
+	}
+
 	private final GUI gui;
 	private final BlockingQueue<Event> eventQueue;
 
 	public EventReceiver(GUI gui) {
 		this.gui = gui;
-		eventQueue = new ArrayBlockingQueue<>(8);
+		eventQueue = new ArrayBlockingQueue<>(32);
+		registerToHand(Player.HUMAN);
+		registerToHand(Player.ZOMBIE);
+		registerToBoard();
+		registerToButtons();
+	}
+	
+	private void registerToHand(final Player player){
+		for (int i = 0; i < 4; ++i) {
+			final int index = i;
+			gui.getHand(player).getCell(i)
+					.addMouseListener(new SimpleMouseListener() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							try {
+								eventQueue.put(new HandClickedEvent(index,
+										player));
+								System.err.println("Kliknieto: " + index + " na rece " + player);
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
+						}
+					});
+		}
+	}
+	
+	private void registerToBoard(){
+		for(int i = 0; i < 5; i++){
+			final int row = i;
+			for(int j = 0; j < 3; j++){
+				final int col = j;
+				gui.getBoard().getCell(row, col).addMouseListener(new SimpleMouseListener(){
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						try {
+							eventQueue.put(new BoardClickedEvent(new Pair<Integer, Integer>(row, col)));
+							System.err.println("Kliknieto plansze (" + row + ", " + col + ")");
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+				});
+			}
+		}
 	}
 
-	// TODO - lapanie eventow
-
+	private void registerToButtons(){
+		gui.addApplyButtonMouseListener(new SimpleMouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					eventQueue.put(new ApplyButtonClickedEvent());
+					System.err.println("Kliknieto applyButton");
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		gui.addCancelButtonMouseListener(new SimpleMouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					eventQueue.put(new ApplyButtonClickedEvent());
+					System.err.println("Kliknieto cancelButton");
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Funkcja zwraca kolejną akcje wykonaną przez użytkownika. Jeżeli
 	 * użytkownik nie podjął żadnego działania, blokuje wątek w oczekiwaniu.

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
@@ -22,14 +23,17 @@ public class Cell {
 		panel.add(name = new JLabel("Karta"));
 		panel.add(strength = new JLabel("Sila: 0"));
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		panel.setVisible(false);
+		panel.setPreferredSize(new Dimension(60, 80));
+		name.setVisible(false);
+		strength.setVisible(false);
 	}
 	
 	public void draw(Card card){
 		if(card == null){
-			panel.setVisible(false);
+			name.setVisible(false);
+			strength.setVisible(false);
 		} else {
-			panel.setVisible(true);
+			name.setVisible(true);
 			name.setText(card.getName());
 			if(card.getStrength() == null){
 				strength.setVisible(false);
@@ -40,7 +44,7 @@ public class Cell {
 		}
 	}
 	
-	public void addActionListener(MouseListener a){
+	public void addMouseListener(MouseListener a){
 	    panel.addMouseListener(a);
 	}
 	

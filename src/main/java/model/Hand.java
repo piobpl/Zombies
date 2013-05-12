@@ -6,12 +6,16 @@ package model;
 public class Hand {
 
 	private Card[] hand;
+	private GameState gameState;
+	Player player;
 
 	/**
 	 * Creates a new empty hand.
 	 */
-	public Hand() {
+	public Hand(GameState gameState, Player player) {
 		hand = new Card[4];
+		this.gameState = gameState;
+		this.player = player;
 	}
 
 	/**
@@ -36,6 +40,7 @@ public class Hand {
 	 */
 	public void set(int i, Card card) {
 		hand[i] = card;
+		gameState.gui.getHand(player).getCell(i).draw(card);
 	}
 
 	/**

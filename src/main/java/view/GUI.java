@@ -3,6 +3,7 @@ package view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.BoxLayout;
@@ -17,10 +18,11 @@ public class GUI {
 	private Hand zombieHand;
 	private Hand humanHand;
 	private Board board;
+	private JButton applyButton;
+	private JButton cancelButton;
 	
 	public GUI() {
 		System.err.println("Creating GUI...");
-		eventReceiver = new EventReceiver(this);
 		try {
 			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
 				public void run() {
@@ -30,6 +32,7 @@ public class GUI {
 		} catch (InvocationTargetException | InterruptedException e) {
 			e.printStackTrace();
 		}
+		eventReceiver = new EventReceiver(this);
 	}
 
 	public Hand getHand(Player player){
@@ -43,6 +46,14 @@ public class GUI {
 		return board;
 	}
 	
+	public void addApplyButtonMouseListener(MouseListener a){
+	    applyButton.addMouseListener(a);
+	}
+
+	public void addCancelButtonMouseListener(MouseListener a){
+	    cancelButton.addMouseListener(a);
+	}
+	
 	private void createWindow() {
 		JFrame frame = new JFrame("Zombiaki");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,14 +64,14 @@ public class GUI {
 		JPanel humanHandPanel = new JPanel();
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 1;
+		gbc.gridy = 3;
 		gbc.insets = new Insets(10, 10, 10, 10);
 		frame.getContentPane().add(humanHandPanel, gbc);
 
 		JPanel zombieHandPanel = new JPanel();
 		gbc = new GridBagConstraints();
 		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridy = 1;
 		gbc.insets = new Insets(10, 10, 10, 10);
 		frame.getContentPane().add(zombieHandPanel, gbc);
 
@@ -86,8 +97,8 @@ public class GUI {
 		board = new Board(boardPanel);
 
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
-		rightPanel.add(new JButton("Apply"));
-		rightPanel.add(new JButton("Cancel"));
+		rightPanel.add(applyButton = new JButton("Apply"));
+		rightPanel.add(cancelButton = new JButton("Cancel"));
 
 		frame.pack();
 
