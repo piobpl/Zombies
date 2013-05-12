@@ -3,6 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cards.humans.Gasoline;
+import cards.humans.GetOut;
+import cards.humans.HandGrenade;
+import cards.zombies.Mass;
+import cards.zombies.Zombie;
 import controller.Selection;
 import controller.Selection.SelectionType;
 
@@ -11,8 +16,29 @@ import controller.Selection.SelectionType;
  */
 public abstract class Card {
 
+	/*
+	 * Returns whole player's deck (temporarily not the same set as in rules).
+	 */
 	public static List<Card> getCompleteDeck(Player player) {
-		return new ArrayList<Card>();
+		ArrayList<Card> cards = new ArrayList<Card>();
+		if (player == Player.ZOMBIE) {
+			cards.add(new Zombie(5));
+			cards.add(new Zombie(4));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(2));
+			cards.add(new Zombie(4));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(2));
+			cards.add(new Mass());
+		} else {
+			cards.add(new Gasoline());
+			cards.add(new Gasoline());
+			cards.add(new GetOut());
+			cards.add(new GetOut());
+			cards.add(new HandGrenade());
+			cards.add(new HandGrenade());
+		}
+		return cards;
 	}
 
 	public abstract boolean isSelectionCorrect(GameState gameState,
