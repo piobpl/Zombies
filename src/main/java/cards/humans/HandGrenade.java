@@ -26,9 +26,7 @@ public class HandGrenade extends Card {
 
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		Integer x = ((CellSelection) selection).cell.first;
-		Integer y = ((CellSelection) selection).cell.second;
-		return gameState.getBoard().isEmpty(x, y);
+		return true;
 	}
 
 	@Override
