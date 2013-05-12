@@ -21,7 +21,7 @@ public class HandGrenade extends Card {
 	}
 
 	public void setStrength(Integer strength) {
-
+		throw new java.lang.UnsupportedOperationException();
 	}
 
 	@Override
