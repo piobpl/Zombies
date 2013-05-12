@@ -12,12 +12,9 @@ public class Dogs extends Card {
 	
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		// TODO works only for first move: moving before every turn is more complicated
-		// and I don't have tools now
 		Integer x = ((CellSelection)selection).cell.first;
 		Integer y = ((CellSelection)selection).cell.second;
 		return gameState.getBoard().isEmpty(x,y);
-		//TODO the same case as in Zombie card
 	}
 
 	@Override
@@ -27,10 +24,6 @@ public class Dogs extends Card {
 		gameState.getBoard().set(x, y, this);
 	}
 	
-	public void moveDog(GameState gameState, Selection selection) {
-		//TODO may be useful - but i don't know where to place this method
-	}
-
 	@Override
 	public String getName() {
 		return "Dogs";

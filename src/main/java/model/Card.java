@@ -28,12 +28,4 @@ public abstract class Card {
 
 	public abstract void setStrength(Integer strength);
 	
-	/*
-	 * proponuje dodac tutaj metode move() - bedzie uzywana tylko do 
-	 * ruchu zombiakow i psow na poczatku rundy, ale chyba dobrze miec ja abstract
-	 * 
-	 * boola cantMove i metode banMoving (przyszlosciowo bardziej, ale dobrze o tym
-	 * pomyslec) tez umiescilbym tutaj - tymczasowo dalem do Zombie.
-	 */
-
 }
