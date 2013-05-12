@@ -30,12 +30,10 @@ public class Mass extends Card {
 		if (!SolidityTester.areEdgeAdjacent(cell1, cell2))
 			return false;
 		if (!SolidityTester.areInSameRow(cell1, cell2))
-			if (gameState.getBoard().isEmpty(cell1.first, cell1.second)
-					|| gameState.getBoard().isEmpty(cell2.first, cell2.second))
-				return false;
-		if (!gameState.getBoard().is(cell1.first, cell1.second, "Zombie")
-				|| !gameState.getBoard()
-						.is(cell2.first, cell2.second, "Zombie"))
+			return false;
+		if (!gameState.getBoard().is(cell1.first, cell1.second, "Zombie"))
+			return false;
+		if (!gameState.getBoard().is(cell2.first, cell2.second, "Zombie"))
 			return false;
 		return true;
 	}
