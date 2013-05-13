@@ -8,7 +8,11 @@ import cards.humans.GetOut;
 import cards.humans.HandGrenade;
 import cards.humans.Searchlight;
 import cards.humans.Shot;
+import cards.humans.Sniper;
+import cards.zombies.Hunger;
 import cards.zombies.Mass;
+import cards.zombies.Meat;
+import cards.zombies.Nails;
 import cards.zombies.Zombie;
 import controller.Selection;
 import controller.Selection.SelectionType;
@@ -28,10 +32,18 @@ public abstract class Card {
 			cards.add(new Zombie(4));
 			cards.add(new Zombie(3));
 			cards.add(new Zombie(2));
+			cards.add(new Zombie(5));
 			cards.add(new Zombie(4));
 			cards.add(new Zombie(3));
 			cards.add(new Zombie(2));
+			cards.add(new Zombie(5));
+			cards.add(new Zombie(4));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(2));
+			cards.add(new Hunger());
 			cards.add(new Mass());
+			cards.add(new Meat());
+			cards.add(new Nails());
 		} else {
 			cards.add(new Gasoline());
 			cards.add(new Gasoline());
@@ -41,6 +53,7 @@ public abstract class Card {
 			cards.add(new HandGrenade());
 			cards.add(new Shot(1));
 			cards.add(new Shot(2));
+			cards.add(new Sniper());
 			cards.add(new Searchlight());
 		}
 		return cards;

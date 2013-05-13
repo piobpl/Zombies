@@ -19,7 +19,7 @@ public class Meat extends Card {
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer card = ((HandSelection)selection).card;
-		gameState.getDeck(Player.HUMAN).remove(card);
+		gameState.getHand(Player.HUMAN).remove(card);
 	}
 
 	@Override

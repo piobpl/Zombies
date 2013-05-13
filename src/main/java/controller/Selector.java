@@ -41,10 +41,11 @@ public class Selector {
 			if (e.type == EventType.HandClicked) {
 				HandClickedEvent f = (HandClickedEvent) e;
 				HandSelection tmp = new HandSelection(f.player, f.cardClicked);
-				if (card.isSelectionCorrect(gameState, s)) {
-					gameState.gui.getHand(s.player).getCell(s.card).setHighlight(false);
+				if (card.isSelectionCorrect(gameState, tmp)) {
+					if(s != null)
+						gameState.gui.getHand(s.player).getCell(s.card).setHighlight(false);
 					s = tmp;
-					gameState.gui.getHand(s.player).getCell(s.card).setHighlight(false);
+					gameState.gui.getHand(s.player).getCell(s.card).setHighlight(true);
 				}
 			}
 		}

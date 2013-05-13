@@ -19,7 +19,7 @@ public class GetOut extends Card {
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer card = ((HandSelection)selection).card;
-		gameState.getDeck(Player.ZOMBIE).remove(card);
+		gameState.getHand(Player.ZOMBIE).remove(card);
 	}
 
 	@Override
