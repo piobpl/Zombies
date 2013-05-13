@@ -1,0 +1,46 @@
+package cards.humans;
+
+import cards.helpers.Mover;
+import controller.Selection;
+import controller.Selection.SelectionType;
+import model.Card;
+import model.GameState;
+
+public class BackOff extends Card {
+
+	@Override
+	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
+		return true;
+	}
+
+	@Override
+	public void makeEffect(Selection selection, GameState gameState) {
+		for (int i=0; i<5; i++) {
+			for (int j=0; j<3; j++) {
+				if (gameState.getBoard().isEmpty(i,j)) continue;
+				Mover.moveBackward(gameState, i, j);
+			}
+		}
+	}
+
+	@Override
+	public String getName() {
+		return "Back off";
+	}
+
+	@Override
+	public SelectionType getSelectionType() {
+		return null; //deal with it, or make new SelectionType.NOTHING or sth like that
+	}
+
+	@Override
+	public Integer getStrength() {
+		return null;
+	}
+
+	@Override
+	public void setStrength(Integer strength) {
+		throw new java.lang.UnsupportedOperationException();
+	}
+
+}
