@@ -13,7 +13,7 @@ public class Meat extends Card {
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
 		Player player = ((HandSelection)selection).player;
 		Integer card = ((HandSelection)selection).card;
-		return (player == Player.HUMAN && gameState.getDeck(player).get(card) != null);
+		return (player == Player.HUMAN && gameState.getHand(player).get(card) != null);
 	}
 
 	@Override
