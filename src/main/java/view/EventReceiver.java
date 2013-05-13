@@ -149,7 +149,7 @@ public class EventReceiver {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					eventQueue.put(new ApplyButtonClickedEvent());
+					eventQueue.put(new CancelButtonClickedEvent());
 					System.err.println("cancelButton clicked");
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();

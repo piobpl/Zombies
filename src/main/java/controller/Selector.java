@@ -42,7 +42,9 @@ public class Selector {
 				HandClickedEvent f = (HandClickedEvent) e;
 				HandSelection tmp = new HandSelection(f.player, f.cardClicked);
 				if (card.isSelectionCorrect(gameState, s)) {
-					s=tmp;
+					gameState.gui.getHand(s.player).getCell(s.card).setHighlight(false);
+					s = tmp;
+					gameState.gui.getHand(s.player).getCell(s.card).setHighlight(false);
 				}
 			}
 		}
@@ -65,6 +67,7 @@ public class Selector {
 				else
 					tmp = s.add(f.cardClicked);
 				if (card.isSelectionCorrect(gameState, tmp)) {
+					gameState.gui.getBoard().getCell(f.cardClicked.first, f.cardClicked.second).toggleHighlight();
 					s = tmp;
 				}
 			}

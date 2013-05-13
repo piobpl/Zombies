@@ -18,11 +18,11 @@ public abstract class Selection {
 	public static class CellSelection extends Selection {
 		public final Pair<Integer, Integer> cell;
 
-		CellSelection() {
+		public CellSelection() {
 			cell = null;
 		}
 
-		CellSelection(Pair<Integer, Integer> cell) {
+		public CellSelection(Pair<Integer, Integer> cell) {
 			this.cell = cell;
 		}
 
@@ -34,11 +34,11 @@ public abstract class Selection {
 	public static class ColumnSelection extends Selection {
 		public final Integer column;
 
-		ColumnSelection() {
+		public ColumnSelection() {
 			column = 0;
 		}
 
-		ColumnSelection(Integer column) {
+		public ColumnSelection(Integer column) {
 			this.column = column;
 		}
 
@@ -50,11 +50,11 @@ public abstract class Selection {
 	public static class GroupSelection extends Selection {
 		public final List<Pair<Integer, Integer>> cells;
 
-		GroupSelection() {
-			cells = null;
+		public GroupSelection() {
+			cells = new ArrayList<>();
 		}
 
-		GroupSelection(List<Pair<Integer, Integer>> cells) {
+		public GroupSelection(List<Pair<Integer, Integer>> cells) {
 			this.cells = cells;
 		}
 

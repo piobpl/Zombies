@@ -20,4 +20,10 @@ public class Hand {
 	public Cell getCell(int x){
 		return cells[x];
 	}
+	
+	public void setHighlight(boolean set){
+		for(int i = 0; i < 4; ++i)
+			cells[i].setHighlight(set);
+	}
+	
 }

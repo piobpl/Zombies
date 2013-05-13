@@ -135,6 +135,12 @@ public class GUI {
 
 	}
 	
+	public void setHighlight(boolean set){
+		board.setHighlight(set);
+		zombieHand.setHighlight(set);
+		humanHand.setHighlight(set);
+	}
+	
 	public void exit(){
 		try {
 			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
