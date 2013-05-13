@@ -7,7 +7,7 @@ import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
 
-public class Nails extends Card {
+public class Claws extends Card {
 
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
