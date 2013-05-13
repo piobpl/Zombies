@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cards.humans.Burst;
 import cards.humans.Gasoline;
 import cards.humans.GetOut;
 import cards.humans.HandGrenade;
@@ -49,6 +50,8 @@ public abstract class Card {
 			cards.add(new Gasoline());
 			cards.add(new GetOut());
 			cards.add(new GetOut());
+			cards.add(new Burst(3));
+			cards.add(new Burst(2));
 			cards.add(new HandGrenade());
 			cards.add(new HandGrenade());
 			cards.add(new Shot(1));
