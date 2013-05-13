@@ -29,7 +29,7 @@ Kazda karta trzyma swoj zbior modyfikatorow.
 Board trzyma zbior trapow na kazdej pozycji.
 GameState trzyma zbior globalnych modyfikatorow.
 
-Trapy wiedza gdzie sa, i znaja gameState, maja metode isMovePossible(Card c, PII currentPosition),
+Trapy wiedza gdzie sa, i znaja gameState, maja metode isMovePossible(Card c, PII from),
 ktora zwraca false, gdy ruch jest niemozliwy, w przeciwnym przypadku zwracaja true.
 Oraz maja metode void movedOn(Card c), ktora modyfikuje gameState po czyims najsciu.
 Oraz maja metode void shot(), ktora modyfikuje gameState po detonacji strzalem.
@@ -69,9 +69,8 @@ view
  	ile kart zostalo
  	przyciski:
  		Approve Selection
- 		Cancel Celection
+ 		Cancel Selection
  		Next Turn
  		(kazdy mozna z zewnatrz enablowac i disablowac)
  	addMessage(String)
  		informator zawsze wyswietla 5 ostatnich
-  

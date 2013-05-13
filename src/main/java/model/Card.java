@@ -12,7 +12,7 @@ import cards.humans.Sniper;
 import cards.zombies.Hunger;
 import cards.zombies.Mass;
 import cards.zombies.Meat;
-import cards.zombies.Nails;
+import cards.zombies.Claws;
 import cards.zombies.Zombie;
 import controller.Selection;
 import controller.Selection.SelectionType;
@@ -43,7 +43,7 @@ public abstract class Card {
 			cards.add(new Hunger());
 			cards.add(new Mass());
 			cards.add(new Meat());
-			cards.add(new Nails());
+			cards.add(new Claws());
 		} else {
 			cards.add(new Gasoline());
 			cards.add(new Gasoline());
