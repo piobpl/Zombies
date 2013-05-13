@@ -1,5 +1,7 @@
 package cards.zombies;
 
+import javax.sound.midi.SysexMessage;
+
 import cards.helpers.SolidityTester;
 import model.Card;
 import model.GameState;
@@ -21,6 +23,8 @@ public class Mass extends Card {
 
 	@Override
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
+		if (((GroupSelection) selection).cells.size() == 1)
+			return true;
 		if (((GroupSelection) selection).cells.size() != 2)
 			return false;
 		Pair<Integer, Integer> cell1 = ((GroupSelection) selection).cells
@@ -48,8 +52,10 @@ public class Mass extends Card {
 				.getStrength()
 				+ gameState.getBoard().get(cell1.first, cell1.second)
 						.getStrength();
+		System.err.println("Nowy zombiak z sila: " + newStrength);
 		gameState.getBoard().get(cell2.first, cell2.second)
 				.setStrength(newStrength);
+		gameState.getBoard().update(cell2.first, cell2.second);
 		gameState.getBoard().set(cell1.first, cell1.second, null);
 	}
 

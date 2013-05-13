@@ -44,6 +44,18 @@ public class Board {
 		board[x][y] = card;
 		gameState.gui.getBoard().getCell(x, y).draw(card);
 	}
+	
+	/**
+	 * Updates a card at a specified position.
+	 * 
+	 * @param x
+	 *            first coordinate
+	 * @param y
+	 *            second coordinate
+	 */
+	public void update(int x, int y) {
+		gameState.gui.getBoard().getCell(x, y).draw(board[x][y]);
+	}
 
 	/**
 	 * Returns a card at a specified position. Null if there's no card at that
