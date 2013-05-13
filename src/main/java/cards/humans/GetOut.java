@@ -13,7 +13,7 @@ public class GetOut extends Card {
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
 		Player player = ((HandSelection)selection).player;
 		Integer card = ((HandSelection)selection).card;
-		return (player == Player.ZOMBIE && gameState.getDeck(player).get(card) != null);
+		return (player == Player.ZOMBIE && gameState.getHand(player).get(card) != null);
 	}
 
 	@Override

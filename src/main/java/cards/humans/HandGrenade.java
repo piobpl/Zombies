@@ -6,6 +6,7 @@ import controller.Selection.SelectionType;
 import model.Card;
 import model.GameState;
 
+// TODO : usuwanie muru etc.
 public class HandGrenade extends Card {
 
 	public String getName() {

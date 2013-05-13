@@ -17,6 +17,8 @@ import controller.Selection.SelectionType;
  * @author jerzozwierz
  * 
  */
+
+// TODO : zablokowanie dalszego poruszania się w rundzie
 public class Mass extends Card {
 
 	@Override
@@ -31,8 +33,8 @@ public class Mass extends Card {
 				.get(1);
 		if (!SolidityTester.areEdgeAdjacent(cell1, cell2))
 			return false;
-		if (!SolidityTester.areInSameRow(cell1, cell2))
-			return false;
+		//if (!SolidityTester.areInSameRow(cell1, cell2)) <- tego chyba nie ma w instrukcji
+			//return false;
 		if (!gameState.getBoard().is(cell1.first, cell1.second, "Zombie"))
 			return false;
 		if (!gameState.getBoard().is(cell2.first, cell2.second, "Zombie"))
