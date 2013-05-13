@@ -76,24 +76,24 @@ nie bojcie sie ze ciezko bedzie je dodac, mam plan, w sumie tego, ze mam plan mo
 6. Karty na 1. tydzien (im wiecej tym lepiej, z wykrzyknikiem to karty ktore koniecznie chcialbym zobaczyc)
 Jak widac, odradzam podzial ze jeden robi zombiakow, inny ludzi.
 Zombiakow:
-Głód
-Masa! (olejcie to zalozenie, ze zombi ma sie juz w turze nie ruszac)
-Mięso
-Pazury
+Głód - ZROBIONE
+Masa! (olejcie to zalozenie, ze zombi ma sie juz w turze nie ruszac) - ZROBIONE
+Mięso - ZROBIONE
+Pazury - ZROBIONE
 Spadaj!
-Zombi!
+Zombi! - ZROBIONE
 
 Ludzi:
-Granat
+Granat - ZROBIONE
 Krew (sprawdzajcie tylko, czy wybrane pole jest puste)
-Reflektor!
-Ropa!
-Seria (nie sprawdzajcie czy ktos jest chroniony czlowiekiem, mozna sie cofnac jake pole jest puste)
-Snajper
-Strzał
+Reflektor! - ZROBIONE
+Ropa! - ZROBIONE
+Seria (nie sprawdzajcie czy ktos jest chroniony czlowiekiem, mozna sie cofnac jake pole jest puste) - ZROBIONE
+Snajper - ZROBIONE
+Strzał - ZROBIONE
 Ulica w ogniu
 Wynocha!
-Zmiataj
+Zmiataj - ZROBIONE
 
 Preferowalbym zeby karty mialy jak najwiecej wspolnych cech,
 np. jestem za tym, by wszystkie karty mialy zmienna sila, jak karta tej zmiennej nie potrzebuje to nic to nie przeskadza, a duzo prosciej
