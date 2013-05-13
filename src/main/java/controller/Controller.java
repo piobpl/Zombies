@@ -104,14 +104,18 @@ public class Controller {
 						+ card.getName());
 				gui.getHand(player).getCell(handClickedEvent.cardClicked)
 						.setHighlight(true);
-				selection = selector.getSelection(card);
-				gui.setHighlight(false);
-				System.err.println("Received: " + selection);
-				if (selection != null) {
-					System.err.println("Selection received, applying.");
-					card.makeEffect(selection, gameState);
-					hand.remove(handClickedEvent.cardClicked);
+				if (card.getSelectionType() == null) {
+					card.makeEffect(null, gameState);
+				} else {
+					selection = selector.getSelection(card);
+					System.err.println("Received: " + selection);
+					if (selection != null) {
+						System.err.println("Selection received, applying.");
+						card.makeEffect(selection, gameState);
+						hand.remove(handClickedEvent.cardClicked);
+					}
 				}
+				gui.setHighlight(false);
 			}
 		}
 	}
