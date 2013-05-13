@@ -1,11 +1,9 @@
 package cards.zombies;
 
-import javax.sound.midi.SysexMessage;
-
-import cards.helpers.SolidityTester;
 import model.Card;
 import model.GameState;
 import utility.Pair;
+import cards.helpers.SolidityTester;
 import controller.Selection;
 import controller.Selection.GroupSelection;
 import controller.Selection.SelectionType;

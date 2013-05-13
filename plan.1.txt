@@ -60,3 +60,18 @@ modifiers
  - powyzsze modyfikatory (terror tez tu)
 traps
  - powyzsze trapy
+
+isSelectionCorrect -> rateSelection (Selection -> [0,1,2])
+Selector poprawka w selectorze (rateselection i niech korzysta z modyfikalnosci list)
+
+view
+ - Informator
+ 	ile kart zostalo
+ 	przyciski:
+ 		Approve Selection
+ 		Cancel Celection
+ 		Next Turn
+ 		(kazdy mozna z zewnatrz enablowac i disablowac)
+ 	addMessage(String)
+ 		informator zawsze wyswietla 5 ostatnich
+  
