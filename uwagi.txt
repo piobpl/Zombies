@@ -102,3 +102,8 @@ nie dodawajcie do normalnych klas dodatkow tylko potrzebnych do testow
 19. Jezeli karta nie potrzebuje selekcji getSelectionType() zwraca null, i makeEffect dostaje nulla zamiast selekcji.
 
 20. Po wykonaniu zadania, nie zamykajcie issue tylko dodajcie do tytulu DONE.
+
+21. Issue domyslnie synchronizuja sie w eclipsie co 20 minut, ale mozecie recznie kazac mu sie zsynchronizowac.
+
+22. Od środy do soboty będę w moskwie - nie wiem jaki tam mają internet - w miare mozliwosci bede zdalnie pomagal,
+	w niedziele ponaprawiam co popsujescie ;p
