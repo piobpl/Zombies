@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import cards.humans.Burst;
@@ -24,6 +25,8 @@ import controller.Selection.SelectionType;
  * An abstract class representing a card.
  */
 public abstract class Card {
+	
+	public final HashSet<Modifier> modifiers = new HashSet<Modifier>();
 
 	/*
 	 * Returns whole player's deck (temporarily not the same set as in rules).
