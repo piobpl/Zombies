@@ -25,4 +25,9 @@ public class MovedOnceModifier extends Modifier {
 		time--;
 	}
 
+	@Override
+	public String getDescription() {
+		return "moved once this turn";
+	}
+
 }

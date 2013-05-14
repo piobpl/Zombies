@@ -25,4 +25,9 @@ public class BeenFrozenModifier extends Modifier {
 		time--;
 	}
 
+	@Override
+	public String getDescription() {
+		return "can't move this turn";
+	}
+
 }

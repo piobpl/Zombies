@@ -25,4 +25,9 @@ public class TerrorModifier extends Modifier {
 		time--;
 	}
 
+	@Override
+	public String getDescription() {
+		return "Terror";
+	}
+
 }

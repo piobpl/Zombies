@@ -25,4 +25,9 @@ public class HumanModifier extends Modifier {
 		time--;
 	}
 
+	@Override
+	public String getDescription() {
+		return "holds a human";
+	}
+
 }
