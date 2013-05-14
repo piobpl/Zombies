@@ -23,8 +23,8 @@ public class StreetOnFire extends Card {
 		int column = ((ColumnSelection) selection).column;
 		for (int i = 4; i >= 0; i--) {
 			if (!gameState.getBoard().isEmpty(i, column)
-					&& (gameState.getBoard().get(i, column).getName() == "Zombie" || gameState
-							.getBoard().get(i, column).getName() == "Dogs")) {
+					&& (gameState.getBoard().get(i, column).getName().equals("Zombie") || gameState
+							.getBoard().get(i, column).getName().equals("Dogs"))) {
 				DamageDealer.dealDamage(gameState, i, column, 1);
 			}
 		}
