@@ -11,6 +11,7 @@ import cards.humans.HighVoltage;
 import cards.humans.Searchlight;
 import cards.humans.Shot;
 import cards.humans.Sniper;
+import cards.humans.StreetOnFire;
 import cards.zombies.Claws;
 import cards.zombies.Hunger;
 import cards.zombies.Mass;
@@ -61,6 +62,7 @@ public abstract class Card {
 			cards.add(new Sniper());
 			cards.add(new Searchlight());
 			cards.add(new HighVoltage());
+			cards.add(new StreetOnFire());
 		}
 		return cards;
 	}
