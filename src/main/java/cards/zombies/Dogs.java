@@ -14,7 +14,7 @@ public class Dogs extends Card {
 	public int rateSelection(GameState gameState, Selection selection) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		if (gameState.getBoard().isEmpty(x, y))
+		if (gameState.getBoard().isEmpty(x, y) && x.equals(0))
 			return 2;
 		return 0;
 	}
