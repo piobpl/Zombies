@@ -14,7 +14,7 @@ public class Dogs extends Card {
 	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		return gameState.getBoard().isEmpty(x, y);
+		return gameState.getBoard().isEmpty(x, y) && x.equals(0);
 	}
 
 	@Override
