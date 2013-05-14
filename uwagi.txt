@@ -100,3 +100,5 @@ Gitowi ustawilem by ignorowal folder docsow - za duzo syfu sie robi na stronie, 
 nie dodawajcie do normalnych klas dodatkow tylko potrzebnych do testow
 
 19. Jezeli karta nie potrzebuje selekcji getSelectionType() zwraca null, i makeEffect dostaje nulla zamiast selekcji.
+
+20. Po wykonaniu zadania, nie zamykajcie issue tylko dodajcie do tytulu DONE.
