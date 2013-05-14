@@ -13,7 +13,7 @@ MASS			MASA			to check
 MEAT			MIĘSO			to check
 NOT SO FAST		NIE TAK SZYBKO	suspended
 PICK AXE		KILOF
-TERROR			TERROR
+TERROR			TERROR			waiting for global modifier terror
 ZOMBIE			ZOMBIE			to check
 
 
