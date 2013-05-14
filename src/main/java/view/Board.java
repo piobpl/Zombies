@@ -35,4 +35,14 @@ public class Board {
 			for (int j = 0; j < 3; ++j)
 				cells[i][j].setHighlight(set);
 	}
+
+	public void setColumnHighlight(int j, boolean set) {
+		for (int i = 0; i < 5; ++i)
+			cells[i][j].setHighlight(set);
+	}
+
+	public void setRowHighlight(int i, boolean set) {
+		for (int j = 0; j < 3; ++j)
+			cells[i][j].setHighlight(set);
+	}
 }

@@ -11,9 +11,7 @@ public abstract class Selection {
 		CELL, COLUMN, GROUP, HAND;
 	}
 
-	public Selection add(Pair<Integer, Integer> p) {
-		return this;
-	}
+	public abstract Selection add(Pair<Integer, Integer> p);
 
 	public static class CellSelection extends Selection {
 		public final Pair<Integer, Integer> cell;
@@ -78,6 +76,10 @@ public abstract class Selection {
 		HandSelection(Player player, Integer card) {
 			this.player = player;
 			this.card = card;
+		}
+
+		public Selection add(Pair<Integer, Integer> p) {
+			throw new UnsupportedOperationException();
 		}
 	}
 }
