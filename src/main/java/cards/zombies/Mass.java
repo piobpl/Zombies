@@ -13,33 +13,34 @@ import controller.Selection.SelectionType;
  * selection: cells must be adjacent and placed in the same row. In effect,
  * zombie from first cell is merged to zombie from second cell. Eventually,
  * bigger zombie remains on second cell, first cell is cleared.
- * 
+ *
  * @author jerzozwierz
- * 
+ *
  */
 
 // TODO : zablokowanie dalszego poruszania się w rundzie
 public class Mass extends Card {
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
+	public int rateSelection(GameState gameState, Selection selection) {
 		if (((GroupSelection) selection).cells.size() == 1)
-			return true;
+			return 1;
 		if (((GroupSelection) selection).cells.size() != 2)
-			return false;
+			return 0;
 		Pair<Integer, Integer> cell1 = ((GroupSelection) selection).cells
 				.get(0);
 		Pair<Integer, Integer> cell2 = ((GroupSelection) selection).cells
 				.get(1);
 		if (!SolidityTester.areEdgeAdjacent(cell1, cell2))
-			return false;
-		//if (!SolidityTester.areInSameRow(cell1, cell2)) <- tego chyba nie ma w instrukcji
-			//return false;
+			return 0;
+		// if (!SolidityTester.areInSameRow(cell1, cell2)) <- tego chyba nie ma
+		// w instrukcji
+		// return false;
 		if (!gameState.getBoard().is(cell1.first, cell1.second, "Zombie"))
-			return false;
+			return 0;
 		if (!gameState.getBoard().is(cell2.first, cell2.second, "Zombie"))
-			return false;
-		return true;
+			return 0;
+		return 2;
 	}
 
 	@Override

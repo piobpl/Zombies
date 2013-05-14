@@ -10,15 +10,18 @@ import controller.Selection.SelectionType;
 public class GetOut extends Card {
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		Player player = ((HandSelection)selection).player;
-		Integer card = ((HandSelection)selection).card;
-		return (player == Player.ZOMBIE && gameState.getHand(player).get(card) != null);
+	public int rateSelection(GameState gameState, Selection selection) {
+		Player player = ((HandSelection) selection).player;
+		Integer card = ((HandSelection) selection).card;
+		if (player == Player.ZOMBIE
+				&& gameState.getHand(player).get(card) != null)
+			return 2;
+		return 0;
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		Integer card = ((HandSelection)selection).card;
+		Integer card = ((HandSelection) selection).card;
 		gameState.getHand(Player.ZOMBIE).remove(card);
 	}
 
@@ -41,5 +44,5 @@ public class GetOut extends Card {
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
 	}
-	
+
 }

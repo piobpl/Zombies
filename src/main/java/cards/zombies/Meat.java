@@ -10,15 +10,18 @@ import model.Player;
 public class Meat extends Card {
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		Player player = ((HandSelection)selection).player;
-		Integer card = ((HandSelection)selection).card;
-		return (player == Player.HUMAN && gameState.getHand(player).get(card) != null);
+	public int rateSelection(GameState gameState, Selection selection) {
+		Player player = ((HandSelection) selection).player;
+		Integer card = ((HandSelection) selection).card;
+		if (player == Player.HUMAN
+				&& gameState.getHand(player).get(card) != null)
+			return 2;
+		return 0;
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		Integer card = ((HandSelection)selection).card;
+		Integer card = ((HandSelection) selection).card;
 		gameState.getHand(Player.HUMAN).remove(card);
 	}
 

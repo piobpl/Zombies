@@ -17,10 +17,14 @@ public class SearchlightTest {
 		ColumnSelection selection = ForTestsOnly.getNewColumnSelection(1);
 		Controller controller = new Controller();
 		Searchlight searchlight = new Searchlight();
-		new Zombie(2).makeEffect(ForTestsOnly.getNewCellSelection(4, 1), controller.gameState);
-		new Zombie(3).makeEffect(ForTestsOnly.getNewCellSelection(3, 1), controller.gameState);
-		new Zombie(3).makeEffect(ForTestsOnly.getNewCellSelection(0, 1), controller.gameState);
-		assertEquals(true, searchlight.isSelectionCorrect(controller.gameState, selection));
+		new Zombie(2).makeEffect(ForTestsOnly.getNewCellSelection(4, 1),
+				controller.gameState);
+		new Zombie(3).makeEffect(ForTestsOnly.getNewCellSelection(3, 1),
+				controller.gameState);
+		new Zombie(3).makeEffect(ForTestsOnly.getNewCellSelection(0, 1),
+				controller.gameState);
+		assertEquals(2,
+				searchlight.rateSelection(controller.gameState, selection));
 		searchlight.makeEffect(selection, controller.gameState);
 		assertEquals(true, controller.gameState.getBoard().isEmpty(4, 1));
 		assertEquals(false, controller.gameState.getBoard().isEmpty(3, 1));

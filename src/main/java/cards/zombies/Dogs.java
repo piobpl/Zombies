@@ -11,10 +11,12 @@ public class Dogs extends Card {
 	private Integer strength = 1;
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
+	public int rateSelection(GameState gameState, Selection selection) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		return gameState.getBoard().isEmpty(x, y);
+		if (gameState.getBoard().isEmpty(x, y))
+			return 2;
+		return 0;
 	}
 
 	@Override

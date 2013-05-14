@@ -9,15 +9,16 @@ import model.GameState;
 public class BackOff extends Card {
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		return true;
+	public int rateSelection(GameState gameState, Selection selection) {
+		return 2;
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		for (int i=0; i<5; i++) {
-			for (int j=0; j<3; j++) {
-				if (gameState.getBoard().isEmpty(i,j)) continue;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (gameState.getBoard().isEmpty(i, j))
+					continue;
 				Mover.moveBackward(gameState, i, j);
 			}
 		}
@@ -30,7 +31,8 @@ public class BackOff extends Card {
 
 	@Override
 	public SelectionType getSelectionType() {
-		return null; //deal with it, or make new SelectionType.NOTHING or sth like that
+		return null; // deal with it, or make new SelectionType.NOTHING or sth
+						// like that
 	}
 
 	@Override

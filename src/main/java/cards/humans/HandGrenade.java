@@ -26,8 +26,8 @@ public class HandGrenade extends Card {
 	}
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		return true;
+	public int rateSelection(GameState gameState, Selection selection) {
+		return 2;
 	}
 
 	@Override

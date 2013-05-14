@@ -11,16 +11,16 @@ import controller.Selection.SelectionType;
 // TODO : karta "czlowiek"!
 
 public class Burst extends Card {
-	
+
 	private Integer strength;
-	
+
 	public Burst(Integer strength) {
 		this.strength = strength;
 	}
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		return true;
+	public int rateSelection(GameState gameState, Selection selection) {
+		return 2;
 	}
 
 	@Override
@@ -29,11 +29,13 @@ public class Burst extends Card {
 		int remaining = strength;
 		for (int i = 4; i >= 0; i--)
 			if (!gameState.getBoard().isEmpty(i, column)) {
-				int damage = Math.min(remaining, gameState.getBoard().get(i,column).getStrength());
+				int damage = Math.min(remaining,
+						gameState.getBoard().get(i, column).getStrength());
 				remaining -= damage;
 				DamageDealer.dealDamage(gameState, i, column, damage);
 				Mover.moveBackward(gameState, i, column);
-				if(remaining == 0) break;
+				if (remaining == 0)
+					break;
 			}
 	}
 

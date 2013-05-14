@@ -62,8 +62,7 @@ public abstract class Card {
 		return cards;
 	}
 
-	public abstract boolean isSelectionCorrect(GameState gameState,
-			Selection selection);
+	public abstract int rateSelection(GameState gameState, Selection selection);
 
 	public abstract void makeEffect(Selection selection, GameState gameState);
 

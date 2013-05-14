@@ -4,7 +4,7 @@ import utility.Pair;
 
 /**
  * Klasa wspomagająca sprawdzanie selekcji dla kart.
- * 
+ *
  * @author piob
  */
 public abstract class SolidityTester {

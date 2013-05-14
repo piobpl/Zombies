@@ -16,16 +16,21 @@ import javax.swing.JPanel;
 import model.Player;
 
 public class GUI {
+	public static enum Button {
+		ApplySelection, CancelSelection, EndTurn;
+	}
+
 	public final EventReceiver eventReceiver;
 	private Hand zombieHand;
 	private Hand humanHand;
 	private Board board;
-	private JButton applyButton;
-	private JButton cancelButton;
+	private JButton applySelectionButton;
+	private JButton cancelSelectionButton;
+	private JButton endTurnButton;
 	private JFrame frame;
 	private JLabel zombieCardsLeft;
 	private JLabel humanCardsLeft;
-	
+
 	public GUI() {
 		System.err.println("Creating GUI...");
 		try {
@@ -40,33 +45,41 @@ public class GUI {
 		eventReceiver = new EventReceiver(this);
 	}
 
-	public Hand getHand(Player player){
-		if(player == Player.HUMAN)
+	public Hand getHand(Player player) {
+		if (player == Player.HUMAN)
 			return humanHand;
 		else
 			return zombieHand;
 	}
-	
-	public Board getBoard(){
+
+	public Board getBoard() {
 		return board;
 	}
-	
-	public void addApplyButtonMouseListener(MouseListener a){
-	    applyButton.addMouseListener(a);
+
+	public void addButtonMouseListener(Button button, MouseListener a) {
+		switch (button) {
+		case ApplySelection:
+			applySelectionButton.addMouseListener(a);
+			break;
+		case CancelSelection:
+			cancelSelectionButton.addMouseListener(a);
+			break;
+		case EndTurn:
+			endTurnButton.addMouseListener(a);
+			break;
+		default:
+			throw new UnsupportedOperationException();
+		}
 	}
 
-	public void addCancelButtonMouseListener(MouseListener a){
-	    cancelButton.addMouseListener(a);
-	}
-	
-	public void setCardsLeft(Player player, int left){
-		if(Player.ZOMBIE == player){
+	public void setCardsLeft(Player player, int left) {
+		if (Player.ZOMBIE == player) {
 			zombieCardsLeft.setText("" + left + " cards left");
 		} else {
 			humanCardsLeft.setText("" + left + " cards left");
 		}
 	}
-	
+
 	private void createWindow() {
 		frame = new JFrame("Zombiaki");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,7 +113,7 @@ public class GUI {
 		gbc.gridy = 1;
 		gbc.insets = new Insets(10, 10, 10, 10);
 		frame.getContentPane().add(zombieCardsLeft, gbc);
-		
+
 		JPanel rightPanel = new JPanel();
 		gbc = new GridBagConstraints();
 		gbc.gridheight = 1;
@@ -114,34 +127,39 @@ public class GUI {
 		gbc.gridy = 3;
 		gbc.insets = new Insets(10, 10, 10, 10);
 		frame.getContentPane().add(humanCardsLeft, gbc);
-		
+
 		frame.setVisible(true);
 
 		humanHand = new Hand(humanHandPanel);
 		zombieHand = new Hand(zombieHandPanel);
 		board = new Board(boardPanel);
 
-		
 		rightPanel.setLayout(new FlowLayout());
 		rightPanel.setPreferredSize(new Dimension(120, 300));
-		applyButton = new JButton("Apply");
-		applyButton.setPreferredSize(new Dimension(120,30));
-		rightPanel.add(applyButton);
-		cancelButton = new JButton("Cancel");
-		cancelButton.setPreferredSize(new Dimension(120,30));
-		rightPanel.add(cancelButton);		
-		
+
+		applySelectionButton = new JButton("Apply Selection");
+		applySelectionButton.setPreferredSize(new Dimension(120, 30));
+		rightPanel.add(applySelectionButton);
+
+		cancelSelectionButton = new JButton("Cancel Selection");
+		cancelSelectionButton.setPreferredSize(new Dimension(120, 30));
+		rightPanel.add(cancelSelectionButton);
+
+		endTurnButton = new JButton("End turn");
+		endTurnButton.setPreferredSize(new Dimension(120, 30));
+		rightPanel.add(endTurnButton);
+
 		frame.pack();
 
 	}
-	
-	public void setHighlight(boolean set){
+
+	public void setHighlight(boolean set) {
 		board.setHighlight(set);
 		zombieHand.setHighlight(set);
 		humanHand.setHighlight(set);
 	}
-	
-	public void exit(){
+
+	public void exit() {
 		try {
 			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
 				public void run() {

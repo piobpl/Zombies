@@ -26,9 +26,9 @@ public class GasolineTest {
 		list.add(temp2);
 		list.add(temp3);
 		GroupSelection gs = ForTestsOnly.getNewGroupSelection(list);
-		assertEquals(false, g.isSelectionCorrect(null, gs));
+		assertEquals(0, g.rateSelection(null, gs));
 		temp3.first = 1;
-		assertEquals(true, g.isSelectionCorrect(null, gs));
+		assertEquals(2, g.rateSelection(null, gs));
 
 	}
 

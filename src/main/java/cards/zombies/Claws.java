@@ -10,21 +10,21 @@ import controller.Selection.SelectionType;
 public class Claws extends Card {
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		Pair<Integer, Integer> cell = ((CellSelection)selection).cell;
+	public int rateSelection(GameState gameState, Selection selection) {
+		Pair<Integer, Integer> cell = ((CellSelection) selection).cell;
 		if (gameState.getBoard().isEmpty(cell.first, cell.second))
-			return false;
-		if (!gameState.getBoard().get(cell.first, cell.second).getName().equals("Zombie"))
-			return false;
-		return true;
+			return 0;
+		if (!gameState.getBoard().get(cell.first, cell.second).getName()
+				.equals("Zombie"))
+			return 0;
+		return 2;
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		int x = ((CellSelection)selection).cell.first;
-		int y = ((CellSelection)selection).cell.second;
-		int currentStrength =
-				gameState.getBoard().get(x, y).getStrength();
+		int x = ((CellSelection) selection).cell.first;
+		int y = ((CellSelection) selection).cell.second;
+		int currentStrength = gameState.getBoard().get(x, y).getStrength();
 		gameState.getBoard().get(x, y).setStrength(currentStrength + 1);
 		gameState.getBoard().update(x, y);
 	}

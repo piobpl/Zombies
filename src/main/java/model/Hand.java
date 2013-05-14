@@ -21,7 +21,7 @@ public class Hand {
 	/**
 	 * Returns a card at a specified position. Null if there's no card at that
 	 * position.
-	 * 
+	 *
 	 * @param i
 	 *            coordinate
 	 * @return a card at a specified position
@@ -32,7 +32,7 @@ public class Hand {
 
 	/**
 	 * Places a card at a specified position.
-	 * 
+	 *
 	 * @param i
 	 *            coordinate
 	 * @param card
@@ -45,7 +45,7 @@ public class Hand {
 
 	/**
 	 * Removes a card from the hand at a specified position.
-	 * 
+	 *
 	 * @param i
 	 *            coordinate
 	 */
@@ -53,21 +53,21 @@ public class Hand {
 		hand[i] = null;
 		gameState.gui.getHand(player).getCell(i).draw(null);
 	}
-	
+
 	/**
 	 * Tests if there is any card in hand.
 	 */
-	public boolean isEmpty(){
-		for(int i = 0; i < 4; ++i)
-			if(hand[i] != null)
+	public boolean isEmpty() {
+		for (int i = 0; i < 4; ++i)
+			if (hand[i] != null)
 				return false;
 		return true;
 	}
-	
+
 	/**
 	 * Tests if there is a card at a specified position.
 	 */
-	public boolean isEmpty(int i){
+	public boolean isEmpty(int i) {
 		return hand[i] == null;
 	}
 

@@ -28,7 +28,7 @@ public class GameState {
 
 	/**
 	 * Returns the board.
-	 * 
+	 *
 	 * @return a board
 	 */
 	public Board getBoard() {
@@ -37,10 +37,10 @@ public class GameState {
 
 	/**
 	 * Returns the player's deck.
-	 * 
+	 *
 	 * @param player
 	 *            a player whose deck is to be returned
-	 * 
+	 *
 	 * @return a player's deck
 	 */
 	public Deck getDeck(Player player) {
@@ -53,10 +53,10 @@ public class GameState {
 
 	/**
 	 * Returns the player's hand.
-	 * 
+	 *
 	 * @param player
 	 *            a player whose hand is to be returned
-	 * 
+	 *
 	 * @return a player's hand
 	 */
 	public Hand getHand(Player player) {

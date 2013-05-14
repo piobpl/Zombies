@@ -7,16 +7,17 @@ import java.util.concurrent.BlockingQueue;
 
 import model.Player;
 import utility.Pair;
+import view.GUI.Button;
 
 /**
  * Klasa służaca do komunikacji z użytkownikiem.
- * 
+ *
  * @author piob
  */
 public class EventReceiver {
 
 	public static enum EventType {
-		BoardClicked, HandClicked, ApplyButtonClicked, CancelButtonClicked,
+		BoardClicked, HandClicked, ButtonClicked;
 	}
 
 	public abstract static class Event {
@@ -47,15 +48,11 @@ public class EventReceiver {
 		}
 	}
 
-	public static class ApplyButtonClickedEvent extends Event {
-		public ApplyButtonClickedEvent() {
-			super(EventType.ApplyButtonClicked);
-		}
-	}
-
-	public static class CancelButtonClickedEvent extends Event {
-		public CancelButtonClickedEvent() {
-			super(EventType.CancelButtonClicked);
+	public static class ButtonClickedEvent extends Event {
+		public final Button button;
+		public ButtonClickedEvent(Button button) {
+			super(EventType.ButtonClicked);
+			this.button = button;
 		}
 	}
 
@@ -93,7 +90,7 @@ public class EventReceiver {
 		registerToBoard();
 		registerToButtons();
 	}
-	
+
 	private void registerToHand(final Player player){
 		for (int i = 0; i < 4; ++i) {
 			final int index = i;
@@ -112,7 +109,7 @@ public class EventReceiver {
 					});
 		}
 	}
-	
+
 	private void registerToBoard(){
 		for(int i = 0; i < 5; i++){
 			final int row = i;
@@ -134,30 +131,22 @@ public class EventReceiver {
 	}
 
 	private void registerToButtons(){
-		gui.addApplyButtonMouseListener(new SimpleMouseListener(){
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					eventQueue.put(new ApplyButtonClickedEvent());
-					System.err.println("applyButton clicked");
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
+		for(Button i : Button.values()){
+			final Button button = i;
+			gui.addButtonMouseListener(button, new SimpleMouseListener(){
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					try {
+						eventQueue.put(new ButtonClickedEvent(button));
+						System.err.println(button + " clicked");
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
 				}
-			}
-		});
-		gui.addCancelButtonMouseListener(new SimpleMouseListener(){
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					eventQueue.put(new CancelButtonClickedEvent());
-					System.err.println("cancelButton clicked");
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+			});
+		}
 	}
-	
+
 	/**
 	 * Funkcja zwraca kolejną akcje wykonaną przez użytkownika. Jeżeli
 	 * użytkownik nie podjął żadnego działania, blokuje wątek w oczekiwaniu.
@@ -171,6 +160,19 @@ public class EventReceiver {
 			System.err.println("Waiting for next event interrupted");
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	/**
+	 * Funkcja czeka, aż użytkownik wciśnie podany button, ignorując pozostałe eventy.
+	 */
+	public void waitForClick(Button button){
+		Event event;
+		while(true){
+			event = getNextEvent();
+			if(event.type == EventType.ButtonClicked)
+				if(((ButtonClickedEvent) event).button == button)
+					break;
 		}
 	}
 

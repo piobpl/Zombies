@@ -5,7 +5,7 @@ import model.GameState;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
- * 
+ *
  * @author piob
  */
 public abstract class DamageDealer {

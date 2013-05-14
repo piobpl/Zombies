@@ -6,10 +6,12 @@ import model.Deck;
 import model.GameState;
 import model.Hand;
 import model.Player;
+import view.EventReceiver.ButtonClickedEvent;
 import view.EventReceiver.Event;
 import view.EventReceiver.EventType;
 import view.EventReceiver.HandClickedEvent;
 import view.GUI;
+import view.GUI.Button;
 
 public class Controller {
 
@@ -92,8 +94,12 @@ public class Controller {
 		Hand hand = gameState.getHand(player);
 		Card card;
 		Selection selection;
-		while ((event = gui.eventReceiver.getNextEvent()).type != EventType.ApplyButtonClicked) {
-			if (event.type == EventType.HandClicked) {
+		while (true) {
+			event = gui.eventReceiver.getNextEvent();
+			if (event.type == EventType.ButtonClicked) {
+				if (((ButtonClickedEvent) event).button == Button.EndTurn)
+					break;
+			} else if (event.type == EventType.HandClicked) {
 				handClickedEvent = (HandClickedEvent) event;
 				if (handClickedEvent.player != player)
 					continue;

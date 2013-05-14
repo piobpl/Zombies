@@ -17,7 +17,7 @@ public class Cell {
 	private JLabel name;
 	private JLabel strength;
 	private boolean isHighlighted;
-	
+
 	public Cell(JPanel panel) {
 		this.panel = panel;
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -29,15 +29,15 @@ public class Cell {
 		strength.setVisible(false);
 		isHighlighted = false;
 	}
-	
-	public void draw(Card card){
-		if(card == null){
+
+	public void draw(Card card) {
+		if (card == null) {
 			name.setVisible(false);
 			strength.setVisible(false);
 		} else {
 			name.setVisible(true);
 			name.setText(card.getName());
-			if(card.getStrength() == null){
+			if (card.getStrength() == null) {
 				strength.setVisible(false);
 			} else {
 				strength.setVisible(true);
@@ -45,22 +45,22 @@ public class Cell {
 			}
 		}
 	}
-	
-	public void addMouseListener(MouseListener a){
-	    panel.addMouseListener(a);
+
+	public void addMouseListener(MouseListener a) {
+		panel.addMouseListener(a);
 	}
-	
-	public void setHighlight(boolean light){
+
+	public void setHighlight(boolean light) {
 		isHighlighted = light;
-		if(light){
+		if (light) {
 			panel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
 		} else {
 			panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		}
 	}
-	
-	public void toggleHighlight(){
-		if(isHighlighted){
+
+	public void toggleHighlight() {
+		if (isHighlighted) {
 			panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		} else {
 			panel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));

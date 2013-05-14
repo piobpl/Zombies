@@ -19,7 +19,7 @@ public class Board {
 
 	/**
 	 * Removes a card from the board at a specified position.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate of the card
 	 * @param y
@@ -32,7 +32,7 @@ public class Board {
 
 	/**
 	 * Places a card at a specified position.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -44,10 +44,10 @@ public class Board {
 		board[x][y] = card;
 		gameState.gui.getBoard().getCell(x, y).draw(card);
 	}
-	
+
 	/**
 	 * Updates a card at a specified position.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -60,7 +60,7 @@ public class Board {
 	/**
 	 * Returns a card at a specified position. Null if there's no card at that
 	 * position.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -73,7 +73,7 @@ public class Board {
 
 	/**
 	 * Checks whether a specified position on the board is empty.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -86,7 +86,7 @@ public class Board {
 
 	/**
 	 * Checks whether a specified position has card with specified name.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y

@@ -6,9 +6,11 @@ import model.Card;
 import model.GameState;
 import view.EventReceiver;
 import view.EventReceiver.BoardClickedEvent;
+import view.EventReceiver.ButtonClickedEvent;
 import view.EventReceiver.Event;
 import view.EventReceiver.EventType;
 import view.EventReceiver.HandClickedEvent;
+import view.GUI.Button;
 import controller.Selection.CellSelection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.GroupSelection;
@@ -23,7 +25,8 @@ public class Selector {
 	public Selector(EventReceiver eventReceiver, GameState gameState) {
 		this.eventReceiver = eventReceiver;
 		this.gameState = gameState;
-		selectionMap = new EnumMap<SelectionType, Selection>(SelectionType.class);
+		selectionMap = new EnumMap<SelectionType, Selection>(
+				SelectionType.class);
 		selectionMap.put(SelectionType.CELL, new CellSelection());
 		selectionMap.put(SelectionType.COLUMN, new ColumnSelection());
 		selectionMap.put(SelectionType.GROUP, new GroupSelection());
@@ -34,18 +37,25 @@ public class Selector {
 		HandSelection s = null;
 		while (true) {
 			Event e = eventReceiver.getNextEvent();
-			if (e.type == EventType.ApplyButtonClicked)
-				return s;
-			if (e.type == EventType.CancelButtonClicked)
-				return null;
+			if (e.type == EventType.ButtonClicked) {
+				ButtonClickedEvent f = (ButtonClickedEvent) e;
+				if (f.button == Button.ApplySelection)
+					return s;
+				else if (f.button == Button.CancelSelection)
+					return null;
+				else
+					continue;
+			}
 			if (e.type == EventType.HandClicked) {
 				HandClickedEvent f = (HandClickedEvent) e;
 				HandSelection tmp = new HandSelection(f.player, f.cardClicked);
-				if (card.isSelectionCorrect(gameState, tmp)) {
-					if(s != null)
-						gameState.gui.getHand(s.player).getCell(s.card).setHighlight(false);
+				if (card.rateSelection(gameState, tmp) > 0) {
+					if (s != null)
+						gameState.gui.getHand(s.player).getCell(s.card)
+								.setHighlight(false);
 					s = tmp;
-					gameState.gui.getHand(s.player).getCell(s.card).setHighlight(true);
+					gameState.gui.getHand(s.player).getCell(s.card)
+							.setHighlight(true);
 				}
 			}
 		}
@@ -57,18 +67,26 @@ public class Selector {
 		Selection s = null, tmp = null;
 		while (true) {
 			Event e = eventReceiver.getNextEvent();
-			if (e.type == EventType.ApplyButtonClicked)
-				return s;
-			if (e.type == EventType.CancelButtonClicked)
-				return null;
+			if (e.type == EventType.ButtonClicked) {
+				ButtonClickedEvent f = (ButtonClickedEvent) e;
+				if (f.button == Button.ApplySelection)
+					return s;
+				else if (f.button == Button.CancelSelection)
+					return null;
+				else
+					continue;
+			}
 			if (e.type == EventType.BoardClicked) {
 				BoardClickedEvent f = (BoardClickedEvent) e;
-				if(s == null)
-					tmp = selectionMap.get(card.getSelectionType()).add(f.cardClicked);
+				if (s == null)
+					tmp = selectionMap.get(card.getSelectionType()).add(
+							f.cardClicked);
 				else
 					tmp = s.add(f.cardClicked);
-				if (card.isSelectionCorrect(gameState, tmp)) {
-					gameState.gui.getBoard().getCell(f.cardClicked.first, f.cardClicked.second).toggleHighlight();
+				if (card.rateSelection(gameState, tmp) > 0) {
+					gameState.gui.getBoard()
+							.getCell(f.cardClicked.first, f.cardClicked.second)
+							.toggleHighlight();
 					s = tmp;
 				}
 			}

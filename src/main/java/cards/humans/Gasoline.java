@@ -13,14 +13,14 @@ import controller.Selection.SelectionType;
 public class Gasoline extends Card {
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
+	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
 		for (int i = 1; i < cells.size(); i++) {
 			if (!SolidityTester.areEdgeAdjacent(cells.get(i), cells.get(i - 1))) {
-				return false;
+				return 0;
 			}
 		}
-		return true;
+		return 2;
 	}
 
 	@Override

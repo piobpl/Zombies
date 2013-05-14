@@ -8,9 +8,9 @@ import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;
 
 /**
- * REFLEKTOR – Cofa (równocześnie) każdego zombiego i psa w danym torze 
- * o jedno pole, jeżeli jest to możliwe.
- * 
+ * REFLEKTOR – Cofa (równocześnie) każdego zombiego i psa w danym torze o jedno
+ * pole, jeżeli jest to możliwe.
+ *
  * @author michal
  *
  */
@@ -18,15 +18,16 @@ import controller.Selection.SelectionType;
 public class Searchlight extends Card {
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		return true;
+	public int rateSelection(GameState gameState, Selection selection) {
+		return 2;
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
 		// TODO : sprawdzanie dodatkowych przeszkod, np. muru
-		int column = ((ColumnSelection)selection).column;
-		for(int i = 1; i < 5; i++) Mover.moveBackward(gameState, i, column);
+		int column = ((ColumnSelection) selection).column;
+		for (int i = 1; i < 5; i++)
+			Mover.moveBackward(gameState, i, column);
 	}
 
 	@Override

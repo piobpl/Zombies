@@ -11,16 +11,16 @@ import controller.Selection.SelectionType;
 // TODO : obsluga dodatkowych efektow (czlowiek) i przeszkod (np. mur)
 
 public class Shot extends Card {
-	
+
 	private Integer strength;
-	
+
 	public Shot(Integer strength) {
 		this.strength = strength;
 	}
 
 	@Override
-	public boolean isSelectionCorrect(GameState gameState, Selection selection) {
-		return true;
+	public int rateSelection(GameState gameState, Selection selection) {
+		return 2;
 	}
 
 	@Override
