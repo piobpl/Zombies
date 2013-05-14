@@ -1,18 +1,22 @@
 package cards.humans;
 
-import model.Card;
-import model.GameState;
 import cards.helpers.DamageDealer;
-import cards.zombies.Zombie;
 import cards.zombies.Dogs;
+import cards.zombies.Zombie;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;
+import model.Card;
+import model.GameState;
 
-public class HighVoltage extends Card {
+public class StreetOnFire extends Card {
 
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
+		int column = ((ColumnSelection) selection).column;
+		if (!(column == 0 || column == 2)) {
+			return 0;
+		}
 		return 2;
 	}
 
@@ -28,7 +32,7 @@ public class HighVoltage extends Card {
 
 	@Override
 	public String getName() {
-		return "High Voltage";
+		return "Street on fire";
 	}
 
 	@Override
