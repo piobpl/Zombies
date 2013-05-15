@@ -1,5 +1,9 @@
 package model;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * A class representing a board.
  */
@@ -8,6 +12,7 @@ public class Board {
 
 	private Card[][] board;
 	private GameState gameState;
+	private List<HashSet<Trap>> traps;
 
 	/**
 	 * Creates a new empty board.
@@ -15,6 +20,8 @@ public class Board {
 	public Board(GameState gameState) {
 		board = new Card[5][3];
 		this.gameState = gameState;
+		traps = new LinkedList<HashSet<Trap>>();
+		for(int i = 0; i < 15; i++) traps.add(new HashSet<Trap>());
 	}
 
 	/**
@@ -95,6 +102,10 @@ public class Board {
 	 */
 	public boolean is(int x, int y, String name) {
 		return board[x][y] != null && board[x][y].getName() == name;
+	}
+	
+	public HashSet<Trap> getTraps(int x, int y) {
+		return traps.get(x*3 + y);
 	}
 
 }
