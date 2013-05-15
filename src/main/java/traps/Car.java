@@ -7,7 +7,7 @@ import model.GameState;
 import model.Trap;
 import utility.Pair;
 /**
- * Trap card. 
+ * Trap card.
  * @author jerzozwierz
  *
  */
@@ -19,12 +19,12 @@ public class Car extends Trap {
 		this.gameState = gameState;
 		this.coordinates = coordinates;
 	}
-	
+
 	public final Integer coX;
 	public final Integer coY;
 	private final Pair<Integer, Integer> coordinates;
 	private GameState gameState;
-	
+
 	@Override
 	public String getName() {
 		return "Car";
@@ -32,12 +32,13 @@ public class Car extends Trap {
 
 	@Override
 	public int getTime() {
-		return 10;
+		return Integer.MAX_VALUE;
 	}
-	
+
 	@Override
 	public void decreaseTime() {}
 	//best solution, I guess
+	// tak :P ~piob
 
 	@Override
 	public boolean isMovePossible(Card card, Pair<Integer, Integer> from) {
@@ -64,7 +65,7 @@ public class Car extends Trap {
 		explode();
 		//TODO delete this shit
 	}
-	
+
 	private void explode() {
 		for (int i=0; i<5; i++) {
 			for (int j=0; j<3; j++) {
