@@ -19,5 +19,16 @@ public abstract class DamageDealer {
 			gameState.getBoard().set(x, y, c);
 		}
 	}
-
+	public static void dealFireDamage(GameState gameState, int x, int y, int dmg) {
+		dealDamage(gameState,x,y,dmg);
+		//TODO 
+	}
+	public static void dealShotDamage(GameState gameState, int x, int y, int dmg) {
+		dealDamage(gameState,x,y,dmg);
+		//TODO
+	}
+	public static void dealExplosionDamage(GameState gameState, int x, int y, int dmg) {
+		dealDamage(gameState,x,y,dmg);
+		//TODO
+	}
 }

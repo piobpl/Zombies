@@ -9,4 +9,6 @@ public abstract class Trap {
 	public abstract boolean isMovePossible(Card card, Pair<Integer, Integer> from);
 	public abstract void movedOn(Card card);
 	public abstract void shot();
+	public abstract void fire();
+	public abstract void blowUp();
 }
