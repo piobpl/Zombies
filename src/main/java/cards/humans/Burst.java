@@ -4,6 +4,7 @@ import cards.helpers.DamageDealer;
 import cards.helpers.Mover;
 import model.Card;
 import model.GameState;
+import model.Trap.Trigger;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;
@@ -32,7 +33,7 @@ public class Burst extends Card {
 				int damage = Math.min(remaining,
 						gameState.getBoard().get(i, column).getStrength());
 				remaining -= damage;
-				DamageDealer.dealDamage(gameState, i, column, damage);
+				DamageDealer.dealDamage(gameState, i, column, damage, Trigger.SHOT);
 				Mover.moveBackward(gameState, i, column);
 				if (remaining == 0)
 					break;

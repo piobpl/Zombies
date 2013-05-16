@@ -2,6 +2,7 @@ package cards.humans;
 
 import model.Card;
 import model.GameState;
+import model.Trap.Trigger;
 import cards.helpers.DamageDealer;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
@@ -25,7 +26,7 @@ public class StreetOnFire extends Card {
 			if (!gameState.getBoard().isEmpty(i, column)
 					&& (gameState.getBoard().get(i, column).getName().equals("Zombie") || gameState
 							.getBoard().get(i, column).getName().equals("Dogs"))) {
-				DamageDealer.dealDamage(gameState, i, column, 1);
+				DamageDealer.dealDamage(gameState, i, column, 1, Trigger.FIRE);
 			}
 		}
 	}

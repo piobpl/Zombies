@@ -2,6 +2,8 @@ package cards.helpers;
 
 import model.Card;
 import model.GameState;
+import model.Trap;
+import model.Trap.Trigger;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
@@ -10,7 +12,13 @@ import model.GameState;
  */
 public abstract class DamageDealer {
 
-	public static void dealDamage(GameState gameState, int x, int y, int dmg) {
+	public static void dealDamage(GameState gameState, int x, int y, int dmg, Trigger type) {
+		//TODO
+		for(Trap t: gameState.getBoard().getTraps(x, y))
+			if(t.getTriggers().contains(type)){
+				t.trigger();
+				return;
+			}
 		if (!gameState.getBoard().isEmpty(x, y)) {
 			Card c = gameState.getBoard().get(x, y);
 			c.setStrength(c.getStrength() - dmg);
@@ -18,17 +26,5 @@ public abstract class DamageDealer {
 				c = null;
 			gameState.getBoard().set(x, y, c);
 		}
-	}
-	public static void dealFireDamage(GameState gameState, int x, int y, int dmg) {
-		dealDamage(gameState,x,y,dmg);
-		//TODO 
-	}
-	public static void dealShotDamage(GameState gameState, int x, int y, int dmg) {
-		dealDamage(gameState,x,y,dmg);
-		//TODO
-	}
-	public static void dealExplosionDamage(GameState gameState, int x, int y, int dmg) {
-		dealDamage(gameState,x,y,dmg);
-		//TODO
 	}
 }

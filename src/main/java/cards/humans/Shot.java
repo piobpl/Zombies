@@ -4,6 +4,7 @@ import cards.helpers.DamageDealer;
 import cards.helpers.Mover;
 import model.Card;
 import model.GameState;
+import model.Trap.Trigger;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;
@@ -28,7 +29,7 @@ public class Shot extends Card {
 		int column = ((ColumnSelection) selection).column;
 		for (int i = 4; i >= 0; i--)
 			if (!gameState.getBoard().isEmpty(i, column)) {
-				DamageDealer.dealDamage(gameState, i, column, strength);
+				DamageDealer.dealDamage(gameState, i, column, strength, Trigger.SHOT);
 				Mover.moveBackward(gameState, i, column);
 				break;
 			}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.Card;
 import model.GameState;
+import model.Trap.Trigger;
 import utility.Pair;
 import cards.helpers.SolidityTester;
 import controller.Selection;
@@ -39,11 +40,11 @@ public class Gasoline extends Card {
 						.getStrength();
 				if (remainingStrength >= zombieStrength) {
 					cards.helpers.DamageDealer.dealDamage(gameState, x, y,
-							zombieStrength);
+							zombieStrength, Trigger.FIRE);
 					remainingStrength -= zombieStrength;
 				} else {
 					cards.helpers.DamageDealer.dealDamage(gameState, x, y,
-							remainingStrength);
+							remainingStrength, Trigger.FIRE);
 					remainingStrength = 0;
 				}
 			}

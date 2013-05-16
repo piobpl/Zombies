@@ -4,6 +4,7 @@ Trap:
  - mine
  - wall
  - barrier (efekt dzialania zapory)
+	:Trigger
 
 Modifier:
  - human
@@ -73,3 +74,6 @@ view
  		(kazdy mozna z zewnatrz enablowac i disablowac)
  	addMessage(String)
  		informator zawsze wyswietla 5 ostatnich
+
+ Triggery - trapy deklaruja jakie type obrazen je triggeruje,
+ przy zadanwaniu obrazen deklarujemy typ obrazen.

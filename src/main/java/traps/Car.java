@@ -1,11 +1,13 @@
 package traps;
 
-import cards.helpers.DamageDealer;
-import cards.helpers.SolidityTester;
+import java.util.EnumSet;
+
 import model.Card;
 import model.GameState;
 import model.Trap;
 import utility.Pair;
+import cards.helpers.DamageDealer;
+import cards.helpers.SolidityTester;
 /**
  * Trap card.
  * @author jerzozwierz
@@ -37,8 +39,6 @@ public class Car extends Trap {
 
 	@Override
 	public void decreaseTime() {}
-	//best solution, I guess
-	// tak :P ~piob
 
 	@Override
 	public boolean isMovePossible(Card card, Pair<Integer, Integer> from) {
@@ -48,31 +48,17 @@ public class Car extends Trap {
 	@Override
 	public void movedOn(Card card) {}
 
-	@Override
-	public void shot() {
-		explode();
-		//TODO delete this shit
+	public EnumSet<Trigger> getTriggers(){
+		return EnumSet.allOf(Trigger.class);
 	}
 
-	@Override
-	public void fire() {
-		explode();
-		//TODO delete this shit
-	}
-
-	@Override
-	public void blowUp() {
-		explode();
-		//TODO delete this shit
-	}
-
-	private void explode() {
+	public void trigger() {
 		for (int i=0; i<5; i++) {
 			for (int j=0; j<3; j++) {
 				Pair<Integer, Integer> temp = new Pair<Integer, Integer>(i,j);
 				if (SolidityTester.areVertexAdjacent(temp, coordinates) ||
 						temp.equals(coordinates)) {
-					DamageDealer.dealExplosionDamage(gameState, i, j, 1);
+					DamageDealer.dealDamage(gameState, i, j, 1, Trigger.EXPLOSION);
 				}
 			}
 		}
