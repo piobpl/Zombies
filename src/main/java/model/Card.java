@@ -17,6 +17,7 @@ import cards.zombies.Claws;
 import cards.zombies.Hunger;
 import cards.zombies.Mass;
 import cards.zombies.Meat;
+import cards.zombies.Terror;
 import cards.zombies.Zombie;
 import controller.Selection;
 import controller.Selection.SelectionType;
@@ -25,7 +26,7 @@ import controller.Selection.SelectionType;
  * An abstract class representing a card.
  */
 public abstract class Card {
-	
+
 	public final HashSet<Modifier> modifiers = new HashSet<Modifier>();
 
 	/*
@@ -50,7 +51,7 @@ public abstract class Card {
 			cards.add(new Mass());
 			cards.add(new Meat());
 			cards.add(new Claws());
-			// cards.add(new Terror());
+			cards.add(new Terror());
 		} else {
 			cards.add(new Gasoline());
 			cards.add(new Gasoline());

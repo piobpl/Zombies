@@ -90,6 +90,19 @@ public class Board {
 	public boolean isEmpty(int x, int y) {
 		return board[x][y] == null;
 	}
+	
+	/**
+	 * Checks whether a specified position on the board is empty and doesn't contain any traps.
+	 *
+	 * @param x
+	 *            first coordinate
+	 * @param y
+	 *            second coordinate
+	 * @return true if the specified position on the board is empty and doesn't contain any traps.
+	 */
+	public boolean isCompletelyEmpty(int x, int y) {
+		return (board[x][y] == null && getTraps(x,y).isEmpty());
+	}
 
 	/**
 	 * Checks whether a specified position has card with specified name.

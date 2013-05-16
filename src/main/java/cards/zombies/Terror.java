@@ -4,17 +4,18 @@ import controller.Selection;
 import controller.Selection.SelectionType;
 import model.Card;
 import model.GameState;
+import modifiers.TerrorModifier;
 
 public class Terror extends Card {
 
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
-		throw new java.lang.UnsupportedOperationException();
+		return 2;
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		//TODO ustawic globalmodifier terror na 1
+		gameState.globalModifiers.add(new TerrorModifier(5));
 	}
 
 	@Override
