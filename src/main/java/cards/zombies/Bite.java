@@ -39,7 +39,7 @@ public class Bite extends Card{
 	public void makeEffect(Selection selection, GameState gameState) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
 		Pair<Integer, Integer> tmp=cells.get(0);
-		//gameState.getBoard().get(tmp.first, tmp.second).modifiers.remove(Modifiers.Human); TODO!!
+		gameState.getBoard().get(tmp.first, tmp.second).modifiers.remove(ModifierType.HUMAN);
 		tmp=cells.get(1);
 		gameState.getBoard().set(tmp.first, tmp.second, new Zombie(1));
 	}

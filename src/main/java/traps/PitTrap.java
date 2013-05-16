@@ -58,7 +58,7 @@ public class PitTrap extends Trap {
 		}
 		case "Zombie": {
 			if (card.modifiers.contains(ModifierType.HUMAN)) {
-				//card.modifiers.remove(ModifierType.HUMAN); TODO
+				card.modifiers.remove(ModifierType.HUMAN);
 				gameState.getBoard().getTraps(coX, coY).remove(this);
 				break;
 			}

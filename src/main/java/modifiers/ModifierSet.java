@@ -14,4 +14,16 @@ public class ModifierSet {
 			if(m.modifierType == modifierType) return true;
 		return false;
 	}
+	
+	// potrzebne do usuwania człowieka
+	public void remove(ModifierType modifierType) {
+		Modifier toRemove = null;
+		for(Modifier m : set)
+			if(m.modifierType == modifierType) {
+				toRemove = m;
+				break;
+			}
+		if(toRemove != null)
+			set.remove(toRemove);
+	}
 }
