@@ -7,10 +7,10 @@ import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
 
-public class Pit extends Card{
+public class PitTrap extends Card{
 	private Integer strength;
 
-	public Pit(Integer strength) {
+	public PitTrap(Integer strength) {
 		this.strength = strength;
 	}
 
