@@ -92,14 +92,10 @@ public class Wall extends Trap {
 
 	@Override
 	public EnumSet<Trigger> getTriggers() {
-		// TODO Auto-generated method stub
-		return null;
+		return EnumSet.noneOf(Trigger.class);
 	}
 
 	@Override
-	public void trigger() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void trigger() {}
 
 }
