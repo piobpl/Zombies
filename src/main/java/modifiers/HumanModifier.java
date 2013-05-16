@@ -4,7 +4,7 @@ import model.Modifier;
 
 public class HumanModifier extends Modifier {
 
-	public HumanModifier() {}
+	HumanModifier() {}
 	
 	@Override
 	public String getName() {
