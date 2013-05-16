@@ -14,9 +14,9 @@ import cards.helpers.SolidityTester;
  * @author jerzozwierz
  *
  */
-public class Car extends Trap {
+public class CarTrap extends Trap {
 
-	public Car(GameState gameState, Pair<Integer, Integer> coordinates) {
+	public CarTrap(GameState gameState, Pair<Integer, Integer> coordinates) {
 		coX = coordinates.first;
 		coY = coordinates.second;
 		this.gameState = gameState;

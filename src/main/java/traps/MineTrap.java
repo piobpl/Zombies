@@ -17,9 +17,9 @@ import utility.Pair;
  * @author jerzozwierz
  *
  */
-public class Mine extends Trap {
+public class MineTrap extends Trap {
 	
-	public Mine(GameState gameState, Pair<Integer, Integer> coordinates) {
+	public MineTrap(GameState gameState, Pair<Integer, Integer> coordinates) {
 		this.gameState = gameState;
 		this.coX = coordinates.first;
 		this.coY = coordinates.second;

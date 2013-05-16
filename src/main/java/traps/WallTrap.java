@@ -14,9 +14,9 @@ import utility.Pair;
  * @author jerzozwierz
  *
  */
-public class Wall extends Trap {
+public class WallTrap extends Trap {
 
-	public Wall(GameState gameState, int strength, Pair<Integer, Integer> coordinates) {
+	public WallTrap(GameState gameState, int strength, Pair<Integer, Integer> coordinates) {
 		this.strength = strength;
 		this.gameState = gameState;
 		this.coX = coordinates.first;

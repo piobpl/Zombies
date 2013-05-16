@@ -25,7 +25,7 @@ public class Car extends Card{
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		gameState.getBoard().getTraps(x, y).add(new traps.Car(gameState,new Pair<Integer,Integer>(x,y)));
+		gameState.getBoard().getTraps(x, y).add(new traps.CarTrap(gameState,new Pair<Integer,Integer>(x,y)));
 	}
 
 	@Override

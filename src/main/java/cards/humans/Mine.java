@@ -29,7 +29,7 @@ public class Mine extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		gameState.getBoard().getTraps(x, y).add(new traps.Mine(gameState,new Pair<Integer,Integer>(x,y)));
+		gameState.getBoard().getTraps(x, y).add(new traps.MineTrap(gameState,new Pair<Integer,Integer>(x,y)));
 	}
 
 	@Override

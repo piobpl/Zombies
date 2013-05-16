@@ -13,7 +13,7 @@ import utility.Pair;
  * @author jerzozwierz
  *
  */
-public class Barrier extends Trap {
+public class BarrierTrap extends Trap {
 	
 	private int time = 4; //i guess
 	

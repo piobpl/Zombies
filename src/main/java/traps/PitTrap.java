@@ -13,9 +13,9 @@ import modifiers.Modifiers;
  * @author jerzozwierz
  *
  */
-public class Pit extends Trap {
+public class PitTrap extends Trap {
 
-	public Pit(GameState gameState, int strength, Pair<Integer, Integer> coordinates) {
+	public PitTrap(GameState gameState, int strength, Pair<Integer, Integer> coordinates) {
 		coX = coordinates.first;
 		coY = coordinates.second;
 		this.gameState = gameState;

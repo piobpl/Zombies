@@ -7,10 +7,10 @@ import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
 
-public class PitTrap extends Card{
+public class Pit extends Card{
 	private Integer strength;
 
-	public PitTrap(Integer strength) {
+	public Pit(Integer strength) {
 		this.strength = strength;
 	}
 
@@ -43,7 +43,7 @@ public class PitTrap extends Card{
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		gameState.getBoard().getTraps(x, y).add(new traps.Pit(gameState, strength, new Pair<Integer, Integer>(x, y)));
+		gameState.getBoard().getTraps(x, y).add(new traps.PitTrap(gameState, strength, new Pair<Integer, Integer>(x, y)));
 	}
 
 }
