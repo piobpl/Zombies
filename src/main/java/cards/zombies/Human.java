@@ -2,7 +2,8 @@ package cards.zombies;
 
 import model.Card;
 import model.GameState;
-import modifiers.Modifiers;
+import modifiers.Modifier;
+import modifiers.ModifierType;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
@@ -24,7 +25,7 @@ public class Human extends Card{
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
 		Card c=gameState.getBoard().get(x, y);
-		c.modifiers.add(Modifiers.Human);
+		c.modifiers.add(new Modifier(ModifierType.HUMAN, Integer.MAX_VALUE));
 	}
 
 	@Override

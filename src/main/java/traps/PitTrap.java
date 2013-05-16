@@ -2,11 +2,11 @@ package traps;
 
 import java.util.EnumSet;
 
-import utility.Pair;
 import model.Card;
 import model.GameState;
 import model.Trap;
-import modifiers.Modifiers;
+import modifiers.ModifierType;
+import utility.Pair;
 /**
  * Trap card.
  * Doesn't absorb shots.
@@ -57,8 +57,8 @@ public class PitTrap extends Trap {
 			break;
 		}
 		case "Zombie": {
-			if (card.modifiers.contains(Modifiers.Human)) {
-				card.modifiers.remove(Modifiers.Human);
+			if (card.modifiers.contains(ModifierType.HUMAN)) {
+				//card.modifiers.remove(ModifierType.HUMAN); TODO
 				gameState.getBoard().getTraps(coX, coY).remove(this);
 				break;
 			}

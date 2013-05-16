@@ -4,7 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Iterator;
 
-import model.Modifier;
+import modifiers.Modifier;
+import modifiers.ModifierType;
 
 import org.junit.Test;
 
@@ -18,13 +19,6 @@ public class TerrorTest {
 		Controller controller = new Controller();
 		Terror terror = new Terror();
 		terror.makeEffect(null, controller.gameState);
-		boolean a = false;
-		Iterator<Modifier> it = controller.gameState.globalModifiers.iterator();
-		while (it.hasNext()) {
-			if(it.next().getDescription().equals("Terror")){
-				a=true;
-			}
-		}
-		assertEquals(true, a);
+		assertEquals(true, controller.gameState.globalModifiers.contains(ModifierType.TERROR));
 	}
 }

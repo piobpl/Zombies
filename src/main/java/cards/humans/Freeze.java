@@ -2,7 +2,8 @@ package cards.humans;
 
 import model.Card;
 import model.GameState;
-import modifiers.BeenFrozenModifier;
+import modifiers.Modifier;
+import modifiers.ModifierType;
 import controller.Selection;
 import controller.Selection.SelectionType;
 
@@ -15,7 +16,7 @@ public class Freeze extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		gameState.globalModifiers.add(new BeenFrozenModifier(5));
+		gameState.globalModifiers.add(new Modifier(ModifierType.BEENFROZEN, 5));
 	}
 
 	@Override

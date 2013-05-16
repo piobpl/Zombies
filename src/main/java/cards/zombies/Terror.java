@@ -1,10 +1,11 @@
 package cards.zombies;
 
-import controller.Selection;
-import controller.Selection.SelectionType;
 import model.Card;
 import model.GameState;
-import modifiers.TerrorModifier;
+import modifiers.Modifier;
+import modifiers.ModifierType;
+import controller.Selection;
+import controller.Selection.SelectionType;
 
 public class Terror extends Card {
 
@@ -15,7 +16,7 @@ public class Terror extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		gameState.globalModifiers.add(new TerrorModifier(5));
+		gameState.globalModifiers.add(new Modifier(ModifierType.TERROR, 5));
 	}
 
 	@Override

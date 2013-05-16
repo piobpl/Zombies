@@ -1,9 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
+import modifiers.ModifierSet;
 import cards.humans.Burst;
 import cards.humans.Gasoline;
 import cards.humans.GetOut;
@@ -27,7 +27,7 @@ import controller.Selection.SelectionType;
  */
 public abstract class Card {
 
-	public final HashSet<Modifier> modifiers = new HashSet<Modifier>();
+	public final ModifierSet modifiers = new ModifierSet();
 
 	/*
 	 * Returns whole player's deck (temporarily not the same set as in rules).

@@ -1,11 +1,9 @@
 package cards.helpers;
 
-import java.util.Iterator;
-
 import model.Card;
 import model.GameState;
-import model.Modifier;
 import model.Player;
+import modifiers.ModifierType;
 import controller.GameOver;
 
 /**
@@ -19,14 +17,7 @@ import controller.GameOver;
 public abstract class Mover {
 	
 	public static boolean isFrozen(GameState gameState){
-		boolean a = false;
-		Iterator<Modifier> it = gameState.globalModifiers.iterator();
-		while (it.hasNext()) {
-			if (it.next().getName().equals("BeenFrozen")) {
-				a = true;
-			}
-		}
-		return a;
+		return gameState.globalModifiers.contains(ModifierType.BEENFROZEN);
 	}
 	
 	public static boolean moveForward(GameState gameState, int x, int y) {
