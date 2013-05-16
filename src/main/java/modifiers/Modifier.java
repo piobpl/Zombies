@@ -1,5 +1,11 @@
 package modifiers;
 
+/**
+ * W konstruktorze podajemy element enuma ModifierType, np. ModifierType.HUMAN i czas działania.
+ * 
+ * @author michal
+ *
+ */
 
 public class Modifier {
 	public final ModifierType modifierType;

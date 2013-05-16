@@ -1,5 +1,12 @@
 package modifiers;
 
+/**
+ * typy modyfikatorów, getName() zwraca informację dla GUI
+ * 
+ * @author michal
+ *
+ */
+
 public enum ModifierType {
 	HUMAN {
 		public String getName() {

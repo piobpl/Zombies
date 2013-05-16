@@ -2,6 +2,14 @@ package modifiers;
 
 import java.util.HashSet;
 
+/**
+ * Add dodaje konkretny modifier, contains przyjmuje ModifierType i sprawdza, czy istnieje 
+ * modifier o danym typie (np. human), remove usuwa JEDEN modifier o danym typie!
+ * 
+ * @author michal
+ *
+ */
+
 public class ModifierSet {
 	private HashSet<Modifier> set = new HashSet<Modifier>();
 	
