@@ -4,11 +4,6 @@ import model.Modifier;
 
 public class HumanModifier extends Modifier {
 
-	private int time;
-	
-	public HumanModifier(int time) {
-		this.time = time;
-	}
 	
 	@Override
 	public String getName() {
@@ -17,13 +12,11 @@ public class HumanModifier extends Modifier {
 
 	@Override
 	public int getTime() {
-		return time;
+		return Integer.MAX_VALUE;
 	}
 
 	@Override
-	public void decreaseTime() {
-		time--;
-	}
+	public void decreaseTime() {}
 
 	@Override
 	public String getDescription() {
