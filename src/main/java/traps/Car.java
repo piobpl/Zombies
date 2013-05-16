@@ -10,6 +10,7 @@ import cards.helpers.DamageDealer;
 import cards.helpers.SolidityTester;
 /**
  * Trap card.
+ * Car absorbs shots, explodes when shot.
  * @author jerzozwierz
  *
  */

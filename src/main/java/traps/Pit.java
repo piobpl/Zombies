@@ -9,6 +9,7 @@ import model.Trap;
 import modifiers.Modifiers;
 /**
  * Trap card.
+ * Doesn't absorb shots.
  * @author jerzozwierz
  *
  */

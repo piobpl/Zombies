@@ -8,7 +8,12 @@ import model.Card;
 import model.GameState;
 import model.Trap;
 import utility.Pair;
-
+/**
+ * Trap card.
+ * Wall absorbs shots, but doesn't explode.
+ * @author jerzozwierz
+ *
+ */
 public class Wall extends Trap {
 
 	public Wall(GameState gameState, int strength, Pair<Integer, Integer> coordinates) {
@@ -44,7 +49,10 @@ public class Wall extends Trap {
 	public boolean isMovePossible(Card card, Pair<Integer, Integer> from) {
 		switch (card.getName()) {
 		case "Barrel": {
-			return true;
+			return false;
+			//jednak, niech beczka ogarnia ze zaraz ma auto
+			//i pierdolnie wczesniej - w przeciwnym razie moga
+			//wynikac z tego problemy
 		}
 		case "Dogs": {
 			return false;
@@ -92,7 +100,9 @@ public class Wall extends Trap {
 
 	@Override
 	public EnumSet<Trigger> getTriggers() {
-		return EnumSet.noneOf(Trigger.class);
+		return EnumSet.of(Trigger.SHOT);
+		//kolejna poprawka - mur ma byc czuly na strzal, ale
+		//nic nie robic
 	}
 
 	@Override

@@ -9,7 +9,14 @@ import model.Card;
 import model.GameState;
 import model.Trap;
 import utility.Pair;
-
+/**
+ * Trap card.
+ * Does't absorb shots,
+ * explodes when someone step onto,
+ * or when is getting damaged by fire or other explosion
+ * @author jerzozwierz
+ *
+ */
 public class Mine extends Trap {
 	
 	public Mine(GameState gameState, Pair<Integer, Integer> coordinates) {
