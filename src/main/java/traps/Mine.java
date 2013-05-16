@@ -2,34 +2,32 @@ package traps;
 
 import java.util.EnumSet;
 
+import cards.helpers.DamageDealer;
+import cards.helpers.SolidityTester;
+
 import model.Card;
 import model.GameState;
 import model.Trap;
 import utility.Pair;
-import cards.helpers.DamageDealer;
-import cards.helpers.SolidityTester;
-/**
- * Trap card.
- * @author jerzozwierz
- *
- */
-public class Car extends Trap {
 
-	public Car(GameState gameState, Pair<Integer, Integer> coordinates) {
-		coX = coordinates.first;
-		coY = coordinates.second;
+public class Mine extends Trap {
+	
+	public Mine(GameState gameState, Pair<Integer, Integer> coordinates) {
 		this.gameState = gameState;
+		this.coX = coordinates.first;
+		this.coY = coordinates.second;
 		this.coordinates = coordinates;
 	}
-
+	
 	public final Integer coX;
 	public final Integer coY;
-	private final Pair<Integer, Integer> coordinates;
+	
 	private GameState gameState;
-
+	private Pair<Integer, Integer> coordinates;
+	
 	@Override
 	public String getName() {
-		return "Car";
+		return "Mine";
 	}
 
 	@Override
@@ -42,25 +40,28 @@ public class Car extends Trap {
 
 	@Override
 	public boolean isMovePossible(Card card, Pair<Integer, Integer> from) {
-		return !card.getName().equals("Barrel");
+		return true;
 	}
 
 	@Override
-	public void movedOn(Card card) {}
-
-	public EnumSet<Trigger> getTriggers(){
-		return EnumSet.complementOf(EnumSet.of(Trigger.VOLTAGE));
+	public void movedOn(Card card) {
+		trigger();
 	}
 
+	@Override
+	public EnumSet<Trigger> getTriggers() {
+		return EnumSet.of(Trigger.FIRE, Trigger.EXPLOSION);
+	}
+
+	@Override
 	public void trigger() {
 		gameState.getBoard().getTraps(coX, coY).remove(this);
+		DamageDealer.dealDamage(gameState, coX, coY, 2, Trigger.EXPLOSION);
 		for (int i=0; i<5; i++) {
 			for (int j=0; j<3; j++) {
 				Pair<Integer, Integer> temp = new Pair<Integer, Integer>(i,j);
-				if (SolidityTester.areVertexAdjacent(temp, coordinates) ||
-						temp.equals(coordinates)) {
+				if (SolidityTester.areEdgeAdjacent(temp, coordinates))
 					DamageDealer.dealDamage(gameState, i, j, 1, Trigger.EXPLOSION);
-				}
 			}
 		}
 	}
