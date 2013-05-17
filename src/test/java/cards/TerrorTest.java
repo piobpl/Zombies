@@ -1,10 +1,6 @@
 package cards;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Iterator;
-
-import modifiers.Modifier;
 import modifiers.ModifierType;
 
 import org.junit.Test;
