@@ -27,7 +27,7 @@ FLAMETHROWER	MIOTACZ
 FREEZE			STAĆ			Implemented&~Tested (waiting for implementation in controller)
 GASOLINE		ROPA			to check
 GET OUT			ZMIATAJ			Implemented&Tested
-HAND GRENADE	GRANAT			to check
+HAND GRENADE	GRANAT			Implemented&Tested
 HIGH VOLTAGE	220V			Implemented&Tested
 MINE			MINA			
 NAPALM	 		NAPALM

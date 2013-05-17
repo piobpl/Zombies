@@ -1,12 +1,11 @@
 package model.cards.humans;
 
+import model.GameState;
+import model.cards.helpers.Card;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
-import model.GameState;
-import model.cards.helpers.Card;
 
-// TODO : usuwanie muru etc.
 public class HandGrenade extends Card {
 
 	public String getName() {
@@ -35,6 +34,7 @@ public class HandGrenade extends Card {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
 		gameState.getBoard().remove(x, y);
+		gameState.getBoard().getTraps(x, y).clear();
 	}
 
 }
