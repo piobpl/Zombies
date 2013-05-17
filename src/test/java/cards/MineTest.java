@@ -5,11 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.Iterator;
 
 import model.Trap;
+import model.cards.humans.Mine;
+import model.cards.zombies.Zombie;
 
 import org.junit.Test;
 
-import cards.humans.Mine;
-import cards.zombies.Zombie;
 import controller.Controller;
 import controller.ForTestsOnly;
 

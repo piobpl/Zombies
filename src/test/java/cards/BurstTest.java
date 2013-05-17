@@ -1,10 +1,11 @@
 package cards;
 
 import static org.junit.Assert.*;
+import model.cards.humans.Burst;
+import model.cards.zombies.Zombie;
+
 import org.junit.Test;
 
-import cards.humans.Burst;
-import cards.zombies.Zombie;
 import controller.Controller;
 import controller.ForTestsOnly;
 import controller.Selection.ColumnSelection;

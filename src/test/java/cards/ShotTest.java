@@ -2,10 +2,11 @@ package cards;
 
 import static org.junit.Assert.assertEquals;
 
+import model.cards.humans.Shot;
+import model.cards.zombies.Zombie;
+
 import org.junit.Test;
 
-import cards.humans.Shot;
-import cards.zombies.Zombie;
 import controller.Controller;
 import controller.ForTestsOnly;
 import controller.Selection.ColumnSelection;

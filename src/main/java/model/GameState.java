@@ -1,6 +1,6 @@
 package model;
 
-import modifiers.ModifierSet;
+import model.modifiers.ModifierSet;
 import view.GUI;
 
 /**

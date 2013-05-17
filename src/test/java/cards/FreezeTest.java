@@ -1,11 +1,11 @@
 package cards;
 
 import static org.junit.Assert.assertEquals;
-import modifiers.ModifierType;
+import model.cards.humans.Freeze;
+import model.modifiers.ModifierType;
 
 import org.junit.Test;
 
-import cards.humans.Freeze;
 import controller.Controller;
 
 public class FreezeTest {

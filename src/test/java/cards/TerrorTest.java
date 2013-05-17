@@ -1,11 +1,11 @@
 package cards;
 
 import static org.junit.Assert.assertEquals;
-import modifiers.ModifierType;
+import model.cards.zombies.Terror;
+import model.modifiers.ModifierType;
 
 import org.junit.Test;
 
-import cards.zombies.Terror;
 import controller.Controller;
 
 public class TerrorTest {

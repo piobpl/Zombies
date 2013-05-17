@@ -2,10 +2,11 @@ package cards;
 
 import static org.junit.Assert.assertEquals;
 
+import model.cards.humans.Searchlight;
+import model.cards.zombies.Zombie;
+
 import org.junit.Test;
 
-import cards.humans.Searchlight;
-import cards.zombies.Zombie;
 import controller.Controller;
 import controller.ForTestsOnly;
 import controller.Selection.ColumnSelection;

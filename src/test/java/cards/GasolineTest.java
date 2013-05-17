@@ -5,9 +5,10 @@ import static org.junit.Assert.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.cards.humans.Gasoline;
+
 import org.junit.Test;
 import controller.Selection.GroupSelection;
-import cards.humans.Gasoline;
 import controller.ForTestsOnly;
 import utility.Pair;
 
