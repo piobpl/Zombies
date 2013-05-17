@@ -3,7 +3,7 @@
 ZOMBIE
 BITE			UGRYZIENIE		to test
 BOSS			BOSS			suspended
-CHANGE			SPADAJ
+CHANGE			SPADAJ			Implemented&~Tested
 CLAWS			PAZURY			Implemented&Tested
 CLICK			KLIK			suspended
 DOGS			PIES			suspended
@@ -12,9 +12,9 @@ HUNGER			GŁÓD			to check
 MASS			MASA			to check
 MEAT			MIĘSO			to check
 NOT SO FAST		NIE TAK SZYBKO	suspended
-PICK AXE		KILOF
-TERROR			TERROR			waiting for global modifier terror
-ZOMBIE			ZOMBIE			to check
+PICK AXE		KILOF			Implemented&Tested
+TERROR			TERROR			Implemented&~Tested (waiting for implementation in controller)
+ZOMBIE			ZOMBIE			Implemented&Tested
 
 
 HUMAN
@@ -24,11 +24,11 @@ BLOOD			KREW
 BURST			SERIA
 CAR				AUTO			to test
 FLAMETHROWER	MIOTACZ
-FREEZE			STAĆ
+FREEZE			STAĆ			Implemented&~Tested (waiting for implementation in controller)
 GASOLINE		ROPA			to check
-GET OUT			ZMIATAJ			to check
+GET OUT			ZMIATAJ			Implemented&Tested
 HAND GRENADE	GRANAT			to check
-HIGH VOLTAGE	220V			to check
+HIGH VOLTAGE	220V			Implemented&Tested
 MINE			MINA			
 NAPALM	 		NAPALM
 NET				SIEĆ
@@ -37,5 +37,5 @@ ROLLING BARREL	BECZKA
 SEARCHLIGHT		REFLEKTOR		to check
 SHOT			STRZAŁ			to check
 SNIPER			SNAJPER			to check
-STREET ON FIRE	ULICA W OGNIU	to check
+STREET ON FIRE	ULICA W OGNIU	Implemented&Tested
 WALL			MUR

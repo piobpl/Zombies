@@ -3,20 +3,29 @@ package model.cards.zombies;
 import model.GameState;
 import model.cards.helpers.Card;
 import controller.Selection;
+import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
+
+
+//TODO narazie usuwa wszystkie trapy z pola, no ale chyba i tak moze byc tylko jedno
 
 public class PickAxe extends Card {
 
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
-		// TODO Auto-generated method stub
+		int x = ((CellSelection) selection).cell.first;
+		int y = ((CellSelection) selection).cell.second;
+		if(!gameState.getBoard().getTraps(x, y).isEmpty()){
+			return 2;
+		}
 		return 0;
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		// TODO Auto-generated method stub
-
+		int x = ((CellSelection) selection).cell.first;
+		int y = ((CellSelection) selection).cell.second;
+		gameState.getBoard().getTraps(x, y).clear();
 	}
 
 	@Override
@@ -26,7 +35,7 @@ public class PickAxe extends Card {
 
 	@Override
 	public SelectionType getSelectionType() {
-		return SelectionType.CELL; // SelectionType.Modifier?
+		return SelectionType.CELL;
 	}
 
 	@Override
