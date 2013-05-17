@@ -1,7 +1,7 @@
 package model.cards.zombies;
 
-import model.Card;
 import model.GameState;
+import model.cards.helpers.Card;
 import utility.Pair;
 import controller.Selection;
 import controller.Selection.CellSelection;

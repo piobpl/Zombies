@@ -1,8 +1,8 @@
 package model.cards.humans;
 
-import model.Card;
 import model.GameState;
 import model.Player;
+import model.cards.helpers.Card;
 import controller.Selection;
 import controller.Selection.HandSelection;
 import controller.Selection.SelectionType;

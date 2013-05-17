@@ -1,9 +1,9 @@
 package model.cards.humans;
 
-import model.Card;
 import model.GameState;
-import model.Trap.Trigger;
+import model.cards.helpers.Card;
 import model.cards.helpers.DamageDealer;
+import model.traps.Trap.Trigger;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;

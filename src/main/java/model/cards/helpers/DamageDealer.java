@@ -1,9 +1,8 @@
 package model.cards.helpers;
 
-import model.Card;
 import model.GameState;
-import model.Trap;
-import model.Trap.Trigger;
+import model.traps.Trap;
+import model.traps.Trap.Trigger;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.

@@ -1,8 +1,8 @@
 package model.cards.zombies;
 
-import model.Card;
 import model.GameState;
 import model.Player;
+import model.cards.helpers.Card;
 import utility.Pair;
 import controller.GameOver;
 import controller.Selection;

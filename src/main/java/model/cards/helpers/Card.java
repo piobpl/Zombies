@@ -1,8 +1,10 @@
-package model;
+package model.cards.helpers;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import model.GameState;
+import model.Player;
 import model.cards.humans.Burst;
 import model.cards.humans.Gasoline;
 import model.cards.humans.GetOut;

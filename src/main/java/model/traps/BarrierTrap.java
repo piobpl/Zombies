@@ -2,8 +2,7 @@ package model.traps;
 
 import java.util.EnumSet;
 
-import model.Card;
-import model.Trap;
+import model.cards.helpers.Card;
 import utility.Pair;
 /**
  * Trap card.
@@ -14,9 +13,13 @@ import utility.Pair;
  *
  */
 public class BarrierTrap extends Trap {
-	
+
 	private int time = 4; //i guess
-	
+	//jak jest co ustawiac to pozwolmy:
+	public BarrierTrap(int time){
+		this.time = time;
+	}
+
 	@Override
 	public String getName() {
 		return "Barrier";

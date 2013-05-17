@@ -1,7 +1,7 @@
 package model.cards.zombies;
 
-import model.Card;
 import model.GameState;
+import model.cards.helpers.Card;
 import model.cards.helpers.SolidityTester;
 import utility.Pair;
 import controller.Selection;

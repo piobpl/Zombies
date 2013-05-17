@@ -3,9 +3,9 @@ package model.cards.zombies;
 import controller.Selection;
 import controller.Selection.HandSelection;
 import controller.Selection.SelectionType;
-import model.Card;
 import model.GameState;
 import model.Player;
+import model.cards.helpers.Card;
 
 public class Meat extends Card {
 

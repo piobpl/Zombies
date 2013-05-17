@@ -1,5 +1,7 @@
 package model;
 
+import model.cards.helpers.Card;
+
 /**
  * A class representing a hand.
  */

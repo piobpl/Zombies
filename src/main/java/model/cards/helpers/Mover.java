@@ -1,6 +1,5 @@
 package model.cards.helpers;
 
-import model.Card;
 import model.GameState;
 import model.Player;
 import model.modifiers.ModifierType;

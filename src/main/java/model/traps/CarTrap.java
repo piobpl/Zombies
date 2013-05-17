@@ -2,9 +2,8 @@ package model.traps;
 
 import java.util.EnumSet;
 
-import model.Card;
 import model.GameState;
-import model.Trap;
+import model.cards.helpers.Card;
 import model.cards.helpers.DamageDealer;
 import model.cards.helpers.SolidityTester;
 import utility.Pair;

@@ -2,8 +2,8 @@ package model.cards.humans;
 
 import controller.Selection;
 import controller.Selection.SelectionType;
-import model.Card;
 import model.GameState;
+import model.cards.helpers.Card;
 import model.cards.helpers.Mover;
 
 public class BackOff extends Card {

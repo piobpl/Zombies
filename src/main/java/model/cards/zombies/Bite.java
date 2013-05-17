@@ -2,8 +2,8 @@ package model.cards.zombies;
 
 import java.util.List;
 
-import model.Card;
 import model.GameState;
+import model.cards.helpers.Card;
 import model.modifiers.ModifierType;
 import utility.Pair;
 import controller.Selection;

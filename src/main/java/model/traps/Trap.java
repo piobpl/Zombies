@@ -1,6 +1,8 @@
-package model;
+package model.traps;
 
 import java.util.EnumSet;
+
+import model.cards.helpers.Card;
 
 import utility.Pair;
 

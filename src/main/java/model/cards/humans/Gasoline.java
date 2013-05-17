@@ -2,10 +2,10 @@ package model.cards.humans;
 
 import java.util.List;
 
-import model.Card;
 import model.GameState;
-import model.Trap.Trigger;
+import model.cards.helpers.Card;
 import model.cards.helpers.SolidityTester;
+import model.traps.Trap.Trigger;
 import utility.Pair;
 import controller.Selection;
 import controller.Selection.GroupSelection;

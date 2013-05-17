@@ -3,8 +3,8 @@ package model.cards.zombies;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
-import model.Card;
 import model.GameState;
+import model.cards.helpers.Card;
 
 public class Zombie extends Card {
 

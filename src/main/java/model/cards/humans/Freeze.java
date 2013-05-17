@@ -1,7 +1,7 @@
 package model.cards.humans;
 
-import model.Card;
 import model.GameState;
+import model.cards.helpers.Card;
 import model.modifiers.Modifier;
 import model.modifiers.ModifierType;
 import controller.Selection;
