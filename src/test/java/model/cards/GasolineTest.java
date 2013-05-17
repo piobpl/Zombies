@@ -1,4 +1,4 @@
-package cards;
+package model.cards;
 
 import static org.junit.Assert.*;
 
