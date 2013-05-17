@@ -107,3 +107,12 @@ nie dodawajcie do normalnych klas dodatkow tylko potrzebnych do testow
 
 22. Od środy do soboty będę w moskwie - nie wiem jaki tam mają internet - w miare mozliwosci bede zdalnie pomagal,
 	w niedziele ponaprawiam co popsujescie ;p
+
+23. beenFrozen i movedOnce. Jest wiele brzydkich regul, takich jak:
+ - zombie moze sie ruszyc 2 razy na ture (raz w fazie awansowania, raz w fazie zagrywania kart)
+ - ruch to nie cofniecie
+ - karty takie jak stac blokuja takze cofanie
+W takim razie zrobimy tak, ze:
+ - movedOnce znaczy ze zombie ruszyl sie juz w fazie zagrywania kart (cofanie nie jest zabronione)
+ - beenFrozen oznacza efekt takich kart jak stac (cofanie jest zabronione)
+Mysle ze Mover moze traktowac ruch w przod i na boki jako "ruch", a ruch w tyl jako "cofanie".
