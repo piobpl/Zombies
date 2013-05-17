@@ -11,6 +11,8 @@ import model.traps.Trap;
 
 import org.junit.Test;
 
+import utility.Pair;
+
 import controller.Controller;
 import controller.ForTestsOnly;
 
@@ -62,16 +64,26 @@ public class PickAxeTest {
 				2,
 				pickAxe.rateSelection(controller.gameState,
 						ForTestsOnly.getNewCellSelection(3, 2)));
+		controller.gameState.getBoard().getTraps(3, 2).add(new model.traps.PitTrap(controller.gameState, 3, new Pair<Integer, Integer>(3, 2)));
+		controller.gameState.getBoard().getTraps(3, 2).add(new model.traps.BarrierTrap(5));
 		pickAxe.makeEffect(ForTestsOnly.getNewCellSelection(3, 2),
 				controller.gameState);
 		a = 0;
-		it = controller.gameState.getBoard().getTraps(3, 2)
-				.iterator();
+		it = controller.gameState.getBoard().getTraps(3, 2).iterator();
 		while (it.hasNext()) {
 			if (it.next().getName().equals("Mine")) {
 				a++;
 			}
 		}
 		assertEquals(0, a);
+		a = 0;
+		it = controller.gameState.getBoard().getTraps(3, 2).iterator();
+		while (it.hasNext()) {
+			String tmp = it.next().getName();
+			if (tmp.equals("Pit") || tmp.equals("Barrier") ) {
+				a++;
+			}
+		}
+		assertEquals(2, a);
 	}
 }
