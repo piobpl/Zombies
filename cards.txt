@@ -3,7 +3,7 @@
 ZOMBIE
 BITE			UGRYZIENIE		to test
 BOSS			BOSS			suspended
-CHANGE			SPADAJ			Implemented&~Tested
+CHANGE			SPADAJ			to be fixed
 CLAWS			PAZURY			Implemented&Tested
 CLICK			KLIK			suspended
 DOGS			PIES			suspended

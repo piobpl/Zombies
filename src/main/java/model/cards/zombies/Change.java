@@ -10,6 +10,7 @@ import controller.Selection;
 import controller.Selection.GroupSelection;
 import controller.Selection.SelectionType;
 
+//TODO czy movedOnce
 public class Change extends Card {
 
 	@Override
