@@ -1,13 +1,13 @@
 								STATUS
 
 ZOMBIE
-BITE			UGRYZIENIE
+BITE			UGRYZIENIE		to test
 BOSS			BOSS			suspended
 CHANGE			SPADAJ
 CLAWS			PAZURY			to check
 CLICK			KLIK			suspended
 DOGS			PIES			suspended
-HUMAN			CZLOWIEK
+HUMAN			CZLOWIEK		to test
 HUNGER			GŁÓD			to check
 MASS			MASA			to check
 MEAT			MIĘSO			to check
@@ -22,17 +22,17 @@ BACK OFF		WYNOCHA
 BARRIER			ZAPORA
 BLOOD			KREW
 BURST			SERIA
-CAR				AUTO			to check
+CAR				AUTO			to test
 FLAMETHROWER	MIOTACZ
 FREEZE			STAĆ
 GASOLINE		ROPA			to check
 GET OUT			ZMIATAJ			to check
 HAND GRENADE	GRANAT			to check
 HIGH VOLTAGE	220V			to check
-MINE			MINA
+MINE			MINA			
 NAPALM	 		NAPALM
 NET				SIEĆ
-PIT TRAP		DZIURA			to check
+PIT TRAP		DZIURA			to test
 ROLLING BARREL	BECZKA
 SEARCHLIGHT		REFLEKTOR		to check
 SHOT			STRZAŁ			to check
