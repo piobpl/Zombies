@@ -58,6 +58,9 @@ public abstract class Mover {
 	}
 
 	public static boolean moveRight(GameState gameState, int x, int y) {
+		if(isFrozen(gameState)){
+			return false;
+		}
 		if (y == 2 || !gameState.getBoard().isEmpty(x, y + 1))
 			return false;
 		Card card = gameState.getBoard().get(x, y);
