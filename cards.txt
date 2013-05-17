@@ -4,7 +4,7 @@ ZOMBIE
 BITE			UGRYZIENIE		to test
 BOSS			BOSS			suspended
 CHANGE			SPADAJ
-CLAWS			PAZURY			to check
+CLAWS			PAZURY			Implemented&Tested
 CLICK			KLIK			suspended
 DOGS			PIES			suspended
 HUMAN			CZLOWIEK		to test
