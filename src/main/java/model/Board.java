@@ -30,7 +30,7 @@ public class Board {
 
 	/**
 	 * Removes a card from the board at a specified position.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate of the card
 	 * @param y
@@ -43,7 +43,7 @@ public class Board {
 
 	/**
 	 * Places a card at a specified position.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -58,7 +58,7 @@ public class Board {
 
 	/**
 	 * Updates a card at a specified position.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -71,7 +71,7 @@ public class Board {
 	/**
 	 * Returns a card at a specified position. Null if there's no card at that
 	 * position.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -84,7 +84,7 @@ public class Board {
 
 	/**
 	 * Checks whether a specified position on the board is empty.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -98,7 +98,7 @@ public class Board {
 	/**
 	 * Checks whether a specified position on the board is empty and doesn't
 	 * contain any traps.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -112,7 +112,7 @@ public class Board {
 
 	/**
 	 * Checks whether a specified position has card with specified name.
-	 * 
+	 *
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -125,7 +125,7 @@ public class Board {
 
 	/**
 	 * Exchange cards at a specified position (including traps);
-	 * 
+	 *
 	 * @param x1
 	 *            first coordinate of the first card
 	 * @param y1
@@ -153,6 +153,12 @@ public class Board {
 
 	public HashSet<Trap> getTraps(int x, int y) {
 		return traps.get(x * 3 + y);
+	}
+
+	public void nextPhase() {
+		for(int i = 0; i < 5; ++i)
+			for(int j = 0; j < 3; ++j)
+				board[i][j].modifiers.nextPhase();
 	}
 
 }

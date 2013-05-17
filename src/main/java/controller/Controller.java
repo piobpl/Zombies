@@ -93,6 +93,8 @@ public class Controller {
 		Card card;
 		Selection selection;
 		int limit = 4;
+		gameState.globalModifiers.nextPhase();
+		gameState.getBoard().nextPhase();
 		if (player == Player.HUMAN
 				&& gameState.globalModifiers.contains(ModifierType.TERROR))
 			limit = 1;
