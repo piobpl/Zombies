@@ -29,7 +29,7 @@ GASOLINE		ROPA			to check
 GET OUT			ZMIATAJ			Implemented&Tested
 HAND GRENADE	GRANAT			Implemented&Tested
 HIGH VOLTAGE	220V			Implemented&Tested
-MINE			MINA			
+MINE			MINA			Implemented&Tested
 NAPALM	 		NAPALM
 NET				SIEĆ
 PIT TRAP		DZIURA			to test
