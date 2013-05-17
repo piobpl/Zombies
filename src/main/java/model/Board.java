@@ -155,11 +155,11 @@ public class Board {
 		return traps.get(x * 3 + y);
 	}
 
-	public void nextPhase() {
+	public void nextStage() {
 		for(int i = 0; i < 5; ++i)
 			for(int j = 0; j < 3; ++j)
 				if(board[i][j] != null)
-					board[i][j].modifiers.nextPhase();
+					board[i][j].modifiers.nextStage();
 	}
 
 }

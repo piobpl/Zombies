@@ -6,6 +6,7 @@ import model.GameState;
 import model.Hand;
 import model.Player;
 import model.cards.helpers.Card;
+import model.cards.helpers.Mover;
 import model.modifiers.ModifierType;
 import view.EventReceiver.ButtonClickedEvent;
 import view.EventReceiver.Event;
@@ -28,124 +29,134 @@ public class Controller {
 		System.err.println("Done");
 	}
 
-	private void advancingStage(Player player) {
-		switch (player) {
-		case ZOMBIE:
-			Board board = gameState.getBoard();
-			for (int j = 0; j < 3; ++j)
-				if (board.is(4, j, "Zombie"))
-					throw new GameOver(Player.ZOMBIE);
-			for (int i = 3; i >= 0; --i) {
-				for (int j = 0; j < 3; ++j) {
-					if (board.is(i, j, "Zombie") && board.isEmpty(i + 1, j)) {
-						board.set(i + 1, j, board.get(i, j));
-						board.set(i, j, null);
+	private interface Stage {
+		public void perform(Player player);
+	};
+
+	private class advancingStage implements Stage {
+		public void perform(Player player) {
+			switch (player) {
+			case ZOMBIE:
+				Board board = gameState.getBoard();
+				for (int x = 4; x >= 0; --x)
+					for (int y = 0; y < 3; ++y)
+						if (board.is(x, y, "Zombie"))
+							Mover.moveForward(gameState, x, y);
+				break;
+			case HUMAN:
+				break;
+			}
+		}
+	}
+
+	private class drawingStage implements Stage {
+		public void perform(Player player) {
+			Hand hand = gameState.getHand(player);
+			Deck deck = gameState.getDeck(player);
+			for (int i = 0; i < 4; ++i)
+				if (hand.get(i) == null) {
+					if (deck.isEmpty()) {
+						if (player == Player.ZOMBIE)
+							throw new GameOver(Player.HUMAN);
+						else
+							return;
+					} else {
+						hand.set(i, deck.getTopCard());
+						System.err.println("Card drawn: "
+								+ hand.get(i).getName());
 					}
 				}
-			}
-			break;
-		case HUMAN:
-			break;
 		}
 	}
 
-	private void drawingStage(Player player) {
-		Hand hand = gameState.getHand(player);
-		Deck deck = gameState.getDeck(player);
-		for (int i = 0; i < 4; ++i)
-			if (hand.get(i) == null) {
-				if (deck.isEmpty()) {
-					if (player == Player.ZOMBIE)
-						throw new GameOver(Player.HUMAN);
-					else
-						return;
-				} else {
-					hand.set(i, deck.getTopCard());
-					System.err.println("Card drawn: " + hand.get(i).getName());
-				}
-			}
-	}
-
-	private void discardingStage(Player player) {
-		Event event;
-		Hand hand = gameState.getHand(player);
-		int pos;
-		if (hand.isEmpty())
-			return;
-		for (;;) {
-			event = gui.eventReceiver.getNextEvent();
-			if (event.type != EventType.HandClicked)
-				continue;
-			pos = ((HandClickedEvent) event).cardClicked;
-			if (hand.isEmpty(pos))
-				continue;
-			if (((HandClickedEvent) event).player == player)
-				break;
-		}
-		System.err.println("Discarded: " + hand.get(pos).getName());
-		hand.set(pos, null);
-	}
-
-	private void playingStage(Player player) {
-		Event event;
-		HandClickedEvent handClickedEvent;
-		Hand hand = gameState.getHand(player);
-		Card card;
-		Selection selection;
-		int limit = 4;
-		gameState.globalModifiers.nextPhase();
-		gameState.getBoard().nextPhase();
-		if (player == Player.HUMAN
-				&& gameState.globalModifiers.contains(ModifierType.TERROR))
-			limit = 1;
-		while (true) {
-			event = gui.eventReceiver.getNextEvent();
-			if (event.type == EventType.ButtonClicked) {
-				if (((ButtonClickedEvent) event).button == Button.EndTurn)
+	private class discardingStage implements Stage {
+		public void perform(Player player) {
+			Event event;
+			Hand hand = gameState.getHand(player);
+			int pos;
+			if (hand.isEmpty())
+				return;
+			for (;;) {
+				event = gui.eventReceiver.getNextEvent();
+				if (event.type != EventType.HandClicked)
+					continue;
+				pos = ((HandClickedEvent) event).cardClicked;
+				if (hand.isEmpty(pos))
+					continue;
+				if (((HandClickedEvent) event).player == player)
 					break;
-			} else if (event.type == EventType.HandClicked && limit > 0) {
-				handClickedEvent = (HandClickedEvent) event;
-				if (handClickedEvent.player != player)
-					continue;
-				card = hand.get(handClickedEvent.cardClicked);
-				if (card == null)
-					continue;
-				System.err.println("Card selected for playing: "
-						+ card.getName());
-				gui.getHand(player).getCell(handClickedEvent.cardClicked)
-						.setHighlight(true);
-				if (card.getSelectionType() == null) {
-					System.err.println("No selection, applying.");
-					card.makeEffect(null, gameState);
-					hand.remove(handClickedEvent.cardClicked);
-					--limit;
-				} else {
-					selection = selector.getSelection(card);
-					System.err.println("Received: " + selection);
-					if (selection != null) {
-						System.err.println("Selection received, applying.");
-						card.makeEffect(selection, gameState);
+			}
+			System.err.println("Discarded: " + hand.get(pos).getName());
+			hand.set(pos, null);
+		}
+	}
+
+	private class playingStage implements Stage {
+		public void perform(Player player) {
+			Event event;
+			HandClickedEvent handClickedEvent;
+			Hand hand = gameState.getHand(player);
+			Card card;
+			Selection selection;
+			int limit = 4;
+			if (player == Player.HUMAN
+					&& gameState.globalModifiers.contains(ModifierType.TERROR))
+				limit = 1;
+			while (true) {
+				event = gui.eventReceiver.getNextEvent();
+				if (event.type == EventType.ButtonClicked) {
+					if (((ButtonClickedEvent) event).button == Button.EndTurn)
+						break;
+				} else if (event.type == EventType.HandClicked && limit > 0) {
+					handClickedEvent = (HandClickedEvent) event;
+					if (handClickedEvent.player != player)
+						continue;
+					card = hand.get(handClickedEvent.cardClicked);
+					if (card == null)
+						continue;
+					System.err.println("Card selected for playing: "
+							+ card.getName());
+					gui.getHand(player).getCell(handClickedEvent.cardClicked)
+							.setHighlight(true);
+					if (card.getSelectionType() == null) {
+						System.err.println("No selection, applying.");
+						card.makeEffect(null, gameState);
 						hand.remove(handClickedEvent.cardClicked);
 						--limit;
+					} else {
+						selection = selector.getSelection(card);
+						System.err.println("Received: " + selection);
+						if (selection != null) {
+							System.err.println("Selection received, applying.");
+							card.makeEffect(selection, gameState);
+							hand.remove(handClickedEvent.cardClicked);
+							--limit;
+						}
 					}
+					gui.setHighlight(false);
 				}
-				gui.setHighlight(false);
 			}
 		}
 	}
 
 	public void game() {
+		Stage[] stages = new Stage[4];
+		stages[0] = new advancingStage();
+		stages[1] = new drawingStage();
+		stages[2] = new discardingStage();
+		stages[3] = new playingStage();
+		Player[] players = new Player[2];
+		players[0] = Player.ZOMBIE;
+		players[1] = Player.HUMAN;
 		System.err.println("Game started");
 		try {
 			while (true) {
-				advancingStage(Player.ZOMBIE);
-				drawingStage(Player.ZOMBIE);
-				discardingStage(Player.ZOMBIE);
-				playingStage(Player.ZOMBIE);
-				advancingStage(Player.HUMAN);
-				drawingStage(Player.HUMAN);
-				discardingStage(Player.HUMAN);
-				playingStage(Player.HUMAN);
+				for (Player p : players)
+					for (Stage s : stages) {
+						gameState.globalModifiers.nextStage();
+						gameState.getBoard().nextStage();
+						s.perform(p);
+					}
 			}
 		} catch (GameOver gameOver) {
 			System.out.println(gameOver.won + " has won!");

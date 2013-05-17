@@ -37,7 +37,7 @@ public class ModifierSet {
 			set.remove(toRemove);
 	}
 
-	public void nextPhase() {
+	public void nextStage() {
 		HashSet<Modifier> next = new HashSet<Modifier>();
 		for (Modifier m : set) {
 			m.decreaseTime();
