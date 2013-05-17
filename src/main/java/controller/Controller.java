@@ -1,11 +1,11 @@
 package controller;
 
 import model.Board;
-import model.Card;
 import model.Deck;
 import model.GameState;
 import model.Hand;
 import model.Player;
+import model.cards.helpers.Card;
 import view.EventReceiver.ButtonClickedEvent;
 import view.EventReceiver.Event;
 import view.EventReceiver.EventType;

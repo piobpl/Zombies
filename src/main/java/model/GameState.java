@@ -1,7 +1,6 @@
 package model;
 
-import java.util.HashSet;
-
+import model.modifiers.ModifierSet;
 import view.GUI;
 
 /**
@@ -9,7 +8,7 @@ import view.GUI;
  */
 public class GameState {
 	public final GUI gui;
-	public final HashSet<Modifier> globalModifiers = new HashSet<Modifier>();
+	public final ModifierSet globalModifiers = new ModifierSet();
 	private Board board;
 	private Deck zombieDeck;
 	private Deck humanDeck;

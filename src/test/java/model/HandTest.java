@@ -2,10 +2,12 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 
+import model.cards.helpers.Card;
+import model.cards.zombies.Zombie;
+
 import org.junit.Test;
 
 import view.GUI;
-import cards.zombies.Zombie;
 
 public class HandTest {
 

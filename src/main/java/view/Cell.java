@@ -9,7 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import model.Card;
+import model.cards.helpers.Card;
 
 public class Cell {
 

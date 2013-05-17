@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import model.cards.helpers.Card;
+
 /**
  * A class representing a deck.
  */

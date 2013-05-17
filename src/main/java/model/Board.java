@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import model.cards.helpers.Card;
+import model.traps.Trap;
+
 /**
  * A class representing a board.
  */
