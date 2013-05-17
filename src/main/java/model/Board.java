@@ -158,7 +158,8 @@ public class Board {
 	public void nextPhase() {
 		for(int i = 0; i < 5; ++i)
 			for(int j = 0; j < 3; ++j)
-				board[i][j].modifiers.nextPhase();
+				if(board[i][j] != null)
+					board[i][j].modifiers.nextPhase();
 	}
 
 }
