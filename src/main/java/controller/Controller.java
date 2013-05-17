@@ -6,6 +6,7 @@ import model.GameState;
 import model.Hand;
 import model.Player;
 import model.cards.helpers.Card;
+import model.modifiers.ModifierType;
 import view.EventReceiver.ButtonClickedEvent;
 import view.EventReceiver.Event;
 import view.EventReceiver.EventType;
@@ -26,9 +27,6 @@ public class Controller {
 		selector = new Selector(gui.eventReceiver, gameState);
 		System.err.println("Done");
 	}
-
-	@SuppressWarnings("unused")
-	private Player turn = Player.ZOMBIE;
 
 	private void advancingStage(Player player) {
 		switch (player) {
@@ -94,12 +92,16 @@ public class Controller {
 		Hand hand = gameState.getHand(player);
 		Card card;
 		Selection selection;
+		int limit = 4;
+		if (player == Player.HUMAN
+				&& gameState.globalModifiers.contains(ModifierType.TERROR))
+			limit = 1;
 		while (true) {
 			event = gui.eventReceiver.getNextEvent();
 			if (event.type == EventType.ButtonClicked) {
 				if (((ButtonClickedEvent) event).button == Button.EndTurn)
 					break;
-			} else if (event.type == EventType.HandClicked) {
+			} else if (event.type == EventType.HandClicked && limit > 0) {
 				handClickedEvent = (HandClickedEvent) event;
 				if (handClickedEvent.player != player)
 					continue;
@@ -111,7 +113,10 @@ public class Controller {
 				gui.getHand(player).getCell(handClickedEvent.cardClicked)
 						.setHighlight(true);
 				if (card.getSelectionType() == null) {
+					System.err.println("No selection, applying.");
 					card.makeEffect(null, gameState);
+					hand.remove(handClickedEvent.cardClicked);
+					--limit;
 				} else {
 					selection = selector.getSelection(card);
 					System.err.println("Received: " + selection);
@@ -119,6 +124,7 @@ public class Controller {
 						System.err.println("Selection received, applying.");
 						card.makeEffect(selection, gameState);
 						hand.remove(handClickedEvent.cardClicked);
+						--limit;
 					}
 				}
 				gui.setHighlight(false);
