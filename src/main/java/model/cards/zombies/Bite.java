@@ -9,9 +9,9 @@ import utility.Pair;
 import controller.Selection;
 import controller.Selection.GroupSelection;
 import controller.Selection.SelectionType;
+import model.cards.helpers.SolidityTester;;
 
 public class Bite extends Card{
-
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
@@ -21,8 +21,8 @@ public class Bite extends Card{
 			tmp=cells.get(0);
 			if(!gameState.getBoard().is(tmp.first, tmp.second, "Zombie") || !gameState.getBoard().get(tmp.first, tmp.second).modifiers.contains(ModifierType.HUMAN))
 				return 0;
-			tmp=cells.get(1);
-			if(!gameState.getBoard().isEmpty(tmp.first, tmp.second))
+			Pair<Integer, Integer> tmp2=cells.get(1);
+			if(!gameState.getBoard().isEmpty(tmp2.first, tmp2.second) || !SolidityTester.areEdgeAdjacent(tmp, tmp2) || tmp2.second<tmp.second)
 				return 0;
 			return 2;
 		case 1:

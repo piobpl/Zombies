@@ -17,8 +17,6 @@ public class HumanTest {
 		Controller controller = new Controller();
 		new Zombie(2).makeEffect(ForTestsOnly.getNewCellSelection(3, 1),
 				controller.gameState);
-		new Zombie(3).makeEffect(ForTestsOnly.getNewCellSelection(2, 1),
-				controller.gameState);
 		Human h=new Human();
 		assertEquals(0, h.rateSelection(controller.gameState, ForTestsOnly.getNewCellSelection(1, 1)));
 		assertEquals(2, h.rateSelection(controller.gameState, ForTestsOnly.getNewCellSelection(3, 1)));
