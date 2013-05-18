@@ -12,7 +12,7 @@ public class Barrier extends Card {
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Integer c=((ColumnSelection) selection).column;
-		if(!gameState.getBoard().isEmpty(4, c))
+		if(!gameState.getBoard().isCompletelyEmpty(4, c))
 			return 0;
 		return 2;
 	}
