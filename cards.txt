@@ -3,7 +3,7 @@
 ZOMBIE
 BITE			UGRYZIENIE		to test
 BOSS			BOSS			suspended
-CHANGE			SPADAJ			to be fixed
+CHANGE			SPADAJ			Implemented&Tested
 CLAWS			PAZURY			Implemented&Tested
 CLICK			KLIK			suspended
 DOGS			PIES			suspended
@@ -13,7 +13,7 @@ MASS			MASA			to check
 MEAT			MIĘSO			to check
 NOT SO FAST		NIE TAK SZYBKO	suspended
 PICK AXE		KILOF			Implemented&Tested
-TERROR			TERROR			Implemented&~Tested (waiting for implementation in controller)
+TERROR			TERROR			Implemented&Tested
 ZOMBIE			ZOMBIE			Implemented&Tested
 
 
@@ -24,7 +24,7 @@ BLOOD			KREW
 BURST			SERIA
 CAR				AUTO			to test
 FLAMETHROWER	MIOTACZ
-FREEZE			STAĆ			Implemented&~Tested (waiting for implementation in controller)
+FREEZE			STAĆ			Implemented&Tested
 GASOLINE		ROPA			to check
 GET OUT			ZMIATAJ			Implemented&Tested
 HAND GRENADE	GRANAT			Implemented&Tested
