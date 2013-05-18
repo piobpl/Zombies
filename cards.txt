@@ -7,7 +7,7 @@ CHANGE			SPADAJ			Implemented&Tested
 CLAWS			PAZURY			Implemented&Tested
 CLICK			KLIK			suspended
 DOGS			PIES			suspended
-HUMAN			CZLOWIEK		to test
+HUMAN			CZLOWIEK		tested
 HUNGER			GŁÓD			to check
 MASS			MASA			to check
 MEAT			MIĘSO			to check
