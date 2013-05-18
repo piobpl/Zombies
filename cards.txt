@@ -20,7 +20,7 @@ ZOMBIE			ZOMBIE			Implemented&Tested
 HUMAN
 BACK OFF		WYNOCHA
 BARRIER			ZAPORA			to test
-BLOOD			KREW
+BLOOD			KREW			to test
 BURST			SERIA
 CAR				AUTO			tested
 FLAMETHROWER	MIOTACZ
@@ -38,4 +38,4 @@ SEARCHLIGHT		REFLEKTOR		to check
 SHOT			STRZAŁ			to check
 SNIPER			SNAJPER			to check
 STREET ON FIRE	ULICA W OGNIU	Implemented&Tested
-WALL			MUR
+WALL			MUR				to test
