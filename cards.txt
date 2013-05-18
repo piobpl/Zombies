@@ -1,7 +1,7 @@
 								STATUS
 
 ZOMBIE
-BITE			UGRYZIENIE		to test
+BITE			UGRYZIENIE		tested
 BOSS			BOSS			suspended
 CHANGE			SPADAJ			Implemented&Tested
 CLAWS			PAZURY			Implemented&Tested
@@ -22,7 +22,7 @@ BACK OFF		WYNOCHA
 BARRIER			ZAPORA
 BLOOD			KREW
 BURST			SERIA
-CAR				AUTO			to test
+CAR				AUTO			tested
 FLAMETHROWER	MIOTACZ
 FREEZE			STAĆ			Implemented&Tested
 GASOLINE		ROPA			to check

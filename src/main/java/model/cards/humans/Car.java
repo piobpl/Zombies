@@ -13,8 +13,9 @@ public class Car extends Card{
 	public int rateSelection(GameState gameState, Selection selection) {
 		int x = ((CellSelection) selection).cell.first;
 		int y = ((CellSelection) selection).cell.second;
-		for(int i=x; x<5; x--){
-			if(!gameState.getBoard().isEmpty(i, y)){
+		
+		for(int i=x; i<5; i++){
+			if(!gameState.getBoard().isCompletelyEmpty(i, y)){
 				return 0;
 			}
 		}
