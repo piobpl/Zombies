@@ -22,10 +22,11 @@ public class Bite extends Card{
 			if(!gameState.getBoard().is(tmp.first, tmp.second, "Zombie") || !gameState.getBoard().get(tmp.first, tmp.second).modifiers.contains(ModifierType.HUMAN))
 				return 0;
 			Pair<Integer, Integer> tmp2=cells.get(1);
-			if(!gameState.getBoard().isEmpty(tmp2.first, tmp2.second) || !SolidityTester.areEdgeAdjacent(tmp, tmp2) || tmp2.second<tmp.second)
+			if(!gameState.getBoard().isEmpty(tmp2.first, tmp2.second) || !SolidityTester.areEdgeAdjacent(tmp, tmp2) || tmp2.first<tmp.first)
 				return 0;
 			return 2;
 		case 1:
+			//System.err.println("1");
 			tmp=cells.get(0);
 			if(!gameState.getBoard().is(tmp.first, tmp.second, "Zombie") || !gameState.getBoard().get(tmp.first, tmp.second).modifiers.contains(ModifierType.HUMAN))
 				return 0;
