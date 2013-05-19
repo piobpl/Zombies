@@ -67,23 +67,6 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new Terror());
 		} else {
 			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
-			cards.add(new Blood());
 			cards.add(new BackOff());
 			cards.add(new Barrier());
 			cards.add(new Burst(2));

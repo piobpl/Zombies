@@ -122,3 +122,5 @@ karty, modyfikatory i trapy sa typowane (obczaicie sobie getType())
 
 25. Nie dajemy assertow, jak cos ma sie nie zdazyc, a chcecie to zabezpieczyc rzucajcie UnsupportedOperationException
 (nie dotyczy testow)
+
+26. Dodawajcie przynajmniej informacje javadocowa author do tworzonych klas.
