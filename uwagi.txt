@@ -116,3 +116,9 @@ W takim razie zrobimy tak, ze:
  - movedOnce znaczy ze zombie ruszyl sie juz w fazie zagrywania kart (cofanie nie jest zabronione)
  - beenFrozen oznacza efekt takich kart jak stac (cofanie jest zabronione)
 Mysle ze Mover moze traktowac ruch w przod i na boki jako "ruch", a ruch w tyl jako "cofanie".
+
+24. Nie korzystamy z metod dla GUI (getName) by sprawdzic czy cos jest czyms czym ma byc,
+karty, modyfikatory i trapy sa typowane (obczaicie sobie getType())
+
+25. Nie dajemy assertow, jak cos ma sie nie zdazyc, a chcecie to zabezpieczyc rzucajcie UnsupportedOperationException
+(nie dotyczy testow)
