@@ -1,9 +1,9 @@
 package model.cards.zombies;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.modifiers.Modifier;
-import model.modifiers.ModifierType;
+import model.Modifier;
+import model.Modifier.ModifierType;
 import controller.Selection;
 import controller.Selection.SelectionType;
 
@@ -16,7 +16,7 @@ public class Terror extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		gameState.globalModifiers.add(new Modifier(ModifierType.TERROR, 5));
+		gameState.getModifiers().add(new Modifier(ModifierType.TERROR, 5));
 	}
 
 	@Override
@@ -39,4 +39,8 @@ public class Terror extends Card {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
+	@Override
+	public CardType getType() {
+		return CardType.TERROR;
+	}
 }

@@ -1,6 +1,6 @@
 package model.cards;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,9 +8,10 @@ import java.util.List;
 import model.cards.humans.Gasoline;
 
 import org.junit.Test;
-import controller.Selection.GroupSelection;
-import controller.ForTestsOnly;
+
 import utility.Pair;
+import controller.ForTestsOnly;
+import controller.Selection.GroupSelection;
 
 public class GasolineTest {
 

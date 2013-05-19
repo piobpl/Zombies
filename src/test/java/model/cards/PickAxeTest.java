@@ -4,15 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Iterator;
 
+import model.Trap;
+import model.Trap.TrapType;
 import model.cards.humans.Mine;
 import model.cards.zombies.PickAxe;
 import model.cards.zombies.Zombie;
-import model.traps.Trap;
 
 import org.junit.Test;
 
 import utility.Pair;
-
 import controller.Controller;
 import controller.ForTestsOnly;
 
@@ -31,7 +31,7 @@ public class PickAxeTest {
 		Iterator<Trap> it = controller.gameState.getBoard().getTraps(3, 2)
 				.iterator();
 		while (it.hasNext()) {
-			if (it.next().getName().equals("Mine")) {
+			if (it.next().getType() == TrapType.MINE) {
 				a++;
 			}
 		}
@@ -64,14 +64,19 @@ public class PickAxeTest {
 				2,
 				pickAxe.rateSelection(controller.gameState,
 						ForTestsOnly.getNewCellSelection(3, 2)));
-		controller.gameState.getBoard().getTraps(3, 2).add(new model.traps.PitTrap(controller.gameState, 3, new Pair<Integer, Integer>(3, 2)));
-		controller.gameState.getBoard().getTraps(3, 2).add(new model.traps.BarrierTrap(5));
+		controller.gameState
+				.getBoard()
+				.getTraps(3, 2)
+				.add(new model.traps.PitTrap(controller.gameState, 3,
+						new Pair<Integer, Integer>(3, 2)));
+		controller.gameState.getBoard().getTraps(3, 2)
+				.add(new model.traps.BarrierTrap(5));
 		pickAxe.makeEffect(ForTestsOnly.getNewCellSelection(3, 2),
 				controller.gameState);
 		a = 0;
 		it = controller.gameState.getBoard().getTraps(3, 2).iterator();
 		while (it.hasNext()) {
-			if (it.next().getName().equals("Mine")) {
+			if (it.next().getType() == TrapType.MINE) {
 				a++;
 			}
 		}
@@ -79,8 +84,8 @@ public class PickAxeTest {
 		a = 0;
 		it = controller.gameState.getBoard().getTraps(3, 2).iterator();
 		while (it.hasNext()) {
-			String tmp = it.next().getName();
-			if (tmp.equals("Pit") || tmp.equals("Barrier") ) {
+			TrapType tmp = it.next().getType();
+			if (tmp == TrapType.PIT || tmp == TrapType.BARRIER) {
 				a++;
 			}
 		}

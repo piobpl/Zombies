@@ -1,8 +1,8 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
+import model.Modifier.ModifierType;
 import model.cards.humans.Freeze;
-import model.modifiers.ModifierType;
 
 import org.junit.Test;
 
@@ -15,6 +15,9 @@ public class FreezeTest {
 		Controller controller = new Controller();
 		Freeze freeze = new Freeze();
 		freeze.makeEffect(null, controller.gameState);
-		assertEquals(true, controller.gameState.globalModifiers.contains(ModifierType.BEENFROZEN));
+		assertEquals(
+				true,
+				controller.gameState.getModifiers().contains(
+						ModifierType.BEENFROZEN));
 	}
 }

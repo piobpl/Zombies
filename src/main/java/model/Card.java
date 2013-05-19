@@ -1,10 +1,10 @@
-package model.cards.helpers;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.GameState;
-import model.Player;
+import model.Card.CardType;
+import model.Modifier.ModifierType;
 import model.cards.humans.BackOff;
 import model.cards.humans.Barrier;
 import model.cards.humans.Blood;
@@ -32,16 +32,19 @@ import model.cards.zombies.Meat;
 import model.cards.zombies.PickAxe;
 import model.cards.zombies.Terror;
 import model.cards.zombies.Zombie;
-import model.modifiers.ModifierSet;
+import utility.Typed;
+import utility.TypedSet;
 import controller.Selection;
 import controller.Selection.SelectionType;
 
 /**
  * An abstract class representing a card.
  */
-public abstract class Card {
+public abstract class Card implements Typed<CardType> {
 
-	public final ModifierSet modifiers = new ModifierSet();
+	public static enum CardType {
+		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
+	}
 
 	/*
 	 * Returns whole player's deck (temporarily not the same set as in rules).
@@ -63,9 +66,26 @@ public abstract class Card {
 			cards.add(new PickAxe());
 			cards.add(new Terror());
 		} else {
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
+			cards.add(new Blood());
 			cards.add(new BackOff());
 			cards.add(new Barrier());
-			cards.add(new Blood());
 			cards.add(new Burst(2));
 			cards.add(new Car());
 			cards.add(new Freeze());
@@ -84,15 +104,31 @@ public abstract class Card {
 		return cards;
 	}
 
-	public abstract int rateSelection(GameState gameState, Selection selection);
+	private TypedSet<Modifier, ModifierType> modifiers = new TypedSet<>();
 
-	public abstract void makeEffect(Selection selection, GameState gameState);
+	public TypedSet<Modifier, ModifierType> getModifiers() {
+		return modifiers;
+	}
 
 	public abstract String getName();
 
 	public abstract SelectionType getSelectionType();
 
 	public abstract Integer getStrength();
+
+	public abstract void makeEffect(Selection selection, GameState gameState);
+
+	public void nextStage() {
+		TypedSet<Modifier, ModifierType> futureModifiers = new TypedSet<>();
+		for (Modifier m : futureModifiers) {
+			m.decreaseTime();
+			if (m.getTime() > 0)
+				futureModifiers.add(m);
+		}
+		modifiers = futureModifiers;
+	}
+
+	public abstract int rateSelection(GameState gameState, Selection selection);
 
 	public abstract void setStrength(Integer strength);
 

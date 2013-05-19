@@ -1,6 +1,7 @@
 package model;
 
-import model.modifiers.ModifierSet;
+import model.Modifier.ModifierType;
+import utility.TypedSet;
 import view.GUI;
 
 /**
@@ -8,7 +9,7 @@ import view.GUI;
  */
 public class GameState {
 	public final GUI gui;
-	public final ModifierSet globalModifiers = new ModifierSet();
+	private TypedSet<Modifier, ModifierType> modifiers = new TypedSet<>();
 	private Board board;
 	private Deck zombieDeck;
 	private Deck humanDeck;
@@ -67,6 +68,15 @@ public class GameState {
 		} else {
 			return humanHand;
 		}
+	}
+
+	public TypedSet<Modifier, ModifierType> getModifiers() {
+		return modifiers;
+	}
+
+	public void nextStage() {
+		Modifier.nextStage(modifiers);
+		board.nextStage();
 	}
 
 }

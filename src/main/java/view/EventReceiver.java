@@ -50,6 +50,7 @@ public class EventReceiver {
 
 	public static class ButtonClickedEvent extends Event {
 		public final Button button;
+
 		public ButtonClickedEvent(Button button) {
 			super(EventType.ButtonClicked);
 			this.button = button;
@@ -91,7 +92,7 @@ public class EventReceiver {
 		registerToButtons();
 	}
 
-	private void registerToHand(final Player player){
+	private void registerToHand(final Player player) {
 		for (int i = 0; i < 4; ++i) {
 			final int index = i;
 			gui.getHand(player).getCell(i)
@@ -101,7 +102,8 @@ public class EventReceiver {
 							try {
 								eventQueue.put(new HandClickedEvent(index,
 										player));
-								System.err.println("Clicked: " + index + " on " + player + " hand");
+								System.err.println("Clicked: " + index + " on "
+										+ player + " hand");
 							} catch (InterruptedException e1) {
 								e1.printStackTrace();
 							}
@@ -110,30 +112,35 @@ public class EventReceiver {
 		}
 	}
 
-	private void registerToBoard(){
-		for(int i = 0; i < 5; i++){
+	private void registerToBoard() {
+		for (int i = 0; i < 5; i++) {
 			final int row = i;
-			for(int j = 0; j < 3; j++){
+			for (int j = 0; j < 3; j++) {
 				final int col = j;
-				gui.getBoard().getCell(row, col).addMouseListener(new SimpleMouseListener(){
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						try {
-							eventQueue.put(new BoardClickedEvent(new Pair<Integer, Integer>(row, col)));
-							System.err.println("Clicked board at (" + row + ", " + col + ")");
-						} catch (InterruptedException e1) {
-							e1.printStackTrace();
-						}
-					}
-				});
+				gui.getBoard().getCell(row, col)
+						.addMouseListener(new SimpleMouseListener() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								try {
+									eventQueue
+											.put(new BoardClickedEvent(
+													new Pair<Integer, Integer>(
+															row, col)));
+									System.err.println("Clicked board at ("
+											+ row + ", " + col + ")");
+								} catch (InterruptedException e1) {
+									e1.printStackTrace();
+								}
+							}
+						});
 			}
 		}
 	}
 
-	private void registerToButtons(){
-		for(Button i : Button.values()){
+	private void registerToButtons() {
+		for (Button i : Button.values()) {
 			final Button button = i;
-			gui.addButtonMouseListener(button, new SimpleMouseListener(){
+			gui.addButtonMouseListener(button, new SimpleMouseListener() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					try {
@@ -164,14 +171,15 @@ public class EventReceiver {
 	}
 
 	/**
-	 * Funkcja czeka, aż użytkownik wciśnie podany button, ignorując pozostałe eventy.
+	 * Funkcja czeka, aż użytkownik wciśnie podany button, ignorując pozostałe
+	 * eventy.
 	 */
-	public void waitForClick(Button button){
+	public void waitForClick(Button button) {
 		Event event;
-		while(true){
+		while (true) {
 			event = getNextEvent();
-			if(event.type == EventType.ButtonClicked)
-				if(((ButtonClickedEvent) event).button == button)
+			if (event.type == EventType.ButtonClicked)
+				if (((ButtonClickedEvent) event).button == button)
 					break;
 		}
 	}

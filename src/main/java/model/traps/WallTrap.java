@@ -2,9 +2,11 @@ package model.traps;
 
 import java.util.EnumSet;
 
+import model.Card;
+import model.Card.CardType;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.cards.helpers.SolidityTester;
+import model.SelectionTester;
+import model.Trap;
 import utility.Pair;
 
 /**
@@ -48,17 +50,15 @@ public class WallTrap extends Trap {
 
 	@Override
 	public boolean isMovePossible(Card card, Pair<Integer, Integer> from) {
-		switch (card.getName()) {
-		case "Barrel": {
+		switch (card.getType()) {
+		case BARREL:
 			return false;
 			// jednak, niech beczka ogarnia ze zaraz ma auto
 			// i pierdolnie wczesniej - w przeciwnym razie moga
 			// wynikac z tego problemy
-		}
-		case "Dogs": {
+		case DOGS:
 			return false;
-		}
-		case "Zombie": {
+		case ZOMBIE:
 			// Nie bedzie teleportacji:
 			/*
 			 * if (!SolidityTester.areEdgeAdjacent(coordinates, from)) { throw
@@ -68,7 +68,7 @@ public class WallTrap extends Trap {
 			 * @Override public String toString() { return
 			 * "Spierdalaj mi z tym"; } }; }
 			 */
-			if (SolidityTester.areInSameRow(coordinates, from))
+			if (SelectionTester.areInSameRow(coordinates, from))
 				return card.getStrength() >= strength;
 			// cofanie na mur jest jak ruch z boku, sprawdzamy tylko sile, jest
 			// dokladnie w regulach
@@ -81,7 +81,7 @@ public class WallTrap extends Trap {
 			// cutest case
 			int totalStrength = 0;
 			int i = from.first;
-			while (!gameState.getBoard().is(i, coY, "Zombie"))
+			while (!gameState.getBoard().is(i, coY, CardType.ZOMBIE))
 				totalStrength += gameState.getBoard().get(i--, coY)
 						.getStrength();
 			return totalStrength >= strength;
@@ -91,15 +91,14 @@ public class WallTrap extends Trap {
 			// tym karta glod
 			// nie ma dodatkowych zalozen, zrobmy jak nam wygodniej - jak idze w
 			// przod to kolezki zawsze go pchna
+		default:
+			throw new UnsupportedOperationException();
 		}
-		}
-		assert true;
-		return false;
 	}
 
 	@Override
 	public void movedOn(Card card) {
-		if (card.getName().equals("Barrel")) {
+		if (card.getType() == CardType.BARREL) {
 			gameState.getBoard().set(coX, coY, null);
 		}
 	}
@@ -113,6 +112,11 @@ public class WallTrap extends Trap {
 
 	@Override
 	public void trigger() {
+	}
+
+	@Override
+	public TrapType getType() {
+		return TrapType.WALL;
 	}
 
 }

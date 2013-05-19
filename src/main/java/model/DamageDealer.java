@@ -1,8 +1,6 @@
-package model.cards.helpers;
+package model;
 
-import model.GameState;
-import model.traps.Trap;
-import model.traps.Trap.Trigger;
+import model.Trap.Trigger;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
@@ -11,10 +9,11 @@ import model.traps.Trap.Trigger;
  */
 public abstract class DamageDealer {
 
-	public static void dealDamage(GameState gameState, int x, int y, int dmg, Trigger type) {
-		//TODO
-		for(Trap t: gameState.getBoard().getTraps(x, y))
-			if(t.getTriggers().contains(type)){
+	public static void dealDamage(GameState gameState, int x, int y, int dmg,
+			Trigger type) {
+		// TODO
+		for (Trap t : gameState.getBoard().getTraps(x, y))
+			if (t.getTriggers().contains(type)) {
 				t.trigger();
 				return;
 			}

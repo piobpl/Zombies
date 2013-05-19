@@ -1,10 +1,10 @@
 package model.cards.zombies;
 
+import model.Card;
+import model.GameState;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
-import model.GameState;
-import model.cards.helpers.Card;
 
 public class Dogs extends Card {
 
@@ -44,6 +44,11 @@ public class Dogs extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		this.strength = strength;
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.DOGS;
 	}
 
 }

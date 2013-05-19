@@ -1,7 +1,7 @@
 package model.cards.humans;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
@@ -37,4 +37,8 @@ public class HandGrenade extends Card {
 		gameState.getBoard().getTraps(x, y).clear();
 	}
 
+	@Override
+	public CardType getType() {
+		return CardType.HANDGRANADE;
+	}
 }

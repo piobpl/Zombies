@@ -1,15 +1,13 @@
 package model.cards.humans;
 
+import model.Card;
+import model.DamageDealer;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.cards.helpers.DamageDealer;
-import model.cards.helpers.Mover;
-import model.traps.Trap.Trigger;
+import model.MoveMaker;
+import model.Trap.Trigger;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;
-
-// TODO : obsluga dodatkowych efektow (czlowiek) i przeszkod (np. mur)
 
 public class Shot extends Card {
 
@@ -29,8 +27,9 @@ public class Shot extends Card {
 		int column = ((ColumnSelection) selection).column;
 		for (int i = 4; i >= 0; i--)
 			if (!gameState.getBoard().isEmpty(i, column)) {
-				DamageDealer.dealDamage(gameState, i, column, strength, Trigger.SHOT);
-				Mover.moveBackward(gameState, i, column);
+				DamageDealer.dealDamage(gameState, i, column, strength,
+						Trigger.SHOT);
+				MoveMaker.moveBackward(gameState, i, column);
 				break;
 			}
 	}
@@ -53,6 +52,11 @@ public class Shot extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.SHOT;
 	}
 
 }

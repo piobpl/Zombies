@@ -1,8 +1,8 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
+import model.Modifier.ModifierType;
 import model.cards.zombies.Terror;
-import model.modifiers.ModifierType;
 
 import org.junit.Test;
 
@@ -15,6 +15,9 @@ public class TerrorTest {
 		Controller controller = new Controller();
 		Terror terror = new Terror();
 		terror.makeEffect(null, controller.gameState);
-		assertEquals(true, controller.gameState.globalModifiers.contains(ModifierType.TERROR));
+		assertEquals(
+				true,
+				controller.gameState.getModifiers().contains(
+						ModifierType.TERROR));
 	}
 }

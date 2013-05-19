@@ -1,10 +1,10 @@
 package model.cards.humans;
 
+import model.Card;
+import model.GameState;
+import model.MoveMaker;
 import controller.Selection;
 import controller.Selection.SelectionType;
-import model.GameState;
-import model.cards.helpers.Card;
-import model.cards.helpers.Mover;
 
 public class BackOff extends Card {
 
@@ -19,7 +19,7 @@ public class BackOff extends Card {
 			for (int j = 0; j < 3; j++) {
 				if (gameState.getBoard().isEmpty(i, j))
 					continue;
-				Mover.moveBackward(gameState, i, j);
+				MoveMaker.moveBackward(gameState, i, j);
 			}
 		}
 	}
@@ -43,6 +43,11 @@ public class BackOff extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.BACKOFF;
 	}
 
 }

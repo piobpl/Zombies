@@ -10,13 +10,13 @@ public class GUILessGameState extends GameState {
 		zombieHand = new Hand(this, Player.ZOMBIE);
 		humanHand = new Hand(this, Player.HUMAN);
 	}
-	
+
 	private Board board;
 	private Deck zombieDeck;
 	private Deck humanDeck;
 	private Hand zombieHand;
 	private Hand humanHand;
-	
+
 	@Override
 	public Board getBoard() {
 		return board;

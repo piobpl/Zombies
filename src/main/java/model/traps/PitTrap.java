@@ -2,19 +2,22 @@ package model.traps;
 
 import java.util.EnumSet;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.modifiers.ModifierType;
+import model.Modifier.ModifierType;
+import model.Trap;
 import utility.Pair;
+
 /**
- * Trap card.
- * Doesn't absorb shots.
+ * Trap card. Doesn't absorb shots.
+ *
  * @author jerzozwierz
  *
  */
 public class PitTrap extends Trap {
 
-	public PitTrap(GameState gameState, int strength, Pair<Integer, Integer> coordinates) {
+	public PitTrap(GameState gameState, int strength,
+			Pair<Integer, Integer> coordinates) {
 		coX = coordinates.first;
 		coY = coordinates.second;
 		this.gameState = gameState;
@@ -25,8 +28,7 @@ public class PitTrap extends Trap {
 	public final Integer coY;
 	public final Integer strength;
 	private GameState gameState;
-	
-	
+
 	@Override
 	public String getName() {
 		return "Pit";
@@ -38,7 +40,8 @@ public class PitTrap extends Trap {
 	}
 
 	@Override
-	public void decreaseTime() {}
+	public void decreaseTime() {
+	}
 
 	@Override
 	public boolean isMovePossible(Card card, Pair<Integer, Integer> from) {
@@ -47,17 +50,17 @@ public class PitTrap extends Trap {
 
 	@Override
 	public void movedOn(Card card) {
-		switch (card.getName()) {
-		case "Barrel": {
+		switch (card.getType()) {
+		case BARREL: {
 			gameState.getBoard().set(coX, coY, null);
-			//important: Barrel doesn't explode in this case
+			// important: Barrel doesn't explode in this case
 			gameState.getBoard().getTraps(coX, coY).remove(this);
-			//not sure if it works
+			// not sure if it works
 			break;
 		}
-		case "Zombie": {
-			if (card.modifiers.contains(ModifierType.HUMAN)) {
-				card.modifiers.remove(ModifierType.HUMAN);
+		case ZOMBIE: {
+			if (card.getModifiers().contains(ModifierType.HUMAN)) {
+				card.getModifiers().remove(ModifierType.HUMAN);
 				gameState.getBoard().getTraps(coX, coY).remove(this);
 				break;
 			}
@@ -67,24 +70,31 @@ public class PitTrap extends Trap {
 			}
 			break;
 		}
-		case "Dogs": {
+		case DOGS: {
 			if (card.getStrength() <= strength) {
 				gameState.getBoard().set(coX, coY, null);
 				gameState.getBoard().getTraps(coX, coY).remove(this);
 			}
 			break;
 		}
+		default:
+			throw new UnsupportedOperationException();
 		}
 	}
-
 
 	@Override
 	public EnumSet<Trigger> getTriggers() {
 		return EnumSet.noneOf(Trigger.class);
-		//empty set (probably :P)
+		// empty set (probably :P)
 	}
 
 	@Override
-	public void trigger() {}
+	public void trigger() {
+	}
+
+	@Override
+	public TrapType getType() {
+		return TrapType.PIT;
+	}
 
 }

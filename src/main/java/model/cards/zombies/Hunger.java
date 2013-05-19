@@ -1,10 +1,9 @@
 package model.cards.zombies;
 
+import model.Card;
 import model.GameState;
-import model.Player;
-import model.cards.helpers.Card;
+import model.MoveMaker;
 import utility.Pair;
-import controller.GameOver;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
@@ -16,28 +15,18 @@ public class Hunger extends Card {
 		Pair<Integer, Integer> cell = ((CellSelection) selection).cell;
 		if (gameState.getBoard().isEmpty(cell.first, cell.second))
 			return 0;
-		if (!gameState.getBoard().get(cell.first, cell.second).getName()
-				.equals("Zombie"))
+		if (gameState.getBoard().get(cell.first, cell.second).getType() != CardType.ZOMBIE)
 			return 0;
 		if (!gameState.getBoard().isEmpty(cell.first + 1, cell.second))
 			return 0;
 		return 2;
 	}
 
-	/**
-	 * this is temporary solution without fixing possibility!
-	 */
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		// TODO it can be REALLY complicated: i think we should use function
-		// moveZombie() or sth like that
 		int x = ((CellSelection) selection).cell.first;
 		int y = ((CellSelection) selection).cell.second;
-		if (x == 4)
-			throw new GameOver(Player.ZOMBIE);
-		Card temp = gameState.getBoard().get(x, y);
-		gameState.getBoard().remove(x, y);
-		gameState.getBoard().set(x + 1, y, temp);
+		MoveMaker.moveForward(gameState, x, y);
 	}
 
 	@Override
@@ -58,6 +47,11 @@ public class Hunger extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.HUNGER;
 	}
 
 }

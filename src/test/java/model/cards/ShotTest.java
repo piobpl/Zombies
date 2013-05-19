@@ -1,7 +1,6 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-
 import model.cards.humans.Shot;
 import model.cards.zombies.Zombie;
 

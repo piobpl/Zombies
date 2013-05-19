@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Iterator;
 
+import model.Trap;
+import model.Trap.TrapType;
 import model.cards.humans.Mine;
 import model.cards.zombies.Zombie;
-import model.traps.Trap;
 
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class MineTest {
 		Iterator<Trap> it = controller.gameState.getBoard().getTraps(3, 2)
 				.iterator();
 		while (it.hasNext()) {
-			if (it.next().getName().equals("Mine")) {
+			if (it.next().getType() == TrapType.MINE) {
 				a++;
 			}
 		}

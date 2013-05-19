@@ -1,11 +1,12 @@
 package model.cards.zombies;
 
-import java.util.HashSet;
 import java.util.Iterator;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.traps.Trap;
+import model.Trap;
+import model.Trap.TrapType;
+import utility.TypedSet;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
@@ -26,12 +27,11 @@ public class PickAxe extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		int x = ((CellSelection) selection).cell.first;
 		int y = ((CellSelection) selection).cell.second;
-		HashSet<Trap> traps = gameState.getBoard().getTraps(x, y);
+		TypedSet<Trap, TrapType> traps = gameState.getBoard().getTraps(x, y);
 		Iterator<Trap> it = traps.iterator();
 		while (it.hasNext()) {
 			Trap tmpTrap = it.next();
-			if (!(tmpTrap.getName().equals("Pit") || tmpTrap.getName().equals(
-					"Barrier"))) {
+			if (!(tmpTrap.getType() == TrapType.PIT || tmpTrap.getType() == TrapType.BARRIER)) {
 				it.remove();
 			}
 		}
@@ -55,6 +55,11 @@ public class PickAxe extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.PICKAXE;
 	}
 
 }

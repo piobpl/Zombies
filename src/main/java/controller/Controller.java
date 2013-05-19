@@ -1,13 +1,14 @@
 package controller;
 
 import model.Board;
+import model.Card;
 import model.Deck;
 import model.GameState;
 import model.Hand;
+import model.MoveMaker;
 import model.Player;
-import model.cards.helpers.Card;
-import model.cards.helpers.Mover;
-import model.modifiers.ModifierType;
+import model.Card.CardType;
+import model.Modifier.ModifierType;
 import view.EventReceiver.ButtonClickedEvent;
 import view.EventReceiver.Event;
 import view.EventReceiver.EventType;
@@ -40,8 +41,8 @@ public class Controller {
 				Board board = gameState.getBoard();
 				for (int x = 4; x >= 0; --x)
 					for (int y = 0; y < 3; ++y)
-						if (board.is(x, y, "Zombie"))
-							Mover.moveForward(gameState, x, y);
+						if (board.is(x, y, CardType.ZOMBIE))
+							MoveMaker.moveForward(gameState, x, y);
 				break;
 			case HUMAN:
 				break;
@@ -100,7 +101,7 @@ public class Controller {
 			Selection selection;
 			int limit = 4;
 			if (player == Player.HUMAN
-					&& gameState.globalModifiers.contains(ModifierType.TERROR))
+					&& gameState.getModifiers().contains(ModifierType.TERROR))
 				limit = 1;
 			while (true) {
 				event = gui.eventReceiver.getNextEvent();
@@ -153,8 +154,7 @@ public class Controller {
 			while (true) {
 				for (Player p : players)
 					for (Stage s : stages) {
-						gameState.globalModifiers.nextStage();
-						gameState.getBoard().nextStage();
+						gameState.nextStage();
 						s.perform(p);
 					}
 			}

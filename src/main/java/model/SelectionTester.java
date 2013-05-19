@@ -1,4 +1,4 @@
-package model.cards.helpers;
+package model;
 
 import utility.Pair;
 
@@ -7,7 +7,7 @@ import utility.Pair;
  *
  * @author piob
  */
-public abstract class SolidityTester {
+public abstract class SelectionTester {
 
 	public static Pair<Integer, Integer> getDist(Pair<Integer, Integer> pos1,
 			Pair<Integer, Integer> pos2) {

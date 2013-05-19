@@ -1,7 +1,7 @@
 package model.cards.humans;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
 import model.traps.BarrierTrap;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
@@ -11,16 +11,16 @@ public class Barrier extends Card {
 
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
-		Integer c=((ColumnSelection) selection).column;
-		if(!gameState.getBoard().isCompletelyEmpty(4, c))
+		Integer c = ((ColumnSelection) selection).column;
+		if (!gameState.getBoard().isCompletelyEmpty(4, c))
 			return 0;
 		return 2;
 	}
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		Integer c=((ColumnSelection) selection).column;
-		for(int i=0; i<5; i++){
+		Integer c = ((ColumnSelection) selection).column;
+		for (int i = 0; i < 5; i++) {
 			gameState.getBoard().getTraps(i, c).add(new BarrierTrap(4));
 		}
 	}
@@ -45,4 +45,8 @@ public class Barrier extends Card {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
+	@Override
+	public CardType getType() {
+		return CardType.BARRIER;
+	}
 }

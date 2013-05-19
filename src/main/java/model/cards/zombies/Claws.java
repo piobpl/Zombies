@@ -1,7 +1,7 @@
 package model.cards.zombies;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
 import utility.Pair;
 import controller.Selection;
 import controller.Selection.CellSelection;
@@ -14,8 +14,7 @@ public class Claws extends Card {
 		Pair<Integer, Integer> cell = ((CellSelection) selection).cell;
 		if (gameState.getBoard().isEmpty(cell.first, cell.second))
 			return 0;
-		if (!gameState.getBoard().get(cell.first, cell.second).getName()
-				.equals("Zombie"))
+		if (gameState.getBoard().get(cell.first, cell.second).getType() != CardType.ZOMBIE)
 			return 0;
 		return 2;
 	}
@@ -47,6 +46,11 @@ public class Claws extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.CLAWS;
 	}
 
 }

@@ -2,14 +2,17 @@ package model.traps;
 
 import java.util.EnumSet;
 
+import model.Card;
+import model.Card.CardType;
+import model.DamageDealer;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.cards.helpers.DamageDealer;
-import model.cards.helpers.SolidityTester;
+import model.SelectionTester;
+import model.Trap;
 import utility.Pair;
+
 /**
- * Trap card.
- * Car absorbs shots, explodes when shot.
+ * Trap card. Car absorbs shots, explodes when shot.
+ *
  * @author jerzozwierz
  *
  */
@@ -38,31 +41,39 @@ public class CarTrap extends Trap {
 	}
 
 	@Override
-	public void decreaseTime() {}
-
-	@Override
-	public boolean isMovePossible(Card card, Pair<Integer, Integer> from) {
-		return !card.getName().equals("Barrel");
+	public void decreaseTime() {
 	}
 
 	@Override
-	public void movedOn(Card card) {}
+	public boolean isMovePossible(Card card, Pair<Integer, Integer> from) {
+		return card.getType() != CardType.BARREL;
+	}
 
-	public EnumSet<Trigger> getTriggers(){
+	@Override
+	public void movedOn(Card card) {
+	}
+
+	public EnumSet<Trigger> getTriggers() {
 		return EnumSet.complementOf(EnumSet.of(Trigger.VOLTAGE));
 	}
 
 	public void trigger() {
 		gameState.getBoard().getTraps(coX, coY).remove(this);
-		for (int i=0; i<5; i++) {
-			for (int j=0; j<3; j++) {
-				Pair<Integer, Integer> temp = new Pair<Integer, Integer>(i,j);
-				if (SolidityTester.areVertexAdjacent(temp, coordinates) ||
-						temp.equals(coordinates)) {
-					DamageDealer.dealDamage(gameState, i, j, 1, Trigger.EXPLOSION);
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 3; j++) {
+				Pair<Integer, Integer> temp = new Pair<Integer, Integer>(i, j);
+				if (SelectionTester.areVertexAdjacent(temp, coordinates)
+						|| temp.equals(coordinates)) {
+					DamageDealer.dealDamage(gameState, i, j, 1,
+							Trigger.EXPLOSION);
 				}
 			}
 		}
+	}
+
+	@Override
+	public TrapType getType() {
+		return TrapType.CAR;
 	}
 
 }

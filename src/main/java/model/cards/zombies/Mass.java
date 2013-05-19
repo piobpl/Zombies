@@ -1,8 +1,10 @@
 package model.cards.zombies;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.cards.helpers.SolidityTester;
+import model.Modifier;
+import model.Modifier.ModifierType;
+import model.SelectionTester;
 import utility.Pair;
 import controller.Selection;
 import controller.Selection.GroupSelection;
@@ -18,7 +20,6 @@ import controller.Selection.SelectionType;
  *
  */
 
-// TODO : zablokowanie dalszego poruszania się w rundzie
 public class Mass extends Card {
 
 	@Override
@@ -31,14 +32,13 @@ public class Mass extends Card {
 				.get(0);
 		Pair<Integer, Integer> cell2 = ((GroupSelection) selection).cells
 				.get(1);
-		if (!SolidityTester.areEdgeAdjacent(cell1, cell2))
+		if (!SelectionTester.areEdgeAdjacent(cell1, cell2))
 			return 0;
-		// if (!SolidityTester.areInSameRow(cell1, cell2)) <- tego chyba nie ma
-		// w instrukcji
-		// return false;
-		if (!gameState.getBoard().is(cell1.first, cell1.second, "Zombie"))
+		if (!gameState.getBoard()
+				.is(cell1.first, cell1.second, CardType.ZOMBIE))
 			return 0;
-		if (!gameState.getBoard().is(cell2.first, cell2.second, "Zombie"))
+		if (!gameState.getBoard()
+				.is(cell2.first, cell2.second, CardType.ZOMBIE))
 			return 0;
 		return 2;
 	}
@@ -56,6 +56,8 @@ public class Mass extends Card {
 		System.err.println("Nowy zombiak z sila: " + newStrength);
 		gameState.getBoard().get(cell2.first, cell2.second)
 				.setStrength(newStrength);
+		gameState.getBoard().get(cell2.first, cell2.second).getModifiers()
+				.add(new Modifier(ModifierType.MOVEDONCE, 8));
 		gameState.getBoard().update(cell2.first, cell2.second);
 		gameState.getBoard().set(cell1.first, cell1.second, null);
 	}
@@ -78,6 +80,11 @@ public class Mass extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.MASS;
 	}
 
 }

@@ -1,11 +1,11 @@
 package model.cards.zombies;
 
+import model.Card;
+import model.GameState;
+import model.Player;
 import controller.Selection;
 import controller.Selection.HandSelection;
 import controller.Selection.SelectionType;
-import model.GameState;
-import model.Player;
-import model.cards.helpers.Card;
 
 public class Meat extends Card {
 
@@ -43,6 +43,11 @@ public class Meat extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.MASS;
 	}
 
 }

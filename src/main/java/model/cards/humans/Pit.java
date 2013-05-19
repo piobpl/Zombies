@@ -1,13 +1,13 @@
 package model.cards.humans;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
 import utility.Pair;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
 
-public class Pit extends Card{
+public class Pit extends Card {
 	private Integer strength;
 
 	public Pit(Integer strength) {
@@ -43,7 +43,16 @@ public class Pit extends Card{
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		gameState.getBoard().getTraps(x, y).add(new model.traps.PitTrap(gameState, strength, new Pair<Integer, Integer>(x, y)));
+		gameState
+				.getBoard()
+				.getTraps(x, y)
+				.add(new model.traps.PitTrap(gameState, strength,
+						new Pair<Integer, Integer>(x, y)));
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.PIT;
 	}
 
 }

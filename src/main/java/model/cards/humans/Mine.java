@@ -1,8 +1,8 @@
 package model.cards.humans;
 
-import utility.Pair;
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
+import utility.Pair;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
@@ -16,9 +16,10 @@ public class Mine extends Card {
 		if (!gameState.getBoard().isCompletelyEmpty(x, y)) {
 			return 0;
 		}
-		if(x>0){
-			if(!gameState.getBoard().isEmpty(x-1, y) && (gameState.getBoard().get(x-1, y).getName().equals("Zombie") || gameState
-							.getBoard().get(x-1, y).getName().equals("Dogs"))){
+		if (x > 0) {
+			if (!gameState.getBoard().isEmpty(x - 1, y)
+					&& (gameState.getBoard().get(x - 1, y).getType() == CardType.ZOMBIE || gameState.getBoard()
+							.get(x - 1, y).getType() == CardType.DOGS)) {
 				return 0;
 			}
 		}
@@ -29,7 +30,11 @@ public class Mine extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		gameState.getBoard().getTraps(x, y).add(new model.traps.MineTrap(gameState,new Pair<Integer,Integer>(x,y)));
+		gameState
+				.getBoard()
+				.getTraps(x, y)
+				.add(new model.traps.MineTrap(gameState,
+						new Pair<Integer, Integer>(x, y)));
 	}
 
 	@Override
@@ -50,6 +55,11 @@ public class Mine extends Card {
 	@Override
 	public void setStrength(Integer strength) {
 		throw new java.lang.UnsupportedOperationException();
+	}
+
+	@Override
+	public CardType getType() {
+		return CardType.MINE;
 	}
 
 }

@@ -2,8 +2,8 @@ package controller;
 
 import java.util.EnumMap;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
 import utility.Pair;
 import view.Board;
 import view.EventReceiver;

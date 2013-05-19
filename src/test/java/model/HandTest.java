@@ -1,8 +1,6 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-
-import model.cards.helpers.Card;
 import model.cards.zombies.Zombie;
 
 import org.junit.Test;

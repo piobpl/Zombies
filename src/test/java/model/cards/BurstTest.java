@@ -1,6 +1,6 @@
 package model.cards;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import model.cards.humans.Burst;
 import model.cards.zombies.Zombie;
 

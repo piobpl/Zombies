@@ -2,10 +2,10 @@ package model.cards.humans;
 
 import java.util.List;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.cards.helpers.SolidityTester;
-import model.traps.Trap.Trigger;
+import model.SelectionTester;
+import model.Trap.Trigger;
 import utility.Pair;
 import controller.Selection;
 import controller.Selection.GroupSelection;
@@ -17,7 +17,8 @@ public class Gasoline extends Card {
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
 		for (int i = 1; i < cells.size(); i++) {
-			if (!SolidityTester.areEdgeAdjacent(cells.get(i), cells.get(i - 1))) {
+			if (!SelectionTester
+					.areEdgeAdjacent(cells.get(i), cells.get(i - 1))) {
 				return 0;
 			}
 		}
@@ -39,11 +40,11 @@ public class Gasoline extends Card {
 				int zombieStrength = gameState.getBoard().get(x, y)
 						.getStrength();
 				if (remainingStrength >= zombieStrength) {
-					model.cards.helpers.DamageDealer.dealDamage(gameState, x, y,
+					model.DamageDealer.dealDamage(gameState, x, y,
 							zombieStrength, Trigger.FIRE);
 					remainingStrength -= zombieStrength;
 				} else {
-					model.cards.helpers.DamageDealer.dealDamage(gameState, x, y,
+					model.DamageDealer.dealDamage(gameState, x, y,
 							remainingStrength, Trigger.FIRE);
 					remainingStrength = 0;
 				}
@@ -71,4 +72,8 @@ public class Gasoline extends Card {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
+	@Override
+	public CardType getType() {
+		return CardType.GASOLINE;
+	}
 }

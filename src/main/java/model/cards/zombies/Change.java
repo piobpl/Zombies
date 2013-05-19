@@ -2,11 +2,11 @@ package model.cards.zombies;
 
 import java.util.List;
 
+import model.Card;
 import model.GameState;
-import model.cards.helpers.Card;
-import model.cards.helpers.SolidityTester;
-import model.modifiers.Modifier;
-import model.modifiers.ModifierType;
+import model.Modifier;
+import model.Modifier.ModifierType;
+import model.SelectionTester;
 import utility.Pair;
 import controller.Selection;
 import controller.Selection.GroupSelection;
@@ -24,7 +24,8 @@ public class Change extends Card {
 			return 0;
 		}
 		for (int i = 1; i < cells.size(); i++) {
-			if (!SolidityTester.areEdgeAdjacent(cells.get(i), cells.get(i - 1))) {
+			if (!SelectionTester
+					.areEdgeAdjacent(cells.get(i), cells.get(i - 1))) {
 				return 0;
 			}
 		}
@@ -32,9 +33,8 @@ public class Change extends Card {
 			int x = cells.get(i).first;
 			int y = cells.get(i).second;
 			if (gameState.getBoard().isEmpty(x, y)
-					|| !gameState.getBoard().get(x, y).getName()
-							.equals("Zombie")
-					|| gameState.getBoard().get(x, y).modifiers
+					|| gameState.getBoard().get(x, y).getType() != CardType.ZOMBIE
+					|| gameState.getBoard().get(x, y).getModifiers()
 							.contains(ModifierType.MOVEDONCE)) {
 				return 0;
 			}
@@ -50,10 +50,10 @@ public class Change extends Card {
 		int x2 = cells.get(1).first;
 		int y2 = cells.get(1).second;
 		gameState.getBoard().exchangeContent(x1, y1, x2, y2);
-		gameState.getBoard().get(x1, y1).modifiers.add(new Modifier(
-				ModifierType.MOVEDONCE, 8));
-		gameState.getBoard().get(x2, y2).modifiers.add(new Modifier(
-				ModifierType.MOVEDONCE, 8));
+		gameState.getBoard().get(x1, y1).getModifiers()
+				.add(new Modifier(ModifierType.MOVEDONCE, 8));
+		gameState.getBoard().get(x2, y2).getModifiers()
+				.add(new Modifier(ModifierType.MOVEDONCE, 8));
 	}
 
 	@Override
@@ -76,4 +76,8 @@ public class Change extends Card {
 		throw new java.lang.UnsupportedOperationException();
 	}
 
+	@Override
+	public CardType getType() {
+		return CardType.CHANGE;
+	}
 }

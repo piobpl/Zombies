@@ -13,4 +13,12 @@ public class Pair<FirstType, SecondType> {
 		this.first = first;
 		this.second = second;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(getClass() != obj.getClass())
+			return false;
+		Pair<?, ?> p = (Pair<?, ?>) obj;
+		return first.equals(p.first) && second.equals(p.second);
+	}
 }

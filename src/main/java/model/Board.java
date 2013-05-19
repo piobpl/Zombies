@@ -1,11 +1,11 @@
 package model;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.cards.helpers.Card;
-import model.traps.Trap;
+import model.Card.CardType;
+import model.Trap.TrapType;
+import utility.TypedSet;
 
 /**
  * A class representing a board.
@@ -15,7 +15,7 @@ public class Board {
 
 	private Card[][] board;
 	private GameState gameState;
-	private List<HashSet<Trap>> traps;
+	private List<TypedSet<Trap, TrapType>> traps;
 
 	/**
 	 * Creates a new empty board.
@@ -23,9 +23,9 @@ public class Board {
 	public Board(GameState gameState) {
 		board = new Card[5][3];
 		this.gameState = gameState;
-		traps = new LinkedList<HashSet<Trap>>();
+		traps = new LinkedList<>();
 		for (int i = 0; i < 15; i++)
-			traps.add(new HashSet<Trap>());
+			traps.add(new TypedSet<Trap, TrapType>());
 	}
 
 	/**
@@ -119,8 +119,8 @@ public class Board {
 	 *            second coordinate
 	 * @return true if the specified position on the board is empty
 	 */
-	public boolean is(int x, int y, String name) {
-		return board[x][y] != null && board[x][y].getName() == name;
+	public boolean is(int x, int y, CardType type) {
+		return board[x][y] != null && board[x][y].getType() == type;
 	}
 
 	/**
@@ -138,28 +138,24 @@ public class Board {
 
 	public void exchangeContent(int x1, int y1, int x2, int y2) {
 		Card tmpCard = get(x1, y1);
-		HashSet<Trap> tmpTrapsSet = getTraps(x1, y1);
-		remove(x1, y1);
 		set(x1, y1, get(x2, y2));
-		getTraps(x1, y1).clear();
-		getTraps(x1, y1).addAll(getTraps(x2, y2));
-		remove(x2, y2);
 		set(x2, y2, tmpCard);
-		getTraps(x2, y2).clear();
-		getTraps(x2, y2).addAll(tmpTrapsSet);
 		update(x1, y1);
 		update(x2, y2);
+		TypedSet<Trap, TrapType> tmpSet = traps.get(x1 * 3 + y1);
+		traps.set(x1 * 3 + y1, traps.get(x2 * 3 + y2));
+		traps.set(x2 * 3 + y2, tmpSet);
 	}
 
-	public HashSet<Trap> getTraps(int x, int y) {
+	public TypedSet<Trap, TrapType> getTraps(int x, int y) {
 		return traps.get(x * 3 + y);
 	}
 
 	public void nextStage() {
-		for(int i = 0; i < 5; ++i)
-			for(int j = 0; j < 3; ++j)
-				if(board[i][j] != null)
-					board[i][j].modifiers.nextStage();
+		for (int i = 0; i < 5; ++i)
+			for (int j = 0; j < 3; ++j)
+				if (board[i][j] != null)
+					Modifier.nextStage(board[i][j].getModifiers());
 	}
 
 }

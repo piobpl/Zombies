@@ -2,21 +2,22 @@ package model.traps;
 
 import java.util.EnumSet;
 
-import model.cards.helpers.Card;
+import model.Card;
+import model.Trap;
 import utility.Pair;
+
 /**
- * Trap card.
- * Remember to put Barriers into a whole column. Always.
- * Barrier absorbs shots.
- * This card has no need to know its coordinates nor gameState.
+ * Trap card. Remember to put Barriers into a whole column. Always. Barrier
+ * absorbs shots. This card has no need to know its coordinates nor gameState.
+ *
  * @author jerzozwierz
  *
  */
 public class BarrierTrap extends Trap {
 
-	private int time = 4; //i guess
-	//jak jest co ustawiac to pozwolmy:
-	public BarrierTrap(int time){
+	private int time;
+
+	public BarrierTrap(int time) {
 		this.time = time;
 	}
 
@@ -42,7 +43,7 @@ public class BarrierTrap extends Trap {
 
 	@Override
 	public void movedOn(Card card) {
-		assert true; //if you got here, something bad has happened
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -51,6 +52,12 @@ public class BarrierTrap extends Trap {
 	}
 
 	@Override
-	public void trigger() {}
+	public void trigger() {
+	}
+
+	@Override
+	public TrapType getType() {
+		return TrapType.BARRIER;
+	}
 
 }
