@@ -12,7 +12,7 @@ import controller.Selection.SelectionType;
 public class Wall extends Card {
 	Integer height;
 	
-	Wall(Integer height){
+	public Wall(Integer height){
 		this.height=height;
 	}
 	

@@ -33,7 +33,7 @@ public class BiteTest {
 		h.makeEffect(ForTestsOnly.getNewCellSelection(3, 1), controller.gameState);
 		assertEquals(1, b.rateSelection(controller.gameState, ForTestsOnly.getNewGroupSelection(cells)));
 		cells.add(new Pair<Integer, Integer>(2, 1));
-		assertEquals(0, b.rateSelection(controller.gameState, ForTestsOnly.getNewGroupSelection(cells)));
+		assertEquals(2, b.rateSelection(controller.gameState, ForTestsOnly.getNewGroupSelection(cells)));
 		cells.remove(1);
 		assertEquals(1, b.rateSelection(controller.gameState, ForTestsOnly.getNewGroupSelection(cells)));
 		cells.add(new Pair<Integer, Integer>(3, 0));

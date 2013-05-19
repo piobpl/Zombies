@@ -24,7 +24,7 @@ public class Bite extends Card{
 			if(!gameState.getBoard().is(tmp.first, tmp.second, "Zombie") || !gameState.getBoard().get(tmp.first, tmp.second).modifiers.contains(ModifierType.HUMAN))
 				return 0;
 			Pair<Integer, Integer> tmp2=cells.get(1);
-			if(!SolidityTester.areEdgeAdjacent(tmp, tmp2) || tmp2.first<tmp.first || !Mover.isMovePossible(gameState, tmp, tmp2, new Zombie(1)))
+			if(!SolidityTester.areEdgeAdjacent(tmp, tmp2) || tmp2.first>tmp.first || !Mover.isMovePossible(gameState, tmp, tmp2, new Zombie(1)))
 				return 0;
 			return 2;
 		case 1:

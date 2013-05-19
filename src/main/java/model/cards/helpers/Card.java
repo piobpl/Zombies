@@ -6,6 +6,8 @@ import java.util.List;
 import model.GameState;
 import model.Player;
 import model.cards.humans.BackOff;
+import model.cards.humans.Barrier;
+import model.cards.humans.Blood;
 import model.cards.humans.Burst;
 import model.cards.humans.Car;
 import model.cards.humans.Freeze;
@@ -19,6 +21,7 @@ import model.cards.humans.Searchlight;
 import model.cards.humans.Shot;
 import model.cards.humans.Sniper;
 import model.cards.humans.StreetOnFire;
+import model.cards.humans.Wall;
 import model.cards.zombies.Bite;
 import model.cards.zombies.Change;
 import model.cards.zombies.Claws;
@@ -61,6 +64,8 @@ public abstract class Card {
 			cards.add(new Terror());
 		} else {
 			cards.add(new BackOff());
+			cards.add(new Barrier());
+			cards.add(new Blood());
 			cards.add(new Burst(2));
 			cards.add(new Car());
 			cards.add(new Freeze());
@@ -74,6 +79,7 @@ public abstract class Card {
 			cards.add(new Shot(3));
 			cards.add(new Sniper());
 			cards.add(new StreetOnFire());
+			cards.add(new Wall(6));
 		}
 		return cards;
 	}
