@@ -20,9 +20,13 @@ public abstract class Mover {
 	public static boolean isFrozen(GameState gameState){
 		return gameState.globalModifiers.contains(ModifierType.BEENFROZEN);
 	}
-	
-	public static boolean isMovePossible(GameState gameState, Pair<Integer, Integer> from, Pair<Integer, Integer> to){
-		Card card=gameState.getBoard().get(from.first, from.second);
+
+	public static boolean isMovePossible(GameState gameState, Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card){
+		if(isFrozen(gameState) || gameState.getBoard().isEmpty(to.first, to.second)){
+			return false;
+		}
+		if(card==null)
+			card=gameState.getBoard().get(from.first, from.second);
 		for(Trap t:gameState.getBoard().getTraps(to.first, to.second)){
 			if(!t.isMovePossible(card, from)){
 				return false;
@@ -33,7 +37,7 @@ public abstract class Mover {
 	
 	public static boolean moveTo(GameState gameState, Pair<Integer, Integer> from, Pair<Integer, Integer> to){
 		Card card=gameState.getBoard().get(from.first, from.second);
-		if(!isMovePossible(gameState, from, to))
+		if(!isMovePossible(gameState, from, to, null))
 			return false;
 		gameState.getBoard().set(to.first, to.second, card);
 		gameState.getBoard().set(from.first, from.second, null);
