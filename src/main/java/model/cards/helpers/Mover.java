@@ -3,6 +3,8 @@ package model.cards.helpers;
 import model.GameState;
 import model.Player;
 import model.modifiers.ModifierType;
+import model.traps.Trap;
+import utility.Pair;
 import controller.GameOver;
 
 /**
@@ -19,6 +21,28 @@ public abstract class Mover {
 		return gameState.globalModifiers.contains(ModifierType.BEENFROZEN);
 	}
 	
+	public static boolean isMovePossible(GameState gameState, Pair<Integer, Integer> from, Pair<Integer, Integer> to){
+		Card card=gameState.getBoard().get(from.first, from.second);
+		for(Trap t:gameState.getBoard().getTraps(to.first, to.second)){
+			if(!t.isMovePossible(card, from)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static boolean moveTo(GameState gameState, Pair<Integer, Integer> from, Pair<Integer, Integer> to){
+		Card card=gameState.getBoard().get(from.first, from.second);
+		if(!isMovePossible(gameState, from, to))
+			return false;
+		gameState.getBoard().set(to.first, to.second, card);
+		gameState.getBoard().set(from.first, from.second, null);
+		for(Trap t:gameState.getBoard().getTraps(to.first, to.second)){
+			t.movedOn(card);
+		}
+		return true;
+	}
+	
 	public static boolean moveForward(GameState gameState, int x, int y) {
 		if(isFrozen(gameState)){
 			return false;
@@ -28,8 +52,9 @@ public abstract class Mover {
 			throw new GameOver(Player.ZOMBIE);
 		if (!gameState.getBoard().isEmpty(x + 1, y))
 			return false;
-		gameState.getBoard().set(x + 1, y, card);
-		gameState.getBoard().set(x, y, null);
+		/*gameState.getBoard().set(x + 1, y, card);
+		gameState.getBoard().set(x, y, null);*/
+		moveTo(gameState, new Pair<Integer, Integer>(x, y), new Pair<Integer, Integer>(x+1, y));
 		return true;
 	}
 
@@ -39,9 +64,10 @@ public abstract class Mover {
 		}
 		if (x == 0 || !gameState.getBoard().isEmpty(x - 1, y))
 			return false;
-		Card card = gameState.getBoard().get(x, y);
+		/*Card card = gameState.getBoard().get(x, y);
 		gameState.getBoard().set(x - 1, y, card);
-		gameState.getBoard().set(x, y, null);
+		gameState.getBoard().set(x, y, null);*/
+		moveTo(gameState, new Pair<Integer, Integer>(x, y), new Pair<Integer, Integer>(x-1, y));
 		return true;
 	}
 
@@ -51,9 +77,10 @@ public abstract class Mover {
 		}
 		if (y == 0 || !gameState.getBoard().isEmpty(x, y - 1))
 			return false;
-		Card card = gameState.getBoard().get(x, y);
+		/*Card card = gameState.getBoard().get(x, y);
 		gameState.getBoard().set(x, y - 1, card);
-		gameState.getBoard().set(x, y, null);
+		gameState.getBoard().set(x, y, null);*/
+		moveTo(gameState, new Pair<Integer, Integer>(x, y), new Pair<Integer, Integer>(x, y-1));
 		return true;
 	}
 
@@ -63,9 +90,10 @@ public abstract class Mover {
 		}
 		if (y == 2 || !gameState.getBoard().isEmpty(x, y + 1))
 			return false;
-		Card card = gameState.getBoard().get(x, y);
+		/*Card card = gameState.getBoard().get(x, y);
 		gameState.getBoard().set(x, y + 1, card);
-		gameState.getBoard().set(x, y, null);
+		gameState.getBoard().set(x, y, null);*/
+		moveTo(gameState, new Pair<Integer, Integer>(x, y), new Pair<Integer, Integer>(x, y+1));
 		return true;
 	}
 }
