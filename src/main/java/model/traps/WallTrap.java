@@ -67,7 +67,7 @@ public class WallTrap extends Trap {
 			// cutest case
 			int totalStrength = 0;
 			int i = from.first;
-			while (gameState.getBoard().is(i, coY, CardType.ZOMBIE) &&  i >= 0)
+			while (i >= 0 && gameState.getBoard().is(i, coY, CardType.ZOMBIE))
 				totalStrength += gameState.getBoard().get(i--, coY)
 						.getStrength();
 			return totalStrength >= strength;
