@@ -29,8 +29,9 @@ public abstract class MoveMaker {
 		if (card == null)
 			return false;
 		for (Trap t : gameState.getBoard().getTraps(to.first, to.second)) {
-			System.err.println(t.isMovePossible(card, from));
+			//System.err.println(t.isMovePossible(card, from));
 			if (!t.isMovePossible(card, from)) {
+				System.err.println("Trap "+t+"says you can't go here if you are "+card);
 				return false;
 			}
 		}
