@@ -21,16 +21,16 @@ HUMAN
 BACK OFF		WYNOCHA
 BARRIER			ZAPORA			to test
 BLOOD			KREW			to test
-BURST			SERIA
+BURST			SERIA			jaki jest tego status? jakis kod istnieje
 CAR				AUTO			tested
-FLAMETHROWER	MIOTACZ
+FLAMETHROWER	MIOTACZ			suspended
 FREEZE			STAĆ			Implemented&Tested
 GASOLINE		ROPA			to check
 GET OUT			ZMIATAJ			Implemented&Tested
 HAND GRENADE	GRANAT			Implemented&Tested
 HIGH VOLTAGE	220V			Implemented&Tested
 MINE			MINA			Implemented&Tested
-NAPALM	 		NAPALM
+NAPALM	 		NAPALM			being written
 NET				SIEĆ
 PIT TRAP		DZIURA			to test
 ROLLING BARREL	BECZKA
