@@ -15,6 +15,7 @@ import view.EventReceiver.HandClickedEvent;
 import view.GUI.Button;
 import controller.Selection.CellSelection;
 import controller.Selection.ColumnSelection;
+import controller.Selection.EmptySelection;
 import controller.Selection.GroupSelection;
 import controller.Selection.HandSelection;
 import controller.Selection.SelectionType;
@@ -38,6 +39,7 @@ public class Selector {
 		selectionMap.put(SelectionType.COLUMN, new ColumnSelection());
 		selectionMap.put(SelectionType.GROUP, new GroupSelection());
 		selectionMap.put(SelectionType.HAND, new HandSelection());
+		selectionMap.put(SelectionType.EMPTY, new EmptySelection());
 	}
 
 	public Selection getSelection(Card card) {
@@ -48,6 +50,10 @@ public class Selector {
 		BoardClickedEvent f = null;
 		HandClickedEvent g = null;
 		ButtonClickedEvent h = null;
+		if(card.getSelectionType() == SelectionType.EMPTY) {
+			current = candidate = new EmptySelection();
+			currentRate = 2;
+		}
 		while (true) {
 			e = eventReceiver.getNextEvent();
 			if (e.type == EventType.ButtonClicked) {
@@ -64,7 +70,8 @@ public class Selector {
 				g = (HandClickedEvent) e;
 				candidate = new HandSelection(g.player, g.cardClicked);
 			} else {
-				if (card.getSelectionType() == SelectionType.HAND)
+				if (card.getSelectionType() == SelectionType.HAND ||
+						card.getSelectionType() == SelectionType.EMPTY)
 					continue;
 				f = (BoardClickedEvent) e;
 				if (current == null)
@@ -108,6 +115,8 @@ public class Selector {
 					HandSelection pos = ((HandSelection) candidate);
 					gameState.gui.getHand(pos.player).getCell(pos.card)
 							.setHighlight(true);
+					break;
+				case EMPTY:
 					break;
 				}
 				current = candidate;
