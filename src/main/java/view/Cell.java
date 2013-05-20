@@ -33,52 +33,76 @@ public class Cell {
 		isHighlighted = false;
 	}
 
-	public void drawCard(Card card) {
-		if (card == null) {
-			name.setVisible(false);
-			strength.setVisible(false);
-		} else {
-			name.setVisible(true);
-			name.setText(card.getName());
-			if (card.getStrength() == null) {
-				strength.setVisible(false);
-			} else {
-				strength.setVisible(true);
-				strength.setText("Sila: " + card.getStrength());
+	public void drawCard(final Card card) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				if (card == null) {
+					name.setVisible(false);
+					strength.setVisible(false);
+				} else {
+					name.setVisible(true);
+					name.setText(card.getName());
+					if (card.getStrength() == null) {
+						strength.setVisible(false);
+					} else {
+						strength.setVisible(true);
+						strength.setText("Sila: " + card.getStrength());
+					}
+				}
 			}
-		}
+		});
 	}
 
-	public void drawTraps(Iterable<Trap> traps){
-		String trap = "";
-		boolean first = true;
-		for(Trap t: traps){
-			if(!first)
-				trap += ", ";
-			trap += t.getName();
-		}
-		trapDesc.setText(trap);
-	}
-	
-	public void addMouseListener(MouseListener a) {
-		panel.addMouseListener(a);
+	public void drawTraps(final Iterable<Trap> traps) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				String trap = "";
+				boolean first = true;
+				for (Trap t : traps) {
+					if (!first)
+						trap += ", ";
+					trap += t.getName();
+				}
+				trapDesc.setText(trap);
+			}
+		});
 	}
 
-	public void setHighlight(boolean light) {
-		isHighlighted = light;
-		if (light) {
-			panel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
-		} else {
-			panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		}
+	public void addMouseListener(final MouseListener a) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				panel.addMouseListener(a);
+			}
+		});
+	}
+
+	public void setHighlight(final boolean light) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				isHighlighted = light;
+				if (light) {
+					panel.setBorder(BorderFactory.createLineBorder(Color.GREEN,
+							1));
+				} else {
+					panel.setBorder(BorderFactory.createLineBorder(Color.BLACK,
+							1));
+				}
+			}
+		});
 	}
 
 	public void toggleHighlight() {
-		if (isHighlighted) {
-			panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		} else {
-			panel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 1));
-		}
-		isHighlighted = !isHighlighted;
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				if (isHighlighted) {
+					panel.setBorder(BorderFactory.createLineBorder(Color.BLACK,
+							1));
+				} else {
+					panel.setBorder(BorderFactory.createLineBorder(Color.GREEN,
+							1));
+				}
+				isHighlighted = !isHighlighted;
+			}
+		});
 	}
 }

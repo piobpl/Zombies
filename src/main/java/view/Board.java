@@ -19,7 +19,7 @@ public class Board {
 
 	/**
 	 * Returns a cell at a specified position.
-	 *
+	 * 
 	 * @param x
 	 *            row
 	 * @param y
