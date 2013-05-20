@@ -6,7 +6,11 @@ import model.traps.BarrierTrap;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;
-
+/**
+ * 
+ * @author Edoipi
+ *
+ */
 public class Barrier extends Card {
 
 	@Override

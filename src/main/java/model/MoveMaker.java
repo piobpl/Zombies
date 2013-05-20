@@ -8,7 +8,7 @@ import controller.GameOver;
 /**
  * Klasa wspomagająca ruszanie zombich i psów po planszy.
  *
- * @author michal
+ * @author michal, Edoipi
  *
  */
 

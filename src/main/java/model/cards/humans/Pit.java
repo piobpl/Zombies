@@ -6,7 +6,11 @@ import utility.Pair;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
-
+/**
+ * 
+ * @author Edoipi
+ *
+ */
 public class Pit extends Card {
 	private Integer strength;
 

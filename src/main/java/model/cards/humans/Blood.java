@@ -10,7 +10,11 @@ import utility.Pair;
 import controller.Selection;
 import controller.Selection.GroupSelection;
 import controller.Selection.SelectionType;
-
+/**
+ * 
+ * @author Edoipi
+ *
+ */
 public class Blood extends Card {
 
 	@Override

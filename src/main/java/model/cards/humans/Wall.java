@@ -8,7 +8,11 @@ import utility.Pair;
 import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
-
+/**
+ * 
+ * @author Edoipi
+ *
+ */
 public class Wall extends Card {
 	Integer height;
 

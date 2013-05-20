@@ -5,7 +5,11 @@ import java.util.List;
 
 import model.Player;
 import utility.Pair;
-
+/**
+ * 
+ * @author Edoipi
+ *
+ */
 public abstract class Selection {
 	public static enum SelectionType {
 		CELL, COLUMN, GROUP, HAND;

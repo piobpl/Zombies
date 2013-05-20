@@ -18,7 +18,11 @@ import controller.Selection.ColumnSelection;
 import controller.Selection.GroupSelection;
 import controller.Selection.HandSelection;
 import controller.Selection.SelectionType;
-
+/**
+ * 
+ * @author Edoipi
+ *
+ */
 public class Selector {
 	public final EventReceiver eventReceiver;
 	private GameState gameState;
