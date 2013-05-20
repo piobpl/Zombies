@@ -15,6 +15,7 @@ import view.EventReceiver.EventType;
 import view.EventReceiver.HandClickedEvent;
 import view.GUI;
 import view.GUI.Button;
+import controller.Selection.SelectionType;
 
 public class Controller {
 
@@ -121,12 +122,12 @@ public class Controller {
 							+ card.getName());
 					gui.getHand(player).getCell(handClickedEvent.cardClicked)
 							.setHighlight(true);
-					if (card.getSelectionType() == null) {
+					/*if (card.getSelectionType() == null) {
 						System.err.println("No selection, applying.");
 						card.makeEffect(null, gameState);
 						hand.remove(handClickedEvent.cardClicked);
 						--limit;
-					} else {
+					} else {*/
 						selection = selector.getSelection(card);
 						System.err.println("Received: " + selection);
 						if (selection != null) {
@@ -137,7 +138,7 @@ public class Controller {
 						}
 					}
 					gui.setHighlight(false);
-				}
+				//}
 			}
 		}
 	}

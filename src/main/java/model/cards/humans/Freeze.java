@@ -26,7 +26,7 @@ public class Freeze extends Card {
 
 	@Override
 	public SelectionType getSelectionType() {
-		return null;
+		return SelectionType.EMPTY;
 	}
 
 	@Override

@@ -31,8 +31,7 @@ public class BackOff extends Card {
 
 	@Override
 	public SelectionType getSelectionType() {
-		return null; // deal with it, or make new SelectionType.NOTHING or sth
-						// like that
+		return SelectionType.EMPTY;
 	}
 
 	@Override

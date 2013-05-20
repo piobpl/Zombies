@@ -12,7 +12,7 @@ import utility.Pair;
  */
 public abstract class Selection {
 	public static enum SelectionType {
-		CELL, COLUMN, GROUP, HAND;
+		CELL, COLUMN, GROUP, HAND, EMPTY;
 	}
 
 	public abstract Selection add(Pair<Integer, Integer> p);
@@ -86,4 +86,14 @@ public abstract class Selection {
 			throw new UnsupportedOperationException();
 		}
 	}
+	
+	public static class EmptySelection extends Selection {
+
+		@Override
+		public Selection add(Pair<Integer, Integer> p) {
+			throw new UnsupportedOperationException();
+		}
+		
+	}
+
 }
