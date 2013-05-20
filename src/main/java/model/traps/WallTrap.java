@@ -59,38 +59,18 @@ public class WallTrap extends Trap {
 		case DOGS:
 			return false;
 		case ZOMBIE:
-			// Nie bedzie teleportacji:
-			/*
-			 * if (!SolidityTester.areEdgeAdjacent(coordinates, from)) { throw
-			 * new RuntimeException() { private static final long
-			 * serialVersionUID = 1L;
-			 *
-			 * @Override public String toString() { return
-			 * "Spierdalaj mi z tym"; } }; }
-			 */
 			if (SelectionTester.areInSameRow(coordinates, from))
 				return card.getStrength() >= strength;
-			// cofanie na mur jest jak ruch z boku, sprawdzamy tylko sile, jest
-			// dokladnie w regulach
 			if (coordinates.first + 1 == from.first) {
-				// jesli przy cofaniu (np przez reflektor) tez trzeba
-				// uwzgledniac szeregi zombich,
-				// to ja pierdole te robote
 				return card.getStrength() >= strength;
 			}
 			// cutest case
 			int totalStrength = 0;
 			int i = from.first;
-			while (!gameState.getBoard().is(i, coY, CardType.ZOMBIE))
+			while (gameState.getBoard().is(i, coY, CardType.ZOMBIE) &&  i >= 0)
 				totalStrength += gameState.getBoard().get(i--, coY)
 						.getStrength();
 			return totalStrength >= strength;
-			// nie jestem pewny, czy przy poruszeniu zombiaka
-			// glodem, tez nalezy uwzgledniac szeregi - jesli nie,
-			// w tym wypadku lepiej zeby zajela sie
-			// tym karta glod
-			// nie ma dodatkowych zalozen, zrobmy jak nam wygodniej - jak idze w
-			// przod to kolezki zawsze go pchna
 		default:
 			throw new UnsupportedOperationException();
 		}
@@ -106,8 +86,6 @@ public class WallTrap extends Trap {
 	@Override
 	public EnumSet<Trigger> getTriggers() {
 		return EnumSet.of(Trigger.SHOT);
-		// kolejna poprawka - mur ma byc czuly na strzal, ale
-		// nic nie robic
 	}
 
 	@Override
