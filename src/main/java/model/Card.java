@@ -16,6 +16,7 @@ import model.cards.humans.GetOut;
 import model.cards.humans.HandGrenade;
 import model.cards.humans.HighVoltage;
 import model.cards.humans.Mine;
+import model.cards.humans.Napalm;
 import model.cards.humans.Pit;
 import model.cards.humans.Searchlight;
 import model.cards.humans.Shot;
@@ -43,7 +44,7 @@ import controller.Selection.SelectionType;
 public abstract class Card implements Typed<CardType> {
 
 	public static enum CardType {
-		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
+		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE, NAPALM;
 	}
 
 	/*
@@ -86,16 +87,7 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new Sniper());
 			cards.add(new StreetOnFire());
 			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
-			cards.add(new Wall(6));
+			cards.add(new Napalm());
 		}
 		return cards;
 	}

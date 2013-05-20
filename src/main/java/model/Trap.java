@@ -8,11 +8,11 @@ import utility.Typed;
 public abstract class Trap implements Typed<Trap.TrapType> {
 
 	public static enum Trigger {
-		FIRE, SHOT, EXPLOSION, VOLTAGE;
+		FIRE, SHOT, EXPLOSION, VOLTAGE, HOLLOW;
 	}
 
 	public static enum TrapType {
-		BARRIER, CAR, MINE, PIT, WALL;
+		BARRIER, CAR, MINE, PIT, WALL, NAPALM;
 	}
 
 	public abstract String getName();
