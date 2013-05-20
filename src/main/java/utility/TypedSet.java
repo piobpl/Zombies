@@ -6,9 +6,9 @@ import java.util.Iterator;
 /**
  * Typowany set, mozna dodawac elementy z typem i sprawdzac czy istnieje element
  * o okreslonym typie
- * 
+ *
  * @author michal, piob
- * 
+ *
  */
 
 public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
@@ -22,7 +22,8 @@ public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
 
 	public void add(T element) {
 		set.add(element);
-		change.trigger();
+		if (change != null)
+			change.trigger();
 	}
 
 	public boolean contains(S type) {
@@ -41,13 +42,15 @@ public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
 			}
 		if (toRemove != null) {
 			set.remove(toRemove);
-			change.trigger();
+			if (change != null)
+				change.trigger();
 		}
 	}
 
 	public void remove(T element) {
 		if (set.remove(element))
-			change.trigger();
+			if (change != null)
+				change.trigger();
 	}
 
 	@Override
@@ -69,7 +72,8 @@ public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
 			@Override
 			public void remove() {
 				iterator.remove();
-				change.trigger();
+				if (change != null)
+					change.trigger();
 			}
 
 		};
