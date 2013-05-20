@@ -1,20 +1,20 @@
 								STATUS
 
 ZOMBIE
-BITE			UGRYZIENIE		tested
+BITE			UGRYZIENIE		done
 BOSS			BOSS			suspended
-CHANGE			SPADAJ			Implemented&Tested
-CLAWS			PAZURY			Implemented&Tested
+CHANGE			SPADAJ			done
+CLAWS			PAZURY			done
 CLICK			KLIK			suspended
 DOGS			PIES			suspended
-HUMAN			CZLOWIEK		tested
+HUMAN			CZLOWIEK		done
 HUNGER			GŁÓD			to check
 MASS			MASA			to check
 MEAT			MIĘSO			to check
 NOT SO FAST		NIE TAK SZYBKO	suspended
-PICK AXE		KILOF			Implemented&Tested
-TERROR			TERROR			Implemented&Tested
-ZOMBIE			ZOMBIE			Implemented&Tested
+PICK AXE		KILOF			done
+TERROR			TERROR			done
+ZOMBIE			ZOMBIE			done
 
 
 HUMAN
@@ -22,20 +22,20 @@ BACK OFF		WYNOCHA
 BARRIER			ZAPORA			to test
 BLOOD			KREW			to test
 BURST			SERIA			jaki jest tego status? jakis kod istnieje
-CAR				AUTO			tested
+CAR				AUTO			done
 FLAMETHROWER	MIOTACZ			suspended
-FREEZE			STAĆ			Implemented&Tested
+FREEZE			STAĆ			done
 GASOLINE		ROPA			to check
-GET OUT			ZMIATAJ			Implemented&Tested
-HAND GRENADE	GRANAT			Implemented&Tested
-HIGH VOLTAGE	220V			Implemented&Tested
-MINE			MINA			Implemented&Tested
-NAPALM	 		NAPALM			being written
+GET OUT			ZMIATAJ			done
+HAND GRENADE	GRANAT			done
+HIGH VOLTAGE	220V			done
+MINE			MINA			done
+NAPALM	 		NAPALM			done
 NET				SIEĆ
 PIT TRAP		DZIURA			to test
 ROLLING BARREL	BECZKA
 SEARCHLIGHT		REFLEKTOR		to check
 SHOT			STRZAŁ			to check
 SNIPER			SNAJPER			to check
-STREET ON FIRE	ULICA W OGNIU	Implemented&Tested
+STREET ON FIRE	ULICA W OGNIU	done
 WALL			MUR				to test
