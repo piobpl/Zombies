@@ -5,7 +5,9 @@ import java.util.List;
 
 import model.Card.CardType;
 import model.Trap.TrapType;
+import utility.ActionHandler;
 import utility.TypedSet;
+import view.Cell;
 
 /**
  * A class representing a board.
@@ -24,13 +26,22 @@ public class Board {
 		board = new Card[5][3];
 		this.gameState = gameState;
 		traps = new LinkedList<>();
-		for (int i = 0; i < 15; i++)
-			traps.add(new TypedSet<Trap, TrapType>());
+		for (int i = 0; i < 15; i++) {
+			final TypedSet<Trap, TrapType> trapSet;
+			final Cell cell = gameState.gui.getBoard().getCell(i / 3, i % 3);
+			traps.add(trapSet = new TypedSet<Trap, TrapType>());
+			traps.get(i).setHandler(new ActionHandler() {
+				@Override
+				public void trigger() {
+					cell.drawTraps(trapSet);
+				}
+			});
+		}
 	}
 
 	/**
 	 * Removes a card from the board at a specified position.
-	 *
+	 * 
 	 * @param x
 	 *            first coordinate of the card
 	 * @param y
@@ -38,12 +49,12 @@ public class Board {
 	 */
 	public void remove(int x, int y) {
 		board[x][y] = null;
-		gameState.gui.getBoard().getCell(x, y).draw(null);
+		gameState.gui.getBoard().getCell(x, y).drawCard(null);
 	}
 
 	/**
 	 * Places a card at a specified position.
-	 *
+	 * 
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -53,25 +64,25 @@ public class Board {
 	 */
 	public void set(int x, int y, Card card) {
 		board[x][y] = card;
-		gameState.gui.getBoard().getCell(x, y).draw(card);
+		gameState.gui.getBoard().getCell(x, y).drawCard(card);
 	}
 
 	/**
 	 * Updates a card at a specified position.
-	 *
+	 * 
 	 * @param x
 	 *            first coordinate
 	 * @param y
 	 *            second coordinate
 	 */
 	public void update(int x, int y) {
-		gameState.gui.getBoard().getCell(x, y).draw(board[x][y]);
+		gameState.gui.getBoard().getCell(x, y).drawCard(board[x][y]);
 	}
 
 	/**
 	 * Returns a card at a specified position. Null if there's no card at that
 	 * position.
-	 *
+	 * 
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -84,7 +95,7 @@ public class Board {
 
 	/**
 	 * Checks whether a specified position on the board is empty.
-	 *
+	 * 
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -98,7 +109,7 @@ public class Board {
 	/**
 	 * Checks whether a specified position on the board is empty and doesn't
 	 * contain any traps.
-	 *
+	 * 
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -112,7 +123,7 @@ public class Board {
 
 	/**
 	 * Checks whether a specified position has card with specified name.
-	 *
+	 * 
 	 * @param x
 	 *            first coordinate
 	 * @param y
@@ -125,7 +136,7 @@ public class Board {
 
 	/**
 	 * Exchange cards at a specified position (including traps);
-	 *
+	 * 
 	 * @param x1
 	 *            first coordinate of the first card
 	 * @param y1
@@ -136,6 +147,7 @@ public class Board {
 	 *            second coordinate of the second card
 	 */
 
+	// TODO ustawienie handlerow zmiany dla gui
 	public void exchangeContent(int x1, int y1, int x2, int y2) {
 		Card tmpCard = get(x1, y1);
 		set(x1, y1, get(x2, y2));

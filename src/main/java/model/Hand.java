@@ -40,7 +40,7 @@ public class Hand {
 	 */
 	public void set(int i, Card card) {
 		hand[i] = card;
-		gameState.gui.getHand(player).getCell(i).draw(card);
+		gameState.gui.getHand(player).getCell(i).drawCard(card);
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class Hand {
 	 */
 	public void remove(int i) {
 		hand[i] = null;
-		gameState.gui.getHand(player).getCell(i).draw(null);
+		gameState.gui.getHand(player).getCell(i).drawCard(null);
 	}
 
 	/**

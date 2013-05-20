@@ -1,14 +1,11 @@
 package view;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,13 +21,12 @@ public class GUI {
 	private Hand zombieHand;
 	private Hand humanHand;
 	private Board board;
-	private JButton applySelectionButton;
-	private JButton cancelSelectionButton;
-	private JButton endTurnButton;
 	private JFrame frame;
 	private JLabel zombieCardsLeft;
 	private JLabel humanCardsLeft;
-
+	private JPanel rightPanel;
+	private InfoPanel infoPanel;
+	
 	public GUI() {
 		System.err.println("Creating GUI...");
 		try {
@@ -55,21 +51,13 @@ public class GUI {
 	public Board getBoard() {
 		return board;
 	}
+	
+	public InfoPanel getInfoPanel(){
+		return infoPanel;
+	}
 
 	public void addButtonMouseListener(Button button, MouseListener a) {
-		switch (button) {
-		case ApplySelection:
-			applySelectionButton.addMouseListener(a);
-			break;
-		case CancelSelection:
-			cancelSelectionButton.addMouseListener(a);
-			break;
-		case EndTurn:
-			endTurnButton.addMouseListener(a);
-			break;
-		default:
-			throw new UnsupportedOperationException();
-		}
+		infoPanel.addButtonMouseListener(button, a);
 	}
 
 	public void setCardsLeft(Player player, int left) {
@@ -114,13 +102,14 @@ public class GUI {
 		gbc.insets = new Insets(10, 10, 10, 10);
 		frame.getContentPane().add(zombieCardsLeft, gbc);
 
-		JPanel rightPanel = new JPanel();
+		rightPanel = new JPanel();
 		gbc = new GridBagConstraints();
 		gbc.gridheight = 1;
 		gbc.gridx = 2;
 		gbc.gridy = 2;
 		gbc.insets = new Insets(10, 10, 10, 10);
 		frame.getContentPane().add(rightPanel, gbc);
+		
 
 		humanCardsLeft = new JLabel();
 		gbc.gridx = 2;
@@ -130,24 +119,10 @@ public class GUI {
 
 		frame.setVisible(true);
 
+		infoPanel = new InfoPanel(rightPanel);
 		humanHand = new Hand(humanHandPanel);
 		zombieHand = new Hand(zombieHandPanel);
 		board = new Board(boardPanel);
-
-		rightPanel.setLayout(new FlowLayout());
-		rightPanel.setPreferredSize(new Dimension(120, 300));
-
-		applySelectionButton = new JButton("Apply Selection");
-		applySelectionButton.setPreferredSize(new Dimension(120, 30));
-		rightPanel.add(applySelectionButton);
-
-		cancelSelectionButton = new JButton("Cancel Selection");
-		cancelSelectionButton.setPreferredSize(new Dimension(120, 30));
-		rightPanel.add(cancelSelectionButton);
-
-		endTurnButton = new JButton("End turn");
-		endTurnButton.setPreferredSize(new Dimension(120, 30));
-		rightPanel.add(endTurnButton);
 
 		frame.pack();
 

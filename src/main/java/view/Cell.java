@@ -10,12 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import model.Card;
+import model.Trap;
 
 public class Cell {
 
 	private JPanel panel;
 	private JLabel name;
 	private JLabel strength;
+	private JLabel trapDesc;
 	private boolean isHighlighted;
 
 	public Cell(JPanel panel) {
@@ -23,6 +25,7 @@ public class Cell {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.add(name = new JLabel("Karta"));
 		panel.add(strength = new JLabel("Sila: 0"));
+		panel.add(trapDesc = new JLabel(""));
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		panel.setPreferredSize(new Dimension(120, 80));
 		name.setVisible(false);
@@ -30,7 +33,7 @@ public class Cell {
 		isHighlighted = false;
 	}
 
-	public void draw(Card card) {
+	public void drawCard(Card card) {
 		if (card == null) {
 			name.setVisible(false);
 			strength.setVisible(false);
@@ -46,6 +49,17 @@ public class Cell {
 		}
 	}
 
+	public void drawTraps(Iterable<Trap> traps){
+		String trap = "";
+		boolean first = true;
+		for(Trap t: traps){
+			if(!first)
+				trap += ", ";
+			trap += t.getName();
+		}
+		trapDesc.setText(trap);
+	}
+	
 	public void addMouseListener(MouseListener a) {
 		panel.addMouseListener(a);
 	}
