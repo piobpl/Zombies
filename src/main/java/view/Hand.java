@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -10,6 +11,7 @@ public class Hand {
 
 	public Hand(JPanel panel) {
 		panel.setLayout(new GridLayout(1, 4, 5, 5));
+		panel.setBackground(new Color(225,182,126));
 		for (int i = 0; i < 4; ++i) {
 			JPanel cellPanel = new JPanel();
 			cells[i] = new Cell(cellPanel);

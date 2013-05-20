@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -74,6 +75,7 @@ public class GUI {
 		frame = new JFrame("Zombiaki");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridBagLayout());
+		frame.getContentPane().setBackground(new Color(225,182,126));
 
 		GridBagConstraints gbc;
 
@@ -96,6 +98,7 @@ public class GUI {
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		gbc.insets = new Insets(10, 10, 10, 10);
+		boardPanel.setBackground(new Color(225,182,126));
 		frame.getContentPane().add(boardPanel, gbc);
 
 		zombieCardsLeft = new JLabel();
@@ -110,6 +113,8 @@ public class GUI {
 		gbc.gridx = 2;
 		gbc.gridy = 2;
 		gbc.insets = new Insets(10, 10, 10, 10);
+		rightPanel.setBackground(new Color(236,103,67));
+		rightPanel.setForeground(new Color(236,103,67));
 		frame.getContentPane().add(rightPanel, gbc);
 
 		humanCardsLeft = new JLabel();
