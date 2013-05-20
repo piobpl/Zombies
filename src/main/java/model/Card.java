@@ -53,6 +53,9 @@ public abstract class Card implements Typed<CardType> {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		if (player == Player.ZOMBIE) {
 			cards.add(new Zombie(5));
+			cards.add(new Zombie(5));
+			cards.add(new Zombie(5));
+			cards.add(new Zombie(5));
 			cards.add(new Zombie(4));
 			cards.add(new Zombie(3));
 			cards.add(new Zombie(2));
@@ -82,6 +85,16 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new Shot(3));
 			cards.add(new Sniper());
 			cards.add(new StreetOnFire());
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
+			cards.add(new Wall(6));
 			cards.add(new Wall(6));
 		}
 		return cards;

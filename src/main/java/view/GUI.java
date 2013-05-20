@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 
 import model.Player;
 
+//TODO invokeLater przy updejcie karty, itp.
+
 public class GUI {
 	public static enum Button {
 		ApplySelection, CancelSelection, EndTurn;
@@ -26,7 +28,7 @@ public class GUI {
 	private JLabel humanCardsLeft;
 	private JPanel rightPanel;
 	private InfoPanel infoPanel;
-	
+
 	public GUI() {
 		System.err.println("Creating GUI...");
 		try {
@@ -51,8 +53,8 @@ public class GUI {
 	public Board getBoard() {
 		return board;
 	}
-	
-	public InfoPanel getInfoPanel(){
+
+	public InfoPanel getInfoPanel() {
 		return infoPanel;
 	}
 
@@ -109,7 +111,6 @@ public class GUI {
 		gbc.gridy = 2;
 		gbc.insets = new Insets(10, 10, 10, 10);
 		frame.getContentPane().add(rightPanel, gbc);
-		
 
 		humanCardsLeft = new JLabel();
 		gbc.gridx = 2;

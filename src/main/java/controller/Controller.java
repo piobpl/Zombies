@@ -2,13 +2,13 @@ package controller;
 
 import model.Board;
 import model.Card;
+import model.Card.CardType;
 import model.Deck;
 import model.GameState;
 import model.Hand;
+import model.Modifier.ModifierType;
 import model.MoveMaker;
 import model.Player;
-import model.Card.CardType;
-import model.Modifier.ModifierType;
 import view.EventReceiver.ButtonClickedEvent;
 import view.EventReceiver.Event;
 import view.EventReceiver.EventType;
@@ -21,6 +21,7 @@ public class Controller {
 	public final GameState gameState;
 	public final GUI gui;
 	public final Selector selector;
+	private int stage;
 
 	public Controller() {
 		System.err.println("Creating Controller...");
@@ -94,6 +95,7 @@ public class Controller {
 
 	private class playingStage implements Stage {
 		public void perform(Player player) {
+
 			Event event;
 			HandClickedEvent handClickedEvent;
 			Hand hand = gameState.getHand(player);
@@ -141,6 +143,7 @@ public class Controller {
 	}
 
 	public void game() {
+		stage = 0;
 		Stage[] stages = new Stage[4];
 		stages[0] = new advancingStage();
 		stages[1] = new drawingStage();
@@ -152,11 +155,15 @@ public class Controller {
 		System.err.println("Game started");
 		try {
 			while (true) {
-				for (Player p : players)
+				gui.getInfoPanel().sendMessage("Tura: " + stage);
+				for (Player p : players) {
+					gui.getInfoPanel().sendMessage("Gra: " + p);
 					for (Stage s : stages) {
 						gameState.nextStage();
 						s.perform(p);
 					}
+				}
+				++stage;
 			}
 		} catch (GameOver gameOver) {
 			System.out.println(gameOver.won + " has won!");
