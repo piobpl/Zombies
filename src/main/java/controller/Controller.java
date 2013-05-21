@@ -50,6 +50,7 @@ public class Controller {
 			case HUMAN:
 				break;
 			}
+			gameState.update();
 		}
 	}
 
@@ -70,6 +71,7 @@ public class Controller {
 								+ hand.get(i).getName());
 					}
 				}
+			gameState.update();
 		}
 	}
 
@@ -93,6 +95,7 @@ public class Controller {
 			}
 			System.err.println("Discarded: " + hand.get(pos).getName());
 			hand.set(pos, null);
+			gameState.update();
 		}
 	}
 
@@ -141,9 +144,9 @@ public class Controller {
 						hand.remove(handClickedEvent.cardClicked);
 						--limit;
 					}
+					gameState.update();
 				}
 				gui.setHighlight(false);
-				// }
 			}
 		}
 	}

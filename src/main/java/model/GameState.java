@@ -70,6 +70,12 @@ public class GameState {
 		}
 	}
 
+	public void update(){
+		board.update();
+		humanHand.update();
+		zombieHand.update();
+	}
+
 	public TypedSet<Modifier, ModifierType> getModifiers() {
 		return modifiers;
 	}

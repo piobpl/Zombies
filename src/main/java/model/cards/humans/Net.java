@@ -37,7 +37,6 @@ public class Net extends Card {
 		for (Pair<Integer, Integer> p : ((GroupSelection) selection).cells) {
 			Card c = gameState.getBoard().get(p.first, p.second);
 			c.getModifiers().add(new Modifier(ModifierType.FROZEN, 5));
-			gameState.getBoard().update(p.first, p.second);
 		}
 	}
 

@@ -25,7 +25,6 @@ public class Claws extends Card {
 		int y = ((CellSelection) selection).cell.second;
 		int currentStrength = gameState.getBoard().get(x, y).getStrength();
 		gameState.getBoard().get(x, y).setStrength(currentStrength + 1);
-		gameState.getBoard().update(x, y);
 	}
 
 	@Override

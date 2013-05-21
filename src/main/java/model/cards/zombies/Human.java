@@ -31,7 +31,6 @@ public class Human extends Card {
 		Card c = gameState.getBoard().get(x, y);
 		c.getModifiers().add(
 				new Modifier(ModifierType.HUMAN, Integer.MAX_VALUE));
-		gameState.getBoard().update(x, y);
 	}
 
 	@Override

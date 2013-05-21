@@ -58,7 +58,6 @@ public class Mass extends Card {
 				.setStrength(newStrength);
 		gameState.getBoard().get(cell2.first, cell2.second).getModifiers()
 				.add(new Modifier(ModifierType.MOVEDONCE, 8));
-		gameState.getBoard().update(cell2.first, cell2.second);
 		gameState.getBoard().set(cell1.first, cell1.second, null);
 	}
 
