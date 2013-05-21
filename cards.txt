@@ -23,7 +23,7 @@ BARRIER			ZAPORA			to test
 BLOOD			KREW			to test
 BURST			SERIA			jaki jest tego status? jakis kod istnieje
 CAR				AUTO			done
-FLAMETHROWER	MIOTACZ			suspended
+FLAMETHROWER	MIOTACZ			done
 FREEZE			STAĆ			done
 GASOLINE		ROPA			to check
 GET OUT			ZMIATAJ			done
