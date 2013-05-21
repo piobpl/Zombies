@@ -30,9 +30,9 @@ public class Cell {
 		this.colorTla = colorTla;
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.add(name = new JLabel("Karta"));
-		name.setForeground(new Color(236,103,67));
+		name.setForeground(Colors.napisy.getColor());
 		panel.add(strength = new JLabel("Sila: 0"));
-		strength.setForeground(new Color(225,182,126));
+		strength.setForeground(Colors.boardsCard.getColor());
 		panel.add(trapDesc = new JLabel(""));
 		panel.add(modifier = new JLabel(""));
 		panel.setBorder(BorderFactory.createLineBorder(new Color(119,80,80), 1));
@@ -101,6 +101,7 @@ public class Cell {
 					first = false;
 				}
 				trapDesc.setText(trap);
+				trapDesc.setForeground(Colors.tlo.getColor());
 			}
 		});
 	}
@@ -118,10 +119,10 @@ public class Cell {
 			public void run() {
 				isHighlighted = light;
 				if (light) {
-					panel.setBorder(BorderFactory.createLineBorder(new Color(213,18,18),
+					panel.setBorder(BorderFactory.createLineBorder(Color.green,
 							2));
 				} else {
-					panel.setBorder(BorderFactory.createLineBorder(new Color(119,80,80),
+					panel.setBorder(BorderFactory.createLineBorder(Colors.margines.getColor(),
 							1));
 				}
 			}
@@ -132,10 +133,10 @@ public class Cell {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				if (isHighlighted) {
-					panel.setBorder(BorderFactory.createLineBorder(new Color(119,80,80),
+					panel.setBorder(BorderFactory.createLineBorder(Color.green,
 							1));
 				} else {
-					panel.setBorder(BorderFactory.createLineBorder(new Color(213,18,18),
+					panel.setBorder(BorderFactory.createLineBorder(Colors.margines.getColor(),
 							1));
 				}
 				isHighlighted = !isHighlighted;

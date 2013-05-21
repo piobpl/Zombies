@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseListener;
@@ -27,6 +26,7 @@ public class InfoPanel {
 
 		applySelectionButton = new JButton("Apply");
 		applySelectionButton.setPreferredSize(new Dimension(120, 30));
+		
 		panel.add(applySelectionButton);
 
 		cancelSelectionButton = new JButton("Cancel");
@@ -39,12 +39,12 @@ public class InfoPanel {
 
 		textArea = new JTextArea(12, 32);
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setBorder(BorderFactory.createMatteBorder(50, 10, 10, 10, new Color(180,202,157)));
+		scrollPane.setBorder(BorderFactory.createMatteBorder(50, 10, 10, 10, Colors.margines.getColor()));
 		panel.add(scrollPane);
-		textArea.setBackground(new Color(180,202,157));
-		textArea.setForeground(new Color(136,38,38));
+		textArea.setBackground(Colors.jasnaOliwka.getColor());
+		textArea.setForeground(Colors.humansCard.getColor());
 		textArea.setEditable(false);
-		textArea.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(80,119,97)));
+		textArea.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Colors.humansCard.getColor()));
 	}
 	
 	public void setButtonEnabled(final Button button, final boolean aktywny){

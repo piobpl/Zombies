@@ -3,27 +3,51 @@ package view;
 import java.awt.Color;
 
 public enum Colors {
+	otoczka {
+		Color getColor(){
+			return new Color(3,2,29);
+		}
+	},
+	
 	jasnaOliwka {
 		Color getColor(){
-			return new Color(190,225,116);
+			return new Color(180,202,157);
+		}
+	},
+	
+	napisy {
+		Color getColor(){
+			return new Color(255,234,0);
+		}
+	},
+	
+	margines {
+		Color getColor(){
+			return new Color(172,129,83);
+		}
+	},
+	
+	tlo {
+		Color getColor(){
+			return new Color(10,9,30);
 		}
 	},
 	
 	humansCard {
 		Color getColor(){
-			return new Color(138,39,39); 
+			return new Color(10,55,41); 
 		}
 	},
 	
 	zombieCard {
 		Color getColor(){
-			return new Color(52,68,50);
+			return new Color(255,90,30);
 		}
 	},
 	
 	boardsCard {
 		Color getColor(){
-			return new Color(243,107,32);
+			return new Color(97,10,14);
 		}
 	};
 	

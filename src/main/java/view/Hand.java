@@ -11,7 +11,7 @@ public class Hand {
 
 	public Hand(JPanel panel, Color colorKarty, Color colorTla) {
 		panel.setLayout(new GridLayout(1, 4, 5, 5));
-		panel.setBackground(Colors.jasnaOliwka.getColor());
+		panel.setBackground(Colors.tlo.getColor());
 		for (int i = 0; i < 4; ++i) {
 			JPanel cellPanel = new JPanel();
 			cells[i] = new Cell(cellPanel, colorKarty, colorTla);

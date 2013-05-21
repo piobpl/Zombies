@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -77,7 +76,7 @@ public class GUI {
 		frame = new JFrame("Zombiaki");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridBagLayout());
-		frame.getContentPane().setBackground(Colors.jasnaOliwka.getColor());
+		frame.getContentPane().setBackground(Colors.tlo.getColor());
 
 		GridBagConstraints gbc;
 
@@ -100,10 +99,11 @@ public class GUI {
 		gbc.gridx = 1;
 		gbc.gridy = 2;
 		gbc.insets = new Insets(10, 10, 10, 10);
-		boardPanel.setBackground(Colors.jasnaOliwka.getColor());
+		boardPanel.setBackground(Colors.tlo.getColor());
 		frame.getContentPane().add(boardPanel, gbc);
 
 		zombieCardsLeft = new JLabel();
+		zombieCardsLeft.setForeground(Colors.margines.getColor());
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		gbc.insets = new Insets(10, 10, 10, 10);
@@ -115,11 +115,12 @@ public class GUI {
 		gbc.gridx = 2;
 		gbc.gridy = 2;
 		gbc.insets = new Insets(10, 10, 10, 10);
-		rightPanel.setBackground(new Color(236,103,67));
-		rightPanel.setForeground(new Color(236,103,67));
+		rightPanel.setBackground(Colors.boardsCard.getColor());
+		rightPanel.setForeground(Colors.boardsCard.getColor());
 		frame.getContentPane().add(rightPanel, gbc);
 
 		humanCardsLeft = new JLabel();
+		humanCardsLeft.setForeground(Colors.margines.getColor());
 		gbc.gridx = 2;
 		gbc.gridy = 3;
 		gbc.insets = new Insets(10, 10, 10, 10);
@@ -129,9 +130,9 @@ public class GUI {
 
 		infoPanel = new InfoPanel(rightPanel);
 		humanHand = new Hand(humanHandPanel, Colors.humansCard.getColor(),
-				Colors.jasnaOliwka.getColor());
+				Colors.tlo.getColor());
 		zombieHand = new Hand(zombieHandPanel, Colors.zombieCard.getColor(),
-				Colors.jasnaOliwka.getColor());
+				Colors.tlo.getColor());
 		board = new Board(boardPanel, Colors.boardsCard.getColor(),
 				Colors.boardsCard.getColor());
 
