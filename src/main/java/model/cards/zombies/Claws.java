@@ -53,4 +53,9 @@ public class Claws extends Card {
 		return CardType.CLAWS;
 	}
 
+	@Override
+	public String getTooltipMessage() {
+		return "You can play claws on any zombie on board. His strength/toughness goes up by 1 point.";
+	}
+
 }

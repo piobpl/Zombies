@@ -44,4 +44,9 @@ public class Freeze extends Card {
 		return CardType.FREEZE;
 	}
 
+	@Override
+	public String getTooltipMessage() {
+		return " It freezes all movement on the street. Zombies and dogs don’t move in their next phase. Freeze ends with the next human’s phase.";
+	}
+
 }

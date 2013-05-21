@@ -6,10 +6,11 @@ import model.traps.BarrierTrap;
 import controller.Selection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;
+
 /**
  * 
  * @author Edoipi
- *
+ * 
  */
 public class Barrier extends Card {
 
@@ -52,5 +53,10 @@ public class Barrier extends Card {
 	@Override
 	public CardType getType() {
 		return CardType.BARRIER;
+	}
+
+	@Override
+	public String getTooltipMessage() {
+		return " It blocks all movement of any zombies and dogs in a single lane for 1 phase. The barrier also prevents anyone from moving to a blocked lane (The player cannot put any zombies or dogs on that lane in his phase). The barrier may be placed only on a free field in the first row.";
 	}
 }

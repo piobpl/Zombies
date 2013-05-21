@@ -82,4 +82,9 @@ public class Blood extends Card {
 		return CardType.BLOOD;
 	}
 
+	@Override
+	public String getTooltipMessage() {
+		return "It forces one zombie or a dog to move sideways.";
+	}
+
 }

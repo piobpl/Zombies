@@ -50,4 +50,9 @@ public class Sniper extends Card {
 		return CardType.SNIPER;
 	}
 
+	@Override
+	public String getTooltipMessage() {
+		return "Choose any target and shoot. The target will move backwards if it stays alive.";
+	}
+
 }

@@ -10,9 +10,9 @@ import controller.Selection.SelectionType;
 /**
  * REFLEKTOR – Cofa (równocześnie) każdego zombiego i psa w danym torze o jedno
  * pole, jeżeli jest to możliwe.
- *
+ * 
  * @author michal
- *
+ * 
  */
 
 public class Searchlight extends Card {
@@ -52,6 +52,11 @@ public class Searchlight extends Card {
 	@Override
 	public CardType getType() {
 		return CardType.SEARCHLIGHT;
+	}
+
+	@Override
+	public String getTooltipMessage() {
+		return "It simultaneously moves all zombies and dogs one square back on a single lane (if possible).";
 	}
 
 }
