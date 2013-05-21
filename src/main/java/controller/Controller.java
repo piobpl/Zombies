@@ -77,6 +77,7 @@ public class Controller {
 
 	private class discardingStage implements Stage {
 		public void perform(Player player) {
+			gui.getInfoPanel().sendMessage("Choose one card to throw away.");
 			Event event;
 			Hand hand = gameState.getHand(player);
 			int pos;
@@ -101,17 +102,23 @@ public class Controller {
 
 	private class playingStage implements Stage {
 		public void perform(Player player) {
-
 			Event event;
 			HandClickedEvent handClickedEvent;
 			Hand hand = gameState.getHand(player);
 			Card card;
 			Selection selection;
 			int limit = 4;
+			boolean endWarning = false;
 			if (player == Player.HUMAN
 					&& gameState.getModifiers().contains(ModifierType.TERROR))
 				limit = 1;
+			gui.getInfoPanel().sendMessage("Choose cards to play or end turn.");
 			while (true) {
+				if ((limit == 0 || gameState.getHand(player).isEmpty())
+						&& !endWarning) {
+					gui.getInfoPanel().sendMessage("You have to end turn now.");
+					endWarning = true;
+				}
 				event = gui.eventReceiver.getNextEvent();
 				if (event.mouseButtonId != MouseEvent.BUTTON1)
 					continue;
@@ -167,9 +174,9 @@ public class Controller {
 		System.err.println("Game started");
 		try {
 			while (true) {
-				gui.getInfoPanel().sendMessage("Tura: " + stage);
+				gui.getInfoPanel().sendMessage("Round #" + stage);
 				for (Player p : players) {
-					gui.getInfoPanel().sendMessage("Gra: " + p);
+					gui.getInfoPanel().sendMessage(p + "'s turn.");
 					for (Stage s : stages) {
 						gameState.nextStage();
 						s.perform(p);
@@ -178,7 +185,7 @@ public class Controller {
 				++stage;
 			}
 		} catch (GameOver gameOver) {
-			System.out.println(gameOver.won + " has won!");
+			gui.getInfoPanel().sendMessage(gameOver.won + " has won!");
 		}
 		gui.exit();
 	}

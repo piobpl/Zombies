@@ -43,6 +43,7 @@ public class Selector {
 		selectionMap.put(SelectionType.CELL, new CellSelection());
 		selectionMap.put(SelectionType.COLUMN, new ColumnSelection());
 		selectionMap.put(SelectionType.GROUP, new GroupSelection());
+		selectionMap.put(SelectionType.MULTIGROUP, new MultiGroupSelection());
 		selectionMap.put(SelectionType.HAND, new HandSelection());
 		selectionMap.put(SelectionType.EMPTY, new EmptySelection());
 	}
@@ -50,7 +51,7 @@ public class Selector {
 	public Selection getSelection(Card card) {
 		try {
 			gui.setButtonEnabled(Button.EndTurn, false);
-			gui.setButtonEnabled(Button.ApplySelection, true);
+			gui.setButtonEnabled(Button.ApplySelection, false);
 			gui.setButtonEnabled(Button.CancelSelection, true);
 			Selection current = null, candidate = null;
 			int currentRate = 0, candidateRate;
@@ -64,14 +65,18 @@ public class Selector {
 				currentRate = 2;
 			}
 			while (true) {
+				gui.setButtonEnabled(Button.ApplySelection, currentRate == 2);
 				e = eventReceiver.getNextEvent();
 				if (e.type == EventType.ButtonClicked) {
 					if (e.mouseButtonId != MouseEvent.BUTTON1)
 						continue;
 					h = (ButtonClickedEvent) e;
-					if (h.button == Button.ApplySelection)
-						return currentRate == 2 ? current : null;
-					else if (h.button == Button.CancelSelection)
+					if (h.button == Button.ApplySelection){
+						if(currentRate == 2)
+							return current;
+						else
+							continue;
+					}else if (h.button == Button.CancelSelection)
 						return null;
 					else
 						continue;

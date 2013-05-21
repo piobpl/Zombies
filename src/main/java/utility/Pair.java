@@ -21,4 +21,9 @@ public class Pair<FirstType, SecondType> {
 		Pair<?, ?> p = (Pair<?, ?>) obj;
 		return first.equals(p.first) && second.equals(p.second);
 	}
+
+	@Override
+	public String toString() {
+		return "(" + first + ", " + second + ")";
+	}
 }

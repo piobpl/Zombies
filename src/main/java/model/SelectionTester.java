@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 import model.Card.CardType;
+import model.Trap.TrapType;
 
 import utility.Pair;
 
@@ -67,14 +68,34 @@ public abstract class SelectionTester {
 		return true;
 	}
 
-	public static int getZombiesStrength(GameState gameState,
+	public static int getStrength(GameState gameState,
 			List<Pair<Integer, Integer>> selection) {
 		int sum = 0;
 		for (Pair<Integer, Integer> p : selection) {
 			Card c = gameState.getBoard().get(p.first, p.second);
-			if (c != null && c.getType() == CardType.ZOMBIE)
+			if (c == null)
+				sum += 1;
+			else if(c.getType() == CardType.ZOMBIE || c.getType() == CardType.DOGS)
 				sum += c.getStrength();
 		}
 		return sum;
+	}
+
+	public static int getFarthestZombieRow(GameState gameState){
+		for(int x = 4; x > -1; --x)
+			for(int y = 0; y < 3; ++y){
+				Card c = gameState.getBoard().get(x, y);
+				if(c != null && (c.getType() == CardType.ZOMBIE || c.getType() == CardType.DOGS))
+					return x;
+			}
+		return -1;
+	}
+
+	public static boolean isBehindWall(GameState gameState, int x, int y){
+		while(++x < 5){
+			if(gameState.getBoard().getTraps(x, y).contains(TrapType.WALL))
+				return true;
+		}
+		return false;
 	}
 }

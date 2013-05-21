@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.Card.CardType;
 import model.Trap.TrapType;
+import utility.Pair;
 import utility.TypedSet;
 
 /**
@@ -143,15 +144,27 @@ public class Board {
 	 */
 
 	// TODO ustawienie handlerow zmiany dla gui
+	// poprawilem - troche sie skomplikowalo, a wszystko po to zeby uzywac Movera.
+	// w poprzedniej wersji po zamianie nie byly odpalane np. efekty trapow (przyklad: napalm)
 	public void exchangeContent(int x1, int y1, int x2, int y2) {
-		Card tmpCard = get(x1, y1);
-		set(x1, y1, get(x2, y2));
-		set(x2, y2, tmpCard);
+		Pair<Integer, Integer> p1 = new Pair<>(x1,y1);
+		Pair<Integer, Integer> p2 = new Pair<>(x2,y2);
+		Card tmpCard1 = get(x1, y1);
+		Card tmpCard2 = get(x2, y2);
+		board[x1][y1] = null;
+		board[x2][y2] = null;
+		if(!MoveMaker.isMovePossible(gameState, p1, p2, tmpCard1)) return;
+		if(!MoveMaker.isMovePossible(gameState, p2, p1, tmpCard2)) return;
+		board[x1][y1] = tmpCard1;
+		MoveMaker.moveTo(gameState, p1, p2);
+		board[x2][y2] = tmpCard2;
+		MoveMaker.moveTo(gameState, p2, p1);
+		board[x2][y2] = tmpCard1;
 		update(x1, y1);
 		update(x2, y2);
-		TypedSet<Trap, TrapType> tmpSet = traps.get(x1 * 3 + y1);
+		/*TypedSet<Trap, TrapType> tmpSet = traps.get(x1 * 3 + y1);
 		traps.set(x1 * 3 + y1, traps.get(x2 * 3 + y2));
-		traps.set(x2 * 3 + y2, tmpSet);
+		traps.set(x2 * 3 + y2, tmpSet);*/
 	}
 
 	public TypedSet<Trap, TrapType> getTraps(int x, int y) {
