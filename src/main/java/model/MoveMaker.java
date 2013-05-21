@@ -18,15 +18,21 @@ public abstract class MoveMaker {
 		return gameState.getModifiers().contains(ModifierType.FROZEN);
 	}
 
+	public static boolean isFrozen(Card card) {
+		return card.getModifiers().contains(ModifierType.FROZEN);
+	}
+
 	public static boolean isMovePossible(GameState gameState,
 			Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card) {
-		if (isFrozen(gameState)
-				|| !gameState.getBoard().isEmpty(to.first, to.second)) {
+		if (isFrozen(gameState))
 			return false;
-		}
+		if(!gameState.getBoard().isEmpty(to.first, to.second))
+			return false;
 		if (card == null)
 			card = gameState.getBoard().get(from.first, from.second);
 		if (card == null)
+			return false;
+		if(isFrozen(card))
 			return false;
 		for (Trap t : gameState.getBoard().getTraps(to.first, to.second)) {
 			//System.err.println(t.isMovePossible(card, from));

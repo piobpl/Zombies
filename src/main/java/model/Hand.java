@@ -44,6 +44,21 @@ public class Hand {
 	}
 
 	/**
+	 * Updates a card at a specified position.
+	 *
+	 * @param i
+	 *            coordinate
+	 */
+	public void update(int i) {
+		gameState.gui.getHand(player).getCell(i).drawCard(hand[i]);
+	}
+
+	public void update() {
+		for (int i = 0; i < 4; ++i)
+			gameState.gui.getHand(player).getCell(i).drawCard(hand[i]);
+	}
+
+	/**
 	 * Removes a card from the hand at a specified position.
 	 *
 	 * @param i

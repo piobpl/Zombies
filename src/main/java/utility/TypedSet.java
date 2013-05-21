@@ -14,16 +14,9 @@ import java.util.Iterator;
 public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
 
 	private HashSet<T> set = new HashSet<T>();
-	private ActionHandler change = null;
-
-	public void setHandler(ActionHandler a) {
-		change = a;
-	}
 
 	public void add(T element) {
 		set.add(element);
-		if (change != null)
-			change.trigger();
 	}
 
 	public boolean contains(S type) {
@@ -42,15 +35,11 @@ public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
 			}
 		if (toRemove != null) {
 			set.remove(toRemove);
-			if (change != null)
-				change.trigger();
 		}
 	}
 
 	public void remove(T element) {
-		if (set.remove(element))
-			if (change != null)
-				change.trigger();
+		set.remove(element);
 	}
 
 	@Override
@@ -72,8 +61,6 @@ public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
 			@Override
 			public void remove() {
 				iterator.remove();
-				if (change != null)
-					change.trigger();
 			}
 
 		};

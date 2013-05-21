@@ -8,7 +8,7 @@ import controller.Selection;
 import controller.Selection.CellSelection;
 import controller.Selection.SelectionType;
 /**
- * 
+ *
  * @author Edoipi
  *
  */
