@@ -22,7 +22,7 @@ public class Modifier implements Typed<Modifier.ModifierType> {
 	public enum ModifierType {
 		HUMAN {
 			public String getDescription() {
-				return "human-shild";
+				return "human-shield";
 			}
 		},
 		FROZEN {
