@@ -119,5 +119,7 @@ public abstract class Card implements Typed<CardType> {
 	public abstract int rateSelection(GameState gameState, Selection selection);
 
 	public abstract void setStrength(Integer strength);
+	
+	public abstract String getTooltipMessage();
 
 }

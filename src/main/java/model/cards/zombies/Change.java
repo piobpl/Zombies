@@ -80,4 +80,9 @@ public class Change extends Card {
 	public CardType getType() {
 		return CardType.CHANGE;
 	}
+
+	@Override
+	public String getTooltipMessage() {
+		return "Two zombies on horizontally or vertically adjacent squares can change places with each other.";
+	}
 }

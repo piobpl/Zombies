@@ -41,4 +41,9 @@ public class HandGrenade extends Card {
 	public CardType getType() {
 		return CardType.HANDGRANADE;
 	}
+
+	@Override
+	public String getTooltipMessage() {
+		return "You can throw it on any square on board. Grenade kills and destroys anything that lays on that square.";
+	}
 }

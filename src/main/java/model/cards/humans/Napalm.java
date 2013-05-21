@@ -53,4 +53,9 @@ public class Napalm extends Card {
 	public CardType getType() {
 		return CardType.NAPALM;
 	}
+
+	@Override
+	public String getTooltipMessage() {
+		return "It sets fire to any square on the street, and will burn until the next human phase. Whatever is standing or moves into the burning square, suffers one point of damage.";
+	}
 }

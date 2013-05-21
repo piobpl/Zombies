@@ -87,4 +87,9 @@ public class Mass extends Card {
 		return CardType.MASS;
 	}
 
+	@Override
+	public String getTooltipMessage() {
+		return "A chosen zombie must move to an adjacent square (forward, backward or sideways) already occupied by another zombie. In effect, we get a brand new zombie with strength/toughness equal to the sum of strength/toughness stats of the two zombies of which it is composed. The new zombie cannot move until the next zombie phase!";
+	}
+
 }
