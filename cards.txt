@@ -31,7 +31,7 @@ HAND GRENADE	GRANAT			done
 HIGH VOLTAGE	220V			done
 MINE			MINA			done
 NAPALM	 		NAPALM			done
-NET				SIEĆ			coding...
+NET				SIEĆ			done
 PIT TRAP		DZIURA			to test
 ROLLING BARREL	BECZKA
 SEARCHLIGHT		REFLEKTOR		to check

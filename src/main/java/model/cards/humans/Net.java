@@ -20,15 +20,19 @@ public class Net extends Card {
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
+		System.err.println("Checking: " + cells);
 		for (Pair<Integer, Integer> p : cells) {
 			Card c = gameState.getBoard().get(p.first, p.second);
 			if (c == null || c.getType() != CardType.ZOMBIE)
 				return 0;
 		}
+		System.err.println("Zombies, OK");
 		if (!SelectionTester.areEdgeSolid(cells))
 			return 0;
+		System.err.println("Solid, OK");
 		if (SelectionTester.getZombiesStrength(gameState, cells) > 6)
 			return 0;
+		System.err.println("Weak, OK");
 		return 2;
 	}
 
@@ -36,7 +40,7 @@ public class Net extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		for (Pair<Integer, Integer> p : ((GroupSelection) selection).cells) {
 			Card c = gameState.getBoard().get(p.first, p.second);
-			c.getModifiers().add(new Modifier(ModifierType.BEENFROZEN, 5));
+			c.getModifiers().add(new Modifier(ModifierType.FROZEN, 5));
 			gameState.getBoard().update(p.first, p.second);
 		}
 	}

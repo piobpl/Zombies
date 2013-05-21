@@ -22,17 +22,17 @@ public class Modifier implements Typed<Modifier.ModifierType> {
 	public enum ModifierType {
 		HUMAN {
 			public String getDescription() {
-				return "holds a human";
+				return "human-shild";
 			}
 		},
-		BEENFROZEN {
+		FROZEN {
 			public String getDescription() {
-				return "can't move this turn";
+				return "frozen";
 			}
 		},
 		MOVEDONCE {
 			public String getDescription() {
-				return "can't move this turn";
+				return "advanced";
 			}
 		},
 		TERROR {

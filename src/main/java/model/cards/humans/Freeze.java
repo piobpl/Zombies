@@ -16,7 +16,7 @@ public class Freeze extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		gameState.getModifiers().add(new Modifier(ModifierType.BEENFROZEN, 5));
+		gameState.getModifiers().add(new Modifier(ModifierType.FROZEN, 5));
 	}
 
 	@Override

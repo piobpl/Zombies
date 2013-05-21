@@ -15,7 +15,7 @@ import controller.GameOver;
 public abstract class MoveMaker {
 
 	public static boolean isFrozen(GameState gameState) {
-		return gameState.getModifiers().contains(ModifierType.BEENFROZEN);
+		return gameState.getModifiers().contains(ModifierType.FROZEN);
 	}
 
 	public static boolean isMovePossible(GameState gameState,

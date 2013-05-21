@@ -18,6 +18,6 @@ public class FreezeTest {
 		assertEquals(
 				true,
 				controller.gameState.getModifiers().contains(
-						ModifierType.BEENFROZEN));
+						ModifierType.FROZEN));
 	}
 }

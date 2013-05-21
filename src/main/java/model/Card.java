@@ -17,6 +17,7 @@ import model.cards.humans.HandGrenade;
 import model.cards.humans.HighVoltage;
 import model.cards.humans.Mine;
 import model.cards.humans.Napalm;
+import model.cards.humans.Net;
 import model.cards.humans.Pit;
 import model.cards.humans.Searchlight;
 import model.cards.humans.Shot;
@@ -88,6 +89,11 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new StreetOnFire());
 			cards.add(new Wall(6));
 			cards.add(new Napalm());
+			cards.add(new Net());
+			cards.add(new Net());
+			cards.add(new Net());
+			cards.add(new Net());
+			cards.add(new Net());
 		}
 		return cards;
 	}
