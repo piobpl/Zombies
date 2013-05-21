@@ -13,6 +13,7 @@ import view.EventReceiver.ButtonClickedEvent;
 import view.EventReceiver.Event;
 import view.EventReceiver.EventType;
 import view.EventReceiver.HandClickedEvent;
+import view.GUI;
 import view.GUI.Button;
 import controller.Selection.CellSelection;
 import controller.Selection.ColumnSelection;
@@ -30,11 +31,13 @@ import controller.Selection.SelectionType;
 public class Selector {
 	public final EventReceiver eventReceiver;
 	private GameState gameState;
+	private GUI gui;
 	private EnumMap<SelectionType, Selection> selectionMap;
 
-	public Selector(EventReceiver eventReceiver, GameState gameState) {
-		this.eventReceiver = eventReceiver;
+	public Selector(GameState gameState, GUI gui) {
 		this.gameState = gameState;
+		this.gui = gui;
+		this.eventReceiver = gui.eventReceiver;
 		selectionMap = new EnumMap<SelectionType, Selection>(
 				SelectionType.class);
 		selectionMap.put(SelectionType.CELL, new CellSelection());
@@ -45,114 +48,125 @@ public class Selector {
 	}
 
 	public Selection getSelection(Card card) {
-		Selection current = null, candidate = null;
-		int currentRate = 0, candidateRate;
-		Board board = gameState.gui.getBoard();
-		Event e = null;
-		BoardClickedEvent f = null;
-		HandClickedEvent g = null;
-		ButtonClickedEvent h = null;
-		if (card.getSelectionType() == SelectionType.EMPTY) {
-			current = candidate = new EmptySelection();
-			currentRate = 2;
-		}
-		while (true) {
-			e = eventReceiver.getNextEvent();
-			if (e.type == EventType.ButtonClicked) {
-				if (e.mouseButtonId != MouseEvent.BUTTON1)
-					continue;
-				h = (ButtonClickedEvent) e;
-				if (h.button == Button.ApplySelection)
-					return currentRate == 2 ? current : null;
-				else if (h.button == Button.CancelSelection)
-					return null;
-				else
-					continue;
-			} else if (e.type == EventType.HandClicked) {
-				if (e.mouseButtonId != MouseEvent.BUTTON1)
-					continue;
-				if (card.getSelectionType() != SelectionType.HAND)
-					continue;
-				g = (HandClickedEvent) e;
-				candidate = new HandSelection(g.player, g.cardClicked);
-			} else {
-				if (card.getSelectionType() == SelectionType.HAND
-						|| card.getSelectionType() == SelectionType.EMPTY)
-					continue;
-				f = (BoardClickedEvent) e;
-				if (card.getSelectionType() == SelectionType.MULTIGROUP) {
-					if (e.mouseButtonId == MouseEvent.BUTTON1) {
+		try {
+			gui.setButtonEnabled(Button.EndTurn, false);
+			gui.setButtonEnabled(Button.ApplySelection, true);
+			gui.setButtonEnabled(Button.CancelSelection, true);
+			Selection current = null, candidate = null;
+			int currentRate = 0, candidateRate;
+			Board board = gameState.gui.getBoard();
+			Event e = null;
+			BoardClickedEvent f = null;
+			HandClickedEvent g = null;
+			ButtonClickedEvent h = null;
+			if (card.getSelectionType() == SelectionType.EMPTY) {
+				current = candidate = new EmptySelection();
+				currentRate = 2;
+			}
+			while (true) {
+				e = eventReceiver.getNextEvent();
+				if (e.type == EventType.ButtonClicked) {
+					if (e.mouseButtonId != MouseEvent.BUTTON1)
+						continue;
+					h = (ButtonClickedEvent) e;
+					if (h.button == Button.ApplySelection)
+						return currentRate == 2 ? current : null;
+					else if (h.button == Button.CancelSelection)
+						return null;
+					else
+						continue;
+				} else if (e.type == EventType.HandClicked) {
+					if (e.mouseButtonId != MouseEvent.BUTTON1)
+						continue;
+					if (card.getSelectionType() != SelectionType.HAND)
+						continue;
+					g = (HandClickedEvent) e;
+					candidate = new HandSelection(g.player, g.cardClicked);
+				} else {
+					if (card.getSelectionType() == SelectionType.HAND
+							|| card.getSelectionType() == SelectionType.EMPTY)
+						continue;
+					f = (BoardClickedEvent) e;
+					if (card.getSelectionType() == SelectionType.MULTIGROUP) {
+						if (e.mouseButtonId == MouseEvent.BUTTON1) {
+							if (current == null)
+								candidate = selectionMap.get(
+										card.getSelectionType()).add(
+										f.cardClicked);
+							else
+								candidate = current.add(f.cardClicked);
+						} else {
+							if (current == null)
+								candidate = ((MultiGroupSelection) selectionMap
+										.get(card.getSelectionType()))
+										.remove(f.cardClicked);
+							else
+								candidate = ((MultiGroupSelection) current)
+										.remove(f.cardClicked);
+						}
+					} else {
+						if (e.mouseButtonId != MouseEvent.BUTTON1)
+							continue;
 						if (current == null)
 							candidate = selectionMap.get(
 									card.getSelectionType()).add(f.cardClicked);
 						else
 							candidate = current.add(f.cardClicked);
-					} else {
-						if (current == null)
-							candidate = ((MultiGroupSelection) selectionMap
-									.get(card.getSelectionType()))
-									.remove(f.cardClicked);
-						else
-							candidate = ((MultiGroupSelection) current)
-									.remove(f.cardClicked);
 					}
-				} else {
-					if (e.mouseButtonId != MouseEvent.BUTTON1)
-						continue;
-					if (current == null)
-						candidate = selectionMap.get(card.getSelectionType())
-								.add(f.cardClicked);
-					else
-						candidate = current.add(f.cardClicked);
 				}
-			}
-			candidateRate = card.rateSelection(gameState, candidate);
-			if (candidateRate > 0) {
-				switch (card.getSelectionType()) {
-				case CELL:
-					if (current != null) {
-						Pair<Integer, Integer> pos = ((CellSelection) current).cell;
-						board.getCell(pos.first, pos.second)
-								.setHighlight(false);
-					}
-					{
-						Pair<Integer, Integer> pos = ((CellSelection) candidate).cell;
-						board.getCell(pos.first, pos.second).setHighlight(true);
-					}
-					break;
-				case COLUMN:
-					if (current != null) {
+				candidateRate = card.rateSelection(gameState, candidate);
+				if (candidateRate > 0) {
+					switch (card.getSelectionType()) {
+					case CELL:
+						if (current != null) {
+							Pair<Integer, Integer> pos = ((CellSelection) current).cell;
+							board.getCell(pos.first, pos.second).setHighlight(
+									false);
+						}
+						{
+							Pair<Integer, Integer> pos = ((CellSelection) candidate).cell;
+							board.getCell(pos.first, pos.second).setHighlight(
+									true);
+						}
+						break;
+					case COLUMN:
+						if (current != null) {
+							board.setColumnHighlight(
+									((ColumnSelection) current).column, false);
+						}
 						board.setColumnHighlight(
-								((ColumnSelection) current).column, false);
-					}
-					board.setColumnHighlight(
-							((ColumnSelection) candidate).column, true);
-					break;
-				case GROUP:
-					board.getCell(f.cardClicked.first, f.cardClicked.second)
-							.toggleHighlight();
-					break;
-				case HAND:
-					if (current != null) {
-						HandSelection pos = ((HandSelection) current);
+								((ColumnSelection) candidate).column, true);
+						break;
+					case GROUP:
+						board.getCell(f.cardClicked.first, f.cardClicked.second)
+								.toggleHighlight();
+						break;
+					case HAND:
+						if (current != null) {
+							HandSelection pos = ((HandSelection) current);
+							gameState.gui.getHand(pos.player).getCell(pos.card)
+									.setHighlight(false);
+						}
+						HandSelection pos = ((HandSelection) candidate);
 						gameState.gui.getHand(pos.player).getCell(pos.card)
-								.setHighlight(false);
+								.setHighlight(true);
+						break;
+					case EMPTY:
+						break;
+					case MULTIGROUP:
+						// TODO
+						break;
+					default:
+						break;
 					}
-					HandSelection pos = ((HandSelection) candidate);
-					gameState.gui.getHand(pos.player).getCell(pos.card)
-							.setHighlight(true);
-					break;
-				case EMPTY:
-					break;
-				case MULTIGROUP:
-					// TODO
-					break;
-				default:
-					break;
+					current = candidate;
+					currentRate = candidateRate;
 				}
-				current = candidate;
-				currentRate = candidateRate;
 			}
+		} finally {
+			gui.setButtonEnabled(Button.EndTurn, true);
+			gui.setButtonEnabled(Button.ApplySelection, false);
+			gui.setButtonEnabled(Button.CancelSelection, false);
 		}
 	}
 }

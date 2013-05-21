@@ -29,7 +29,7 @@ public class Controller {
 		System.err.println("Creating Controller...");
 		gui = new GUI();
 		gameState = new GameState(gui);
-		selector = new Selector(gui.eventReceiver, gameState);
+		selector = new Selector(gameState, gui);
 		System.err.println("Done");
 	}
 
@@ -161,6 +161,9 @@ public class Controller {
 		Player[] players = new Player[2];
 		players[0] = Player.ZOMBIE;
 		players[1] = Player.HUMAN;
+		gui.setButtonEnabled(Button.EndTurn, true);
+		gui.setButtonEnabled(Button.ApplySelection, false);
+		gui.setButtonEnabled(Button.CancelSelection, false);
 		System.err.println("Game started");
 		try {
 			while (true) {
