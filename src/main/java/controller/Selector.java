@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.event.MouseEvent;
 import java.util.EnumMap;
 
 import model.Card;
@@ -18,12 +19,13 @@ import controller.Selection.ColumnSelection;
 import controller.Selection.EmptySelection;
 import controller.Selection.GroupSelection;
 import controller.Selection.HandSelection;
+import controller.Selection.MultiGroupSelection;
 import controller.Selection.SelectionType;
 
 /**
- * 
+ *
  * @author Edoipi
- * 
+ *
  */
 public class Selector {
 	public final EventReceiver eventReceiver;
@@ -50,13 +52,15 @@ public class Selector {
 		BoardClickedEvent f = null;
 		HandClickedEvent g = null;
 		ButtonClickedEvent h = null;
-		if(card.getSelectionType() == SelectionType.EMPTY) {
+		if (card.getSelectionType() == SelectionType.EMPTY) {
 			current = candidate = new EmptySelection();
 			currentRate = 2;
 		}
 		while (true) {
 			e = eventReceiver.getNextEvent();
 			if (e.type == EventType.ButtonClicked) {
+				if (e.mouseButtonId != MouseEvent.BUTTON1)
+					continue;
 				h = (ButtonClickedEvent) e;
 				if (h.button == Button.ApplySelection)
 					return currentRate == 2 ? current : null;
@@ -65,20 +69,42 @@ public class Selector {
 				else
 					continue;
 			} else if (e.type == EventType.HandClicked) {
+				if (e.mouseButtonId != MouseEvent.BUTTON1)
+					continue;
 				if (card.getSelectionType() != SelectionType.HAND)
 					continue;
 				g = (HandClickedEvent) e;
 				candidate = new HandSelection(g.player, g.cardClicked);
 			} else {
-				if (card.getSelectionType() == SelectionType.HAND ||
-						card.getSelectionType() == SelectionType.EMPTY)
+				if (card.getSelectionType() == SelectionType.HAND
+						|| card.getSelectionType() == SelectionType.EMPTY)
 					continue;
 				f = (BoardClickedEvent) e;
-				if (current == null)
-					candidate = selectionMap.get(card.getSelectionType()).add(
-							f.cardClicked);
-				else
-					candidate = current.add(f.cardClicked);
+				if (card.getSelectionType() == SelectionType.MULTIGROUP) {
+					if (e.mouseButtonId == MouseEvent.BUTTON1) {
+						if (current == null)
+							candidate = selectionMap.get(
+									card.getSelectionType()).add(f.cardClicked);
+						else
+							candidate = current.add(f.cardClicked);
+					} else {
+						if (current == null)
+							candidate = ((MultiGroupSelection) selectionMap
+									.get(card.getSelectionType()))
+									.remove(f.cardClicked);
+						else
+							candidate = ((MultiGroupSelection) current)
+									.remove(f.cardClicked);
+					}
+				} else {
+					if (e.mouseButtonId != MouseEvent.BUTTON1)
+						continue;
+					if (current == null)
+						candidate = selectionMap.get(card.getSelectionType())
+								.add(f.cardClicked);
+					else
+						candidate = current.add(f.cardClicked);
+				}
 			}
 			candidateRate = card.rateSelection(gameState, candidate);
 			if (candidateRate > 0) {
@@ -117,6 +143,11 @@ public class Selector {
 							.setHighlight(true);
 					break;
 				case EMPTY:
+					break;
+				case MULTIGROUP:
+					// TODO
+					break;
+				default:
 					break;
 				}
 				current = candidate;

@@ -22,7 +22,7 @@ public class EventReceiver {
 
 	public abstract static class Event {
 		public final EventType type;
-		int mouseButtonId;
+		public final int mouseButtonId;
 
 		public Event(EventType type, int mouseButtonId) {
 			this.type = type;
@@ -107,7 +107,8 @@ public class EventReceiver {
 							try {
 								eventQueue.put(new HandClickedEvent(index,
 										player, e.getButton()));
-								System.err.println("Clicked: " + index + " on "
+								System.err.println("" + e.getButton()
+										+ " clicked: " + index + " on "
 										+ player + " hand");
 							} catch (InterruptedException e1) {
 								e1.printStackTrace();
@@ -132,8 +133,9 @@ public class EventReceiver {
 													new Pair<Integer, Integer>(
 															row, col), e
 															.getButton()));
-									System.err.println("Clicked board at ("
-											+ row + ", " + col + ")");
+									System.err.println("" + e.getButton()
+											+ " clicked board at (" + row
+											+ ", " + col + ")");
 								} catch (InterruptedException e1) {
 									e1.printStackTrace();
 								}
@@ -152,7 +154,8 @@ public class EventReceiver {
 					try {
 						eventQueue.put(new ButtonClickedEvent(button, e
 								.getButton()));
-						System.err.println(button + " clicked");
+						System.err.println("" + e.getButton() + " " + button
+								+ " clicked");
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
@@ -185,7 +188,8 @@ public class EventReceiver {
 		Event event;
 		while (true) {
 			event = getNextEvent();
-			if (event.type == EventType.ButtonClicked)
+			if (event.type == EventType.ButtonClicked
+					&& event.mouseButtonId == MouseEvent.BUTTON1)
 				if (((ButtonClickedEvent) event).button == button)
 					break;
 		}
