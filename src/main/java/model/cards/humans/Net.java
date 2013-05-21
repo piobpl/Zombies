@@ -27,7 +27,7 @@ public class Net extends Card {
 		}
 		if (!SelectionTester.areEdgeSolid(cells))
 			return 0;
-		if (SelectionTester.getZombiesStrength(gameState, cells) > 6)
+		if (SelectionTester.getStrength(gameState, cells) > 6)
 			return 0;
 		return 2;
 	}

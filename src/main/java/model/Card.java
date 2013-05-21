@@ -10,6 +10,7 @@ import model.cards.humans.Barrier;
 import model.cards.humans.Blood;
 import model.cards.humans.Burst;
 import model.cards.humans.Car;
+import model.cards.humans.Flamethrower;
 import model.cards.humans.Freeze;
 import model.cards.humans.Gasoline;
 import model.cards.humans.GetOut;
@@ -45,7 +46,7 @@ import controller.Selection.SelectionType;
 public abstract class Card implements Typed<CardType> {
 
 	public static enum CardType {
-		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
+		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, FLAMETHROWER, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
 	}
 
 	/*
@@ -90,10 +91,20 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new Wall(6));
 			cards.add(new Napalm());
 			cards.add(new Net());
-			cards.add(new Net());
-			cards.add(new Net());
-			cards.add(new Net());
-			cards.add(new Net());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
+			cards.add(new Flamethrower());
 		}
 		return cards;
 	}
