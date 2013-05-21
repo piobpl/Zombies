@@ -23,7 +23,7 @@ public class InfoPanel {
 	InfoPanel(JPanel panel) {
 
 		panel.setLayout(new FlowLayout());
-		panel.setPreferredSize(new Dimension(400, 300));
+		panel.setPreferredSize(new Dimension(390, 290));
 
 		applySelectionButton = new JButton("Apply Selection");
 		applySelectionButton.setPreferredSize(new Dimension(120, 30));
@@ -37,7 +37,7 @@ public class InfoPanel {
 		endTurnButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(endTurnButton);
 
-		textArea = new JTextArea(18, 34);
+		textArea = new JTextArea(12, 32);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBorder(BorderFactory.createMatteBorder(50, 10, 10, 10, new Color(180,202,157)));
 		panel.add(scrollPane);

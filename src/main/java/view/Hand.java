@@ -9,12 +9,12 @@ public class Hand {
 
 	private Cell[] cells = new Cell[4];
 
-	public Hand(JPanel panel) {
+	public Hand(JPanel panel, Color colorKarty, Color colorTla) {
 		panel.setLayout(new GridLayout(1, 4, 5, 5));
-		panel.setBackground(new Color(225,182,126));
+		panel.setBackground(Colors.jasnaOliwka.getColor());
 		for (int i = 0; i < 4; ++i) {
 			JPanel cellPanel = new JPanel();
-			cells[i] = new Cell(cellPanel);
+			cells[i] = new Cell(cellPanel, colorKarty, colorTla);
 			panel.add(cellPanel);
 		}
 	}

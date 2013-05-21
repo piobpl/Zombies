@@ -20,10 +20,14 @@ public class Cell {
 	private JLabel strength;
 	private JLabel trapDesc;
 	private JLabel modifier;
+	private Color colorKarty;
+	private Color colorTla;
 	private boolean isHighlighted;
 
-	public Cell(JPanel panel) {
+	public Cell(JPanel panel, Color colorKarty, Color colorTla) {
 		this.panel = panel;
+		this.colorKarty = colorKarty;
+		this.colorTla = colorTla;
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.add(name = new JLabel("Karta"));
 		name.setForeground(new Color(236,103,67));
@@ -33,7 +37,7 @@ public class Cell {
 		panel.add(modifier = new JLabel(""));
 		panel.setBorder(BorderFactory.createLineBorder(new Color(119,80,80), 1));
 		panel.setPreferredSize(new Dimension(120, 80));
-		panel.setBackground(new Color(80,119,97));
+		panel.setBackground(colorTla);
 		name.setVisible(false);
 		strength.setVisible(false);
 		isHighlighted = false;
@@ -43,8 +47,10 @@ public class Cell {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				if (card == null) {
+					panel.setBackground(colorTla);
 					name.setVisible(false);
 					strength.setVisible(false);
+					modifier.setText("");
 				} else {
 					name.setVisible(true);
 					name.setText(card.getName());
@@ -55,6 +61,19 @@ public class Cell {
 						if (!first)
 							s += ", ";
 						s += m.getName();
+					}
+					switch(card.getType()){
+						case ZOMBIE:
+							panel.setBackground(Colors.zombieCard.getColor());
+							break;
+						case DOGS:
+							panel.setBackground(Color.blue);
+							break;
+						case BARREL:
+							panel.setBackground(Color.yellow);
+							break;
+						default:
+							panel.setBackground(colorKarty);
 					}
 					modifier.setText(s);
 					modifier.setForeground(Color.cyan);
@@ -80,7 +99,6 @@ public class Cell {
 					trap += t.getName();
 				}
 				trapDesc.setText(trap);
-			//	trapDesc.setBackground(Color.cyan);
 			}
 		});
 	}

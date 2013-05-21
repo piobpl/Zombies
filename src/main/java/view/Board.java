@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -8,11 +9,11 @@ public class Board {
 
 	private Cell[][] cells = new Cell[5][3];
 
-	public Board(JPanel panel) {
+	public Board(JPanel panel, Color colorKarty, Color colorTla) {
 		panel.setLayout(new GridLayout(5, 3, 5, 5));
 		for (int i = 0; i < 15; ++i) {
 			JPanel cellPanel = new JPanel();
-			cells[i / 3][i % 3] = new Cell(cellPanel);
+			cells[i / 3][i % 3] = new Cell(cellPanel, colorKarty, colorTla);
 			panel.add(cellPanel);
 		}
 	}
