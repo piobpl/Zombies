@@ -16,7 +16,7 @@ public class Freeze extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
-		gameState.getModifiers().add(new Modifier(ModifierType.BEENFROZEN, 5));
+		gameState.getModifiers().add(new Modifier(ModifierType.FROZEN, 5));
 	}
 
 	@Override
@@ -42,6 +42,11 @@ public class Freeze extends Card {
 	@Override
 	public CardType getType() {
 		return CardType.FREEZE;
+	}
+
+	@Override
+	public String getTooltipMessage() {
+		return " It freezes all movement on the street. Zombies and dogs don’t move in their next phase. Freeze ends with the next human’s phase.";
 	}
 
 }

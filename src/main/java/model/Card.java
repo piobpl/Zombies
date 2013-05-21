@@ -17,6 +17,7 @@ import model.cards.humans.HandGrenade;
 import model.cards.humans.HighVoltage;
 import model.cards.humans.Mine;
 import model.cards.humans.Napalm;
+import model.cards.humans.Net;
 import model.cards.humans.Pit;
 import model.cards.humans.Searchlight;
 import model.cards.humans.Shot;
@@ -44,7 +45,7 @@ import controller.Selection.SelectionType;
 public abstract class Card implements Typed<CardType> {
 
 	public static enum CardType {
-		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE, NAPALM;
+		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
 	}
 
 	/*
@@ -88,6 +89,11 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new StreetOnFire());
 			cards.add(new Wall(6));
 			cards.add(new Napalm());
+			cards.add(new Net());
+			cards.add(new Net());
+			cards.add(new Net());
+			cards.add(new Net());
+			cards.add(new Net());
 		}
 		return cards;
 	}
@@ -103,6 +109,8 @@ public abstract class Card implements Typed<CardType> {
 	public abstract SelectionType getSelectionType();
 
 	public abstract Integer getStrength();
+
+	public abstract String getTooltipMessage();
 
 	public abstract void makeEffect(Selection selection, GameState gameState);
 

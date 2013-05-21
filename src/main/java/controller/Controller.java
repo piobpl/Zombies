@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.MouseEvent;
+
 import model.Board;
 import model.Card;
 import model.Card.CardType;
@@ -80,7 +82,8 @@ public class Controller {
 				return;
 			for (;;) {
 				event = gui.eventReceiver.getNextEvent();
-				if (event.type != EventType.HandClicked)
+				if (event.type != EventType.HandClicked
+						|| event.mouseButtonId != MouseEvent.BUTTON1)
 					continue;
 				pos = ((HandClickedEvent) event).cardClicked;
 				if (hand.isEmpty(pos))
@@ -107,6 +110,8 @@ public class Controller {
 				limit = 1;
 			while (true) {
 				event = gui.eventReceiver.getNextEvent();
+				if (event.mouseButtonId != MouseEvent.BUTTON1)
+					continue;
 				if (event.type == EventType.ButtonClicked) {
 					if (((ButtonClickedEvent) event).button == Button.EndTurn)
 						break;
@@ -121,23 +126,24 @@ public class Controller {
 							+ card.getName());
 					gui.getHand(player).getCell(handClickedEvent.cardClicked)
 							.setHighlight(true);
-					/*if (card.getSelectionType() == null) {
-						System.err.println("No selection, applying.");
-						card.makeEffect(null, gameState);
+					/*
+					 * if (card.getSelectionType() == null) {
+					 * System.err.println("No selection, applying.");
+					 * card.makeEffect(null, gameState);
+					 * hand.remove(handClickedEvent.cardClicked); --limit; }
+					 * else {
+					 */
+					selection = selector.getSelection(card);
+					System.err.println("Received: " + selection);
+					if (selection != null) {
+						System.err.println("Selection received, applying.");
+						card.makeEffect(selection, gameState);
 						hand.remove(handClickedEvent.cardClicked);
 						--limit;
-					} else {*/
-						selection = selector.getSelection(card);
-						System.err.println("Received: " + selection);
-						if (selection != null) {
-							System.err.println("Selection received, applying.");
-							card.makeEffect(selection, gameState);
-							hand.remove(handClickedEvent.cardClicked);
-							--limit;
-						}
 					}
-					gui.setHighlight(false);
-				//}
+				}
+				gui.setHighlight(false);
+				// }
 			}
 		}
 	}

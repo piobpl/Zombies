@@ -50,4 +50,9 @@ public class Meat extends Card {
 		return CardType.MASS;
 	}
 
+	@Override
+	public String getTooltipMessage() {
+		return "It forces human player to remove one card (chosen by a zombie player) from his hand.";
+	}
+
 }

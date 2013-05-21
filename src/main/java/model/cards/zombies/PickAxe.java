@@ -62,4 +62,9 @@ public class PickAxe extends Card {
 		return CardType.PICKAXE;
 	}
 
+	@Override
+	public String getTooltipMessage() {
+		return " It destroys one obstacle put on the street by the human player.";
+	}
+
 }

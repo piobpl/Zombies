@@ -43,4 +43,9 @@ public class Terror extends Card {
 	public CardType getType() {
 		return CardType.TERROR;
 	}
+
+	@Override
+	public String getTooltipMessage() {
+		return "In the next human phase, the human player can play only one card.";
+	}
 }

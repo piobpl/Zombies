@@ -50,4 +50,9 @@ public class GetOut extends Card {
 		return CardType.GETOUT;
 	}
 
+	@Override
+	public String getTooltipMessage() {
+		return "It forces the zombie player to remove one card (chosen by the human player) from his hand.";
+	}
+
 }
