@@ -44,7 +44,7 @@ import controller.Selection.SelectionType;
 public abstract class Card implements Typed<CardType> {
 
 	public static enum CardType {
-		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE, NAPALM;
+		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
 	}
 
 	/*
@@ -104,6 +104,8 @@ public abstract class Card implements Typed<CardType> {
 
 	public abstract Integer getStrength();
 
+	public abstract String getTooltipMessage();
+
 	public abstract void makeEffect(Selection selection, GameState gameState);
 
 	public void nextStage() {
@@ -119,7 +121,5 @@ public abstract class Card implements Typed<CardType> {
 	public abstract int rateSelection(GameState gameState, Selection selection);
 
 	public abstract void setStrength(Integer strength);
-	
-	public abstract String getTooltipMessage();
 
 }
