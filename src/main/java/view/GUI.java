@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 
 import model.Player;
 
-//TODO invokeLater przy updejcie karty, itp.
-
 public class GUI {
 	public static enum Button {
 		ApplySelection, CancelSelection, EndTurn;

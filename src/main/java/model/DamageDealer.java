@@ -7,6 +7,7 @@ import model.Trap.Trigger;
  *
  * @author piob
  */
+
 public abstract class DamageDealer {
 
 	public static void dealDamage(GameState gameState, int x, int y, int dmg,
@@ -16,6 +17,7 @@ public abstract class DamageDealer {
 			if (t.getTriggers().contains(type)) {
 				t.trigger();
 				return;
+				// TODO w zaleznosc od typ returnujemy lub nie.
 			}
 		if (!gameState.getBoard().isEmpty(x, y)) {
 			Card c = gameState.getBoard().get(x, y);

@@ -15,7 +15,6 @@ import view.EventReceiver.EventType;
 import view.EventReceiver.HandClickedEvent;
 import view.GUI;
 import view.GUI.Button;
-import controller.Selection.SelectionType;
 
 public class Controller {
 
