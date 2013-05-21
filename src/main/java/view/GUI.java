@@ -41,6 +41,10 @@ public class GUI {
 		}
 		eventReceiver = new EventReceiver(this);
 	}
+	
+	public void setButtonEnabled(Button button, boolean aktywny){
+		infoPanel.setButtonEnabled(button, aktywny);
+	}
 
 	public Hand getHand(Player player) {
 		if (player == Player.HUMAN)

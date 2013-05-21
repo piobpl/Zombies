@@ -25,11 +25,11 @@ public class InfoPanel {
 		panel.setLayout(new FlowLayout());
 		panel.setPreferredSize(new Dimension(390, 290));
 
-		applySelectionButton = new JButton("Apply Selection");
+		applySelectionButton = new JButton("Apply");
 		applySelectionButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(applySelectionButton);
 
-		cancelSelectionButton = new JButton("Cancel Selection");
+		cancelSelectionButton = new JButton("Cancel");
 		cancelSelectionButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(cancelSelectionButton);
 
@@ -45,6 +45,26 @@ public class InfoPanel {
 		textArea.setForeground(new Color(136,38,38));
 		textArea.setEditable(false);
 		textArea.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(80,119,97)));
+	}
+	
+	public void setButtonEnabled(final Button button, final boolean aktywny){
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				switch (button) {
+				case ApplySelection:
+					applySelectionButton.setEnabled(aktywny);
+					break;
+				case CancelSelection:
+					cancelSelectionButton.setEnabled(aktywny);
+					break;
+				case EndTurn:
+					endTurnButton.setEnabled(aktywny);
+					break;
+				default:
+					throw new UnsupportedOperationException();			
+				}
+			}
+		});
 	}
 
 	public void sendMessage(final String message) {

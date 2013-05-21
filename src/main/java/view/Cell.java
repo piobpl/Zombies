@@ -61,6 +61,7 @@ public class Cell {
 						if (!first)
 							s += ", ";
 						s += m.getName();
+						first = false;
 					}
 					switch(card.getType()){
 						case ZOMBIE:
@@ -97,6 +98,7 @@ public class Cell {
 					if (!first)
 						trap += ", ";
 					trap += t.getName();
+					first = false;
 				}
 				trapDesc.setText(trap);
 			}
