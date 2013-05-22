@@ -2,6 +2,8 @@ package model;
 
 import static org.junit.Assert.*;
 
+import game.model.SelectionTester;
+
 import java.util.ArrayList;
 import java.util.List;
 

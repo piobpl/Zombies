@@ -1,12 +1,12 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import model.cards.humans.Car;
-import model.cards.zombies.Zombie;
+import game.controller.Controller;
+import game.model.cards.humans.Car;
+import game.model.cards.zombies.Zombie;
 
 import org.junit.Test;
 
-import controller.Controller;
 import controller.ForTestsOnly;
 
 public class CarTest {

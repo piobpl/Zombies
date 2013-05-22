@@ -1,5 +1,11 @@
 package model;
 
+import game.model.Board;
+import game.model.Deck;
+import game.model.GameState;
+import game.model.Hand;
+import game.model.Player;
+
 import java.util.Random;
 
 public class GUILessGameState extends GameState {

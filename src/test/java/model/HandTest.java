@@ -1,11 +1,15 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-import model.cards.zombies.Zombie;
+import game.model.Card;
+import game.model.GameState;
+import game.model.Hand;
+import game.model.Player;
+import game.model.cards.zombies.Zombie;
+import game.view.GUI;
 
 import org.junit.Test;
 
-import view.GUI;
 
 public class HandTest {
 

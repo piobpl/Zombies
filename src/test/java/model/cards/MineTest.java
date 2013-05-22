@@ -2,16 +2,17 @@ package model.cards;
 
 import static org.junit.Assert.assertEquals;
 
+import game.controller.Controller;
+import game.model.Trap;
+import game.model.Trap.TrapType;
+import game.model.cards.humans.Mine;
+import game.model.cards.zombies.Zombie;
+
 import java.util.Iterator;
 
-import model.Trap;
-import model.Trap.TrapType;
-import model.cards.humans.Mine;
-import model.cards.zombies.Zombie;
 
 import org.junit.Test;
 
-import controller.Controller;
 import controller.ForTestsOnly;
 
 /**

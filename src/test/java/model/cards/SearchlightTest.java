@@ -1,14 +1,14 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import model.cards.humans.Searchlight;
-import model.cards.zombies.Zombie;
+import game.controller.Controller;
+import game.controller.Selection.ColumnSelection;
+import game.model.cards.humans.Searchlight;
+import game.model.cards.zombies.Zombie;
 
 import org.junit.Test;
 
-import controller.Controller;
 import controller.ForTestsOnly;
-import controller.Selection.ColumnSelection;
 
 public class SearchlightTest {
 

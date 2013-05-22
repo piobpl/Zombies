@@ -1,13 +1,13 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import model.Modifier.ModifierType;
-import model.cards.zombies.Human;
-import model.cards.zombies.Zombie;
+import game.controller.Controller;
+import game.model.Modifier.ModifierType;
+import game.model.cards.zombies.Human;
+import game.model.cards.zombies.Zombie;
 
 import org.junit.Test;
 
-import controller.Controller;
 import controller.ForTestsOnly;
 
 public class HumanTest {

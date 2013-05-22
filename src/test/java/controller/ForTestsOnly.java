@@ -1,11 +1,12 @@
 package controller;
 
+import game.controller.Selection.CellSelection;
+import game.controller.Selection.ColumnSelection;
+import game.controller.Selection.GroupSelection;
+
 import java.util.List;
 
 import utility.Pair;
-import controller.Selection.CellSelection;
-import controller.Selection.ColumnSelection;
-import controller.Selection.GroupSelection;
 
 /**
  * Class for test use only

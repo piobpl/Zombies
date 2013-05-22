@@ -1,12 +1,12 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import model.Modifier.ModifierType;
-import model.cards.zombies.Terror;
+import game.controller.Controller;
+import game.model.Modifier.ModifierType;
+import game.model.cards.zombies.Terror;
 
 import org.junit.Test;
 
-import controller.Controller;
 
 /**
  * 

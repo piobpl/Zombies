@@ -2,18 +2,19 @@ package model.cards;
 
 import static org.junit.Assert.assertEquals;
 
+import game.controller.Controller;
+import game.model.Trap;
+import game.model.Trap.TrapType;
+import game.model.cards.humans.Mine;
+import game.model.cards.zombies.PickAxe;
+import game.model.cards.zombies.Zombie;
+
 import java.util.Iterator;
 
-import model.Trap;
-import model.Trap.TrapType;
-import model.cards.humans.Mine;
-import model.cards.zombies.PickAxe;
-import model.cards.zombies.Zombie;
 
 import org.junit.Test;
 
 import utility.Pair;
-import controller.Controller;
 import controller.ForTestsOnly;
 
 /**
@@ -72,10 +73,10 @@ public class PickAxeTest {
 		controller.gameState
 				.getBoard()
 				.getTraps(3, 2)
-				.add(new model.traps.PitTrap(controller.gameState, 3,
+				.add(new game.model.traps.PitTrap(controller.gameState, 3,
 						new Pair<Integer, Integer>(3, 2)));
 		controller.gameState.getBoard().getTraps(3, 2)
-				.add(new model.traps.BarrierTrap(5));
+				.add(new game.model.traps.BarrierTrap(5));
 		pickAxe.makeEffect(ForTestsOnly.getNewCellSelection(3, 2),
 				controller.gameState);
 		a = 0;

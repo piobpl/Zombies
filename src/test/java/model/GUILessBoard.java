@@ -1,10 +1,15 @@
 package model;
 
+import game.model.Board;
+import game.model.Card;
+import game.model.GameState;
+import game.model.Trap;
+import game.model.Card.CardType;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.Card.CardType;
 
 public class GUILessBoard extends Board {
 

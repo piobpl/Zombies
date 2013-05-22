@@ -2,18 +2,19 @@ package model.cards;
 
 import static org.junit.Assert.assertEquals;
 
+import game.controller.Controller;
+import game.model.Card.CardType;
+import game.model.cards.zombies.Bite;
+import game.model.cards.zombies.Human;
+import game.model.cards.zombies.Zombie;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import model.Card.CardType;
-import model.cards.zombies.Bite;
-import model.cards.zombies.Human;
-import model.cards.zombies.Zombie;
 
 import org.junit.Test;
 
 import utility.Pair;
-import controller.Controller;
 import controller.ForTestsOnly;
 
 public class BiteTest {

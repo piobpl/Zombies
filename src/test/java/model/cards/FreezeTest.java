@@ -1,12 +1,12 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import model.Modifier.ModifierType;
-import model.cards.humans.Freeze;
+import game.controller.Controller;
+import game.model.Modifier.ModifierType;
+import game.model.cards.humans.Freeze;
 
 import org.junit.Test;
 
-import controller.Controller;
 
 /**
  * 

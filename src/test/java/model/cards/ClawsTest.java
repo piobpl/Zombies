@@ -1,14 +1,14 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import model.cards.zombies.Claws;
-import model.cards.zombies.Zombie;
+import game.controller.Controller;
+import game.controller.Selection.CellSelection;
+import game.model.cards.zombies.Claws;
+import game.model.cards.zombies.Zombie;
 
 import org.junit.Test;
 
-import controller.Controller;
 import controller.ForTestsOnly;
-import controller.Selection.CellSelection;
 
 public class ClawsTest {
 

@@ -2,16 +2,17 @@ package model.cards;
 
 import static org.junit.Assert.assertEquals;
 
+import game.controller.Selection.GroupSelection;
+import game.model.cards.humans.Gasoline;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import model.cards.humans.Gasoline;
 
 import org.junit.Test;
 
 import utility.Pair;
 import controller.ForTestsOnly;
-import controller.Selection.GroupSelection;
 
 public class GasolineTest {
 
