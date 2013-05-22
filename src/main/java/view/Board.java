@@ -20,7 +20,7 @@ public class Board {
 
 	/**
 	 * Returns a cell at a specified position.
-	 * 
+	 *
 	 * @param x
 	 *            row
 	 * @param y
@@ -45,5 +45,17 @@ public class Board {
 	public void setRowHighlight(int i, boolean set) {
 		for (int j = 0; j < 3; ++j)
 			cells[i][j].setHighlight(set);
+	}
+
+	public void registerToGlass(JPanel glass) {
+		for (int i = 0; i < 5; ++i)
+			for (int j = 0; j < 3; ++j)
+				cells[i][j].registerToGlass(glass);
+	}
+
+	public void clearGlassText(){
+		for (int i = 0; i < 5; ++i)
+			for (int j = 0; j < 3; ++j)
+				cells[i][j].setGlassText("");
 	}
 }

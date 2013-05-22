@@ -98,13 +98,6 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new Flamethrower());
 			cards.add(new Flamethrower());
 			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
 		}
 		return cards;
 	}

@@ -25,7 +25,7 @@ import controller.Selection.SelectionType;
 
 /**
  *
- * @author Edoipi
+ * @author Edoipi, piob
  *
  */
 public class Selector {
@@ -55,7 +55,7 @@ public class Selector {
 			gui.setButtonEnabled(Button.CancelSelection, true);
 			Selection current = null, candidate = null;
 			int currentRate = 0, candidateRate;
-			Board board = gameState.gui.getBoard();
+			Board board = gui.getBoard();
 			Event e = null;
 			BoardClickedEvent f = null;
 			HandClickedEvent g = null;
@@ -71,12 +71,12 @@ public class Selector {
 					if (e.mouseButtonId != MouseEvent.BUTTON1)
 						continue;
 					h = (ButtonClickedEvent) e;
-					if (h.button == Button.ApplySelection){
-						if(currentRate == 2)
+					if (h.button == Button.ApplySelection) {
+						if (currentRate == 2)
 							return current;
 						else
 							continue;
-					}else if (h.button == Button.CancelSelection)
+					} else if (h.button == Button.CancelSelection)
 						return null;
 					else
 						continue;
@@ -143,23 +143,40 @@ public class Selector {
 								((ColumnSelection) candidate).column, true);
 						break;
 					case GROUP:
-						board.getCell(f.cardClicked.first, f.cardClicked.second)
-								.toggleHighlight();
+						gui.setHighlight(false);
+						int k = 0;
+						board.clearGlassText();
+						for (Pair<Integer, Integer> p : ((GroupSelection) candidate).cells) {
+							board.getCell(p.first, p.second).setGlassText(
+									"" + (++k));
+							board.getCell(p.first, p.second).setHighlight(true);
+						}
 						break;
 					case HAND:
 						if (current != null) {
 							HandSelection pos = ((HandSelection) current);
-							gameState.gui.getHand(pos.player).getCell(pos.card)
+							gui.getHand(pos.player).getCell(pos.card)
 									.setHighlight(false);
 						}
 						HandSelection pos = ((HandSelection) candidate);
-						gameState.gui.getHand(pos.player).getCell(pos.card)
+						gui.getHand(pos.player).getCell(pos.card)
 								.setHighlight(true);
 						break;
 					case EMPTY:
 						break;
 					case MULTIGROUP:
-						// TODO
+						int[][] cnt = new int[5][3];
+						board.clearGlassText();
+						for (Pair<Integer, Integer> p : ((MultiGroupSelection) candidate).cells)
+							++cnt[p.first][p.second];
+						for (int i = 0; i < 5; ++i)
+							for (int j = 0; j < 3; ++j) {
+								if (cnt[i][j] > 0) {
+									board.getCell(i, j).setGlassText(
+											"" + cnt[i][j]);
+									board.getCell(i, j).setHighlight(true);
+								}
+							}
 						break;
 					default:
 						break;
@@ -172,6 +189,7 @@ public class Selector {
 			gui.setButtonEnabled(Button.EndTurn, true);
 			gui.setButtonEnabled(Button.ApplySelection, false);
 			gui.setButtonEnabled(Button.CancelSelection, false);
+			gui.getBoard().clearGlassText();
 		}
 	}
 }

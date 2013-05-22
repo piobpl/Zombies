@@ -21,6 +21,7 @@ public class GUI {
 	private Hand zombieHand;
 	private Hand humanHand;
 	private Board board;
+	private JPanel glass;
 	private JFrame frame;
 	private JLabel zombieCardsLeft;
 	private JLabel humanCardsLeft;
@@ -40,7 +41,7 @@ public class GUI {
 		}
 		eventReceiver = new EventReceiver(this);
 	}
-	
+
 	public void setButtonEnabled(Button button, boolean aktywny){
 		infoPanel.setButtonEnabled(button, aktywny);
 	}
@@ -77,6 +78,12 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridBagLayout());
 		frame.getContentPane().setBackground(Colors.tlo.getColor());
+
+		glass = new JPanel();
+		glass.setLayout(null);
+		frame.setGlassPane(glass);
+		glass.setVisible(true);
+		glass.setOpaque(false);
 
 		GridBagConstraints gbc;
 
@@ -137,6 +144,8 @@ public class GUI {
 				Colors.boardsCard.getColor());
 
 		frame.pack();
+
+		board.registerToGlass(glass);
 
 	}
 

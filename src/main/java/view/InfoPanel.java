@@ -26,7 +26,7 @@ public class InfoPanel {
 
 		applySelectionButton = new JButton("Apply");
 		applySelectionButton.setPreferredSize(new Dimension(120, 30));
-		
+
 		panel.add(applySelectionButton);
 
 		cancelSelectionButton = new JButton("Cancel");
@@ -46,7 +46,7 @@ public class InfoPanel {
 		textArea.setEditable(false);
 		textArea.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Colors.humansCard.getColor()));
 	}
-	
+
 	public void setButtonEnabled(final Button button, final boolean aktywny){
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -61,7 +61,7 @@ public class InfoPanel {
 					endTurnButton.setEnabled(aktywny);
 					break;
 				default:
-					throw new UnsupportedOperationException();			
+					throw new UnsupportedOperationException();
 				}
 			}
 		});

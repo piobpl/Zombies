@@ -67,6 +67,7 @@ public class Board {
 	 */
 	public void update(int x, int y) {
 		gameState.gui.getBoard().getCell(x, y).drawCard(board[x][y]);
+		gameState.gui.getBoard().getCell(x, y).drawTraps(traps.get(x * 3 + y));
 	}
 
 	public void update() {
