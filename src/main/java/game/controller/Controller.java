@@ -84,6 +84,7 @@ public class Controller {
 			int pos;
 			if (hand.isEmpty())
 				return;
+			int selectedPosition=-1;
 			for (;;) {
 				event = gui.eventReceiver.getNextEvent();
 				if (event.type != EventType.HandClicked
@@ -92,8 +93,26 @@ public class Controller {
 				pos = ((HandClickedEvent) event).cardClicked;
 				if (hand.isEmpty(pos))
 					continue;
-				if (((HandClickedEvent) event).player == player)
-					break;
+				if (((HandClickedEvent) event).player == player){
+					if(selectedPosition==-1){
+						gui.getInfoPanel().sendMessage("Please confirm your choice.");
+						selectedPosition=pos;
+						gui.getHand(player).getCell(selectedPosition)
+						.setHighlight(true);
+						continue;
+					}else{
+						if(selectedPosition==pos){
+							gui.getHand(player).getCell(selectedPosition)
+							.setHighlight(false);
+							break;
+						}else{
+							gui.getInfoPanel().sendMessage("Choose again.");
+							gui.getHand(player).getCell(selectedPosition)
+							.setHighlight(false);
+							selectedPosition=-1;
+						}
+					}
+				}
 			}
 			System.err.println("Discarded: " + hand.get(pos).getName());
 			hand.set(pos, null);
