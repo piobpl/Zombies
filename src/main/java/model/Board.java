@@ -153,8 +153,16 @@ public class Board {
 		Card tmpCard2 = get(x2, y2);
 		board[x1][y1] = null;
 		board[x2][y2] = null;
-		if(!MoveMaker.isMovePossible(gameState, p1, p2, tmpCard1)) return;
-		if(!MoveMaker.isMovePossible(gameState, p2, p1, tmpCard2)) return;
+		if(!MoveMaker.isMovePossible(gameState, p1, p2, tmpCard1)){
+			board[x1][y1] = tmpCard1;
+			board[x2][y2] = tmpCard2;
+			return;
+		}
+		if(!MoveMaker.isMovePossible(gameState, p2, p1, tmpCard2)){
+			board[x1][y1] = tmpCard1;
+			board[x2][y2] = tmpCard2;
+			return;
+		}
 		board[x1][y1] = tmpCard1;
 		MoveMaker.moveTo(gameState, p1, p2);
 		board[x2][y2] = tmpCard2;
