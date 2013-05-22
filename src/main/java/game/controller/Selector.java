@@ -144,9 +144,9 @@ public class Selector {
 								((ColumnSelection) candidate).column, true);
 						break;
 					case GROUP:
-						gui.setHighlight(false);
-						int k = 0;
+						board.setHighlight(false);
 						board.clearGlassText();
+						int k = 0;
 						for (Pair<Integer, Integer> p : ((GroupSelection) candidate).cells) {
 							board.getCell(p.first, p.second).setGlassText(
 									"" + (++k));
@@ -166,8 +166,9 @@ public class Selector {
 					case EMPTY:
 						break;
 					case MULTIGROUP:
-						int[][] cnt = new int[5][3];
+						board.setHighlight(false);
 						board.clearGlassText();
+						int[][] cnt = new int[5][3];
 						for (Pair<Integer, Integer> p : ((MultiGroupSelection) candidate).cells)
 							++cnt[p.first][p.second];
 						for (int i = 0; i < 5; ++i)
