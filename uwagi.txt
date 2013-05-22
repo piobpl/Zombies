@@ -124,3 +124,5 @@ karty, modyfikatory i trapy sa typowane (obczaicie sobie getType())
 (nie dotyczy testow)
 
 26. Dodawajcie przynajmniej informacje javadocowa author do tworzonych klas.
+
+27. Zeby uruchomic gre klikamy na controller przed run, albo wybieramy z listy obok run.
