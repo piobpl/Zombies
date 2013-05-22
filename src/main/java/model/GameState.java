@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 import model.Modifier.ModifierType;
 import utility.TypedSet;
 import view.GUI;
@@ -15,6 +17,7 @@ public class GameState {
 	private Deck humanDeck;
 	private Hand zombieHand;
 	private Hand humanHand;
+	private Random random;
 
 	/**
 	 * Creates a new gamestate.
@@ -22,9 +25,10 @@ public class GameState {
 	public GameState(GUI gui) {
 		System.err.println("Creating GameState...");
 		this.gui = gui;
+		random=new Random();
 		board = new Board(this);
-		zombieDeck = new Deck(this, Player.ZOMBIE);
-		humanDeck = new Deck(this, Player.HUMAN);
+		zombieDeck = new Deck(this, Player.ZOMBIE,random);
+		humanDeck = new Deck(this, Player.HUMAN,random);
 		zombieHand = new Hand(this, Player.ZOMBIE);
 		humanHand = new Hand(this, Player.HUMAN);
 	}

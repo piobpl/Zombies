@@ -14,6 +14,11 @@ import org.junit.Test;
 import controller.Controller;
 import controller.ForTestsOnly;
 
+/**
+ * 
+ * @author krozycki
+ *
+ */
 public class MineTest {
 
 	@Test

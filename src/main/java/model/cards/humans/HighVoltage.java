@@ -8,6 +8,11 @@ import controller.Selection;
 import controller.Selection.ColumnSelection;
 import controller.Selection.SelectionType;
 
+/**
+ * 
+ * @author krozycki
+ *
+ */
 public class HighVoltage extends Card {
 
 	@Override

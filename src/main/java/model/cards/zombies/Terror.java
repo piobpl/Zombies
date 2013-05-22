@@ -7,6 +7,11 @@ import model.Modifier.ModifierType;
 import controller.Selection;
 import controller.Selection.SelectionType;
 
+/**
+ * 
+ * @author krozycki
+ *
+ */
 public class Terror extends Card {
 
 	@Override

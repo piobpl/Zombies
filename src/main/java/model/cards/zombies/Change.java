@@ -12,6 +12,11 @@ import controller.Selection;
 import controller.Selection.GroupSelection;
 import controller.Selection.SelectionType;
 
+/**
+ * 
+ * @author krozycki
+ *
+ */
 public class Change extends Card {
 
 	@Override

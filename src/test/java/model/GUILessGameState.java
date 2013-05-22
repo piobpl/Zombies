@@ -1,12 +1,15 @@
 package model;
 
+import java.util.Random;
+
 public class GUILessGameState extends GameState {
 
 	public GUILessGameState() {
 		super(null);
 		board = new GUILessBoard(this);
-		zombieDeck = new Deck(this, Player.ZOMBIE);
-		humanDeck = new Deck(this, Player.HUMAN);
+		random=new Random();
+		zombieDeck = new Deck(this, Player.ZOMBIE,random);
+		humanDeck = new Deck(this, Player.HUMAN,random);
 		zombieHand = new Hand(this, Player.ZOMBIE);
 		humanHand = new Hand(this, Player.HUMAN);
 	}
@@ -16,6 +19,7 @@ public class GUILessGameState extends GameState {
 	private Deck humanDeck;
 	private Hand zombieHand;
 	private Hand humanHand;
+	private Random random;
 
 	@Override
 	public Board getBoard() {

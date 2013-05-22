@@ -8,6 +8,11 @@ import org.junit.Test;
 
 import controller.Controller;
 
+/**
+ * 
+ * @author krozycki
+ *
+ */
 public class FreezeTest {
 
 	@Test

@@ -131,7 +131,7 @@ public class Board {
 	}
 
 	/**
-	 * Exchange cards at a specified position (including traps);
+	 * Exchange cards at a specified position (including traps); Returns true if the cards were exchanged.
 	 *
 	 * @param x1
 	 *            first coordinate of the first card
@@ -141,6 +141,7 @@ public class Board {
 	 *            first coordinate of the second card
 	 * @param y2
 	 *            second coordinate of the second card
+	 * @return true if the cards were exchanged
 	 */
 
 	// TODO ustawienie handlerow zmiany dla gui

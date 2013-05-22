@@ -16,6 +16,11 @@ import utility.Pair;
 import controller.Controller;
 import controller.ForTestsOnly;
 
+/**
+ * 
+ * @author krozycki
+ *
+ */
 public class PickAxeTest {
 	@Test
 	public void test() {
