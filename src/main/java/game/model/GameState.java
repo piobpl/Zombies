@@ -79,6 +79,7 @@ public class GameState {
 		board.update();
 		humanHand.update();
 		zombieHand.update();
+		gui.setGlobalModificators(modifiers);
 	}
 
 	public TypedSet<Modifier, ModifierType> getModifiers() {
