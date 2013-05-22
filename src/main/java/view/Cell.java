@@ -64,7 +64,6 @@ public class Cell {
 					String s = "";
 					boolean first = true;
 					for (Modifier m : card.getModifiers()) {
-						System.err.println("Rysuje modyfikator: " + m.getName());
 						if (!first)
 							s += ", ";
 						s += m.getName();
@@ -99,11 +98,9 @@ public class Cell {
 	public void drawTraps(final Iterable<Trap> traps) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				System.err.println("rysuje trapy: " + traps);
 				String trap = "";
 				boolean first = true;
 				for (Trap t : traps) {
-					System.err.println("dodaje trap: " + t);
 					if (!first)
 						trap += ", ";
 					trap += t.getName();
