@@ -146,7 +146,7 @@ public class Board {
 	// TODO ustawienie handlerow zmiany dla gui
 	// poprawilem - troche sie skomplikowalo, a wszystko po to zeby uzywac Movera.
 	// w poprzedniej wersji po zamianie nie byly odpalane np. efekty trapow (przyklad: napalm)
-	public void exchangeContent(int x1, int y1, int x2, int y2) {
+	public boolean exchangeContent(int x1, int y1, int x2, int y2) {
 		Pair<Integer, Integer> p1 = new Pair<>(x1,y1);
 		Pair<Integer, Integer> p2 = new Pair<>(x2,y2);
 		Card tmpCard1 = get(x1, y1);
@@ -156,12 +156,12 @@ public class Board {
 		if(!MoveMaker.isMovePossible(gameState, p1, p2, tmpCard1)){
 			board[x1][y1] = tmpCard1;
 			board[x2][y2] = tmpCard2;
-			return;
+			return false;
 		}
 		if(!MoveMaker.isMovePossible(gameState, p2, p1, tmpCard2)){
 			board[x1][y1] = tmpCard1;
 			board[x2][y2] = tmpCard2;
-			return;
+			return false;
 		}
 		board[x1][y1] = tmpCard1;
 		MoveMaker.moveTo(gameState, p1, p2);
@@ -170,6 +170,7 @@ public class Board {
 		board[x2][y2] = tmpCard1;
 		update(x1, y1);
 		update(x2, y2);
+		return true;
 		/*TypedSet<Trap, TrapType> tmpSet = traps.get(x1 * 3 + y1);
 		traps.set(x1 * 3 + y1, traps.get(x2 * 3 + y2));
 		traps.set(x2 * 3 + y2, tmpSet);*/

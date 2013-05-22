@@ -49,11 +49,12 @@ public class Change extends Card {
 		int y1 = cells.get(0).second;
 		int x2 = cells.get(1).first;
 		int y2 = cells.get(1).second;
-		gameState.getBoard().exchangeContent(x1, y1, x2, y2);
-		gameState.getBoard().get(x1, y1).getModifiers()
-				.add(new Modifier(ModifierType.MOVEDONCE, 8));
-		gameState.getBoard().get(x2, y2).getModifiers()
-				.add(new Modifier(ModifierType.MOVEDONCE, 8));
+		if (gameState.getBoard().exchangeContent(x1, y1, x2, y2)) {
+			gameState.getBoard().get(x1, y1).getModifiers()
+					.add(new Modifier(ModifierType.MOVEDONCE, 8));
+			gameState.getBoard().get(x2, y2).getModifiers()
+					.add(new Modifier(ModifierType.MOVEDONCE, 8));
+		}
 	}
 
 	@Override
