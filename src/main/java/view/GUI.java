@@ -78,6 +78,7 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridBagLayout());
 		frame.getContentPane().setBackground(Colors.tlo.getColor());
+		frame.setResizable(false);
 
 		glass = new JPanel();
 		glass.setLayout(null);
