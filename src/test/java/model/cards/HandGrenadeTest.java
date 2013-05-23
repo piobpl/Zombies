@@ -2,7 +2,7 @@ package model.cards;
 
 import static org.junit.Assert.assertEquals;
 
-import game.controller.Controller;
+import game.controller.LocalController;
 import game.model.Trap;
 import game.model.Trap.TrapType;
 import game.model.cards.humans.HandGrenade;
@@ -19,7 +19,7 @@ import controller.ForTestsOnly;
 public class HandGrenadeTest {
 	@Test
 	public void test() {
-		Controller controller = new Controller();
+		LocalController controller = new LocalController();
 		Mine mine = new Mine();
 		assertEquals(
 				2,

@@ -1,7 +1,7 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import game.controller.Controller;
+import game.controller.LocalController;
 import game.controller.Selection.ColumnSelection;
 import game.model.cards.humans.Searchlight;
 import game.model.cards.zombies.Zombie;
@@ -15,7 +15,7 @@ public class SearchlightTest {
 	@Test
 	public void test() {
 		ColumnSelection selection = ForTestsOnly.getNewColumnSelection(1);
-		Controller controller = new Controller();
+		LocalController controller = new LocalController();
 		Searchlight searchlight = new Searchlight();
 		new Zombie(2).makeEffect(ForTestsOnly.getNewCellSelection(4, 1),
 				controller.gameState);

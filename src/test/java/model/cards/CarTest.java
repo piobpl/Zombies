@@ -1,7 +1,7 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import game.controller.Controller;
+import game.controller.LocalController;
 import game.model.cards.humans.Car;
 import game.model.cards.zombies.Zombie;
 
@@ -13,7 +13,7 @@ public class CarTest {
 
 	@Test
 	public void test() {
-		Controller controller = new Controller();
+		LocalController controller = new LocalController();
 		new Zombie(2).makeEffect(ForTestsOnly.getNewCellSelection(3, 1),
 				controller.gameState);
 		Car c = new Car();

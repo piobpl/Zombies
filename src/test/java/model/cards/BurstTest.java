@@ -1,7 +1,7 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import game.controller.Controller;
+import game.controller.LocalController;
 import game.controller.Selection.ColumnSelection;
 import game.model.cards.humans.Burst;
 import game.model.cards.zombies.Zombie;
@@ -15,7 +15,7 @@ public class BurstTest {
 	@Test
 	public void test() {
 		ColumnSelection selection = ForTestsOnly.getNewColumnSelection(1);
-		Controller controller = new Controller();
+		LocalController controller = new LocalController();
 		Burst burst = new Burst(4);
 		new Zombie(2).makeEffect(ForTestsOnly.getNewCellSelection(3, 1),
 				controller.gameState);
