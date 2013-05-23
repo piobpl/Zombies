@@ -149,6 +149,7 @@ public class Controller {
 					endWarning = true;
 				}
 				event = gui.eventReceiver.getNextEvent();
+				Card selectedCard = null;
 				if (event.mouseButtonId != MouseEvent.BUTTON1)
 					continue;
 				if (event.type == EventType.ButtonClicked) {

@@ -28,7 +28,6 @@ public class GUI {
 	private Board board;
 	private JPanel glass;
 	private JFrame frame;
-	private JLabel globalModificators;
 	private JLabel zombieCardsLeft;
 	private JLabel humanCardsLeft;
 	private JPanel rightPanel;
@@ -78,14 +77,6 @@ public class GUI {
 			humanCardsLeft.setText("" + left + " cards left");
 		}
 	}
-	
-	public void setGlobalModificators(TypedSet<Modifier, ModifierType> TS){
-		StringBuilder sB = new StringBuilder();
-		for(Modifier m : TS){
-			sB.append(" "+m.getName());
-		}
-		globalModificators.setText(sB.toString());
-	}
 
 	private void createWindow() {
 		frame = new JFrame("Zombiaki");
@@ -123,13 +114,6 @@ public class GUI {
 		gbc.insets = new Insets(10, 10, 10, 10);
 		boardPanel.setBackground(Colors.tlo.getColor());
 		frame.getContentPane().add(boardPanel, gbc);
-
-		globalModificators = new JLabel();
-		globalModificators.setForeground(Colors.margines.getColor());
-		gbc.gridx = 2;
-		gbc.gridy = 1;
-		gbc.insets = new Insets(10, 10, 10, 10);
-		frame.getContentPane().add(globalModificators, gbc);
 		
 		zombieCardsLeft = new JLabel();
 		zombieCardsLeft.setForeground(Colors.margines.getColor());
