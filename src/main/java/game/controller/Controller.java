@@ -18,7 +18,6 @@ import game.view.GUI.Button;
 
 import java.awt.event.MouseEvent;
 
-
 public class Controller {
 
 	public final GameState gameState;
@@ -78,14 +77,13 @@ public class Controller {
 
 	private class discardingStage implements Stage {
 		public void perform(Player player) {
-			gui.getInfoPanel().sendMessage("Choose one card to throw away.");
 			Event event;
 			Hand hand = gameState.getHand(player);
 			int pos;
 			if (hand.isEmpty())
 				return;
-			int selectedPosition=-1;
 			for (;;) {
+				gui.getInfoPanel().sendMessage("Choose one card to throw away.");
 				event = gui.eventReceiver.getNextEvent();
 				if (event.type != EventType.HandClicked
 						|| event.mouseButtonId != MouseEvent.BUTTON1)
@@ -93,24 +91,35 @@ public class Controller {
 				pos = ((HandClickedEvent) event).cardClicked;
 				if (hand.isEmpty(pos))
 					continue;
-				if (((HandClickedEvent) event).player == player){
-					if(selectedPosition==-1){
-						gui.getInfoPanel().sendMessage("Please confirm your choice.");
-						selectedPosition=pos;
-						gui.getHand(player).getCell(selectedPosition)
-						.setHighlight(true);
-						continue;
-					}else{
-						if(selectedPosition==pos){
-							gui.getHand(player).getCell(selectedPosition)
-							.setHighlight(false);
-							break;
-						}else{
-							gui.getInfoPanel().sendMessage("Choose again.");
-							gui.getHand(player).getCell(selectedPosition)
-							.setHighlight(false);
-							selectedPosition=-1;
+				if (((HandClickedEvent) event).player == player) {
+					gui.getInfoPanel().sendMessage(
+							"Please confirm your choice.");
+					gui.getHand(player).getCell(pos).setHighlight(true);
+					gui.setButtonEnabled(Button.ApplySelection, true);
+					gui.setButtonEnabled(Button.CancelSelection, true);
+					boolean applied = false;
+					for (;;) {
+						Event confirmEvent = gui.eventReceiver.getNextEvent();
+						if (confirmEvent.type != EventType.ButtonClicked
+								|| confirmEvent.mouseButtonId != MouseEvent.BUTTON1) {
+							continue;
 						}
+						if (((ButtonClickedEvent) confirmEvent).button == Button.ApplySelection) {
+							gui.getHand(player).getCell(pos)
+									.setHighlight(false);
+							applied = true;
+							break;
+						}
+						if (((ButtonClickedEvent) confirmEvent).button == Button.CancelSelection) {
+							gui.getHand(player).getCell(pos)
+									.setHighlight(false);
+							break;
+						}
+					}
+					gui.setButtonEnabled(Button.ApplySelection, false);
+					gui.setButtonEnabled(Button.CancelSelection, false);
+					if (applied) {
+						break;
 					}
 				}
 			}
