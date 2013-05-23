@@ -83,7 +83,8 @@ public class Controller {
 			if (hand.isEmpty())
 				return;
 			for (;;) {
-				gui.getInfoPanel().sendMessage("Choose one card to throw away.");
+				gui.getInfoPanel()
+						.sendMessage("Choose one card to throw away.");
 				event = gui.eventReceiver.getNextEvent();
 				if (event.type != EventType.HandClicked
 						|| event.mouseButtonId != MouseEvent.BUTTON1)
@@ -149,7 +150,6 @@ public class Controller {
 					endWarning = true;
 				}
 				event = gui.eventReceiver.getNextEvent();
-				Card selectedCard = null;
 				if (event.mouseButtonId != MouseEvent.BUTTON1)
 					continue;
 				if (event.type == EventType.ButtonClicked) {
@@ -160,28 +160,31 @@ public class Controller {
 					if (handClickedEvent.player != player)
 						continue;
 					card = hand.get(handClickedEvent.cardClicked);
-					if (card == null)
+					if (card == null) {
 						continue;
-					System.err.println("Card selected for playing: "
-							+ card.getName());
-					gui.getHand(player).getCell(handClickedEvent.cardClicked)
-							.setHighlight(true);
-					/*
-					 * if (card.getSelectionType() == null) {
-					 * System.err.println("No selection, applying.");
-					 * card.makeEffect(null, gameState);
-					 * hand.remove(handClickedEvent.cardClicked); --limit; }
-					 * else {
-					 */
-					selection = selector.getSelection(card);
-					System.err.println("Received: " + selection);
-					if (selection != null) {
-						System.err.println("Selection received, applying.");
-						card.makeEffect(selection, gameState);
-						hand.remove(handClickedEvent.cardClicked);
-						--limit;
+					} else {
+						System.err.println("Card selected for playing: "
+								+ card.getName());
+						gui.getHand(player)
+								.getCell(handClickedEvent.cardClicked)
+								.setHighlight(true);
+						/*
+						 * if (card.getSelectionType() == null) {
+						 * System.err.println("No selection, applying.");
+						 * card.makeEffect(null, gameState);
+						 * hand.remove(handClickedEvent.cardClicked); --limit; }
+						 * else {
+						 */
+						selection = selector.getSelection(card);
+						System.err.println("Received: " + selection);
+						if (selection != null) {
+							System.err.println("Selection received, applying.");
+							card.makeEffect(selection, gameState);
+							hand.remove(handClickedEvent.cardClicked);
+							--limit;
+						}
+						gameState.update();
 					}
-					gameState.update();
 				}
 				gui.setHighlight(false);
 			}

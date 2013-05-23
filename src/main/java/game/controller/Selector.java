@@ -9,6 +9,7 @@ import game.controller.Selection.MultiGroupSelection;
 import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.GameState;
+import game.model.Player;
 import game.view.Board;
 import game.view.EventReceiver;
 import game.view.GUI;
@@ -84,6 +85,9 @@ public class Selector {
 				} else if (e.type == EventType.HandClicked) {
 					if (e.mouseButtonId != MouseEvent.BUTTON1)
 						continue;
+					if(gameState.getHand(Player.ZOMBIE).get(((HandClickedEvent) e).cardClicked)==card || gameState.getHand(Player.HUMAN).get(((HandClickedEvent) e).cardClicked)==card){
+						return null;
+					}
 					if (card.getSelectionType() != SelectionType.HAND)
 						continue;
 					g = (HandClickedEvent) e;

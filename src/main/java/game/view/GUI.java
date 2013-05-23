@@ -1,8 +1,6 @@
 package game.view;
 
-import game.model.Modifier;
 import game.model.Player;
-import game.model.Modifier.ModifierType;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,8 +11,6 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import utility.TypedSet;
 
 
 public class GUI {
