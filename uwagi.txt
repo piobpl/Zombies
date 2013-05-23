@@ -126,3 +126,24 @@ karty, modyfikatory i trapy sa typowane (obczaicie sobie getType())
 26. Dodawajcie przynajmniej informacje javadocowa author do tworzonych klas.
 
 27. Zeby uruchomic gre klikamy na controller przed run, albo wybieramy z listy obok run.
+
+28. Jak czegos nie wiecie jak zrobic, to lepiej zapytac :P
+
+29. Serwer jest ultra-multi-wątkowy, więc uważajcie.
+
+30. Lobby powinno być imho napisany w innym systemie niz gra:
+Gra dziala sobie tak, ze jest watek kontrolera, ktory co jakis czas
+moze zapytac gui o jakies informacje od uzytkownika.
+W Lobby mysle ze mozemy zaryzykowac inne podejscie:
+Główny jest wątek gui, i akcje uzytkownika bezposrednio cos robia.
+Jezeli jakas akcja wymaga chwili do wykonania (przywiesza gui), to
+bedzie trzeba dodac jakies krecace sie cos informujace o wykonywaniu zadania.
+
+31. W komunikacji sieciowej jest wiele wyjatkow, jak nie wiecie jak zareagowac na wyjatek, to zapytajcie,
+w zadnym razie "brzydko" wyjatkow nie ignorujcie!
+
+32. Sockety powinny sie zamykac! Moze sie zdazyc ze jakiegos sie nie zamknie,
+i port ktory on wykorzystal sie zablokuje, wtedy ciezko takiego odblokowac
+(reboot na pewno pomaga, nie pamietam, ale pewno da sie prosciej)
+
+33. Przykladowe polaczenie serwer-klient znajduje sie w server <-> lobby.
