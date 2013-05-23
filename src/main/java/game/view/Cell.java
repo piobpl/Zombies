@@ -78,7 +78,7 @@ public class Cell {
 						panel.setBackground(Color.blue);
 						break;
 					case BARREL:
-						panel.setBackground(Color.yellow);
+						panel.setBackground(Color.blue);
 						break;
 					default:
 						panel.setBackground(colorKarty);
