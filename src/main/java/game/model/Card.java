@@ -5,6 +5,7 @@ import game.controller.Selection.SelectionType;
 import game.model.Card.CardType;
 import game.model.Modifier.ModifierType;
 import game.model.cards.humans.BackOff;
+import game.model.cards.humans.Barrel;
 import game.model.cards.humans.Barrier;
 import game.model.cards.humans.Blood;
 import game.model.cards.humans.Burst;
@@ -93,12 +94,11 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new Napalm());
 			cards.add(new Net());
 			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
-			cards.add(new Flamethrower());
+			cards.add(new Barrel());
+			cards.add(new Barrel());
+			cards.add(new Barrel());
+			cards.add(new Barrel());
+			cards.add(new Barrel());
 		}
 		return cards;
 	}

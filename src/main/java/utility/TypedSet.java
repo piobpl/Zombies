@@ -26,6 +26,15 @@ public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
+	public boolean containsAny(S... types) {
+		for(S needed : types)
+			for (T element : set)
+				if (element.getType() == needed)
+					return true;
+		return false;
+	}
+
 	public void remove(S type) {
 		T toRemove = null;
 		for (T element : set)
