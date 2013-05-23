@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-
 public class Cell {
 
 	private JPanel panel;
@@ -37,11 +36,12 @@ public class Cell {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.add(name = new JLabel("Karta"));
 		name.setForeground(Colors.napisy.getColor());
+		
 		panel.add(strength = new JLabel("Sila: 0"));
 		strength.setForeground(Colors.boardsCard.getColor());
 		panel.add(trapDesc = new JLabel(""));
 		panel.add(modifier = new JLabel(""));
-		panel.setBorder(BorderFactory.createLineBorder(new Color(119, 80, 80),
+		panel.setBorder(BorderFactory.createLineBorder(Colors.margines.getColor(),
 				1));
 		panel.setPreferredSize(new Dimension(120, 80));
 		panel.setBackground(colorTla);
