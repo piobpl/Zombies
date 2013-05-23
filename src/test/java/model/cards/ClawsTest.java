@@ -1,7 +1,7 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import game.controller.Controller;
+import game.controller.LocalController;
 import game.controller.Selection.CellSelection;
 import game.model.cards.zombies.Claws;
 import game.model.cards.zombies.Zombie;
@@ -18,7 +18,7 @@ public class ClawsTest {
 		CellSelection selection2 = ForTestsOnly.getNewCellSelection(2, 2);
 		CellSelection selection3 = ForTestsOnly.getNewCellSelection(4, 1);
 		CellSelection selection4 = ForTestsOnly.getNewCellSelection(3, 2);
-		Controller controller = new Controller();
+		LocalController controller = new LocalController();
 		Claws claws = new Claws();
 		new Zombie(1).makeEffect(ForTestsOnly.getNewCellSelection(4, 1),
 				controller.gameState);

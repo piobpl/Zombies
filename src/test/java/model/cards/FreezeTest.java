@@ -1,7 +1,7 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-import game.controller.Controller;
+import game.controller.LocalController;
 import game.model.Modifier.ModifierType;
 import game.model.cards.humans.Freeze;
 
@@ -17,7 +17,7 @@ public class FreezeTest {
 
 	@Test
 	public void test() {
-		Controller controller = new Controller();
+		LocalController controller = new LocalController();
 		Freeze freeze = new Freeze();
 		freeze.makeEffect(null, controller.gameState);
 		assertEquals(

@@ -2,7 +2,7 @@ package model.cards;
 
 import static org.junit.Assert.assertEquals;
 
-import game.controller.Controller;
+import game.controller.LocalController;
 import game.model.Card.CardType;
 import game.model.cards.zombies.Bite;
 import game.model.cards.zombies.Human;
@@ -21,7 +21,7 @@ public class BiteTest {
 
 	@Test
 	public void test() {
-		Controller controller = new Controller();
+		LocalController controller = new LocalController();
 		new Zombie(2).makeEffect(ForTestsOnly.getNewCellSelection(3, 1),
 				controller.gameState);
 		List<Pair<Integer, Integer>> cells = new LinkedList<>();
