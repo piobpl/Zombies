@@ -9,6 +9,12 @@ public enum Colors {
 		}
 	},
 	
+	green {
+		Color getColor(){
+			return new Color(0,164,255);
+		}
+	},
+	
 	jasnaOliwka {
 		Color getColor(){
 			return new Color(180,202,157);

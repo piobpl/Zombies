@@ -35,15 +35,23 @@ public class Cell {
 		this.colorTla = colorTla;
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.add(name = new JLabel("Karta"));
+		name.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+		name.setHorizontalTextPosition(SwingConstants.CENTER);
 		name.setForeground(Colors.napisy.getColor());
-		
 		panel.add(strength = new JLabel("Sila: 0"));
-		strength.setForeground(Colors.boardsCard.getColor());
+		if(colorKarty.equals(Colors.zombieCard.getColor()))
+			strength.setForeground(Colors.boardsCard.getColor());
+		if(colorKarty.equals(Colors.humansCard.getColor()))
+			strength.setForeground(Colors.margines.getColor());
+		else
+			strength.setForeground(Colors.boardsCard.getColor());
+		strength.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+		strength.setHorizontalTextPosition(SwingConstants.CENTER);
 		panel.add(trapDesc = new JLabel(""));
 		panel.add(modifier = new JLabel(""));
-		panel.setBorder(BorderFactory.createLineBorder(Colors.margines.getColor(),
-				1));
-		panel.setPreferredSize(new Dimension(120, 80));
+		panel.setBorder(BorderFactory.createLineBorder(
+				Colors.margines.getColor(), 1));
+		panel.setPreferredSize(new Dimension(135, 90));
 		panel.setBackground(colorTla);
 		name.setVisible(false);
 		strength.setVisible(false);
@@ -61,15 +69,18 @@ public class Cell {
 					modifier.setText("");
 				} else {
 					name.setVisible(true);
-					name.setText(card.getName());
+					name.setText(card.getName().toUpperCase());
+					if(card.getName().equalsIgnoreCase("Barrel"))
+						name.setForeground(Colors.humansCard.getColor());
 					String s = "";
 					boolean first = true;
 					for (Modifier m : card.getModifiers()) {
 						if (!first)
-							s += ", ";
+							s += "<br>";
 						s += m.getName();
 						first = false;
 					}
+					s = "<html>" + s + "</html>";
 					switch (card.getType()) {
 					case ZOMBIE:
 						panel.setBackground(Colors.zombieCard.getColor());
@@ -78,18 +89,20 @@ public class Cell {
 						panel.setBackground(Color.blue);
 						break;
 					case BARREL:
-						panel.setBackground(Color.blue);
+						panel.setBackground(Colors.margines.getColor());
 						break;
 					default:
 						panel.setBackground(colorKarty);
 					}
 					modifier.setText(s);
-					modifier.setForeground(Color.cyan);
+					modifier.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+					modifier.setHorizontalTextPosition(SwingConstants.CENTER);
+					modifier.setForeground(Colors.humansCard.getColor());
 					if (card.getStrength() == null) {
 						strength.setVisible(false);
 					} else {
 						strength.setVisible(true);
-						strength.setText("Sila: " + card.getStrength());
+						strength.setText("Strength: " + card.getStrength());
 					}
 				}
 			}
@@ -103,12 +116,15 @@ public class Cell {
 				boolean first = true;
 				for (Trap t : traps) {
 					if (!first)
-						trap += ", ";
+						trap += "<br>";
 					trap += t.getName();
 					first = false;
 				}
+				trap = "<html>" + trap + "</html>";
 				trapDesc.setText(trap);
-				trapDesc.setForeground(Colors.tlo.getColor());
+				trapDesc.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+				trapDesc.setHorizontalTextPosition(SwingConstants.CENTER);
+				trapDesc.setForeground(Color.blue);
 			}
 		});
 	}

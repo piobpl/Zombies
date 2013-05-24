@@ -95,10 +95,6 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new Net());
 			cards.add(new Flamethrower());
 			cards.add(new Barrel());
-			cards.add(new Barrel());
-			cards.add(new Barrel());
-			cards.add(new Barrel());
-			cards.add(new Barrel());
 		}
 		return cards;
 	}
