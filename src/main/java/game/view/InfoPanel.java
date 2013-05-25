@@ -7,11 +7,13 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
+import javax.swing.SwingConstants;
 
 public class InfoPanel {
 
@@ -19,10 +21,21 @@ public class InfoPanel {
 	private JButton cancelSelectionButton;
 	private JButton endTurnButton;
 	private JTextArea textArea;
-	// private JLabel modyfikator;
-
+	private JLabel modyfikator;
+	private JPanel panelBrazowy;
+	
 	InfoPanel(JPanel panel) {
 
+		modyfikator = new JLabel("Modyfikator");
+		modyfikator.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+		modyfikator.setHorizontalTextPosition(SwingConstants.CENTER);
+		panelBrazowy = new JPanel();
+		panelBrazowy.setBackground(Colors.margines.getColor());
+		panelBrazowy.setForeground(Colors.margines.getColor());
+		panelBrazowy.setLayout(new BoxLayout(panelBrazowy, BoxLayout.PAGE_AXIS));
+		modyfikator.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10,
+				Colors.margines.getColor()));
+		
 		panel.setLayout(new FlowLayout());
 		panel.setPreferredSize(new Dimension(390, 290));
 
@@ -30,7 +43,8 @@ public class InfoPanel {
 		applySelectionButton.setPreferredSize(new Dimension(120, 30));
 
 		panel.add(applySelectionButton);
-
+		panelBrazowy.setVisible(true);
+		
 		cancelSelectionButton = new JButton("Cancel");
 		cancelSelectionButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(cancelSelectionButton);
@@ -39,20 +53,25 @@ public class InfoPanel {
 		endTurnButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(endTurnButton);
 
+		panel.add(panelBrazowy);
+		panelBrazowy.add(modyfikator);
+		
 		textArea = new JTextArea(12, 32);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		
-	
-		
-		scrollPane.setBorder(BorderFactory.createMatteBorder(50, 10, 10, 10, Colors.margines.getColor()));
-		panel.add(scrollPane);
+		panelBrazowy.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10,
+				Colors.margines.getColor()));
+		panelBrazowy.add(scrollPane);
 		textArea.setBackground(Colors.jasnaOliwka.getColor());
 		textArea.setForeground(Colors.humansCard.getColor());
 		textArea.setEditable(false);
-		textArea.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Colors.humansCard.getColor()));
+		textArea.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1,
+				Colors.humansCard.getColor()));
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 	}
 
-	public void setButtonEnabled(final Button button, final boolean aktywny){
+	public void setButtonEnabled(final Button button, final boolean aktywny) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				switch (button) {
@@ -81,7 +100,8 @@ public class InfoPanel {
 		});
 	}
 
-	public void addButtonMouseListener(final Button button, final MouseListener a) {
+	public void addButtonMouseListener(final Button button,
+			final MouseListener a) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				switch (button) {
