@@ -70,7 +70,7 @@ public class Selector {
 				gui.setButtonEnabled(Button.ApplySelection, currentRate == 2);
 				e = eventReceiver.getNextEvent();
 				if (e.type == EventType.ButtonClicked) {
-					if (e.mouseButtonId != MouseEvent.BUTTON1)
+					if (e.info.getButton() != MouseEvent.BUTTON1)
 						continue;
 					h = (ButtonClickedEvent) e;
 					if (h.button == Button.ApplySelection) {
@@ -83,9 +83,12 @@ public class Selector {
 					else
 						continue;
 				} else if (e.type == EventType.HandClicked) {
-					if (e.mouseButtonId != MouseEvent.BUTTON1)
+					if (e.info.getButton() != MouseEvent.BUTTON1)
 						continue;
-					if(gameState.getHand(Player.ZOMBIE).get(((HandClickedEvent) e).cardClicked)==card || gameState.getHand(Player.HUMAN).get(((HandClickedEvent) e).cardClicked)==card){
+					if (gameState.getHand(Player.ZOMBIE).get(
+							((HandClickedEvent) e).cardClicked) == card
+							|| gameState.getHand(Player.HUMAN).get(
+									((HandClickedEvent) e).cardClicked) == card) {
 						return null;
 					}
 					if (card.getSelectionType() != SelectionType.HAND)
@@ -98,7 +101,7 @@ public class Selector {
 						continue;
 					f = (BoardClickedEvent) e;
 					if (card.getSelectionType() == SelectionType.MULTIGROUP) {
-						if (e.mouseButtonId == MouseEvent.BUTTON1) {
+						if (e.info.getButton() == MouseEvent.BUTTON1) {
 							if (current == null)
 								candidate = selectionMap.get(
 										card.getSelectionType()).add(
@@ -115,7 +118,7 @@ public class Selector {
 										.remove(f.cardClicked);
 						}
 					} else {
-						if (e.mouseButtonId != MouseEvent.BUTTON1)
+						if (e.info.getButton() != MouseEvent.BUTTON1)
 							continue;
 						if (current == null)
 							candidate = selectionMap.get(
@@ -148,12 +151,13 @@ public class Selector {
 								((ColumnSelection) candidate).column, true);
 						break;
 					case GROUP:
-						//board.setHighlight(false);
+						// board.setHighlight(false);
 						board.clearGlassText();
 						int k = 0;
-						if(current!=null)
+						if (current != null)
 							for (Pair<Integer, Integer> p : ((GroupSelection) current).cells) {
-								board.getCell(p.first, p.second).setHighlight(false);
+								board.getCell(p.first, p.second).setHighlight(
+										false);
 							}
 						for (Pair<Integer, Integer> p : ((GroupSelection) candidate).cells) {
 							board.getCell(p.first, p.second).setGlassText(

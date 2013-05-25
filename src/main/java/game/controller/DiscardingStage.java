@@ -24,48 +24,39 @@ public class DiscardingStage implements Stage {
 	public void perform(Player player) {
 		Event event;
 		Hand hand = gameState.getHand(player);
-		int pos;
+		int pos = -1;
 		if (hand.isEmpty())
 			return;
+		gui.sendMessage("Choose one card to throw away.");
 		for (;;) {
-			gui.sendMessage("Choose one card to throw away.");
+			gui.setButtonEnabled(Button.ApplySelection, pos != -1);
+			gui.setButtonEnabled(Button.CancelSelection, pos != -1);
 			event = gui.eventReceiver.getNextEvent();
-			if (event.type != EventType.HandClicked
-					|| event.mouseButtonId != MouseEvent.BUTTON1)
+			if(event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
-			pos = ((HandClickedEvent) event).cardClicked;
-			if (hand.isEmpty(pos))
-				continue;
-			if (((HandClickedEvent) event).player == player) {
-				gui.sendMessage("Please confirm your choice.");
-				gui.getHand(player).getCell(pos).setHighlight(true);
-				gui.setButtonEnabled(Button.ApplySelection, true);
-				gui.setButtonEnabled(Button.CancelSelection, true);
-				boolean applied = false;
-				for (;;) {
-					Event confirmEvent = gui.eventReceiver.getNextEvent();
-					if (confirmEvent.type != EventType.ButtonClicked
-							|| confirmEvent.mouseButtonId != MouseEvent.BUTTON1) {
-						continue;
-					}
-					if (((ButtonClickedEvent) confirmEvent).button == Button.ApplySelection) {
-						gui.getHand(player).getCell(pos).setHighlight(false);
-						applied = true;
-						break;
-					}
-					if (((ButtonClickedEvent) confirmEvent).button == Button.CancelSelection) {
-						gui.getHand(player).getCell(pos).setHighlight(false);
-						break;
-					}
-				}
-				gui.setButtonEnabled(Button.ApplySelection, false);
-				gui.setButtonEnabled(Button.CancelSelection, false);
-				if (applied) {
+			if(event.type == EventType.ButtonClicked){
+				if (((ButtonClickedEvent) event).button == Button.ApplySelection)
 					break;
+				if (((ButtonClickedEvent) event).button == Button.CancelSelection){
+					gui.getHand(player).getCell(pos).setHighlight(false);
+					pos = -1;
 				}
+			}else if(event.type == EventType.HandClicked){
+				if(pos == ((HandClickedEvent) event).cardClicked)
+					break;
+				if(pos != -1)
+					gui.getHand(player).getCell(pos).setHighlight(false);
+				pos = ((HandClickedEvent) event).cardClicked;
+				if (hand.isEmpty(pos))
+					pos = -1;
+				if(event.info.getClickCount() > 1)
+					break;
+				if(pos != -1)
+					gui.getHand(player).getCell(pos).setHighlight(true);
 			}
 		}
 		System.err.println("Discarded: " + hand.get(pos).getName());
+		gui.getHand(player).getCell(pos).setHighlight(false);
 		hand.set(pos, null);
 		gameState.update();
 	}
