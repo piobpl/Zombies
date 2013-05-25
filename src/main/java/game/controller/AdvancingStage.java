@@ -44,6 +44,7 @@ public class AdvancingStage implements Stage {
 						flag=true;
 				}
 			if(flag){
+				boolean moved[][]=new boolean[5][3];
 				Event event;
 				ButtonClickedEvent b;
 				BoardClickedEvent c;
@@ -62,7 +63,7 @@ public class AdvancingStage implements Stage {
 					}
 					if(event.type==EventType.BoardClicked){
 						c = (BoardClickedEvent) event;
-						if(!board.is(c.cardClicked.first, c.cardClicked.second, CardType.DOGS)){
+						if(!board.is(c.cardClicked.first, c.cardClicked.second, CardType.DOGS) || moved[c.cardClicked.first][c.cardClicked.second]){
 							//gui.sendMessage("Not dog");
 							continue;
 						}
@@ -72,6 +73,9 @@ public class AdvancingStage implements Stage {
 						if (selection != null) {
 							System.err.println("Selection received, applying.");
 							m.makeEffect(selection, gameState);
+							if(m.endOfPath!=null){
+								moved[m.endOfPath.first][m.endOfPath.second]=true;
+							}
 						}
 						gameState.update();
 						gui.setHighlight(false);

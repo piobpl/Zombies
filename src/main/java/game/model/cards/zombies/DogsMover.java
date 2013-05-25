@@ -17,7 +17,8 @@ import utility.Pair;
  *
  */
 public class DogsMover extends Card {
-	Pair<Integer, Integer> myDogs;
+	private Pair<Integer, Integer> myDogs;
+	public Pair<Integer, Integer> endOfPath;
 	public DogsMover(Pair<Integer, Integer> p){
 		myDogs=p;
 	}
@@ -40,8 +41,8 @@ public class DogsMover extends Card {
 			}
 			from=to;
 		}
-		if(l.size()<4)
-			return 1;
+		/*if(l.size()<4)
+			return 1;*/
 		return 2;
 	}
 
@@ -56,6 +57,10 @@ public class DogsMover extends Card {
 				break;
 			MoveMaker.moveTo(gameState, from, to);
 			from=to;
+		}
+		endOfPath=from;
+		if(gameState.getBoard().isEmpty(from.first, from.second)){
+			endOfPath=null;
 		}
 	}
 

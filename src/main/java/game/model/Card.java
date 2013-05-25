@@ -28,6 +28,7 @@ import game.model.cards.humans.Wall;
 import game.model.cards.zombies.Bite;
 import game.model.cards.zombies.Change;
 import game.model.cards.zombies.Claws;
+import game.model.cards.zombies.Dogs;
 import game.model.cards.zombies.Human;
 import game.model.cards.zombies.Hunger;
 import game.model.cards.zombies.Mass;
@@ -73,6 +74,7 @@ public abstract class Card implements Typed<CardType> {
 			cards.add(new Meat());
 			cards.add(new PickAxe());
 			cards.add(new Terror());
+			cards.add(new Dogs());
 		} else {
 			cards.add(new Blood());
 			cards.add(new BackOff());
