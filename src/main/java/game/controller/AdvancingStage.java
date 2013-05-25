@@ -7,6 +7,7 @@ import game.model.MoveMaker;
 import game.model.Player;
 import game.model.Trap;
 import game.model.Trap.TrapType;
+import game.model.cards.zombies.DogsMover;
 import game.view.EventReceiver.BoardClickedEvent;
 import game.view.EventReceiver.ButtonClickedEvent;
 import game.view.EventReceiver.Event;
@@ -14,14 +15,20 @@ import game.view.EventReceiver.EventType;
 import game.view.GUI;
 import game.view.GUI.Button;
 import utility.TypedSet;
-
+/**
+ * 
+ * @author Edoipi
+ *
+ */
 public class AdvancingStage implements Stage {
 	public final GameState gameState;
 	public final GUI gui;
+	private Selector selector;
 
 	public AdvancingStage(GameState gameState, GUI gui) {
 		this.gameState = gameState;
 		this.gui = gui;
+		selector = new Selector(gameState, gui);
 	}
 
 	public void perform(Player player) {
@@ -40,8 +47,8 @@ public class AdvancingStage implements Stage {
 				Event event;
 				ButtonClickedEvent b;
 				BoardClickedEvent c;
-				//Selection selection;
-				//DogsMover m;
+				Selection selection;
+				DogsMover m;
 				gui.sendMessage("Time to move dogs");
 				gui.setButtonEnabled(Button.EndTurn, true);
 				while(true){
@@ -59,6 +66,15 @@ public class AdvancingStage implements Stage {
 							//gui.sendMessage("Not dog");
 							continue;
 						}
+						gui.getBoard().getCell(c.cardClicked.first, c.cardClicked.second).setHighlight(true);
+						m=new DogsMover(c.cardClicked);
+						selection = selector.getSelection(m);
+						if (selection != null) {
+							System.err.println("Selection received, applying.");
+							m.makeEffect(selection, gameState);
+						}
+						gameState.update();
+						gui.setHighlight(false);
 					}
 				}
 			}
