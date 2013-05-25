@@ -36,11 +36,12 @@ public class PlayingStage implements Stage {
 		if (player == Player.HUMAN
 				&& gameState.getModifiers().contains(ModifierType.TERROR))
 			limit = 1;
-		gui.getInfoPanel().sendMessage("Choose cards to play or end turn.");
+		gui.sendMessage("Choose cards to play or end turn.");
+		gui.setButtonEnabled(Button.EndTurn, true);
 		while (true) {
 			if ((limit == 0 || gameState.getHand(player).isEmpty())
 					&& !endWarning) {
-				gui.getInfoPanel().sendMessage("You have to end turn now.");
+				gui.sendMessage("You have to end turn now.");
 				endWarning = true;
 			}
 			event = gui.eventReceiver.getNextEvent();
@@ -81,5 +82,6 @@ public class PlayingStage implements Stage {
 			}
 			gui.setHighlight(false);
 		}
+		gui.setButtonEnabled(Button.EndTurn, false);
 	}
 }

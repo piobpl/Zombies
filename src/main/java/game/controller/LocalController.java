@@ -28,15 +28,15 @@ public class LocalController {
 		Player[] players = new Player[2];
 		players[0] = Player.ZOMBIE;
 		players[1] = Player.HUMAN;
-		gui.setButtonEnabled(Button.EndTurn, true);
+		gui.setButtonEnabled(Button.EndTurn, false);
 		gui.setButtonEnabled(Button.ApplySelection, false);
 		gui.setButtonEnabled(Button.CancelSelection, false);
 		System.err.println("Game started");
 		try {
 			while (true) {
-				gui.getInfoPanel().sendMessage("Round #" + stage);
+				gui.sendMessage("Round #" + stage);
 				for (Player p : players) {
-					gui.getInfoPanel().sendMessage(p + "'s turn.");
+					gui.sendMessage(p + "'s turn.");
 					for (Stage s : stages) {
 						gameState.nextStage();
 						s.perform(p);
@@ -45,7 +45,7 @@ public class LocalController {
 				++stage;
 			}
 		} catch (GameOver gameOver) {
-			gui.getInfoPanel().sendMessage(gameOver.won + " has won!");
+			gui.sendMessage(gameOver.won + " has won!");
 		}
 		gui.exit();
 	}

@@ -64,10 +64,12 @@ public class Cell {
 			public void run() {
 				if (card == null) {
 					panel.setBackground(colorTla);
+					panel.setToolTipText("");
 					name.setVisible(false);
 					strength.setVisible(false);
 					modifier.setText("");
 				} else {
+					panel.setToolTipText(card.getTooltipMessage());
 					name.setVisible(true);
 					name.setText(card.getName().toUpperCase());
 					if(card.getName().equalsIgnoreCase("Barrel"))

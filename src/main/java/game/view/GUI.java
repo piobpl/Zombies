@@ -1,5 +1,6 @@
 package game.view;
 
+import game.model.Modifier;
 import game.model.Player;
 
 import java.awt.GridBagConstraints;
@@ -58,10 +59,6 @@ public class GUI {
 		return board;
 	}
 
-	public InfoPanel getInfoPanel() {
-		return infoPanel;
-	}
-
 	public void addButtonMouseListener(Button button, MouseListener a) {
 		infoPanel.addButtonMouseListener(button, a);
 	}
@@ -72,6 +69,14 @@ public class GUI {
 		} else {
 			humanCardsLeft.setText("" + left + " cards left");
 		}
+	}
+
+	public void sendMessage(final String message) {
+		infoPanel.sendMessage(message);
+	}
+
+	public void drawGlobalModifiers(final Iterable<Modifier> modifiers){
+		infoPanel.drawGlobalModifiers(modifiers);
 	}
 
 	private void createWindow() {
@@ -110,7 +115,7 @@ public class GUI {
 		gbc.insets = new Insets(10, 10, 10, 10);
 		boardPanel.setBackground(Colors.tlo.getColor());
 		frame.getContentPane().add(boardPanel, gbc);
-		
+
 		zombieCardsLeft = new JLabel();
 		zombieCardsLeft.setForeground(Colors.margines.getColor());
 		gbc.gridx = 2;

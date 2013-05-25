@@ -28,8 +28,7 @@ public class DiscardingStage implements Stage {
 		if (hand.isEmpty())
 			return;
 		for (;;) {
-			gui.getInfoPanel()
-					.sendMessage("Choose one card to throw away.");
+			gui.sendMessage("Choose one card to throw away.");
 			event = gui.eventReceiver.getNextEvent();
 			if (event.type != EventType.HandClicked
 					|| event.mouseButtonId != MouseEvent.BUTTON1)
@@ -38,8 +37,7 @@ public class DiscardingStage implements Stage {
 			if (hand.isEmpty(pos))
 				continue;
 			if (((HandClickedEvent) event).player == player) {
-				gui.getInfoPanel().sendMessage(
-						"Please confirm your choice.");
+				gui.sendMessage("Please confirm your choice.");
 				gui.getHand(player).getCell(pos).setHighlight(true);
 				gui.setButtonEnabled(Button.ApplySelection, true);
 				gui.setButtonEnabled(Button.CancelSelection, true);
@@ -51,14 +49,12 @@ public class DiscardingStage implements Stage {
 						continue;
 					}
 					if (((ButtonClickedEvent) confirmEvent).button == Button.ApplySelection) {
-						gui.getHand(player).getCell(pos)
-								.setHighlight(false);
+						gui.getHand(player).getCell(pos).setHighlight(false);
 						applied = true;
 						break;
 					}
 					if (((ButtonClickedEvent) confirmEvent).button == Button.CancelSelection) {
-						gui.getHand(player).getCell(pos)
-								.setHighlight(false);
+						gui.getHand(player).getCell(pos).setHighlight(false);
 						break;
 					}
 				}

@@ -24,20 +24,8 @@ public class InfoPanel {
 	private JTextArea textArea;
 	private JLabel modyfikator;
 	private JPanel panelBrazowy;
-	
-	InfoPanel(JPanel panel) {
 
-		modyfikator = new JLabel();
-		modyfikator.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
-		modyfikator.setHorizontalTextPosition(SwingConstants.CENTER);
-		modyfikator.setPreferredSize(new Dimension(14,32));
-		panelBrazowy = new JPanel();
-		panelBrazowy.setBackground(Colors.margines.getColor());
-		panelBrazowy.setForeground(Colors.margines.getColor());
-		panelBrazowy.setLayout(new BoxLayout(panelBrazowy, BoxLayout.PAGE_AXIS));
-		modyfikator.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10,
-				Colors.margines.getColor()));
-		
+	InfoPanel(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		panel.setPreferredSize(new Dimension(390, 290));
 
@@ -45,8 +33,7 @@ public class InfoPanel {
 		applySelectionButton.setPreferredSize(new Dimension(120, 30));
 
 		panel.add(applySelectionButton);
-		panelBrazowy.setVisible(true);
-		
+
 		cancelSelectionButton = new JButton("Cancel");
 		cancelSelectionButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(cancelSelectionButton);
@@ -55,13 +42,29 @@ public class InfoPanel {
 		endTurnButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(endTurnButton);
 
+		panelBrazowy = new JPanel();
+		panelBrazowy.setBackground(Colors.margines.getColor());
+		panelBrazowy.setForeground(Colors.margines.getColor());
+		panelBrazowy
+				.setLayout(new BoxLayout(panelBrazowy, BoxLayout.PAGE_AXIS));
+		panelBrazowy.setVisible(true);
 		panel.add(panelBrazowy);
+
+		modyfikator = new JLabel();
+		modyfikator.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+		modyfikator.setHorizontalTextPosition(SwingConstants.CENTER);
+		modyfikator.setPreferredSize(new Dimension(14, 32));
+		modyfikator.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10,
+				Colors.margines.getColor()));
 		panelBrazowy.add(modyfikator);
-		
-		textArea = new JTextArea(12, 32);
+
+		textArea = new JTextArea(12, 30);
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+		scrollPane
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBorder(BorderFactory.createMatteBorder(0, 10, 10, 10,
+				Colors.margines.getColor()));
+
 		panelBrazowy.setBorder(BorderFactory.createMatteBorder(15, 5, 10, 5,
 				Colors.boardsCard.getColor()));
 		panelBrazowy.add(scrollPane);
@@ -73,8 +76,8 @@ public class InfoPanel {
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 	}
-	
-	public void drawGlobalModifiers(final Iterable<Modifier> modifiers){
+
+	public void drawGlobalModifiers(final Iterable<Modifier> modifiers) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				String modifier = "";
