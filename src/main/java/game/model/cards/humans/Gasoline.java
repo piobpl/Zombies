@@ -80,6 +80,6 @@ public class Gasoline extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can spill burning gasoline on any horizontally or vertically adjacent squares. Gasoline has a power of 4, which means it can deal a total of 4 damage points to zombies and/or dogs remaining in burning squares. To ignite another square in a row, the gasoline must kill a zombie on the previous square. You can also spill gasoline on an empty square, but, in such a case, one damage point is wasted.";
+		return "<html>You can spill burning gasoline on any horizontally or vertically adjacent squares.<br>Gasoline has a power of 4, which means it can deal a total of 4 damage points to zombies and/or dogs remaining in burning squares.<br>To ignite another square in a row, the gasoline must kill a zombie on the previous square.<br>You can also spill gasoline on an empty square, but, in such a case, one damage point is wasted.</html>";
 	}
 }

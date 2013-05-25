@@ -53,6 +53,6 @@ public class Zombie extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You play zombies onto one of the three first-row squares, providing another zombie, dog or barrier does not block that square. There can be only one zombie or dog on a single square. In the beginning of zombies’ phase every zombie on the board must move one square forward (of course, if the forward movement is possible).";
+		return "<html>You play zombies onto one of the three first-row squares, providing another zombie, dog or barrier does not block that square.<br>There can be only one zombie or dog on a single square.<br>In the beginning of zombies phase every zombie on the board must move one square forward (of course, if the forward movement is possible).</html>";
 	}
 }

@@ -56,6 +56,6 @@ public class Napalm extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "It sets fire to any square on the street, and will burn until the next human phase. Whatever is standing or moves into the burning square, suffers one point of damage.";
+		return "<html>It sets fire to any square on the street, and will burn until the next human phase.<br>Whatever is standing or moves into the burning square, suffers one point of damage.</html>";
 	}
 }

@@ -85,7 +85,7 @@ public class Blood extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "It forces one zombie or a dog to move sideways.";
+		return "<html>It forces one zombie or a dog to move sideways.</html>";
 	}
 
 }

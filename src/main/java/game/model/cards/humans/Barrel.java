@@ -60,6 +60,6 @@ public class Barrel extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can put the barrel on one of the three fifth row squares, of course providing that a given square is not blocked by a zombie, dog, wall or barrier. The barrel moves one square forward (towards the graveyard) at the beginning of every humans’ phase. When the rolling barrel meets a zombie or dog, it kills them instantly and is destroyed itself (removed from play). The  barrel crashes into a wall or a car, and can fall into a pit trap.";
+		return "<html>You can put the barrel on one of the three fifth row squares, of course providing that a given square is not blocked by a zombie, dog, wall or barrier.<br>The barrel moves one square forward (towards the graveyard) at the beginning of every humans phase.<br>When the rolling barrel meets a zombie or dog, it kills them instantly and is destroyed itself (removed from play).<br>The  barrel crashes into a wall or a car, and can fall into a pit trap.</html>";
 	}
 }

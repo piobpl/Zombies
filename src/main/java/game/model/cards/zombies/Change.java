@@ -90,6 +90,6 @@ public class Change extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "Two zombies on horizontally or vertically adjacent squares can change places with each other.";
+		return "<html>Two zombies on horizontally or vertically adjacent squares can change places with each other.</html>";
 	}
 }

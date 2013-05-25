@@ -68,6 +68,6 @@ public class Net extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can throw a net on any number of zombies standing on vertically or horizontally adjacent squares, providing that their combined strength does not exceed 6.  The net prevents them from moving in their next phase (they cannot make their obligatory move, and they also cannot be moved by means of any  cards played by the zombie player, or by boss orders). The net stops working at the beginning of the next human’s phase.";
+		return "<html>You can throw a net on any number of zombies standing on vertically or horizontally adjacent squares, providing that their combined strength does not exceed 6.<br>The net prevents them from moving in their next phase.<br>(they cannot make their obligatory move, and they also cannot be moved by means of any  cards played by the zombie player, or by boss orders)<br>The net stops working at the beginning of the next human's phase.</html>";
 	}
 }

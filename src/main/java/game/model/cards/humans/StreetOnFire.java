@@ -63,7 +63,7 @@ public class StreetOnFire extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can play this card on one of the side lanes (not the central one). The fire deals one damage point to every zombie and dog on that lane.";
+		return "<html>You can play this card on one of the side lanes (not the central one).<br>The fire deals one damage point to every zombie and dog on that lane.</html>";
 	}
 
 }

@@ -51,7 +51,7 @@ public class BackOff extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "It simultaneously moves all the zombies and dogs one square back on the street (if possible).";
+		return "<html>It simultaneously moves all the zombies and dogs one square back on the street (if possible).</html>";
 	}
 
 }

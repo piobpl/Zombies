@@ -61,7 +61,7 @@ public class Pit extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can play a pit trap on any square on the board. A pit trap has a depth indicator (1 or 2). If any zombie or dog whose strength is equal or less than a pit trap’s depth falls into it, it instantly dies. The pit trap is then considered “filled” (we remove it from the board and put aside).A zombie whose strength is greater than the pit’s depth will walk through it without any problem (the pit trap stays on board). A zombie hiding behind the human will always use him to fill the hole in, and walk through not affected.";
+		return "<html>You can play a pit trap on any square on the board.<br>If any zombie or dog whose strength is equal or less than a pit trap's depth falls into it, it instantly dies.<br>The pit trap is then considered filled (we remove it from the board and put aside).<br>A zombie whose strength is greater than the pit's depth will walk through it without any problem (the pit trap stays on board).<br>A zombie hiding behind the human will always use him to fill the hole in, and walk through not affected.</html>";
 	}
 
 }

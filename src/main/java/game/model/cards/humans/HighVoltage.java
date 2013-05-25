@@ -60,7 +60,7 @@ public class HighVoltage extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can play this card on any of the three lanes. High voltage deals one damage point to every zombie or dog on a given lane.";
+		return "<html>You can play this card on any of the three lanes.<br>High voltage deals one damage point to every zombie or dog on a given lane.</html>";
 	}
 
 }

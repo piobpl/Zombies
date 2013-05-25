@@ -8,8 +8,8 @@ import game.model.GameState;
 import game.model.MoveMaker;
 
 /**
- * REFLEKTOR – Cofa (równocześnie) każdego zombiego i psa w danym torze o jedno
- * pole, jeżeli jest to możliwe.
+ * REFLEKTOR ��� Cofa (r��wnocze��nie) ka��dego zombiego i psa w danym torze o jedno
+ * pole, je��eli jest to mo��liwe.
  * 
  * @author michal
  * 
@@ -56,7 +56,7 @@ public class Searchlight extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "It simultaneously moves all zombies and dogs one square back on a single lane (if possible).";
+		return "<html>It simultaneously moves all zombies and dogs one square back on a single lane (if possible).</html>";
 	}
 
 }

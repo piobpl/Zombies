@@ -81,6 +81,6 @@ public class Burst extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can shoot in a straight line (through a single lane only) and you will always hit the first target on the bullet’s path. Burst consists of two or three bullets, and each of them deals one damage point. It means, that after killing one target, the remaining bullets may strike another targets in the same lane (that is a straight line). A zombie that got hit and was not killed must take a one square step back (regardless of the number of bullets he just got hit with), if possible. Note: The card human absorbs all damage from one burst.";
+		return "<html>You can shoot in a straight line (through a single lane only) and you will always hit the first target on the bullet's path.<br>Burst consists of two or three bullets, and each of them deals one damage point.<br>It means, that after killing one target, the remaining bullets may strike another targets in the same lane (that is a straight line).<br>A zombie that got hit and was not killed must take a one square step back (regardless of the number of bullets he just got hit with), if possible.<br>Note: The card human absorbs all damage from one burst.</html>";
 	}
 }

@@ -52,7 +52,7 @@ public class Sniper extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "Choose any target and shoot. The target will move backwards if it stays alive.";
+		return "<html>Choose any target and shoot.<br>The target will move backwards if it stays alive.</html>";
 	}
 
 }

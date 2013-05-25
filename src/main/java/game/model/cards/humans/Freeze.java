@@ -51,7 +51,7 @@ public class Freeze extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return " It freezes all movement on the street. Zombies and dogs don’t move in their next phase. Freeze ends with the next human’s phase.";
+		return "<html>It freezes all movement on the street.<br>Zombies and dogs don't move in their next phase.<br>Freeze ends with the next human's phase.</html>";
 	}
 
 }

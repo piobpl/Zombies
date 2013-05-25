@@ -69,7 +69,7 @@ public class Mine extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can put it on any square, save those directly before any zombies or dogs. If a zombie, dog or barrel moves onto a mined square, the mine sets off. A mine can be also set off by fire (flamethrower, gasoline, street on fire, napalm) or explosion (grenade, car). A zombie or dog standing on a mined square takes 2 points of damage, and one adjacent square, chosen by the human player receives shrapnel damage equal to 1 point of damages.";
+		return "<html>You can put it on any square, save those directly before any zombies or dogs.<br>If a zombie, dog or barrel moves onto a mined square, the mine sets off.<br>A mine can be also set off by fire (flamethrower, gasoline, street on fire, napalm) or explosion (grenade, car).<br>A zombie or dog standing on a mined square takes 2 points of damage, and one adjacent square, chosen by the human player receives shrapnel damage equal to 1 point of damages.</html>";
 	}
 
 }

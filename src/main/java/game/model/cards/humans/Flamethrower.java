@@ -79,6 +79,6 @@ public class Flamethrower extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "The flamethrower has a power of 5. It can target the first row having a zombie or dog standing in it, dealing a total of 5 damage points (distributed by the whim of the human player, but concerning the rule that each empty square “wastes” one point of damage). You cannot ignite a target hidden behind a wall.";
+		return "<html>The flamethrower has a power of 5.<br>It can target the first row having a zombie or dog standing in it, dealing a total of 5 damage points<br>(distributed by the whim of the human player, but concerning the rule that each empty square wastes one point of damage).<br> You cannot ignite a target hidden behind a wall.</html>";
 	}
 }
