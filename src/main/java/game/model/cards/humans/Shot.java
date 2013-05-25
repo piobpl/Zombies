@@ -38,7 +38,7 @@ public class Shot extends Card {
 					DamageDealer.dealDamage(gameState, i, column, strength, Trigger.SHOT);
 					return;
 				}
-			if (!gameState.getBoard().isEmpty(i, column)) {
+			if (!gameState.getBoard().isEmpty(i, column) && !gameState.getBoard().is(i,column,CardType.BARREL)) {
 				DamageDealer.dealDamage(gameState, i, column, strength,
 						Trigger.SHOT);
 				MoveMaker.moveBackward(gameState, i, column);
