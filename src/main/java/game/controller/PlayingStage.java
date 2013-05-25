@@ -45,7 +45,7 @@ public class PlayingStage implements Stage {
 				endWarning = true;
 			}
 			event = gui.eventReceiver.getNextEvent();
-			if (event.mouseButtonId != MouseEvent.BUTTON1)
+			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
 			if (event.type == EventType.ButtonClicked) {
 				if (((ButtonClickedEvent) event).button == Button.EndTurn)
