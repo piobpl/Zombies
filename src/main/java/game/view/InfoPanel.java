@@ -1,5 +1,6 @@
 package game.view;
 
+import game.model.Modifier;
 import game.view.GUI.Button;
 
 import java.awt.Dimension;
@@ -26,9 +27,10 @@ public class InfoPanel {
 	
 	InfoPanel(JPanel panel) {
 
-		modyfikator = new JLabel("Modyfikator");
+		modyfikator = new JLabel();
 		modyfikator.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
 		modyfikator.setHorizontalTextPosition(SwingConstants.CENTER);
+		modyfikator.setPreferredSize(new Dimension(14,32));
 		panelBrazowy = new JPanel();
 		panelBrazowy.setBackground(Colors.margines.getColor());
 		panelBrazowy.setForeground(Colors.margines.getColor());
@@ -58,9 +60,10 @@ public class InfoPanel {
 		
 		textArea = new JTextArea(12, 32);
 		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
-		panelBrazowy.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10,
-				Colors.margines.getColor()));
+		panelBrazowy.setBorder(BorderFactory.createMatteBorder(15, 5, 10, 5,
+				Colors.boardsCard.getColor()));
 		panelBrazowy.add(scrollPane);
 		textArea.setBackground(Colors.jasnaOliwka.getColor());
 		textArea.setForeground(Colors.humansCard.getColor());
@@ -69,6 +72,23 @@ public class InfoPanel {
 				Colors.humansCard.getColor()));
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
+	}
+	
+	public void drawGlobalModifiers(final Iterable<Modifier> modifiers){
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				String modifier = "";
+				boolean first = true;
+				for (Modifier m : modifiers) {
+					if (!first)
+						modifier += ", ";
+					modifier += m.getName();
+					first = false;
+				}
+				modyfikator.setText(modifier);
+				modyfikator.setForeground(Colors.tlo.getColor());
+			}
+		});
 	}
 
 	public void setButtonEnabled(final Button button, final boolean aktywny) {
