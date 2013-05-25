@@ -94,6 +94,8 @@ public class Cell {
 					default:
 						panel.setBackground(colorKarty);
 					}
+					modifier.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+					modifier.setHorizontalTextPosition(SwingConstants.CENTER);
 					modifier.setText(s);
 					modifier.setForeground(Colors.humansCard.getColor());
 					if (card.getStrength() == null) {
@@ -119,6 +121,8 @@ public class Cell {
 					first = false;
 				}
 				trap = "<html>" + trap + "</html>";
+				trapDesc.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+				trapDesc.setHorizontalTextPosition(SwingConstants.CENTER);
 				trapDesc.setText(trap);
 				trapDesc.setForeground(Color.blue);
 			}

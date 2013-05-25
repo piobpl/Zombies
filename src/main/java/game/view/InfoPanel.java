@@ -19,6 +19,7 @@ public class InfoPanel {
 	private JButton cancelSelectionButton;
 	private JButton endTurnButton;
 	private JTextArea textArea;
+	// private JLabel modyfikator;
 
 	InfoPanel(JPanel panel) {
 
@@ -40,6 +41,9 @@ public class InfoPanel {
 
 		textArea = new JTextArea(12, 32);
 		JScrollPane scrollPane = new JScrollPane(textArea);
+		
+	
+		
 		scrollPane.setBorder(BorderFactory.createMatteBorder(50, 10, 10, 10, Colors.margines.getColor()));
 		panel.add(scrollPane);
 		textArea.setBackground(Colors.jasnaOliwka.getColor());
