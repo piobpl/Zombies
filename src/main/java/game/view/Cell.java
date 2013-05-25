@@ -128,7 +128,7 @@ public class Cell {
 				trapDesc.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
 				trapDesc.setHorizontalTextPosition(SwingConstants.CENTER);
 				trapDesc.setText(trap);
-				trapDesc.setForeground(Color.blue);
+				trapDesc.setForeground(Color.cyan);
 			}
 		});
 	}
