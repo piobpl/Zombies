@@ -8,6 +8,11 @@ import game.model.GameState;
 
 public class HandGrenade extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8319798427023734570L;
+
 	public String getName() {
 		return "Hand grenade";
 	}

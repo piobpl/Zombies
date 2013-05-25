@@ -19,6 +19,11 @@ import utility.TypedSet;
  */
 public class PickAxe extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2191600406340397278L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		int x = ((CellSelection) selection).cell.first;

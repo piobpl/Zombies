@@ -14,6 +14,11 @@ import utility.Pair;
  */
 public class Barrel extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7728069181386672677L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Pair<Integer, Integer> cell = ((CellSelection) selection).cell;

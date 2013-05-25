@@ -8,6 +8,8 @@ import game.model.MoveMaker;
 
 public class BackOff extends Card {
 
+	private static final long serialVersionUID = -6832186110853807701L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		return 2;

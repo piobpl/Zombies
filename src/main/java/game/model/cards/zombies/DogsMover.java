@@ -17,6 +17,10 @@ import utility.Pair;
  *
  */
 public class DogsMover extends Card {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 919581198806578413L;
 	private Pair<Integer, Integer> myDogs;
 	public Pair<Integer, Integer> endOfPath;
 	public DogsMover(Pair<Integer, Integer> p){

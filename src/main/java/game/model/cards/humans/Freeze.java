@@ -14,6 +14,11 @@ import game.model.Modifier.ModifierType;
  */
 public class Freeze extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8070683554913069203L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		return 2;

@@ -13,6 +13,11 @@ import java.util.List;
 
 public class GUILessBoard extends Board {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7220551171468526894L;
+
 	public GUILessBoard(GameState gameState) {
 		super(gameState);
 		board = new Card[5][3];

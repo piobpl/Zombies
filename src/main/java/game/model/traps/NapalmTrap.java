@@ -14,6 +14,11 @@ import utility.Pair;
  */
 public class NapalmTrap extends Trap {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 232363502609840692L;
+
 	public NapalmTrap(GameState gameState, Pair<Integer, Integer> coordinates) {
 		this.gameState = gameState;
 		this.coX = coordinates.first;

@@ -7,11 +7,16 @@ import game.model.Card;
 import game.model.GameState;
 import utility.Pair;
 /**
- * 
+ *
  * @author Edoipi
  *
  */
 public class Car extends Card {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 7988782437542268453L;
 
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {

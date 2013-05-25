@@ -15,8 +15,9 @@ import game.view.EventReceiver.EventType;
 import game.view.GUI;
 import game.view.GUI.Button;
 import utility.TypedSet;
+
 /**
- * 
+ *
  * @author Edoipi
  *
  */
@@ -35,46 +36,50 @@ public class AdvancingStage implements Stage {
 		Board board = gameState.getBoard();
 		switch (player) {
 		case ZOMBIE:
-			boolean flag=false;
+			boolean flag = false;
 			for (int x = 4; x >= 0; --x)
-				for (int y = 0; y < 3; ++y){
+				for (int y = 0; y < 3; ++y) {
 					if (board.is(x, y, CardType.ZOMBIE))
 						MoveMaker.moveForward(gameState, x, y);
-					if(board.is(x, y, CardType.DOGS))
-						flag=true;
+					if (board.is(x, y, CardType.DOGS))
+						flag = true;
 				}
-			if(flag){
-				boolean moved[][]=new boolean[5][3];
+			if (flag) {
+				boolean moved[][] = new boolean[5][3];
 				Event event;
 				ButtonClickedEvent b;
 				BoardClickedEvent c;
 				Selection selection;
 				DogsMover m;
-				gui.sendMessage("Time to move dogs");
+				gameState.sendMessage("Time to move dogs");
 				gui.setButtonEnabled(Button.EndTurn, true);
-				while(true){
-					event=gui.eventReceiver.getNextEvent();
-					if(event.type==EventType.ButtonClicked){
-						b = (ButtonClickedEvent)event;
-						if(b.button!=Button.EndTurn)
+				while (true) {
+					event = gui.eventReceiver.getNextEvent();
+					if (event.type == EventType.ButtonClicked) {
+						b = (ButtonClickedEvent) event;
+						if (b.button != Button.EndTurn)
 							continue;
 						gui.setButtonEnabled(Button.EndTurn, false);
 						break;
 					}
-					if(event.type==EventType.BoardClicked){
+					if (event.type == EventType.BoardClicked) {
 						c = (BoardClickedEvent) event;
-						if(!board.is(c.cardClicked.first, c.cardClicked.second, CardType.DOGS) || moved[c.cardClicked.first][c.cardClicked.second]){
-							//gui.sendMessage("Not dog");
+						if (!board.is(c.cardClicked.first,
+								c.cardClicked.second, CardType.DOGS)
+								|| moved[c.cardClicked.first][c.cardClicked.second]) {
 							continue;
 						}
-						gui.getBoard().getCell(c.cardClicked.first, c.cardClicked.second).setHighlight(true);
-						m=new DogsMover(c.cardClicked);
+						gui.getBoard()
+								.getCell(c.cardClicked.first,
+										c.cardClicked.second)
+								.setHighlight(true);
+						m = new DogsMover(c.cardClicked);
 						selection = selector.getSelection(m);
 						if (selection != null) {
 							System.err.println("Selection received, applying.");
 							m.makeEffect(selection, gameState);
-							if(m.endOfPath!=null){
-								moved[m.endOfPath.first][m.endOfPath.second]=true;
+							if (m.endOfPath != null) {
+								moved[m.endOfPath.first][m.endOfPath.second] = true;
 							}
 						}
 						gameState.update();
@@ -82,7 +87,7 @@ public class AdvancingStage implements Stage {
 					}
 				}
 			}
-			
+
 			break;
 		case HUMAN:
 			for (int x = 0; x < 5; ++x)
@@ -106,5 +111,10 @@ public class AdvancingStage implements Stage {
 			break;
 		}
 		gameState.update();
+	}
+
+	@Override
+	public StageType getStageType() {
+		return StageType.ADVANCING;
 	}
 }

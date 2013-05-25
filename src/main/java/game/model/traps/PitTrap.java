@@ -17,6 +17,11 @@ import utility.Pair;
  */
 public class PitTrap extends Trap {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1288151484980952784L;
+
 	public PitTrap(GameState gameState, int strength,
 			Pair<Integer, Integer> coordinates) {
 		coX = coordinates.first;

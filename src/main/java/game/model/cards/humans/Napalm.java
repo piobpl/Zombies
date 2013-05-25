@@ -15,6 +15,11 @@ import utility.Pair;
  */
 public class Napalm extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2353420352024058901L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		return 2;

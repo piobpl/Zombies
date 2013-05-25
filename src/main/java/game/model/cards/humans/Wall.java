@@ -14,6 +14,10 @@ import utility.Pair;
  *
  */
 public class Wall extends Card {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6193720519039748685L;
 	Integer height;
 
 	public Wall(Integer height) {

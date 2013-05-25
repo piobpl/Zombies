@@ -15,6 +15,11 @@ import game.model.Trap.Trigger;
  */
 public class StreetOnFire extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6397362608070665296L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		int column = ((ColumnSelection) selection).column;

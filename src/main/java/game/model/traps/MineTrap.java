@@ -19,6 +19,11 @@ import utility.Pair;
  */
 public class MineTrap extends Trap {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -482795533765600308L;
+
 	public MineTrap(GameState gameState, Pair<Integer, Integer> coordinates) {
 		this.gameState = gameState;
 		this.coX = coordinates.first;

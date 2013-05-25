@@ -18,6 +18,11 @@ import utility.Pair;
  */
 public class Net extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4606365008486993227L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;

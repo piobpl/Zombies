@@ -14,6 +14,11 @@ import game.model.Modifier.ModifierType;
  */
 public class Terror extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6829482289223574892L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		return 2;

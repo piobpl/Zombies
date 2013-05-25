@@ -1,11 +1,14 @@
 package game.model;
 
+import java.io.Serializable;
 import java.util.EnumSet;
 
 import utility.Pair;
 import utility.Typed;
 
-public abstract class Trap implements Typed<Trap.TrapType> {
+public abstract class Trap implements Typed<Trap.TrapType>, Serializable {
+
+	private static final long serialVersionUID = -4536856118237872330L;
 
 	public static enum Trigger {
 		FIRE, SHOT, EXPLOSION, VOLTAGE, HOLLOW;

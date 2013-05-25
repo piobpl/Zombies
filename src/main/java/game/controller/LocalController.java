@@ -9,7 +9,7 @@ public class LocalController {
 
 	public final GameState gameState;
 	public final GUI gui;
-	private int stage;
+	private int turn;
 
 	public LocalController() {
 		System.err.println("Creating Controller...");
@@ -19,7 +19,7 @@ public class LocalController {
 	}
 
 	public void game() {
-		stage = 0;
+		turn = 0;
 		Stage[] stages = new Stage[4];
 		stages[0] = new AdvancingStage(gameState, gui);
 		stages[1] = new DrawingStage(gameState, gui);
@@ -34,18 +34,26 @@ public class LocalController {
 		System.err.println("Game started");
 		try {
 			while (true) {
-				gui.sendMessage("Round #" + stage);
+				gameState.setTurn(turn);
+				gameState.sendMessage("Round #" + turn);
 				for (Player p : players) {
-					gui.sendMessage(p + "'s turn.");
+					gameState.setPlayer(p);
+					gameState.sendMessage(p + "'s turn.");
 					for (Stage s : stages) {
+						gameState.setStage(s.getStageType());
 						gameState.nextStage();
 						s.perform(p);
 					}
 				}
-				++stage;
+				++turn;
 			}
 		} catch (GameOver gameOver) {
-			gui.sendMessage(gameOver.won + " has won!");
+			gameState.sendMessage(gameOver.won + " has won!");
+		}
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		gui.exit();
 	}

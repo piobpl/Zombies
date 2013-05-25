@@ -19,6 +19,11 @@ import utility.Pair;
  */
 public class CarTrap extends Trap {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -95970333080133434L;
+
 	public CarTrap(GameState gameState, Pair<Integer, Integer> coordinates) {
 		coX = coordinates.first;
 		coY = coordinates.second;

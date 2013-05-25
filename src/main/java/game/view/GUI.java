@@ -71,7 +71,7 @@ public class GUI {
 		}
 	}
 
-	public void sendMessage(final String message) {
+	public void modelSendsMessage(final String message) {
 		infoPanel.sendMessage(message);
 	}
 

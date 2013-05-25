@@ -8,6 +8,10 @@ import game.model.GameState;
 
 public class Dogs extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5291194950732662660L;
 	private Integer strength = 1;
 
 	@Override

@@ -8,6 +8,10 @@ import game.model.GameState;
 
 public class Zombie extends Card {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -1967753225254322981L;
 	private Integer strength;
 
 	public Zombie(Integer strength) {

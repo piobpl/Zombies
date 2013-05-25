@@ -3,6 +3,7 @@ package game.model;
 import game.model.Card.CardType;
 import game.model.Trap.TrapType;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,8 +14,9 @@ import utility.TypedSet;
  * A class representing a board.
  */
 
-public class Board {
+public class Board implements Serializable {
 
+	private static final long serialVersionUID = 7656346014331677774L;
 	private Card[][] board;
 	private GameState gameState;
 	private List<TypedSet<Trap, TrapType>> traps;
@@ -28,6 +30,11 @@ public class Board {
 		traps = new LinkedList<>();
 		for (int i = 0; i < 15; i++)
 			traps.add(new TypedSet<Trap, TrapType>());
+	}
+
+	public void load(Board save){
+		board = save.board;
+		traps = save.traps;
 	}
 
 	/**
@@ -133,7 +140,8 @@ public class Board {
 	}
 
 	/**
-	 * Exchange cards at a specified position (including traps); Returns true if the cards were exchanged.
+	 * Exchange cards at a specified position (including traps); Returns true if
+	 * the cards were exchanged.
 	 *
 	 * @param x1
 	 *            first coordinate of the first card
@@ -146,21 +154,23 @@ public class Board {
 	 * @return true if the cards were exchanged
 	 */
 
-	// poprawilem - troche sie skomplikowalo, a wszystko po to zeby uzywac Movera.
-	// w poprzedniej wersji po zamianie nie byly odpalane np. efekty trapow (przyklad: napalm)
+	// poprawilem - troche sie skomplikowalo, a wszystko po to zeby uzywac
+	// Movera.
+	// w poprzedniej wersji po zamianie nie byly odpalane np. efekty trapow
+	// (przyklad: napalm)
 	public boolean exchangeContent(int x1, int y1, int x2, int y2) {
-		Pair<Integer, Integer> p1 = new Pair<>(x1,y1);
-		Pair<Integer, Integer> p2 = new Pair<>(x2,y2);
+		Pair<Integer, Integer> p1 = new Pair<>(x1, y1);
+		Pair<Integer, Integer> p2 = new Pair<>(x2, y2);
 		Card tmpCard1 = get(x1, y1);
 		Card tmpCard2 = get(x2, y2);
 		board[x1][y1] = null;
 		board[x2][y2] = null;
-		if(!MoveMaker.isMovePossible(gameState, p1, p2, tmpCard1)){
+		if (!MoveMaker.isMovePossible(gameState, p1, p2, tmpCard1)) {
 			board[x1][y1] = tmpCard1;
 			board[x2][y2] = tmpCard2;
 			return false;
 		}
-		if(!MoveMaker.isMovePossible(gameState, p2, p1, tmpCard2)){
+		if (!MoveMaker.isMovePossible(gameState, p2, p1, tmpCard2)) {
 			board[x1][y1] = tmpCard1;
 			board[x2][y2] = tmpCard2;
 			return false;
@@ -173,9 +183,11 @@ public class Board {
 		update(x1, y1);
 		update(x2, y2);
 		return true;
-		/*TypedSet<Trap, TrapType> tmpSet = traps.get(x1 * 3 + y1);
-		traps.set(x1 * 3 + y1, traps.get(x2 * 3 + y2));
-		traps.set(x2 * 3 + y2, tmpSet);*/
+		/*
+		 * TypedSet<Trap, TrapType> tmpSet = traps.get(x1 * 3 + y1);
+		 * traps.set(x1 * 3 + y1, traps.get(x2 * 3 + y2)); traps.set(x2 * 3 +
+		 * y2, tmpSet);
+		 */
 	}
 
 	public TypedSet<Trap, TrapType> getTraps(int x, int y) {

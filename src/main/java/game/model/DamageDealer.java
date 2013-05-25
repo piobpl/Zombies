@@ -1,5 +1,6 @@
 package game.model;
 
+import game.model.Card.CardType;
 import game.model.Trap.Trigger;
 
 /**
@@ -15,10 +16,11 @@ public abstract class DamageDealer {
 		for (Trap t : gameState.getBoard().getTraps(x, y))
 			if (t.getTriggers().contains(type)) {
 				t.trigger();
-				if(type == Trigger.SHOT)
+				if (type == Trigger.SHOT)
 					return;
 			}
-		if (!gameState.getBoard().isEmpty(x, y)) {
+		if (gameState.getBoard().get(x, y) != null
+				&& gameState.getBoard().get(x, y).getType() != CardType.BARREL) {
 			Card c = gameState.getBoard().get(x, y);
 			c.setStrength(c.getStrength() - dmg);
 			if (c.getStrength() <= 0)

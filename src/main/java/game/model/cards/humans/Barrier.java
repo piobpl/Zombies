@@ -14,6 +14,11 @@ import game.model.traps.BarrierTrap;
  */
 public class Barrier extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1500121994004738086L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Integer c = ((ColumnSelection) selection).column;

@@ -1,5 +1,6 @@
 package utility;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -11,8 +12,10 @@ import java.util.Iterator;
  *
  */
 
-public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
+public class TypedSet<T extends Typed<S>, S> implements Iterable<T>,
+		Serializable {
 
+	private static final long serialVersionUID = -433195257299471873L;
 	private HashSet<T> set = new HashSet<T>();
 
 	public void add(T element) {
@@ -28,7 +31,7 @@ public class TypedSet<T extends Typed<S>, S> implements Iterable<T> {
 
 	@SuppressWarnings("unchecked")
 	public boolean containsAny(S... types) {
-		for(S needed : types)
+		for (S needed : types)
 			for (T element : set)
 				if (element.getType() == needed)
 					return true;

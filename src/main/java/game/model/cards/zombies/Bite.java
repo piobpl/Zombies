@@ -15,6 +15,11 @@ import java.util.List;
 import utility.Pair;
 
 public class Bite extends Card {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3398347028843618011L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;

@@ -15,6 +15,11 @@ import game.model.Trap.Trigger;
  */
 public class HighVoltage extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6939991207360864713L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		return 2;

@@ -33,4 +33,9 @@ public class DrawingStage implements Stage {
 			}
 		gameState.update();
 	}
+
+	@Override
+	public StageType getStageType() {
+		return StageType.DRAWING;
+	}
 }

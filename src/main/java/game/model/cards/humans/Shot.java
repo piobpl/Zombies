@@ -18,6 +18,10 @@ import game.model.Trap.Trigger;
 
 public class Shot extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6646133985919960933L;
 	private Integer strength;
 
 	public Shot(Integer strength) {

@@ -9,6 +9,11 @@ import game.model.Player;
 
 public class GetOut extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6937977890429113269L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Player player = ((HandSelection) selection).player;

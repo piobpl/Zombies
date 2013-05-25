@@ -37,6 +37,7 @@ import game.model.cards.zombies.PickAxe;
 import game.model.cards.zombies.Terror;
 import game.model.cards.zombies.Zombie;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,9 @@ import utility.TypedSet;
 /**
  * An abstract class representing a card.
  */
-public abstract class Card implements Typed<CardType> {
+public abstract class Card implements Typed<CardType>, Serializable {
+
+	private static final long serialVersionUID = -2663209980322004223L;
 
 	public static enum CardType {
 		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, FLAMETHROWER, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;

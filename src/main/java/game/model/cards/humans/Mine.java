@@ -14,6 +14,11 @@ import utility.Pair;
  */
 public class Mine extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4349609269163224295L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		int x = ((CellSelection) selection).cell.first;

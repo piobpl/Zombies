@@ -10,6 +10,11 @@ import utility.Pair;
 
 public class Hunger extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7177818428693360268L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Pair<Integer, Integer> cell = ((CellSelection) selection).cell;

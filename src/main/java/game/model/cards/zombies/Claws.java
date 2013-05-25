@@ -9,6 +9,11 @@ import utility.Pair;
 
 public class Claws extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4436359408178423837L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Pair<Integer, Integer> cell = ((CellSelection) selection).cell;

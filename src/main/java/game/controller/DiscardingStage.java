@@ -27,31 +27,33 @@ public class DiscardingStage implements Stage {
 		int pos = -1;
 		if (hand.isEmpty())
 			return;
-		gui.sendMessage("Choose one card to throw away.");
+		gameState.sendMessage("Choose one card to throw away.");
 		for (;;) {
 			gui.setButtonEnabled(Button.ApplySelection, pos != -1);
 			gui.setButtonEnabled(Button.CancelSelection, pos != -1);
 			event = gui.eventReceiver.getNextEvent();
-			if(event.info.getButton() != MouseEvent.BUTTON1)
+			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
-			if(event.type == EventType.ButtonClicked){
+			if (event.type == EventType.ButtonClicked) {
 				if (((ButtonClickedEvent) event).button == Button.ApplySelection)
 					break;
-				if (((ButtonClickedEvent) event).button == Button.CancelSelection){
+				if (((ButtonClickedEvent) event).button == Button.CancelSelection) {
 					gui.getHand(player).getCell(pos).setHighlight(false);
 					pos = -1;
 				}
-			}else if(event.type == EventType.HandClicked){
-				if(pos == ((HandClickedEvent) event).cardClicked)
+			} else if (event.type == EventType.HandClicked) {
+				if (((HandClickedEvent) event).player != player)
+					continue;
+				if (pos == ((HandClickedEvent) event).cardClicked)
 					break;
-				if(pos != -1)
+				if (pos != -1)
 					gui.getHand(player).getCell(pos).setHighlight(false);
 				pos = ((HandClickedEvent) event).cardClicked;
 				if (hand.isEmpty(pos))
 					pos = -1;
-				if(event.info.getClickCount() > 1)
+				if (event.info.getClickCount() > 1)
 					break;
-				if(pos != -1)
+				if (pos != -1)
 					gui.getHand(player).getCell(pos).setHighlight(true);
 			}
 		}
@@ -61,5 +63,10 @@ public class DiscardingStage implements Stage {
 		gui.getHand(player).getCell(pos).setHighlight(false);
 		hand.set(pos, null);
 		gameState.update();
+	}
+
+	@Override
+	public StageType getStageType() {
+		return StageType.DISCARDING;
 	}
 }

@@ -23,6 +23,11 @@ import utility.Pair;
 
 public class Mass extends Card {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6442372778772153609L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		if (((GroupSelection) selection).cells.size() == 1)

@@ -16,6 +16,10 @@ import utility.Pair;
  */
 public class BarrierTrap extends Trap {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8662258324153472427L;
 	private int time;
 
 	public BarrierTrap(int time) {

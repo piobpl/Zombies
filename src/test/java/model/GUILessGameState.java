@@ -10,6 +10,11 @@ import java.util.Random;
 
 public class GUILessGameState extends GameState {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2890373656735118359L;
+
 	public GUILessGameState() {
 		super(null);
 		board = new GUILessBoard(this);

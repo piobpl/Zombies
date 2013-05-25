@@ -1,8 +1,17 @@
 package game.model;
 
+import game.controller.Stage.StageType;
 import game.model.Modifier.ModifierType;
 import game.view.GUI;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import utility.TypedSet;
@@ -10,8 +19,9 @@ import utility.TypedSet;
 /**
  * A class representing a gamestate.
  */
-public class GameState {
-	public final GUI gui;
+public class GameState implements Serializable {
+	private static final long serialVersionUID = 6067960933766278369L;
+	public transient final GUI gui;
 	private TypedSet<Modifier, ModifierType> modifiers = new TypedSet<>();
 	private Board board;
 	private Deck zombieDeck;
@@ -19,6 +29,10 @@ public class GameState {
 	private Hand zombieHand;
 	private Hand humanHand;
 	private Random random;
+	private List<String> messages;
+	private int turn;
+	private StageType stage;
+	private Player player;
 
 	/**
 	 * Creates a new gamestate.
@@ -26,12 +40,12 @@ public class GameState {
 	public GameState(GUI gui) {
 		System.err.println("Creating GameState...");
 		this.gui = gui;
-		random=new Random();
 		board = new Board(this);
-		zombieDeck = new Deck(this, Player.ZOMBIE,random);
-		humanDeck = new Deck(this, Player.HUMAN,random);
+		zombieDeck = new Deck(this, Player.ZOMBIE, random);
+		humanDeck = new Deck(this, Player.HUMAN, random);
 		zombieHand = new Hand(this, Player.ZOMBIE);
 		humanHand = new Hand(this, Player.HUMAN);
+		messages = new ArrayList<String>();
 	}
 
 	/**
@@ -75,7 +89,7 @@ public class GameState {
 		}
 	}
 
-	public void update(){
+	public void update() {
 		board.update();
 		humanHand.update();
 		zombieHand.update();
@@ -89,6 +103,75 @@ public class GameState {
 	public void nextStage() {
 		Modifier.nextStage(modifiers);
 		board.nextStage();
+	}
+
+	public void sendMessage(String message) {
+		messages.add(message);
+		gui.modelSendsMessage(message);
+	}
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+
+	public StageType getStage() {
+		return stage;
+	}
+
+	public void setStage(StageType stage) {
+		this.stage = stage;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public byte[] save() {
+		System.err.print("Saving...");
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(bytes);
+			out.writeObject(this);
+		} catch (IOException e) {
+			System.err.println("\tfailed.");
+			e.printStackTrace();
+			return null;
+		}
+		System.err.println("\tdone.");
+		return bytes.toByteArray();
+	}
+
+	public void load(byte[] bytes) {
+		System.err.print("Loading...");
+		ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
+		try {
+			ObjectInputStream in = new ObjectInputStream(bin);
+			GameState save = (GameState) in.readObject();
+			modifiers = save.modifiers;
+			board.load(save.board);
+			zombieDeck.load(save.zombieDeck);
+			humanDeck.load(save.humanDeck);
+			zombieHand.load(save.zombieHand);
+			humanHand.load(save.humanHand);
+			random = save.random;
+			messages = save.messages;
+			turn = save.turn;
+			stage = save.stage;
+			player = save.player;
+			update();
+			System.err.println("\tdone.");
+		} catch (IOException | ClassNotFoundException e) {
+			System.err.println("\tfailed.");
+			e.printStackTrace();
+		}
 	}
 
 }

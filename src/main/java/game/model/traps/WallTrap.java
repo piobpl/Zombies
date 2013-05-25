@@ -18,6 +18,11 @@ import utility.Pair;
  */
 public class WallTrap extends Trap {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6959430938058829988L;
+
 	public WallTrap(GameState gameState, int strength,
 			Pair<Integer, Integer> coordinates) {
 		this.strength = strength;

@@ -14,6 +14,11 @@ import game.model.Modifier.ModifierType;
  */
 public class Human extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -134107519583480695L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Integer x = ((CellSelection) selection).cell.first;

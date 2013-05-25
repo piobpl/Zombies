@@ -10,12 +10,17 @@ import game.model.MoveMaker;
 /**
  * REFLEKTOR – Cofa (równocześnie) każdego zombiego i psa w danym torze o jedno
  * pole, jeżeli jest to możliwe.
- * 
+ *
  * @author michal
- * 
+ *
  */
 
 public class Searchlight extends Card {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -2554171339776336951L;
 
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
@@ -26,7 +31,9 @@ public class Searchlight extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		int column = ((ColumnSelection) selection).column;
 		for (int i = 1; i < 5; i++)
-			MoveMaker.moveBackward(gameState, i, column);
+			if (gameState.getBoard().get(i, column) != null
+					&& gameState.getBoard().get(i, column).getType() != CardType.BARREL)
+				MoveMaker.moveBackward(gameState, i, column);
 	}
 
 	@Override

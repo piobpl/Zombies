@@ -1,5 +1,6 @@
 package game.model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,19 +8,20 @@ import java.util.Random;
 
 /**
  * A class representing a deck.
- * 
+ *
  * @author krozycki
- * 
+ *
  */
-public class Deck {
+public class Deck implements Serializable {
 
+	private static final long serialVersionUID = 4777112697076412595L;
 	private List<Card> deck;
 	private Player player;
 	private GameState gameState;
 
 	/**
 	 * Creates a new shuffled deck for the specified player.
-	 * 
+	 *
 	 * @param player
 	 *            a player whose deck is to be created
 	 */
@@ -30,15 +32,19 @@ public class Deck {
 		gameState.gui.setCardsLeft(player, deck.size());
 	}
 
+	public void load(Deck save){
+		deck = save.deck;
+	}
+
 	/**
 	 * Returns a shuffled list of cards representing a deck. Uses a specified
 	 * Random to shuffle.
-	 * 
+	 *
 	 * @param player
 	 *            a player whose deck is to be created
 	 * @param rnd
 	 *            Random to be used during shuffling
-	 * 
+	 *
 	 * @return a list of cards representing a deck
 	 */
 	private List<Card> getShuffledDeck(Player player, Random rnd) {
@@ -53,7 +59,7 @@ public class Deck {
 	/**
 	 * Returns a card from the top of the deck( and removes it ). Returns null
 	 * if the deck is empty.
-	 * 
+	 *
 	 * @return a card from the top of the deck or null
 	 */
 	public Card getTopCard() {
@@ -67,10 +73,10 @@ public class Deck {
 	/**
 	 * Returns a list of cards from the top of the deck ( and removes them ).
 	 * Returns null if there are not enough cards in the deck.
-	 * 
+	 *
 	 * @param i
 	 *            the number of cards to be taken from the deck
-	 * 
+	 *
 	 * @return a list of cards from the top of the deck or null
 	 */
 	public List<Card> get(int i) {
@@ -91,7 +97,7 @@ public class Deck {
 	 * Removes a specified number of cards from the top of the deck. If the
 	 * given number is bigger than or equals the size of the deck then the deck
 	 * will be empty after the call of this method.
-	 * 
+	 *
 	 * @param i
 	 *            the number of cards to be removed
 	 */
@@ -105,7 +111,7 @@ public class Deck {
 
 	/**
 	 * Returns the current size of the deck.
-	 * 
+	 *
 	 * @return a size of the deck
 	 */
 	public int getDeckSize() {
@@ -114,7 +120,7 @@ public class Deck {
 
 	/**
 	 * Checks whether the deck is empty.
-	 * 
+	 *
 	 * @return true if the deck is empty
 	 */
 	public boolean isEmpty() {

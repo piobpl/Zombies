@@ -14,6 +14,11 @@ import utility.Pair;
 
 public class Gasoline extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7404283742318109948L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;

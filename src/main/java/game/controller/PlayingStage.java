@@ -3,13 +3,13 @@ package game.controller;
 import game.model.Card;
 import game.model.GameState;
 import game.model.Hand;
-import game.model.Player;
 import game.model.Modifier.ModifierType;
-import game.view.GUI;
+import game.model.Player;
 import game.view.EventReceiver.ButtonClickedEvent;
 import game.view.EventReceiver.Event;
 import game.view.EventReceiver.EventType;
 import game.view.EventReceiver.HandClickedEvent;
+import game.view.GUI;
 import game.view.GUI.Button;
 
 import java.awt.event.MouseEvent;
@@ -36,12 +36,12 @@ public class PlayingStage implements Stage {
 		if (player == Player.HUMAN
 				&& gameState.getModifiers().contains(ModifierType.TERROR))
 			limit = 1;
-		gui.sendMessage("Choose cards to play or end turn.");
+		gameState.sendMessage("Choose cards to play or end turn.");
 		gui.setButtonEnabled(Button.EndTurn, true);
 		while (true) {
 			if ((limit == 0 || gameState.getHand(player).isEmpty())
 					&& !endWarning) {
-				gui.sendMessage("You have to end turn now.");
+				gameState.sendMessage("You have to end turn now.");
 				endWarning = true;
 			}
 			event = gui.eventReceiver.getNextEvent();
@@ -83,5 +83,10 @@ public class PlayingStage implements Stage {
 			gui.setHighlight(false);
 		}
 		gui.setButtonEnabled(Button.EndTurn, false);
+	}
+
+	@Override
+	public StageType getStageType() {
+		return StageType.PLAYING;
 	}
 }

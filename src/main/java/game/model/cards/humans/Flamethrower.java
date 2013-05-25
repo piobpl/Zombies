@@ -18,6 +18,11 @@ import utility.Pair;
  */
 public class Flamethrower extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6438987840937959001L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((MultiGroupSelection) selection).cells;

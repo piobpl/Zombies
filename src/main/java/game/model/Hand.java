@@ -1,10 +1,13 @@
 package game.model;
 
+import java.io.Serializable;
+
 /**
  * A class representing a hand.
  */
-public class Hand {
+public class Hand implements Serializable {
 
+	private static final long serialVersionUID = -2423643842988295198L;
 	private Card[] hand;
 	private GameState gameState;
 	Player player;
@@ -16,6 +19,10 @@ public class Hand {
 		hand = new Card[4];
 		this.gameState = gameState;
 		this.player = player;
+	}
+
+	public void load(Hand save){
+		hand = save.hand;
 	}
 
 	/**

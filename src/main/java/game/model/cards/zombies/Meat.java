@@ -9,6 +9,11 @@ import game.model.Player;
 
 public class Meat extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3709182122889686881L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Player player = ((HandSelection) selection).player;

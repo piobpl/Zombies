@@ -1,5 +1,7 @@
 package game.model;
 
+import java.io.Serializable;
+
 import utility.Typed;
 import utility.TypedSet;
 
@@ -11,7 +13,9 @@ import utility.TypedSet;
  *
  */
 
-public class Modifier implements Typed<Modifier.ModifierType> {
+public class Modifier implements Typed<Modifier.ModifierType>, Serializable {
+
+	private static final long serialVersionUID = -3659762201122440620L;
 
 	/**
 	 * typy modyfikatorów, getDescription() zwraca opis

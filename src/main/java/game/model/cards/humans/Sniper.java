@@ -11,6 +11,11 @@ import game.model.Trap.Trigger;
 
 public class Sniper extends Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8765665340909045835L;
+
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		return 2;
