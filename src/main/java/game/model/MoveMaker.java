@@ -118,7 +118,7 @@ public abstract class MoveMaker {
 
 	public static boolean moveLeft(GameState gameState, int x, int y) {
 		if (!isMovePossible(gameState, new Pair<Integer, Integer>(x, y),
-				new Pair<Integer, Integer>(x - 1, y), null))
+				new Pair<Integer, Integer>(x, y-1), null))
 			return false;
 		if (y == 0 || !gameState.getBoard().isEmpty(x, y - 1))
 			return false;
@@ -129,7 +129,7 @@ public abstract class MoveMaker {
 
 	public static boolean moveRight(GameState gameState, int x, int y) {
 		if (!isMovePossible(gameState, new Pair<Integer, Integer>(x, y),
-				new Pair<Integer, Integer>(x - 1, y), null))
+				new Pair<Integer, Integer>(x, y + 1), null))
 			return false;
 		if (y == 2 || !gameState.getBoard().isEmpty(x, y + 1))
 			return false;
