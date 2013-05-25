@@ -148,9 +148,13 @@ public class Selector {
 								((ColumnSelection) candidate).column, true);
 						break;
 					case GROUP:
-						board.setHighlight(false);
+						//board.setHighlight(false);
 						board.clearGlassText();
 						int k = 0;
+						if(current!=null)
+							for (Pair<Integer, Integer> p : ((GroupSelection) current).cells) {
+								board.getCell(p.first, p.second).setHighlight(false);
+							}
 						for (Pair<Integer, Integer> p : ((GroupSelection) candidate).cells) {
 							board.getCell(p.first, p.second).setGlassText(
 									"" + (++k));
