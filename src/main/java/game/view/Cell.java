@@ -74,6 +74,8 @@ public class Cell {
 					name.setText(card.getName().toUpperCase());
 					if(card.getName().equalsIgnoreCase("Barrel"))
 						name.setForeground(Colors.humansCard.getColor());
+					else
+						name.setForeground(Colors.napisy.getColor());
 					String s = "";
 					boolean first = true;
 					for (Modifier m : card.getModifiers()) {
