@@ -65,7 +65,7 @@ public class Human extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "A living shield! Humans can be played on any zombie card on the street. A human moves with a given zombie. One zombie can hide behind only one human. The living shield absorbs all damage from a single source, after which the card is discarded. The only exception to this rule is the grenade card, which destroys the zombie along with his human shield.";
+		return "<html>A living shield! Humans can be played on any zombie card on the street. A human moves with a given zombie.<br>One zombie can hide behind only one human. The living shield absorbs all damage from a single source, after which the card is discarded. The only exception to this rule is the grenade card, which destroys the zombie along with his human shield.</html>";
 	}
 
 }

@@ -63,7 +63,7 @@ public class Searchlight extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "It simultaneously moves all zombies and dogs one square back on a single lane (if possible).";
+		return "<html>It simultaneously moves all zombies and dogs one square back on a single lane (if possible).</html>";
 	}
 
 }

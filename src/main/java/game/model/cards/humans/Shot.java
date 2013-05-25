@@ -78,7 +78,7 @@ public class Shot extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can shoot in a straight line (through a single lane only) and you will always hit the first target on the bullet’s path. The shot deals damage equal to its power rating (1 or 2). Additionally, a zombie that got hit and was not killed must take a one square step back , if possible.";
+		return "<html>You can shoot in a straight line (through a single lane only) and you will always hit the first target on the bullet's path.<br>The shot deals damage equal to its power rating (1 or 2).<br>Additionally, a zombie that got hit and was not killed must take a one square step back , if possible.</html>";
 	}
 
 }

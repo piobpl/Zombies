@@ -69,6 +69,6 @@ public class Car extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can put a booby-trapped car on any square, if there aren’t any obstacles (like zombies) on given lane for the car to drive to that square. You can set the car off with any kind of shot (shot, burst or sniper shot), fire (napalm, gasoline, flamethrower, street on fire) or explosion (grenade, mine shrapnel). Zombies and dogs can walk onto and over the car. Exploding car deals one damage point to the square it is standing on, and one damage point to each adjacent square (even diagonally).";
+		return "<html>You can put a booby-trapped car on any square, if there aren't any obstacles (like zombies) on given lane for the car to drive to that square.<br>You can set the car off with any kind of shot (shot, burst or sniper shot), fire (napalm, gasoline, flamethrower, street on fire) or explosion (grenade, mine shrapnel).<br>Zombies and dogs can walk onto and over the car.<br>Exploding car deals one damage point to the square it is standing on, and one damage point to each adjacent square (even diagonally).</html>";
 	}
 }

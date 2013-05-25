@@ -56,6 +56,6 @@ public class Terror extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "In the next human phase, the human player can play only one card.";
+		return "<html>In the next human phase, the human player can play only one card.</html>";
 	}
 }

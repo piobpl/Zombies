@@ -94,6 +94,6 @@ public class Bite extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You can play this card if there is a zombie with the human shield on board. A bitten human changes into a zombie with strength/toughness of 1 and is put directly beside or behind his creator.";
+		return "<html>You can play this card if there is a zombie with the human shield on board.<br>A bitten human changes into a zombie with strength/toughness of 1 and is put directly beside or behind his creator.</html>";
 	}
 }

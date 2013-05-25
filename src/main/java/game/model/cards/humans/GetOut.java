@@ -57,7 +57,7 @@ public class GetOut extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "It forces the zombie player to remove one card (chosen by the human player) from his hand.";
+		return "<html>It forces the zombie player to remove one card (chosen by the human player) from his hand.</html>";
 	}
 
 }

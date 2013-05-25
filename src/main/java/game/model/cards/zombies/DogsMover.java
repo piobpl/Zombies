@@ -95,7 +95,7 @@ public class DogsMover extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "";
+		return "<html></html>";
 	}
 
 }

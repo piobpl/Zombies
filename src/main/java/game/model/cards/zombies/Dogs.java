@@ -57,7 +57,7 @@ public class Dogs extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "You play dogs onto one of the three first-row squares, providing another zombie, dog or barrier does not block that square. Dogs move at the beginning of zombies’ phase, providing their move is possible (there are no movement-blocking cards on the board). Dogs can move three squares per phase, in any direction except diagonally. They cannot move through squares occupied by zombies or other dogs.";
+		return "<html>You play dogs onto one of the three first-row squares, providing another zombie, dog or barrier does not block that square.<br>Dogs move at the beginning of zombies phase, providing their move is possible (there are no movement-blocking cards on the board).<br>Dogs can move three squares per phase, in any direction except diagonally.<br>They cannot move through squares occupied by zombies or other dogs.</html>";
 	}
 
 }

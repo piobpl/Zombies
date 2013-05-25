@@ -62,6 +62,6 @@ public class Barrier extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return " It blocks all movement of any zombies and dogs in a single lane for 1 phase. The barrier also prevents anyone from moving to a blocked lane (The player cannot put any zombies or dogs on that lane in his phase). The barrier may be placed only on a free field in the first row.";
+		return "<html>It blocks all movement of any zombies and dogs in a single lane for 1 phase.<br>The barrier also prevents anyone from moving to a blocked lane (The player cannot put any zombies or dogs on that lane in his phase).<br>The barrier may be placed only on a free field in the first row.</html>";
 	}
 }

@@ -61,7 +61,7 @@ public class Hunger extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return " It makes one zombie move one square forward, if the forward square is not occupied or blocked.";
+		return "<html>It makes one zombie move one square forward, if the forward square is not occupied or blocked.</html>";
 	}
 
 }
