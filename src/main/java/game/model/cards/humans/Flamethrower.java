@@ -32,11 +32,17 @@ public class Flamethrower extends Card {
 			if(c.first != row)
 				return 0;
 		}
+		boolean isSelected[] = new boolean[3];
+		int selectedCount = 0;
+		for(Pair<Integer, Integer> cell : cells)
+			isSelected[cell.second] = true;
+		for(boolean b : isSelected)
+			if(b) selectedCount++;
+		if (cells.size() + 3 - selectedCount > 5)
+			return 0;
 		if (cells.size() < 5)
 			return 1;
-		if (cells.size() == 5)
-			return 2;
-		return 0;
+		return 2;
 	}
 
 	@Override
