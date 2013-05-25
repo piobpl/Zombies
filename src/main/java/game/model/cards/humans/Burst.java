@@ -10,6 +10,12 @@ import game.model.MoveMaker;
 import game.model.Modifier.ModifierType;
 import game.model.Trap.Trigger;
 
+/**
+ * 
+ * @author michal
+ *
+ */
+
 public class Burst extends Card {
 
 	private Integer strength;

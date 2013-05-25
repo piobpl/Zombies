@@ -7,7 +7,14 @@ import game.model.Card;
 import game.model.DamageDealer;
 import game.model.GameState;
 import game.model.MoveMaker;
+import game.model.Trap;
 import game.model.Trap.Trigger;
+
+/**
+ * 
+ * @author michal
+ *
+ */
 
 public class Shot extends Card {
 
@@ -25,13 +32,19 @@ public class Shot extends Card {
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
 		int column = ((ColumnSelection) selection).column;
-		for (int i = 4; i >= 0; i--)
+		for (int i = 4; i >= 0; i--) {
+			for(Trap trap : gameState.getBoard().getTraps(i, column))
+				if(trap.getTriggers().contains(Trigger.SHOT)) {
+					DamageDealer.dealDamage(gameState, i, column, strength, Trigger.SHOT);
+					return;
+				}
 			if (!gameState.getBoard().isEmpty(i, column)) {
 				DamageDealer.dealDamage(gameState, i, column, strength,
 						Trigger.SHOT);
 				MoveMaker.moveBackward(gameState, i, column);
 				break;
 			}
+		}
 	}
 
 	@Override
