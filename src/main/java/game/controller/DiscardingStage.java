@@ -56,6 +56,8 @@ public class DiscardingStage implements Stage {
 			}
 		}
 		System.err.println("Discarded: " + hand.get(pos).getName());
+		gui.setButtonEnabled(Button.ApplySelection, false);
+		gui.setButtonEnabled(Button.CancelSelection, false);
 		gui.getHand(player).getCell(pos).setHighlight(false);
 		hand.set(pos, null);
 		gameState.update();
