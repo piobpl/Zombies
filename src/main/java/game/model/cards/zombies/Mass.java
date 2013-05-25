@@ -6,6 +6,7 @@ import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.GameState;
 import game.model.Modifier;
+import game.model.MoveMaker;
 import game.model.SelectionTester;
 import game.model.Modifier.ModifierType;
 import utility.Pair;
@@ -33,6 +34,8 @@ public class Mass extends Card {
 		Pair<Integer, Integer> cell2 = ((GroupSelection) selection).cells
 				.get(1);
 		if (!SelectionTester.areEdgeAdjacent(cell1, cell2))
+			return 0;
+		if(!MoveMaker.isMovePossible(gameState, cell1, cell2, null))
 			return 0;
 		if (!gameState.getBoard()
 				.is(cell1.first, cell1.second, CardType.ZOMBIE))
