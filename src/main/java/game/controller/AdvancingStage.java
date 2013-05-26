@@ -38,12 +38,13 @@ public class AdvancingStage implements Stage {
 		case ZOMBIE:
 			boolean flag = false;
 			for (int x = 4; x >= 0; --x)
-				for (int y = 0; y < 3; ++y) {
-					if (board.is(x, y, CardType.ZOMBIE))
-						MoveMaker.moveForward(gameState, x, y);
-					if (board.is(x, y, CardType.DOGS))
-						flag = true;
-				}
+				for (int y = 0; y < 3; ++y){
+					if(board.is(x, y, CardType.DOGS)){
+						flag=true;
+						break;
+					}
+			}
+				
 			if (flag) {
 				boolean moved[][] = new boolean[5][3];
 				Event event;
@@ -87,6 +88,11 @@ public class AdvancingStage implements Stage {
 					}
 				}
 			}
+			for (int x = 4; x >= 0; --x)
+				for (int y = 0; y < 3; ++y){
+					if (board.is(x, y, CardType.ZOMBIE))
+						MoveMaker.moveForward(gameState, x, y);
+				}
 
 			break;
 		case HUMAN:
