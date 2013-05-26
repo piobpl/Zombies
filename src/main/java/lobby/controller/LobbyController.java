@@ -24,12 +24,12 @@ public class LobbyController {
 			if (event.type == LobbyEventReceiver.EventType.ButtonClicked) {
 				b = (LobbyEventReceiver.ButtonClickedEvent) event;
 				if (b.button == Lobby.Button.NewLocalGame) {
+					lobby.exit();
 					new LocalController().game();
 					break;
 				}
 			}
 		}
-		lobby.exit();
 	}
 
 	public static void main(String args[]) {
