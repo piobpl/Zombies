@@ -6,9 +6,12 @@ import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.GameState;
 import game.model.Modifier;
+import game.model.Modifier.ModifierType;
 import game.model.MoveMaker;
 import game.model.SelectionTester;
-import game.model.Modifier.ModifierType;
+
+import java.util.List;
+
 import utility.Pair;
 
 /**
@@ -16,9 +19,9 @@ import utility.Pair;
  * selection: cells must be adjacent and placed in the same row. In effect,
  * zombie from first cell is merged to zombie from second cell. Eventually,
  * bigger zombie remains on second cell, first cell is cleared.
- *
+ * 
  * @author jerzozwierz
- *
+ * 
  */
 
 public class Mass extends Card {
@@ -30,17 +33,19 @@ public class Mass extends Card {
 
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
-		if (((GroupSelection) selection).cells.size() == 1)
-			return 1;
-		if (((GroupSelection) selection).cells.size() != 2)
+		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
+		if (cells.size() == 1) {
+			Pair<Integer, Integer> cell = cells.get(0);
+			if (gameState.getBoard().is(cell.first, cell.second,
+					CardType.ZOMBIE))
+				return 1;
 			return 0;
-		Pair<Integer, Integer> cell1 = ((GroupSelection) selection).cells
-				.get(0);
-		Pair<Integer, Integer> cell2 = ((GroupSelection) selection).cells
-				.get(1);
+		}
+		if (cells.size() != 2)
+			return 0;
+		Pair<Integer, Integer> cell1 = cells.get(0);
+		Pair<Integer, Integer> cell2 = cells.get(1);
 		if (!SelectionTester.areEdgeAdjacent(cell1, cell2))
-			return 0;
-		if(!MoveMaker.isMovePossible(gameState, cell1, cell2, null))
 			return 0;
 		if (!gameState.getBoard()
 				.is(cell1.first, cell1.second, CardType.ZOMBIE))
@@ -48,6 +53,13 @@ public class Mass extends Card {
 		if (!gameState.getBoard()
 				.is(cell2.first, cell2.second, CardType.ZOMBIE))
 			return 0;
+		Card temp = gameState.getBoard().get(cell2.first, cell2.second);
+		gameState.getBoard().remove(cell2.first, cell2.second);
+		if (!MoveMaker.isMovePossible(gameState, cell1, cell2, null)) {
+			gameState.getBoard().set(cell2.first, cell2.second, temp);
+			return 0;
+		}
+		gameState.getBoard().set(cell2.first, cell2.second, temp);
 		return 2;
 	}
 
