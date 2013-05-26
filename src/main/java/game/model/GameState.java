@@ -146,14 +146,29 @@ public class GameState implements Serializable {
 		this.player = player;
 	}
 	
+	/**
+	 * Return the zombie player account.
+	 * 
+	 * @return zombie player account
+	 */
 	public PlayerAccount getZombiePlayerAccount(){
 		return zombiePlayer;
 	}
 	
+	/**
+	 * Returns the human player account.
+	 * 
+	 * @return human player account
+	 */
 	public PlayerAccount getHumanPlayerAccount(){
 		return humanPlayer;
 	}
 
+	/**
+	 * Saves the current gamestate to byte array.
+	 * 
+	 * @return byte array representing the saved gamestate
+	 */
 	public byte[] save() {
 		System.err.print("Saving...");
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -169,10 +184,16 @@ public class GameState implements Serializable {
 		return bytes.toByteArray();
 	}
 	
+	/**
+	 * Sets the messages area in the gui according to the current state of the gamestate's messages list.
+	 */
 	private void updateMessages(){
 		gui.modelSendsAllMessages(messages);
 	}
 
+	/**
+	 * Loads the byte array representing the saved gamestate, to the gamestate.
+	 */
 	public void load(byte[] bytes) {
 		System.err.print("Loading...");
 		ByteArrayInputStream bin = new ByteArrayInputStream(bytes);

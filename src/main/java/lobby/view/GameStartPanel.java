@@ -9,6 +9,12 @@ import javax.swing.JPanel;
 
 import lobby.view.Lobby.Button;
 
+/**
+ * A class that is responsible for buttons in lobby.
+ * 
+ * @author krozycki
+ * 
+ */
 public class GameStartPanel {
 
 	private JButton newLocalGameButton;
@@ -16,6 +22,12 @@ public class GameStartPanel {
 	private JButton newNetworkGameButton;
 	private JButton loadNetworkGameButton;
 
+	/**
+	 * Creates new GameStartPanel on the selected panel.
+	 * 
+	 * @param panel
+	 *            selected panel
+	 */
 	GameStartPanel(JPanel panel) {
 		panel.setLayout(new FlowLayout());
 		panel.setPreferredSize(new Dimension(390, 290));
@@ -33,6 +45,14 @@ public class GameStartPanel {
 		panel.add(loadNetworkGameButton);
 	}
 
+	/**
+	 * Enables/disables the selected button.
+	 * 
+	 * @param button
+	 *            selected button
+	 * @param active
+	 *            new button status
+	 */
 	public void setButtonEnabled(final Button button, final boolean active) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -55,23 +75,31 @@ public class GameStartPanel {
 			}
 		});
 	}
-	
+
+	/**
+	 * Adds MouseListener for the selected button.
+	 * 
+	 * @param button
+	 *            selected button
+	 * @param mouselistener
+	 *            MouseListener to be added
+	 */
 	public void addButtonMouseListener(final Button button,
-			final MouseListener a) {
+			final MouseListener mouselistener) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				switch (button) {
 				case NewLocalGame:
-					newLocalGameButton.addMouseListener(a);
+					newLocalGameButton.addMouseListener(mouselistener);
 					break;
 				case LoadLocalGame:
-					loadLocalGameButton.addMouseListener(a);
+					loadLocalGameButton.addMouseListener(mouselistener);
 					break;
 				case NewNetworkGame:
-					newNetworkGameButton.addMouseListener(a);
+					newNetworkGameButton.addMouseListener(mouselistener);
 					break;
 				case LoadNetworkGame:
-					loadNetworkGameButton.addMouseListener(a);
+					loadNetworkGameButton.addMouseListener(mouselistener);
 					break;
 				default:
 					throw new UnsupportedOperationException();

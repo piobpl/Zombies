@@ -7,6 +7,12 @@ import java.util.concurrent.BlockingQueue;
 
 import lobby.view.Lobby.Button;
 
+/**
+ * A class that handles events for lobby.
+ * 
+ * @author krozycki
+ * 
+ */
 public class LobbyEventReceiver {
 
 	public static enum EventType {
@@ -84,6 +90,12 @@ public class LobbyEventReceiver {
 		}
 	}
 
+	/**
+	 * Return the next event in the queue.
+	 * 
+	 * @return next event
+	 * 
+	 */
 	public Event getNextEvent() {
 		try {
 			return eventQueue.take();

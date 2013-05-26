@@ -11,16 +11,28 @@ import lobby.view.Lobby;
 import lobby.view.LobbyEventReceiver;
 import lobby.view.LobbyEventReceiver.Event;
 
+/**
+ * A class that takes control over lobby.
+ * 
+ * @author krozycki
+ * 
+ */
 public class LobbyController {
 
 	public final Lobby lobby;
 
+	/**
+	 * Creates LobbyController.
+	 */
 	public LobbyController() {
 		System.err.println("Creating LobbyController...");
 		lobby = new Lobby();
 		System.err.println("Done");
 	}
 
+	/**
+	 * Handles the functionality of the lobby.
+	 */
 	public void lobby() {
 		Event event;
 		LobbyEventReceiver.ButtonClickedEvent b;
@@ -68,6 +80,9 @@ public class LobbyController {
 		}
 	}
 
+	/**
+	 * Starts new lobby.
+	 */
 	public static void main(String args[]) {
 		new LobbyController().lobby();
 	}

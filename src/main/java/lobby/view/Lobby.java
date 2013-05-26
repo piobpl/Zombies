@@ -16,8 +16,17 @@ import javax.swing.JPanel;
 
 import utility.Connector;
 
-// TODO Lobby
+/**
+ * A class representing a lobby.
+ * 
+ * @author krozycki
+ * 
+ */
 public class Lobby {
+
+	/**
+	 * Enum that represent buttons in lobby.
+	 */
 	public static enum Button {
 		NewLocalGame, LoadLocalGame, NewNetworkGame, LoadNetworkGame;
 	}
@@ -97,14 +106,33 @@ public class Lobby {
 
 	}
 
+	/**
+	 * Enables/disables the selected button.
+	 * 
+	 * @param button
+	 *            selected button
+	 * @param active
+	 *            new button status
+	 */
 	public void setButtonEnabled(Button button, boolean active) {
 		gameStartPanel.setButtonEnabled(button, active);
 	}
 
+	/**
+	 * Adds MouseListener for the selected button.
+	 * 
+	 * @param button
+	 *            selected button
+	 * @param mouselistener
+	 *            MouseListener to be added
+	 */
 	public void addButtonMouseListener(Button button, MouseListener a) {
 		gameStartPanel.addButtonMouseListener(button, a);
 	}
 
+	/**
+	 * Closes the lobby.
+	 */
 	public void exit() {
 		try {
 			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
