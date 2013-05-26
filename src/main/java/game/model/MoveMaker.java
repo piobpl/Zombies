@@ -6,7 +6,7 @@ import game.model.Modifier.ModifierType;
 import utility.Pair;
 
 /**
- * Klasa wspomagająca ruszanie zombich i psów po planszy.
+ * Klasa wspomagaj��ca ruszanie zombich i ps��w po planszy.
  *
  * @author michal, Edoipi
  *
@@ -58,7 +58,7 @@ public abstract class MoveMaker {
 	public static boolean moveForward(GameState gameState, int x, int y) {
 		Card current = gameState.getBoard().get(x, y);
 		if (x == 4 && current != null && current.getType() == CardType.ZOMBIE)
-			throw new GameOver(Player.ZOMBIE);
+			throw new GameOver(Player.ZOMBIE,gameState);
 		if (!isMovePossible(gameState, new Pair<Integer, Integer>(x, y),
 				new Pair<Integer, Integer>(x + 1, y), null))
 			return false;

@@ -33,6 +33,8 @@ public class GameState implements Serializable {
 	private int turn;
 	private StageType stage;
 	private Player player;
+	private PlayerAccount zombiePlayer;
+	private PlayerAccount humanPlayer;
 
 	/**
 	 * Creates a new gamestate.
@@ -46,6 +48,15 @@ public class GameState implements Serializable {
 		zombieHand = new Hand(this, Player.ZOMBIE);
 		humanHand = new Hand(this, Player.HUMAN);
 		messages = new ArrayList<String>();
+	}
+	
+	/**
+	 * Creates a new gamestate using specified players' accounts.
+	 */
+	public GameState(GUI gui,PlayerAccount zombieAccount, PlayerAccount humanAccount){
+		this(gui);
+		this.zombiePlayer = zombieAccount;
+		this.humanPlayer = humanAccount;
 	}
 
 	/**
@@ -133,6 +144,14 @@ public class GameState implements Serializable {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+	
+	public PlayerAccount getZombiePlayerAccount(){
+		return zombiePlayer;
+	}
+	
+	public PlayerAccount getHumanPlayerAccount(){
+		return humanPlayer;
+	}
 
 	public byte[] save() {
 		System.err.print("Saving...");
@@ -166,6 +185,8 @@ public class GameState implements Serializable {
 			turn = save.turn;
 			stage = save.stage;
 			player = save.player;
+			zombiePlayer = save.zombiePlayer;
+			humanPlayer = save.humanPlayer;
 			update();
 			System.err.println("\tdone.");
 		} catch (IOException | ClassNotFoundException e) {
