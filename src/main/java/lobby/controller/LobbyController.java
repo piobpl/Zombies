@@ -1,5 +1,14 @@
 package lobby.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+
+import javax.swing.JFileChooser;
+
 import game.controller.LocalController;
 import lobby.view.Lobby;
 import lobby.view.LobbyEventReceiver;
@@ -31,7 +40,20 @@ public class LobbyController {
 				}else if(b.button == Lobby.Button.LoadLocalGame) {
 					System.err.println("Loading saved local game");
 					lobby.exit();
-					//TODO wybieranie pliku save'a z dysku ?
+					JFileChooser fileChooser = new JFileChooser();
+					int result = fileChooser.showOpenDialog(null);
+					byte[] save=null;
+					if (result == JFileChooser.APPROVE_OPTION) {
+						try {
+							save = Files.readAllBytes(fileChooser.getSelectedFile().toPath());
+						} catch (IOException e) {
+							System.err.println("Save loading error!");
+							e.printStackTrace();
+						}
+					}
+					LocalController localController = new LocalController();
+					localController.game();
+					localController.gameState.load(save);
 					break;
 				}else if(b.button == Lobby.Button.NewNetworkGame){
 					System.err.println("Starting new network game");
