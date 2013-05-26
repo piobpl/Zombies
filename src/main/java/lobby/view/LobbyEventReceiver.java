@@ -67,8 +67,8 @@ public class LobbyEventReceiver {
 	}
 
 	private void registerToButtons() {
-		for (Button i : Button.values()) {
-			final Button button = i;
+		for (Lobby.Button i : Lobby.Button.values()) {
+			final Lobby.Button button = i;
 			lobby.addButtonMouseListener(button, new SimpleMouseListener() {
 				@Override
 				public void mouseClicked(MouseEvent e) {

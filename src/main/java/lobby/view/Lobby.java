@@ -26,6 +26,7 @@ public class Lobby {
 	private JPanel glass;
 	private JPanel lobbyPanel;
 	private GameStartPanel gameStartPanel;
+	public final LobbyEventReceiver lobbyEventReceiver;
 
 	/**
 	 * Launch the application.
@@ -58,6 +59,7 @@ public class Lobby {
 	 */
 	public Lobby() {
 		initialize();
+		lobbyEventReceiver = new LobbyEventReceiver(this);
 	}
 
 	/**
