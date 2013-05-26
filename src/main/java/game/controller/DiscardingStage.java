@@ -35,6 +35,9 @@ public class DiscardingStage implements Stage {
 			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
 			if (event.type == EventType.ButtonClicked) {
+				if(((ButtonClickedEvent) event).button == Button.SaveGame){
+					LocalController.saveState(gameState.lastSave);
+				}
 				if (((ButtonClickedEvent) event).button == Button.ApplySelection)
 					break;
 				if (((ButtonClickedEvent) event).button == Button.CancelSelection) {

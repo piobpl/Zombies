@@ -33,6 +33,7 @@ public class AdvancingStage implements Stage {
 	}
 
 	public void perform(Player player) {
+		gameState.lastSave = gameState.save();
 		Board board = gameState.getBoard();
 		switch (player) {
 		case ZOMBIE:
@@ -58,6 +59,9 @@ public class AdvancingStage implements Stage {
 					event = gui.eventReceiver.getNextEvent();
 					if (event.type == EventType.ButtonClicked) {
 						b = (ButtonClickedEvent) event;
+						if(b.button == Button.SaveGame){
+							LocalController.saveState(gameState.lastSave);
+						}
 						if (b.button != Button.EndTurn)
 							continue;
 						gui.setButtonEnabled(Button.EndTurn, false);

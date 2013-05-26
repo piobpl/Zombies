@@ -1,15 +1,12 @@
 package lobby.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.FileReader;
+import game.controller.LocalController;
+
 import java.io.IOException;
 import java.nio.file.Files;
 
 import javax.swing.JFileChooser;
 
-import game.controller.LocalController;
 import lobby.view.Lobby;
 import lobby.view.LobbyEventReceiver;
 import lobby.view.LobbyEventReceiver.Event;
@@ -37,33 +34,34 @@ public class LobbyController {
 					lobby.exit();
 					new LocalController().game();
 					break;
-				}else if(b.button == Lobby.Button.LoadLocalGame) {
+				} else if (b.button == Lobby.Button.LoadLocalGame) {
 					System.err.println("Loading saved local game");
 					lobby.exit();
 					JFileChooser fileChooser = new JFileChooser();
 					int result = fileChooser.showOpenDialog(null);
-					byte[] save=null;
+					byte[] save = null;
 					if (result == JFileChooser.APPROVE_OPTION) {
 						try {
-							save = Files.readAllBytes(fileChooser.getSelectedFile().toPath());
+							save = Files.readAllBytes(fileChooser
+									.getSelectedFile().toPath());
 						} catch (IOException e) {
 							System.err.println("Save loading error!");
 							e.printStackTrace();
 						}
 					}
 					LocalController localController = new LocalController();
-					localController.game();
 					localController.gameState.load(save);
+					localController.gameLoader();
 					break;
-				}else if(b.button == Lobby.Button.NewNetworkGame){
+				} else if (b.button == Lobby.Button.NewNetworkGame) {
 					System.err.println("Starting new network game");
 					lobby.exit();
-					//TODO
-					break;					
-				}else if(b.button == Lobby.Button.LoadNetworkGame){
+					// TODO
+					break;
+				} else if (b.button == Lobby.Button.LoadNetworkGame) {
 					System.err.println("Loading saved network game");
 					lobby.exit();
-					//TODO
+					// TODO
 					break;
 				}
 			}

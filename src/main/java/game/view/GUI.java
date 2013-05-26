@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +17,7 @@ import javax.swing.JPanel;
 
 public class GUI {
 	public static enum Button {
-		ApplySelection, CancelSelection, EndTurn;
+		ApplySelection, CancelSelection, EndTurn, SaveGame;
 	}
 
 	public final EventReceiver eventReceiver;
@@ -73,6 +74,10 @@ public class GUI {
 
 	public void modelSendsMessage(final String message) {
 		infoPanel.sendMessage(message);
+	}
+	
+	public void modelSendsAllMessages(final List<String> messages){
+		infoPanel.sendAllMessages(messages);
 	}
 
 	public void drawGlobalModifiers(final Iterable<Modifier> modifiers){

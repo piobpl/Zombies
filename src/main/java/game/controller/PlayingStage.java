@@ -48,6 +48,9 @@ public class PlayingStage implements Stage {
 			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
 			if (event.type == EventType.ButtonClicked) {
+				if(((ButtonClickedEvent) event).button == Button.SaveGame){
+					LocalController.saveState(gameState.lastSave);
+				}
 				if (((ButtonClickedEvent) event).button == Button.EndTurn)
 					break;
 			} else if (event.type == EventType.HandClicked && limit > 0) {

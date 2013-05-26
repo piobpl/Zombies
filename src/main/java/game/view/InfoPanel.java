@@ -6,6 +6,7 @@ import game.view.GUI.Button;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,6 +22,7 @@ public class InfoPanel {
 	private JButton applySelectionButton;
 	private JButton cancelSelectionButton;
 	private JButton endTurnButton;
+	private JButton saveGameButton;
 	private JTextArea textArea;
 	private JLabel modyfikator;
 	private JPanel panelBrazowy;
@@ -41,6 +43,10 @@ public class InfoPanel {
 		endTurnButton = new JButton("End turn");
 		endTurnButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(endTurnButton);
+		
+		saveGameButton = new JButton("Save game");
+		saveGameButton.setPreferredSize(new Dimension(120,30));
+		panel.add(saveGameButton);
 
 		panelBrazowy = new JPanel();
 		panelBrazowy.setBackground(Colors.margines.getColor());
@@ -107,6 +113,9 @@ public class InfoPanel {
 				case EndTurn:
 					endTurnButton.setEnabled(aktywny);
 					break;
+				case SaveGame:
+					saveGameButton.setEnabled(aktywny);
+					break;
 				default:
 					throw new UnsupportedOperationException();
 				}
@@ -119,6 +128,19 @@ public class InfoPanel {
 			public void run() {
 				textArea.append(message);
 				textArea.append("\n");
+			}
+		});
+	}
+	
+	public void sendAllMessages(final List<String> messages) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				textArea.setText("");
+				for(int i=0;i<messages.size()-3;i++){
+					textArea.append(messages.get(i));
+					textArea.append("\n");
+				}
+				textArea.append("--------Game successfully loaded-------\n");
 			}
 		});
 	}
@@ -136,6 +158,9 @@ public class InfoPanel {
 					break;
 				case EndTurn:
 					endTurnButton.addMouseListener(a);
+					break;
+				case SaveGame:
+					saveGameButton.addMouseListener(a);
 					break;
 				default:
 					throw new UnsupportedOperationException();

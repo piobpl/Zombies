@@ -35,6 +35,7 @@ public class GameState implements Serializable {
 	private Player player;
 	private PlayerAccount zombiePlayer;
 	private PlayerAccount humanPlayer;
+	public byte[] lastSave;
 
 	/**
 	 * Creates a new gamestate.
@@ -167,6 +168,10 @@ public class GameState implements Serializable {
 		System.err.println("\tdone.");
 		return bytes.toByteArray();
 	}
+	
+	private void updateMessages(){
+		gui.modelSendsAllMessages(messages);
+	}
 
 	public void load(byte[] bytes) {
 		System.err.print("Loading...");
@@ -188,6 +193,7 @@ public class GameState implements Serializable {
 			zombiePlayer = save.zombiePlayer;
 			humanPlayer = save.humanPlayer;
 			update();
+			updateMessages();
 			System.err.println("\tdone.");
 		} catch (IOException | ClassNotFoundException e) {
 			System.err.println("\tfailed.");
