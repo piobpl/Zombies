@@ -22,8 +22,11 @@ public class Hunger extends Card {
 			return 0;
 		if (gameState.getBoard().get(cell.first, cell.second).getType() != CardType.ZOMBIE)
 			return 0;
-		if (!gameState.getBoard().isEmpty(cell.first + 1, cell.second))
+		if (!MoveMaker.isMovePossible(gameState, cell,
+				new Pair<Integer, Integer>(cell.first + 1, cell.second), null)) {
+			System.err.println("syf i malaria");
 			return 0;
+		}
 		return 2;
 	}
 
