@@ -12,6 +12,7 @@ public class Zombie extends Card {
 
 	/**
 	 *
+	 * @author michal
 	 */
 	private static final long serialVersionUID = -1967753225254322981L;
 	private Integer strength;

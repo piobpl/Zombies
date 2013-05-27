@@ -52,7 +52,7 @@ public class Meat extends Card {
 
 	@Override
 	public CardType getType() {
-		return CardType.MASS;
+		return CardType.MEAT;
 	}
 
 	@Override

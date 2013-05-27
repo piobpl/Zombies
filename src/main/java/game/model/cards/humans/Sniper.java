@@ -13,6 +13,7 @@ public class Sniper extends Card {
 
 	/**
 	 *
+	 * @author michal
 	 */
 	private static final long serialVersionUID = 8765665340909045835L;
 

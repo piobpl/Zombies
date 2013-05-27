@@ -10,6 +10,7 @@ public class HandGrenade extends Card {
 
 	/**
 	 * 
+	 * @author michal
 	 */
 	private static final long serialVersionUID = -8319798427023734570L;
 
