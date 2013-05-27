@@ -33,7 +33,6 @@ import game.model.cards.zombies.Dogs;
 import game.model.cards.zombies.Human;
 import game.model.cards.zombies.Hunger;
 import game.model.cards.zombies.Mass;
-import game.model.cards.zombies.Meat;
 import game.model.cards.zombies.NotSoFast;
 import game.model.cards.zombies.PickAxe;
 import game.model.cards.zombies.Terror;
@@ -64,22 +63,24 @@ public abstract class Card implements Typed<CardType>, Serializable {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		if (player == Player.ZOMBIE) {
 			cards.add(new Zombie(5));
-			cards.add(new Zombie(5));
-			cards.add(new Zombie(5));
-			cards.add(new Zombie(5));
 			cards.add(new Zombie(4));
 			cards.add(new Zombie(3));
 			cards.add(new Zombie(2));
 			cards.add(new Zombie(4));
 			cards.add(new Zombie(3));
 			cards.add(new Zombie(2));
-			cards.add(new Zombie(4));
-			cards.add(new Zombie(3));
-			cards.add(new Zombie(2));
+			cards.add(new Bite());
+			cards.add(new Change());
+			cards.add(new Claws());
+			cards.add(new Click());
+			cards.add(new Dogs());
+			cards.add(new Human());
+			cards.add(new Hunger());
+			cards.add(new Mass());
 			cards.add(new NotSoFast());
-			cards.add(new NotSoFast());
-			cards.add(new NotSoFast());
-			} else {
+			cards.add(new PickAxe());
+			cards.add(new Terror());
+		} else {
 			cards.add(new Blood());
 			cards.add(new BackOff());
 			cards.add(new Barrier());
