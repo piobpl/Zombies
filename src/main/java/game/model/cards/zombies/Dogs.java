@@ -5,6 +5,8 @@ import game.controller.Selection.CellSelection;
 import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.GameState;
+import game.model.MoveMaker;
+import utility.Pair;
 
 public class Dogs extends Card {
 
@@ -17,8 +19,9 @@ public class Dogs extends Card {
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		Integer x = ((CellSelection) selection).cell.first;
-		Integer y = ((CellSelection) selection).cell.second;
-		if (gameState.getBoard().isEmpty(x, y) && x.equals(0))
+		//Integer y = ((CellSelection) selection).cell.second;
+		Pair<Integer, Integer> tmp=((CellSelection) selection).cell;
+		if (MoveMaker.isMovePossible(gameState, tmp, tmp, this) && x.equals(0))
 			return 2;
 		return 0;
 	}
