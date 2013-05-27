@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 public class GUI {
 	public static enum Button {
-		ApplySelection, CancelSelection, EndTurn, SaveGame;
+		ApplySelection, CancelSelection, EndTurn;
 	}
 
 	public final EventReceiver eventReceiver;
@@ -75,7 +75,7 @@ public class GUI {
 	public void modelSendsMessage(final String message) {
 		infoPanel.sendMessage(message);
 	}
-	
+
 	public void modelSendsAllMessages(final List<String> messages){
 		infoPanel.sendAllMessages(messages);
 	}

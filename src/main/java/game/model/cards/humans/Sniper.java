@@ -12,7 +12,7 @@ import game.model.Trap.Trigger;
 public class Sniper extends Card {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8765665340909045835L;
 
@@ -23,6 +23,8 @@ public class Sniper extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
+		if (DamageDealer.askForUseOfClick(gameState))
+			return;
 		int x = ((CellSelection) selection).cell.first;
 		int y = ((CellSelection) selection).cell.second;
 		DamageDealer.dealDamage(gameState, x, y, 2, Trigger.SHOT);

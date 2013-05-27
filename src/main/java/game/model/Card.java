@@ -28,6 +28,7 @@ import game.model.cards.humans.Wall;
 import game.model.cards.zombies.Bite;
 import game.model.cards.zombies.Change;
 import game.model.cards.zombies.Claws;
+import game.model.cards.zombies.Click;
 import game.model.cards.zombies.Dogs;
 import game.model.cards.zombies.Human;
 import game.model.cards.zombies.Hunger;
@@ -52,7 +53,7 @@ public abstract class Card implements Typed<CardType>, Serializable {
 	private static final long serialVersionUID = -2663209980322004223L;
 
 	public static enum CardType {
-		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, DOGS, FREEZE, FLAMETHROWER, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
+		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, CLICK, DOGS, FREEZE, FLAMETHROWER, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
 	}
 
 	/*
@@ -78,6 +79,9 @@ public abstract class Card implements Typed<CardType>, Serializable {
 			cards.add(new PickAxe());
 			cards.add(new Terror());
 			cards.add(new Dogs());
+			cards.add(new Click());
+			cards.add(new Click());
+			cards.add(new Click());
 		} else {
 			cards.add(new Blood());
 			cards.add(new BackOff());

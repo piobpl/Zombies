@@ -14,7 +14,7 @@ import utility.Pair;
  */
 public abstract class Selection {
 	public static enum SelectionType {
-		CELL, COLUMN, GROUP, MULTIGROUP, HAND, EMPTY;
+		CELL, COLUMN, GROUP, MULTIGROUP, HAND, EMPTY, UNPLAYABLE;
 	}
 
 	public abstract Selection add(Pair<Integer, Integer> p);

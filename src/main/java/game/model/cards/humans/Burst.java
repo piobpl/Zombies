@@ -11,7 +11,7 @@ import game.model.Modifier.ModifierType;
 import game.model.Trap.Trigger;
 
 /**
- * 
+ *
  * @author michal
  *
  */
@@ -19,7 +19,7 @@ import game.model.Trap.Trigger;
 public class Burst extends Card {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -6308527386433743150L;
 	private Integer strength;
@@ -35,6 +35,8 @@ public class Burst extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
+		if (DamageDealer.askForUseOfClick(gameState))
+			return;
 		int column = ((ColumnSelection) selection).column;
 		int remaining = strength;
 		Card card;

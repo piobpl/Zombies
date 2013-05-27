@@ -11,7 +11,7 @@ import game.model.Trap;
 import game.model.Trap.Trigger;
 
 /**
- * 
+ *
  * @author michal
  *
  */
@@ -19,7 +19,7 @@ import game.model.Trap.Trigger;
 public class Shot extends Card {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6646133985919960933L;
 	private Integer strength;
@@ -35,6 +35,8 @@ public class Shot extends Card {
 
 	@Override
 	public void makeEffect(Selection selection, GameState gameState) {
+		if (DamageDealer.askForUseOfClick(gameState))
+			return;
 		int column = ((ColumnSelection) selection).column;
 		for (int i = 4; i >= 0; i--) {
 			for(Trap trap : gameState.getBoard().getTraps(i, column))

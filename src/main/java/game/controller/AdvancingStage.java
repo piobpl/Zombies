@@ -45,7 +45,7 @@ public class AdvancingStage implements Stage {
 						break;
 					}
 			}
-				
+
 			if (flag) {
 				boolean moved[][] = new boolean[5][3];
 				Event event;
@@ -59,9 +59,6 @@ public class AdvancingStage implements Stage {
 					event = gui.eventReceiver.getNextEvent();
 					if (event.type == EventType.ButtonClicked) {
 						b = (ButtonClickedEvent) event;
-						if(b.button == Button.SaveGame){
-							LocalController.saveState(gameState.lastSave);
-						}
 						if (b.button != Button.EndTurn)
 							continue;
 						gui.setButtonEnabled(Button.EndTurn, false);

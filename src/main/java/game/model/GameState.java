@@ -50,7 +50,7 @@ public class GameState implements Serializable {
 		humanHand = new Hand(this, Player.HUMAN);
 		messages = new ArrayList<String>();
 	}
-	
+
 	/**
 	 * Creates a new gamestate using specified players' accounts.
 	 */
@@ -145,19 +145,19 @@ public class GameState implements Serializable {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
+
 	/**
 	 * Return the zombie player account.
-	 * 
+	 *
 	 * @return zombie player account
 	 */
 	public PlayerAccount getZombiePlayerAccount(){
 		return zombiePlayer;
 	}
-	
+
 	/**
 	 * Returns the human player account.
-	 * 
+	 *
 	 * @return human player account
 	 */
 	public PlayerAccount getHumanPlayerAccount(){
@@ -166,7 +166,7 @@ public class GameState implements Serializable {
 
 	/**
 	 * Saves the current gamestate to byte array.
-	 * 
+	 *
 	 * @return byte array representing the saved gamestate
 	 */
 	public byte[] save() {
@@ -183,7 +183,7 @@ public class GameState implements Serializable {
 		System.err.println("\tdone.");
 		return bytes.toByteArray();
 	}
-	
+
 	/**
 	 * Sets the messages area in the gui according to the current state of the gamestate's messages list.
 	 */

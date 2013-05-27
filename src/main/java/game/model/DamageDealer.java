@@ -2,6 +2,12 @@ package game.model;
 
 import game.model.Card.CardType;
 import game.model.Trap.Trigger;
+import game.view.EventReceiver;
+import game.view.EventReceiver.ButtonClickedEvent;
+import game.view.EventReceiver.Event;
+import game.view.EventReceiver.EventType;
+import game.view.GUI;
+import game.view.GUI.Button;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
@@ -26,6 +32,38 @@ public abstract class DamageDealer {
 			if (c.getStrength() <= 0)
 				c = null;
 			gameState.getBoard().set(x, y, c);
+		}
+	}
+
+	public static boolean askForUseOfClick(GameState gameState) {
+		int pos = -1;
+		for (int i = 0; i < 4; ++i) {
+			Card c = gameState.getHand(Player.ZOMBIE).get(i);
+			if (c != null && c.getType() == CardType.CLICK)
+				pos = i;
+		}
+		if (pos == -1)
+			return false;
+		gameState.sendMessage("Do you want to use click?");
+		GUI gui = gameState.gui;
+		gui.setButtonEnabled(Button.ApplySelection, true);
+		gui.setButtonEnabled(Button.CancelSelection, true);
+		EventReceiver events = gameState.gui.eventReceiver;
+		try {
+			while (true) {
+				Event e = events.getNextEvent();
+				if (e.type == EventType.ButtonClicked) {
+					if (((ButtonClickedEvent) e).button == Button.ApplySelection) {
+						gameState.getHand(Player.ZOMBIE).set(pos, null);
+						return true;
+					}
+					if (((ButtonClickedEvent) e).button == Button.CancelSelection)
+						return false;
+				}
+			}
+		} finally {
+			gui.setButtonEnabled(Button.ApplySelection, false);
+			gui.setButtonEnabled(Button.CancelSelection, false);
 		}
 	}
 }

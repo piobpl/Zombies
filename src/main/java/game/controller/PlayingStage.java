@@ -1,5 +1,6 @@
 package game.controller;
 
+import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.GameState;
 import game.model.Hand;
@@ -48,9 +49,6 @@ public class PlayingStage implements Stage {
 			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
 			if (event.type == EventType.ButtonClicked) {
-				if(((ButtonClickedEvent) event).button == Button.SaveGame){
-					LocalController.saveState(gameState.lastSave);
-				}
 				if (((ButtonClickedEvent) event).button == Button.EndTurn)
 					break;
 			} else if (event.type == EventType.HandClicked && limit > 0) {
@@ -63,20 +61,17 @@ public class PlayingStage implements Stage {
 				} else {
 					System.err.println("Card selected for playing: "
 							+ card.getName());
+					if (card.getSelectionType() == SelectionType.UNPLAYABLE)
+						continue;
 					gui.getHand(player).getCell(handClickedEvent.cardClicked)
 							.setHighlight(true);
-					/*
-					 * if (card.getSelectionType() == null) {
-					 * System.err.println("No selection, applying.");
-					 * card.makeEffect(null, gameState);
-					 * hand.remove(handClickedEvent.cardClicked); --limit; }
-					 * else {
-					 */
 					selection = selector.getSelection(card);
 					System.err.println("Received: " + selection);
 					if (selection != null) {
 						System.err.println("Selection received, applying.");
+						gui.setButtonEnabled(Button.EndTurn, false);
 						card.makeEffect(selection, gameState);
+						gui.setButtonEnabled(Button.EndTurn, true);
 						hand.remove(handClickedEvent.cardClicked);
 						--limit;
 					}

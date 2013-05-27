@@ -22,7 +22,6 @@ public class InfoPanel {
 	private JButton applySelectionButton;
 	private JButton cancelSelectionButton;
 	private JButton endTurnButton;
-	private JButton saveGameButton;
 	private JTextArea textArea;
 	private JLabel modyfikator;
 	private JPanel panelBrazowy;
@@ -33,7 +32,6 @@ public class InfoPanel {
 
 		applySelectionButton = new JButton("Apply");
 		applySelectionButton.setPreferredSize(new Dimension(120, 30));
-
 		panel.add(applySelectionButton);
 
 		cancelSelectionButton = new JButton("Cancel");
@@ -43,10 +41,6 @@ public class InfoPanel {
 		endTurnButton = new JButton("End turn");
 		endTurnButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(endTurnButton);
-		
-		saveGameButton = new JButton("Save game");
-		saveGameButton.setPreferredSize(new Dimension(120,30));
-		panel.add(saveGameButton);
 
 		panelBrazowy = new JPanel();
 		panelBrazowy.setBackground(Colors.margines.getColor());
@@ -54,6 +48,8 @@ public class InfoPanel {
 		panelBrazowy
 				.setLayout(new BoxLayout(panelBrazowy, BoxLayout.PAGE_AXIS));
 		panelBrazowy.setVisible(true);
+		panelBrazowy.setBorder(BorderFactory.createMatteBorder(0, 5, 10, 5,
+				Colors.boardsCard.getColor()));
 		panel.add(panelBrazowy);
 
 		modyfikator = new JLabel();
@@ -64,15 +60,13 @@ public class InfoPanel {
 				Colors.margines.getColor()));
 		panelBrazowy.add(modyfikator);
 
-		textArea = new JTextArea(12, 30);
+		textArea = new JTextArea(13, 30);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBorder(BorderFactory.createMatteBorder(0, 10, 10, 10,
 				Colors.margines.getColor()));
 
-		panelBrazowy.setBorder(BorderFactory.createMatteBorder(15, 5, 10, 5,
-				Colors.boardsCard.getColor()));
 		panelBrazowy.add(scrollPane);
 		textArea.setBackground(Colors.jasnaOliwka.getColor());
 		textArea.setForeground(Colors.humansCard.getColor());
@@ -113,9 +107,6 @@ public class InfoPanel {
 				case EndTurn:
 					endTurnButton.setEnabled(aktywny);
 					break;
-				case SaveGame:
-					saveGameButton.setEnabled(aktywny);
-					break;
 				default:
 					throw new UnsupportedOperationException();
 				}
@@ -126,23 +117,14 @@ public class InfoPanel {
 	public void sendMessage(final String message) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				textArea.append(message);
-				textArea.append("\n");
+				textArea.append(message + "\n");
 			}
 		});
 	}
-	
+
 	public void sendAllMessages(final List<String> messages) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				textArea.setText("");
-				for(int i=0;i<messages.size()-3;i++){
-					textArea.append(messages.get(i));
-					textArea.append("\n");
-				}
-				textArea.append("--------Game successfully loaded-------\n");
-			}
-		});
+		for (String message : messages)
+			sendMessage(message);
 	}
 
 	public void addButtonMouseListener(final Button button,
@@ -158,9 +140,6 @@ public class InfoPanel {
 					break;
 				case EndTurn:
 					endTurnButton.addMouseListener(a);
-					break;
-				case SaveGame:
-					saveGameButton.addMouseListener(a);
 					break;
 				default:
 					throw new UnsupportedOperationException();

@@ -5,6 +5,7 @@ import java.util.EnumSet;
 
 import utility.Pair;
 import utility.Typed;
+import utility.TypedSet;
 
 public abstract class Trap implements Typed<Trap.TrapType>, Serializable {
 
@@ -32,4 +33,16 @@ public abstract class Trap implements Typed<Trap.TrapType>, Serializable {
 	public abstract EnumSet<Trigger> getTriggers();
 
 	public abstract void trigger();
+
+	public static void nextStage(TypedSet<Trap, TrapType> traps) {
+		TypedSet<Trap, TrapType> backup = new TypedSet<>();
+		for (Trap t : traps) {
+			backup.add(t);
+		}
+		for (Trap t : backup) {
+			t.decreaseTime();
+			if (t.getTime() <= 0)
+				traps.remove(t);
+		}
+	}
 }

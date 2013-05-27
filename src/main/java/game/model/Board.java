@@ -32,7 +32,7 @@ public class Board implements Serializable {
 			traps.add(new TypedSet<Trap, TrapType>());
 	}
 
-	public void load(Board save){
+	public void load(Board save) {
 		board = save.board;
 		traps = save.traps;
 	}
@@ -199,6 +199,8 @@ public class Board implements Serializable {
 			for (int j = 0; j < 3; ++j)
 				if (board[i][j] != null)
 					Modifier.nextStage(board[i][j].getModifiers());
+		for (int i = 0; i < 15; ++i)
+			Trap.nextStage(traps.get(i));
 	}
 
 }
