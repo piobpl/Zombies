@@ -38,7 +38,7 @@ public class DiscardingStage implements Stage {
 				if (((ButtonClickedEvent) event).button == Button.ApplySelection)
 					break;
 				if (((ButtonClickedEvent) event).button == Button.CancelSelection) {
-					if(pos != -1)
+					if (pos != -1)
 						gui.getHand(player).getCell(pos).setHighlight(false);
 					pos = -1;
 				}
@@ -52,7 +52,7 @@ public class DiscardingStage implements Stage {
 				pos = ((HandClickedEvent) event).cardClicked;
 				if (hand.isEmpty(pos))
 					pos = -1;
-				if (event.info.getClickCount() > 1)
+				if (pos != -1 && event.info.getClickCount() > 1)
 					break;
 				if (pos != -1)
 					gui.getHand(player).getCell(pos).setHighlight(true);
