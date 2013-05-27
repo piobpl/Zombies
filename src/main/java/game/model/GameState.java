@@ -35,7 +35,6 @@ public class GameState implements Serializable {
 	private Player player;
 	private PlayerAccount zombiePlayer;
 	private PlayerAccount humanPlayer;
-	public byte[] lastSave;
 
 	/**
 	 * Creates a new gamestate.
@@ -54,7 +53,8 @@ public class GameState implements Serializable {
 	/**
 	 * Creates a new gamestate using specified players' accounts.
 	 */
-	public GameState(GUI gui,PlayerAccount zombieAccount, PlayerAccount humanAccount){
+	public GameState(GUI gui, PlayerAccount zombieAccount,
+			PlayerAccount humanAccount) {
 		this(gui);
 		this.zombiePlayer = zombieAccount;
 		this.humanPlayer = humanAccount;
@@ -151,7 +151,7 @@ public class GameState implements Serializable {
 	 *
 	 * @return zombie player account
 	 */
-	public PlayerAccount getZombiePlayerAccount(){
+	public PlayerAccount getZombiePlayerAccount() {
 		return zombiePlayer;
 	}
 
@@ -160,7 +160,7 @@ public class GameState implements Serializable {
 	 *
 	 * @return human player account
 	 */
-	public PlayerAccount getHumanPlayerAccount(){
+	public PlayerAccount getHumanPlayerAccount() {
 		return humanPlayer;
 	}
 
@@ -185,9 +185,10 @@ public class GameState implements Serializable {
 	}
 
 	/**
-	 * Sets the messages area in the gui according to the current state of the gamestate's messages list.
+	 * Sets the messages area in the gui according to the current state of the
+	 * gamestate's messages list.
 	 */
-	private void updateMessages(){
+	private void updateMessages() {
 		gui.modelSendsAllMessages(messages);
 	}
 

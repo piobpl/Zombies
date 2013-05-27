@@ -34,6 +34,7 @@ import game.model.cards.zombies.Human;
 import game.model.cards.zombies.Hunger;
 import game.model.cards.zombies.Mass;
 import game.model.cards.zombies.Meat;
+import game.model.cards.zombies.NotSoFast;
 import game.model.cards.zombies.PickAxe;
 import game.model.cards.zombies.Terror;
 import game.model.cards.zombies.Zombie;
@@ -50,11 +51,11 @@ import utility.TypedSet;
  */
 public abstract class Card implements Typed<CardType>, Serializable {
 
-	private static final long serialVersionUID = -2663209980322004223L;
-
 	public static enum CardType {
-		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, CLICK, DOGS, FREEZE, FLAMETHROWER, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
+		BACKOFF, BARREL, BARRIER, BITE, BLOOD, BURST, CAR, CHANGE, CLAWS, CLICK, DOGS, FLAMETHROWER, FREEZE, GASOLINE, GETOUT, HANDGRANADE, HIGHVOLTAGE, HUMAN, HUNGER, MASS, MEAT, MINE, NAPALM, NET, NOTSOFAST, PICKAXE, PIT, SEARCHLIGHT, SHOT, SNIPER, STREETONFIRE, TERROR, WALL, ZOMBIE;
 	}
+
+	private static final long serialVersionUID = -2663209980322004223L;
 
 	/*
 	 * Returns whole player's deck (temporarily not the same set as in rules).
@@ -69,20 +70,16 @@ public abstract class Card implements Typed<CardType>, Serializable {
 			cards.add(new Zombie(4));
 			cards.add(new Zombie(3));
 			cards.add(new Zombie(2));
-			cards.add(new Bite());
-			cards.add(new Change());
-			cards.add(new Claws());
-			cards.add(new Human());
-			cards.add(new Hunger());
-			cards.add(new Mass());
-			cards.add(new Meat());
-			cards.add(new PickAxe());
-			cards.add(new Terror());
-			cards.add(new Dogs());
-			cards.add(new Click());
-			cards.add(new Click());
-			cards.add(new Click());
-		} else {
+			cards.add(new Zombie(4));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(2));
+			cards.add(new Zombie(4));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(2));
+			cards.add(new NotSoFast());
+			cards.add(new NotSoFast());
+			cards.add(new NotSoFast());
+			} else {
 			cards.add(new Blood());
 			cards.add(new BackOff());
 			cards.add(new Barrier());

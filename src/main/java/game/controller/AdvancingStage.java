@@ -1,6 +1,7 @@
 package game.controller;
 
 import game.model.Board;
+import game.model.Card;
 import game.model.Card.CardType;
 import game.model.GameState;
 import game.model.MoveMaker;
@@ -8,12 +9,14 @@ import game.model.Player;
 import game.model.Trap;
 import game.model.Trap.TrapType;
 import game.model.cards.zombies.DogsMover;
+import game.view.EventReceiver;
 import game.view.EventReceiver.BoardClickedEvent;
 import game.view.EventReceiver.ButtonClickedEvent;
 import game.view.EventReceiver.Event;
 import game.view.EventReceiver.EventType;
 import game.view.GUI;
 import game.view.GUI.Button;
+import utility.Pair;
 import utility.TypedSet;
 
 /**
@@ -32,19 +35,70 @@ public class AdvancingStage implements Stage {
 		selector = new Selector(gameState, gui);
 	}
 
+	public static Pair<Integer, Integer> askForUseOfNotSoFast(
+			GameState gameState) {
+		int pos = -1;
+		for (int i = 0; i < 4; ++i) {
+			Card c = gameState.getHand(Player.ZOMBIE).get(i);
+			if (c != null && c.getType() == CardType.NOTSOFAST)
+				pos = i;
+		}
+		if (pos == -1)
+			return null;
+		gameState.sendMessage("Do you want to use not so fast?");
+		GUI gui = gameState.gui;
+		gui.setButtonEnabled(Button.CancelSelection, true);
+		EventReceiver events = gameState.gui.eventReceiver;
+		Pair<Integer, Integer> zombie = null, candidate;
+		try {
+			while (true) {
+				Event e = events.getNextEvent();
+				if (e.type == EventType.ButtonClicked) {
+					if (((ButtonClickedEvent) e).button == Button.ApplySelection
+							&& zombie != null) {
+						gameState.getHand(Player.ZOMBIE).set(pos, null);
+						return zombie;
+					}
+					if (((ButtonClickedEvent) e).button == Button.CancelSelection)
+						return null;
+				} else if (e.type == EventType.BoardClicked) {
+					candidate = ((BoardClickedEvent) e).cardClicked;
+					Card c = gameState.getBoard().get(candidate.first,
+							candidate.second);
+					if (c != null && c.getType() == CardType.ZOMBIE) {
+						if (zombie != null)
+							gui.getBoard().getCell(zombie.first, zombie.second)
+									.setHighlight(false);
+						zombie = candidate;
+						gui.getBoard().getCell(zombie.first, zombie.second)
+								.setHighlight(true);
+						gui.setButtonEnabled(Button.ApplySelection, true);
+					}
+				}
+			}
+		} finally {
+			if (zombie != null)
+				gui.getBoard().getCell(zombie.first, zombie.second)
+						.setHighlight(false);
+			gui.setButtonEnabled(Button.ApplySelection, false);
+			gui.setButtonEnabled(Button.CancelSelection, false);
+		}
+	}
+
 	public void perform(Player player) {
-		gameState.lastSave = gameState.save();
 		Board board = gameState.getBoard();
 		switch (player) {
 		case ZOMBIE:
+			Pair<Integer, Integer> zombie = askForUseOfNotSoFast(gameState);
+
 			boolean flag = false;
 			for (int x = 4; x >= 0; --x)
-				for (int y = 0; y < 3; ++y){
-					if(board.is(x, y, CardType.DOGS)){
-						flag=true;
+				for (int y = 0; y < 3; ++y) {
+					if (board.is(x, y, CardType.DOGS)) {
+						flag = true;
 						break;
 					}
-			}
+				}
 
 			if (flag) {
 				boolean moved[][] = new boolean[5][3];
@@ -90,8 +144,9 @@ public class AdvancingStage implements Stage {
 				}
 			}
 			for (int x = 4; x >= 0; --x)
-				for (int y = 0; y < 3; ++y){
-					if (board.is(x, y, CardType.ZOMBIE))
+				for (int y = 0; y < 3; ++y) {
+					if (board.is(x, y, CardType.ZOMBIE)
+							&& (zombie == null || zombie.first != x || zombie.second != y))
 						MoveMaker.moveForward(gameState, x, y);
 				}
 
