@@ -1,78 +1,48 @@
 package server.controller;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-
-import server.messages.SomeoneHasLoggedIn;
 
 /**
  * Klasa pomocnicza do wysyłania komunikatów graczom.
- * 
+ *
  * @author michal
- * 
+ *
  */
 public class Manager implements Runnable {
 
-	private List<Socket> clients = new LinkedList<Socket>();
-	private List<ObjectOutputStream> outputStreams;
+	private List<Connector> clients;
 
 	public Manager() {
-
+		clients = new ArrayList<Connector>();
 	}
 
-	public void sendAll(Message msg) {
-		for (ObjectOutputStream stream : outputStreams)
-			try {
-				stream.writeObject(msg);
-			} catch (IOException e) {
-				System.err.println("Nie moge pisac do strumienia " + stream);
-				e.printStackTrace();
-			}
+	public synchronized void sendAll(Message msg) {
+		for (Connector client : clients)
+			client.send(msg);
 	}
 
 	// ta funkcja powinna byc "szybka" - wywoluje ja serwer, ktory nie powinien
 	// czekac
-	public void addClient(final Socket client, SomeoneHasLoggedIn msg) {
-		sendAll(msg);
-		clients.add(client);
-		try {
-			outputStreams.add(new ObjectOutputStream(client.getOutputStream()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Thread listener = new Thread(new Runnable() {
-				private ObjectInputStream inputStream = new ObjectInputStream(client.getInputStream());
-				@Override
-				public void run() {
-					Message msg = null;
-					while(true) {
-						try {
-							msg = (Message) (inputStream.readObject());
-						} catch (ClassNotFoundException | IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						sendAll(msg);
-					}
-				}
-			});
-			listener.setDaemon(true);
-			listener.start();
-		} catch (IOException e) {
-			System.err.println("Nie moge utworzyc watku do nasluchiwania!");
-			e.printStackTrace();
-		}
+	public synchronized void addClient(Socket client) {
+		Connector connector = new Connector(this, client);
+		clients.add(connector);
+		new Thread(connector).start();
+	}
+
+	public synchronized void unregister(Connector client) {
+		clients.remove(client);
+	}
+
+	public synchronized void close() {
+		for (Connector client : clients)
+			client.close();
 	}
 
 	@Override
 	public void run() {
-		
+
 	}
 
 }

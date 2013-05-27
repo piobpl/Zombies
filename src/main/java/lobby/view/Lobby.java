@@ -2,25 +2,20 @@ package lobby.view;
 
 import game.view.Colors;
 
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import utility.Connector;
-
 /**
  * A class representing a lobby.
- * 
+ *
  * @author krozycki
- * 
+ *
  */
 public class Lobby {
 
@@ -36,32 +31,6 @@ public class Lobby {
 	private JPanel lobbyPanel;
 	private GameStartPanel gameStartPanel;
 	public final LobbyEventReceiver lobbyEventReceiver;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Connector connector = Connector.makeConnection("localhost", 8888);
-			Scanner scanner = new Scanner(connector.in);
-			System.out.println("Otrzymalem: " + scanner.nextLine());
-			scanner.close();
-			connector.close();
-		} catch (IOException e) {
-			System.out.println("Cos poszlo nie tak :/");
-			e.printStackTrace();
-		}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Lobby window = new Lobby();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -108,7 +77,7 @@ public class Lobby {
 
 	/**
 	 * Enables/disables the selected button.
-	 * 
+	 *
 	 * @param button
 	 *            selected button
 	 * @param active
@@ -120,7 +89,7 @@ public class Lobby {
 
 	/**
 	 * Adds MouseListener for the selected button.
-	 * 
+	 *
 	 * @param button
 	 *            selected button
 	 * @param mouselistener
