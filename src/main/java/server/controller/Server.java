@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import server.messages.SomeoneHasLoggedIn;
+
 public class Server implements Runnable {
 
 	public final int port = 8888;
@@ -37,7 +39,7 @@ public class Server implements Runnable {
 				System.out.print("Waiting for next client...\t");
 				Socket client = serverSocket.accept();
 				System.out.println("done.");
-				manager.addClient(client);
+				manager.addClient(client, new SomeoneHasLoggedIn());
 			} catch (IOException e) {
 				System.out.println("failed, aborting.");
 				e.printStackTrace();
