@@ -6,6 +6,12 @@ import game.model.Card;
 import game.model.GameState;
 import game.model.MoveMaker;
 
+/**
+ * 
+ * @author michal
+ *
+ */
+
 public class BackOff extends Card {
 
 	private static final long serialVersionUID = -6832186110853807701L;

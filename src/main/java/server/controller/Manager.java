@@ -10,7 +10,7 @@ import java.util.List;
  * @author michal
  *
  */
-public class Manager implements Runnable {
+public class Manager {
 
 	private List<Connector> clients;
 
@@ -38,11 +38,6 @@ public class Manager implements Runnable {
 	public synchronized void close() {
 		for (Connector client : clients)
 			client.close();
-	}
-
-	@Override
-	public void run() {
-
 	}
 
 }

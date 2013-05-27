@@ -11,6 +11,7 @@ public class GetOut extends Card {
 
 	/**
 	 * 
+	 * @author michal
 	 */
 	private static final long serialVersionUID = 6937977890429113269L;
 
