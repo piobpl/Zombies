@@ -47,6 +47,7 @@ public class Server implements Runnable {
 			}
 		} finally {
 			System.out.println("Closing server...\t");
+			manager.close();
 			if (serverSocket != null)
 				try {
 					serverSocket.close();

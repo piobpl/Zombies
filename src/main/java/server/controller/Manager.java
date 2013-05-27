@@ -15,7 +15,7 @@ import server.messages.SomeoneHasLoggedIn;
  * @author michal
  * 
  */
-public class Manager implements Runnable {
+public class Manager {
 
 	private List<Socket> clients = new LinkedList<Socket>();
 	private List<ObjectOutputStream> outputStreams;
@@ -69,10 +69,22 @@ public class Manager implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public void run() {
-		
+	
+	public void close() {
+		for(ObjectOutputStream outputStream : outputStreams)
+			try {
+				outputStream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		for(Socket client : clients)
+			try {
+				client.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 }
