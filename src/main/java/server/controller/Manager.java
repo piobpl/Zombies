@@ -19,6 +19,8 @@ public class Manager {
 	}
 
 	public synchronized void sendAll(Message msg) {
+		System.err.println("Sending to all:");
+		System.err.println(msg);
 		for (Connector client : clients)
 			client.send(msg);
 	}

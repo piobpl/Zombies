@@ -33,15 +33,17 @@ public class Server implements Runnable {
 				return;
 			}
 			System.out.println("done.");
-			try {
-				System.out.print("Waiting for next client...\t");
-				Socket client = serverSocket.accept();
-				System.out.println("done.");
-				manager.addClient(client);
-			} catch (IOException e) {
-				System.out.println("failed, aborting.");
-				e.printStackTrace();
-				return;
+			while (true) {
+				try {
+					System.out.print("Waiting for next client...\t");
+					Socket client = serverSocket.accept();
+					System.out.println("done.");
+					manager.addClient(client);
+				} catch (IOException e) {
+					System.out.println("failed, aborting.");
+					e.printStackTrace();
+					return;
+				}
 			}
 		} finally {
 			System.out.println("Closing server...\t");

@@ -41,15 +41,17 @@ public abstract class Message implements Serializable {
 
 		private static final long serialVersionUID = -6175731736999075204L;
 
+		public final String from;
 		public final String message;
 
-		public ChatMessage(String message) {
+		public ChatMessage(String from, String message) {
+			this.from = from;
 			this.message = message;
 		}
 
 		@Override
 		public MessageType getType() {
-			return MessageType.LOGIN;
+			return MessageType.CHAT;
 		}
 
 	}

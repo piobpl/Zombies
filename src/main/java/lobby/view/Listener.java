@@ -1,4 +1,4 @@
-package server.controller;
+package lobby.view;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -6,20 +6,22 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import server.controller.Message.ErrorMessage;
-import server.controller.Message.MessageType;
+import server.controller.Message;
 
-public class Connector implements Runnable {
+public class Listener implements Runnable {
+
+	public static interface Receiver {
+		public void receive(Message message);
+	}
 
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private Socket socket;
 	private boolean running = true;
-	private Manager manager;
+	private Receiver receiver;
 	private LinkedBlockingQueue<Message> outputBox;
 
 	private class Writer implements Runnable {
-
 		@Override
 		public void run() {
 			while (running) {
@@ -34,8 +36,8 @@ public class Connector implements Runnable {
 
 	}
 
-	public Connector(Manager manager, Socket socket) {
-		this.manager = manager;
+	public Listener(Receiver receiver, Socket socket) {
+		this.receiver = receiver;
 		this.socket = socket;
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
@@ -58,21 +60,9 @@ public class Connector implements Runnable {
 	}
 
 	public void run() {
-		Message msg = null;
 		try {
-			msg = (Message) (in.readObject());
-			if (msg.getType() != MessageType.LOGIN) {
-				send(new ErrorMessage(
-						"Nie rozmawiam z nieznajomymi! Dowidzenia!"));
-				Thread.yield();
-			} else {
-				manager.sendAll(msg);
-				while (running) {
-					msg = (Message) (in.readObject());
-					if (msg.getType() == MessageType.CHAT) {
-						manager.sendAll(msg);
-					}
-				}
+			while (running) {
+				receiver.receive((Message) (in.readObject()));
 			}
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
@@ -92,11 +82,9 @@ public class Connector implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		manager.unregister(this);
 	}
 
 	public void close() {
 		running = false;
 	}
-
 }

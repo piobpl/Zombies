@@ -166,4 +166,5 @@ public class LocalController {
 	public static void main(String args[]) {
 		new LocalController().game();
 	}
+
 }
