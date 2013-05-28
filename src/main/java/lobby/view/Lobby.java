@@ -63,14 +63,16 @@ public class Lobby {
 						er.printStackTrace();
 					}
 				}
-				final byte[] finalSave = save;
-				new Thread(new Runnable() {
-					public void run() {
-						LocalController localController = new LocalController();
-						localController.gameState.load(finalSave);
-						localController.gameLoader();
-					}
-				}).start();
+				if (save != null) {
+					final byte[] finalSave = save;
+					new Thread(new Runnable() {
+						public void run() {
+							LocalController localController = new LocalController();
+							localController.gameState.load(finalSave);
+							localController.gameLoader();
+						}
+					}).start();
+				}
 			}
 		},
 		NewNetworkGame {

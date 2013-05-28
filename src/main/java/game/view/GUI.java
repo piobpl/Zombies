@@ -3,6 +3,7 @@ package game.view;
 import game.model.Modifier;
 import game.model.Player;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,10 +11,10 @@ import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 
 public class GUI {
 	public static enum Button {
@@ -30,6 +31,7 @@ public class GUI {
 	private JLabel humanCardsLeft;
 	private JPanel rightPanel;
 	private InfoPanel infoPanel;
+	public JButton saveButton;
 
 	public GUI() {
 		System.err.println("Creating GUI...");
@@ -45,7 +47,7 @@ public class GUI {
 		eventReceiver = new EventReceiver(this);
 	}
 
-	public void setButtonEnabled(Button button, boolean aktywny){
+	public void setButtonEnabled(Button button, boolean aktywny) {
 		infoPanel.setButtonEnabled(button, aktywny);
 	}
 
@@ -76,11 +78,11 @@ public class GUI {
 		infoPanel.sendMessage(message);
 	}
 
-	public void modelSendsAllMessages(final List<String> messages){
+	public void modelSendsAllMessages(final List<String> messages) {
 		infoPanel.sendAllMessages(messages);
 	}
 
-	public void drawGlobalModifiers(final Iterable<Modifier> modifiers){
+	public void drawGlobalModifiers(final Iterable<Modifier> modifiers) {
 		infoPanel.drawGlobalModifiers(modifiers);
 	}
 
@@ -155,6 +157,10 @@ public class GUI {
 		board = new Board(boardPanel, Colors.boardsCard.getColor(),
 				Colors.boardsCard.getColor());
 
+		saveButton = new JButton("Save");
+		saveButton.setPreferredSize(new Dimension(120, 30));
+
+		frame.add(saveButton);
 		frame.pack();
 
 		board.registerToGlass(glass);

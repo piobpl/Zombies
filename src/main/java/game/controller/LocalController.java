@@ -1,15 +1,17 @@
 package game.controller;
 
+import game.model.GameState;
+import game.model.Player;
+import game.view.GUI;
+import game.view.GUI.Button;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
 import javax.swing.JFileChooser;
-
-import game.model.GameState;
-import game.model.Player;
-import game.view.GUI;
-import game.view.GUI.Button;
 
 public class LocalController {
 
@@ -21,15 +23,41 @@ public class LocalController {
 		System.err.println("Creating Controller...");
 		gui = new GUI();
 		gameState = new GameState(gui);
+		gui.saveButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				saveState();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+			}
+
+		});
 		System.err.println("Done");
 	}
-	
-	public static void saveState(byte[] data){
+
+	public void saveState() {
+		byte[] data = gameState.getLastSave();
 		JFileChooser fileChooser = new JFileChooser();
 		int result = fileChooser.showSaveDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			try {
-				Files.write(fileChooser.getSelectedFile().toPath(), data, StandardOpenOption.CREATE);
+				Files.write(fileChooser.getSelectedFile().toPath(), data,
+						StandardOpenOption.CREATE);
 			} catch (IOException e) {
 				System.err.println("Error during saving process!");
 				e.printStackTrace();
@@ -57,6 +85,7 @@ public class LocalController {
 				gameState.sendMessage("Round #" + turn);
 				for (Player p : players) {
 					gameState.setPlayer(p);
+					gameState.setLastSave(gameState.save());
 					gameState.sendMessage(p + "'s turn.");
 					for (Stage s : stages) {
 						gameState.setStage(s.getStageType());
@@ -76,9 +105,9 @@ public class LocalController {
 		}
 		gui.exit();
 	}
-	
-	public void gameLoader(){
-		turn=gameState.getTurn();
+
+	public void gameLoader() {
+		turn = gameState.getTurn();
 		Stage[] stages = new Stage[4];
 		stages[0] = new AdvancingStage(gameState, gui);
 		stages[1] = new DrawingStage(gameState, gui);
@@ -92,9 +121,10 @@ public class LocalController {
 		gui.setButtonEnabled(Button.CancelSelection, false);
 		System.err.println("Game loaded and started");
 		try {
-			if(gameState.getPlayer()==Player.HUMAN){
+			if (gameState.getPlayer() == Player.HUMAN) {
 				gameState.setTurn(turn);
 				gameState.sendMessage("Round #" + turn);
+				gameState.setLastSave(gameState.save());
 				gameState.sendMessage(gameState.getPlayer() + "'s turn.");
 				for (Stage s : stages) {
 					gameState.setStage(s.getStageType());
@@ -112,6 +142,7 @@ public class LocalController {
 				gameState.sendMessage("Round #" + turn);
 				for (Player p : players) {
 					gameState.setPlayer(p);
+					gameState.setLastSave(gameState.save());
 					gameState.sendMessage(p + "'s turn.");
 					for (Stage s : stages) {
 						gameState.setStage(s.getStageType());

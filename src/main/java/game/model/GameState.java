@@ -35,6 +35,7 @@ public class GameState implements Serializable {
 	private Player player;
 	private PlayerAccount zombiePlayer;
 	private PlayerAccount humanPlayer;
+	private byte[] lastSave;
 
 	/**
 	 * Creates a new gamestate.
@@ -221,6 +222,14 @@ public class GameState implements Serializable {
 			System.err.println("\tfailed.");
 			e.printStackTrace();
 		}
+	}
+
+	public byte[] getLastSave() {
+		return lastSave;
+	}
+
+	public void setLastSave(byte[] lastSave) {
+		this.lastSave = lastSave;
 	}
 
 }
