@@ -7,6 +7,7 @@ import game.model.Card;
 import game.model.DamageDealer;
 import game.model.GameState;
 import game.model.MoveMaker;
+import game.model.Trap;
 import game.model.Modifier.ModifierType;
 import game.model.Trap.Trigger;
 
@@ -40,10 +41,15 @@ public class Burst extends Card {
 		int column = ((ColumnSelection) selection).column;
 		int remaining = strength;
 		Card card;
-		for (int i = 4; i >= 0; i--)
+		for (int i = 4; i >= 0; i--) {
+			for(Trap trap : gameState.getBoard().getTraps(i, column))
+				if(trap.getTriggers().contains(Trigger.SHOT)) {
+					DamageDealer.dealDamage(gameState, i, column, remaining, Trigger.SHOT);
+					return;
+				}
 			if (!gameState.getBoard().isEmpty(i, column)) {
 				card = gameState.getBoard().get(i, column);
-				if (card == null)
+				if (card == null || card.getType() == CardType.BARREL)
 					continue;
 				if (card.getModifiers().contains(ModifierType.HUMAN)) {
 					card.getModifiers().remove(ModifierType.HUMAN);
@@ -58,6 +64,7 @@ public class Burst extends Card {
 				if (remaining == 0)
 					break;
 			}
+		}
 	}
 
 	@Override
