@@ -43,6 +43,10 @@ public class GameStartPanel {
 		loadNetworkGameButton = new JButton("Load network game");
 		loadNetworkGameButton.setPreferredSize(new Dimension(300, 30));
 		panel.add(loadNetworkGameButton);
+		newLocalGameButton.addMouseListener(Lobby.Button.NewLocalGame);
+		loadLocalGameButton.addMouseListener(Lobby.Button.LoadLocalGame);
+		newNetworkGameButton.addMouseListener(Lobby.Button.NewNetworkGame);
+		loadNetworkGameButton.addMouseListener(Lobby.Button.LoadNetworkGame);		
 	}
 
 	/**
