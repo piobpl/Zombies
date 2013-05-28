@@ -4,6 +4,7 @@ import game.model.Board;
 import game.model.Card;
 import game.model.Card.CardType;
 import game.model.GameState;
+import game.model.Modifier.ModifierType;
 import game.model.MoveMaker;
 import game.model.Player;
 import game.model.Trap;
@@ -150,7 +151,7 @@ public class AdvancingStage implements Stage {
 								}
 							}
 
-						if (flag == 0){
+						if (flag == 0) {
 							gui.setHighlight(false);
 							break;
 						}
@@ -179,8 +180,18 @@ public class AdvancingStage implements Stage {
 							} else if (traps.contains(TrapType.PIT)) {
 								traps.remove(TrapType.PIT);
 								board.set(x, y, null);
+							} else if (gameState.getBoard().get(x - 1, y)
+									.getModifiers().contains(ModifierType.HUMAN)) {
+								gameState.getBoard().get(x - 1, y)
+										.getModifiers()
+										.remove(ModifierType.HUMAN);
+								board.set(x, y, null);
 							} else {
+								Card temp = gameState.getBoard().get(x - 1, y);
+								gameState.getBoard().remove(x-1, y);
 								MoveMaker.moveBackward(gameState, x, y);
+								if(temp != null)
+									gameState.getBoard().remove(x-1,y);
 							}
 						}
 					}
