@@ -181,17 +181,24 @@ public class AdvancingStage implements Stage {
 								traps.remove(TrapType.PIT);
 								board.set(x, y, null);
 							} else if (gameState.getBoard().get(x - 1, y)
-									.getModifiers().contains(ModifierType.HUMAN)) {
+									.getModifiers()
+									.contains(ModifierType.HUMAN)) {
 								gameState.getBoard().get(x - 1, y)
 										.getModifiers()
 										.remove(ModifierType.HUMAN);
 								board.set(x, y, null);
 							} else {
 								Card temp = gameState.getBoard().get(x - 1, y);
-								gameState.getBoard().remove(x-1, y);
-								MoveMaker.moveBackward(gameState, x, y);
-								if(temp != null)
-									gameState.getBoard().remove(x-1,y);
+								gameState.getBoard().remove(x - 1, y);
+								if (MoveMaker.isMovePossible(gameState,
+										new Pair<Integer, Integer>(x, y),
+										new Pair<Integer, Integer>(x - 1, y),
+										null)) {
+									MoveMaker.moveBackward(gameState, x, y);
+									if (temp != null)
+										gameState.getBoard().remove(x - 1, y);
+								} else
+									gameState.getBoard().set(x - 1, y, temp);
 							}
 						}
 					}
