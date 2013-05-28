@@ -155,6 +155,21 @@ public class Cell {
 			}
 		});
 	}
+	
+	public void setRedHighlight(final boolean light) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				isHighlighted = light;
+				if (light) {
+					panel.setBorder(BorderFactory.createLineBorder(Color.red,
+							2));
+				} else {
+					panel.setBorder(BorderFactory.createLineBorder(
+							Colors.margines.getColor(), 1));
+				}
+			}
+		});
+	}
 
 	public void toggleHighlight() {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {

@@ -4,6 +4,7 @@ import game.model.Board;
 import game.model.Card;
 import game.model.Card.CardType;
 import game.model.GameState;
+import game.model.Modifier.ModifierType;
 import game.model.MoveMaker;
 import game.model.Player;
 import game.model.Trap;
@@ -20,9 +21,9 @@ import utility.Pair;
 import utility.TypedSet;
 
 /**
- *
+ * 
  * @author Edoipi
- *
+ * 
  */
 public class AdvancingStage implements Stage {
 	public final GameState gameState;
@@ -91,16 +92,15 @@ public class AdvancingStage implements Stage {
 		case ZOMBIE:
 			Pair<Integer, Integer> zombie = askForUseOfNotSoFast(gameState);
 
-			boolean flag = false;
+			int flag = 0;
 			for (int x = 4; x >= 0; --x)
 				for (int y = 0; y < 3; ++y) {
 					if (board.is(x, y, CardType.DOGS)) {
-						flag = true;
-						break;
+						flag++;
 					}
 				}
 
-			if (flag) {
+			if (flag > 0) {
 				boolean moved[][] = new boolean[5][3];
 				Event event;
 				ButtonClickedEvent b;
@@ -116,6 +116,7 @@ public class AdvancingStage implements Stage {
 						if (b.button != Button.EndTurn)
 							continue;
 						gui.setButtonEnabled(Button.EndTurn, false);
+						gui.setHighlight(false);
 						break;
 					}
 					if (event.type == EventType.BoardClicked) {
@@ -137,9 +138,23 @@ public class AdvancingStage implements Stage {
 							if (m.endOfPath != null) {
 								moved[m.endOfPath.first][m.endOfPath.second] = true;
 							}
+							flag--;
 						}
 						gameState.update();
 						gui.setHighlight(false);
+
+						for (int x = 4; x >= 0; --x)
+							for (int y = 0; y < 3; ++y) {
+								if (moved[x][y]) {
+									gui.getBoard().getCell(x, y)
+											.setRedHighlight(true);
+								}
+							}
+
+						if (flag == 0) {
+							gui.setHighlight(false);
+							break;
+						}
 					}
 				}
 			}
@@ -165,8 +180,25 @@ public class AdvancingStage implements Stage {
 							} else if (traps.contains(TrapType.PIT)) {
 								traps.remove(TrapType.PIT);
 								board.set(x, y, null);
+							} else if (gameState.getBoard().get(x - 1, y)
+									.getModifiers()
+									.contains(ModifierType.HUMAN)) {
+								gameState.getBoard().get(x - 1, y)
+										.getModifiers()
+										.remove(ModifierType.HUMAN);
+								board.set(x, y, null);
 							} else {
-								MoveMaker.moveBackward(gameState, x, y);
+								Card temp = gameState.getBoard().get(x - 1, y);
+								gameState.getBoard().remove(x - 1, y);
+								if (MoveMaker.isMovePossible(gameState,
+										new Pair<Integer, Integer>(x, y),
+										new Pair<Integer, Integer>(x - 1, y),
+										null)) {
+									MoveMaker.moveBackward(gameState, x, y);
+									if (temp != null)
+										gameState.getBoard().remove(x - 1, y);
+								} else
+									gameState.getBoard().set(x - 1, y, temp);
 							}
 						}
 					}

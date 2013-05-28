@@ -1,6 +1,7 @@
 package game.model;
 
 import game.model.Card.CardType;
+import game.model.Modifier.ModifierType;
 import game.model.Trap.Trigger;
 import game.view.EventReceiver;
 import game.view.EventReceiver.ButtonClickedEvent;
@@ -11,7 +12,7 @@ import game.view.GUI.Button;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
- *
+ * 
  * @author piob
  */
 
@@ -27,6 +28,12 @@ public abstract class DamageDealer {
 			}
 		if (gameState.getBoard().get(x, y) != null
 				&& gameState.getBoard().get(x, y).getType() != CardType.BARREL) {
+			if (dmg > 0 && gameState.getBoard().get(x, y).getType() == CardType.ZOMBIE
+					&& gameState.getBoard().get(x, y).getModifiers()
+							.contains(ModifierType.HUMAN)) {
+				gameState.getBoard().get(x, y).getModifiers().remove(ModifierType.HUMAN);
+				return;
+			}
 			Card c = gameState.getBoard().get(x, y);
 			c.setStrength(c.getStrength() - dmg);
 			if (c.getStrength() <= 0)

@@ -21,7 +21,7 @@ HUMAN
 BACK OFF		WYNOCHA
 BARRIER			ZAPORA			to test
 BLOOD			KREW			to test
-BURST			SERIA			jaki jest tego status? jakis kod istnieje
+BURST			SERIA			done
 CAR				AUTO			done
 FLAMETHROWER	MIOTACZ			done
 FREEZE			STAĆ			done
