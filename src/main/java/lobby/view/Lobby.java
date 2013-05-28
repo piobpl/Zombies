@@ -27,7 +27,6 @@ public class Lobby {
 	}
 
 	private JFrame frame;
-	private JPanel glass;
 	private JPanel lobbyPanel;
 	private GameStartPanel gameStartPanel;
 	public final LobbyEventReceiver lobbyEventReceiver;
@@ -50,11 +49,6 @@ public class Lobby {
 		frame.getContentPane().setLayout(new GridBagLayout());
 		frame.getContentPane().setBackground(Colors.tlo.getColor());
 		frame.setResizable(false);
-		glass = new JPanel();
-		glass.setLayout(null);
-		frame.setGlassPane(glass);
-		glass.setVisible(true);
-		glass.setOpaque(false);
 
 		GridBagConstraints gbc;
 
