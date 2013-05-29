@@ -18,10 +18,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import lobby.view.Listener.Receiver;
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
 import server.controller.Message.LoginMessage;
+import utility.Listener;
+import utility.Listener.Receiver;
 
 public class Lobby {
 
@@ -75,6 +76,12 @@ public class Lobby {
 						break;
 					}
 				}
+
+				@Override
+				public void unregister(Listener listener) {
+					frame.dispose();
+				}
+
 			}, new Socket("localhost", 8888));
 		} catch (IOException e) {
 			e.printStackTrace();

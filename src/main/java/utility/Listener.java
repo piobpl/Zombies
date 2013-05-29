@@ -1,25 +1,30 @@
-package server.controller;
+package utility;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import server.controller.Message.ErrorMessage;
-import server.controller.Message.MessageType;
+import server.controller.Message;
 
-public class Connector implements Runnable {
+public class Listener implements Runnable {
+
+	public static interface Receiver {
+		public void receive(Message message);
+
+		public void unregister(Listener listener);
+	}
 
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	private Socket socket;
 	private boolean running = true;
-	private Manager manager;
+	private Receiver receiver;
 	private LinkedBlockingQueue<Message> outputBox;
 
 	private class Writer implements Runnable {
-
 		@Override
 		public void run() {
 			while (running) {
@@ -34,8 +39,7 @@ public class Connector implements Runnable {
 
 	}
 
-	public Connector(Manager manager, Socket socket) {
-		this.manager = manager;
+	public Listener(Socket socket) {
 		this.socket = socket;
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
@@ -49,6 +53,22 @@ public class Connector implements Runnable {
 		writer.start();
 	}
 
+	public Listener(Receiver receiver, Socket socket) {
+		this(socket);
+		this.receiver = receiver;
+	}
+
+	public synchronized void setReceiver(Receiver receiver) {
+		if (this.receiver != null)
+			this.receiver.unregister(this);
+		this.receiver = receiver;
+	}
+
+	public synchronized void receive(Message message) {
+		if (receiver != null)
+			receiver.receive(message);
+	}
+
 	public void send(Message message) {
 		try {
 			outputBox.put(message);
@@ -58,25 +78,16 @@ public class Connector implements Runnable {
 	}
 
 	public void run() {
-		Message msg = null;
 		try {
-			msg = (Message) (in.readObject());
-			if (msg.getType() != MessageType.LOGIN) {
-				send(new ErrorMessage(
-						"Nie rozmawiam z nieznajomymi! Dowidzenia!"));
-				Thread.yield();
-			} else {
-				manager.sendAll(msg);
-				while (running) {
-					msg = (Message) (in.readObject());
-					if (msg.getType() == MessageType.CHAT) {
-						manager.sendAll(msg);
-					}
-				}
+			while (running) {
+				receive((Message) in.readObject());
 			}
+		} catch (EOFException e) {
+			System.err.println("Client disconnected");
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
+		receiver.unregister(this);
 		try {
 			in.close();
 		} catch (IOException e) {
@@ -92,7 +103,6 @@ public class Connector implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		manager.unregister(this);
 	}
 
 	public void close() {
