@@ -1,6 +1,7 @@
 package menu.view;
 
 import game.controller.LocalController;
+import game.model.Player;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -19,9 +20,9 @@ import lobby.view.Lobby;
 
 /**
  * A class representing a lobby.
- *
+ * 
  * @author krozycki
- *
+ * 
  */
 public class Menu {
 
@@ -65,7 +66,7 @@ public class Menu {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						new LocalController().game();
+						new LocalController().game(Player.ZOMBIE);
 					}
 				}).start();
 			}
@@ -95,7 +96,8 @@ public class Menu {
 						public void run() {
 							LocalController localController = new LocalController();
 							localController.gameState.load(finalSave);
-							localController.gameLoader();
+							localController.game(localController.gameState
+									.getPlayer());
 						}
 					}).start();
 				}
