@@ -7,8 +7,8 @@ import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI;
 import game.view.GUI.Button;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
@@ -25,29 +25,11 @@ public class LocalController implements TriggerEventHandler {
 		System.err.println("Creating Controller...");
 		gui = new GUI(this);
 		gameState = new GameState(gui);
-		gui.saveButton.addMouseListener(new MouseListener() {
-
+		gui.addButtonMouseListener(Button.Save, new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				saveState();
 			}
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-			}
-
 		});
 		System.err.println("Done");
 	}

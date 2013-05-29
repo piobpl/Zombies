@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +20,7 @@ import javax.swing.JPanel;
 
 public class GUI {
 	public static enum Button {
-		ApplySelection, CancelSelection, EndTurn;
+		ApplySelection, CancelSelection, EndTurn, Save;
 	}
 
 	public final EventReceiver eventReceiver;
@@ -32,7 +33,7 @@ public class GUI {
 	private JLabel humanCardsLeft;
 	private JPanel rightPanel;
 	private InfoPanel infoPanel;
-	public JButton saveButton;
+	private HistoryPanel historyPanel;
 
 	public GUI(TriggerEventHandler triggerEventHandler) {
 		System.err.println("Creating GUI...");
@@ -64,7 +65,10 @@ public class GUI {
 	}
 
 	public void addButtonMouseListener(Button button, MouseListener a) {
-		infoPanel.addButtonMouseListener(button, a);
+		if (button == Button.Save) {
+			historyPanel.addButtonMouseListener(button, a);
+		} else
+			infoPanel.addButtonMouseListener(button, a);
 	}
 
 	public void setCardsLeft(Player player, int left) {
@@ -132,13 +136,12 @@ public class GUI {
 		frame.getContentPane().add(zombieCardsLeft, gbc);
 
 		rightPanel = new JPanel();
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
 		gbc = new GridBagConstraints();
 		gbc.gridheight = 1;
 		gbc.gridx = 2;
 		gbc.gridy = 2;
 		gbc.insets = new Insets(10, 10, 10, 10);
-		rightPanel.setBackground(Colors.boardsCard.getColor());
-		rightPanel.setForeground(Colors.boardsCard.getColor());
 		frame.getContentPane().add(rightPanel, gbc);
 
 		humanCardsLeft = new JLabel();
@@ -150,7 +153,17 @@ public class GUI {
 
 		frame.setVisible(true);
 
-		infoPanel = new InfoPanel(rightPanel);
+		rightPanel.setBackground(Colors.boardsCard.getColor());
+		rightPanel.setForeground(Colors.boardsCard.getColor());
+
+		JPanel panel;
+		rightPanel.add(panel = new JPanel());
+		panel.setOpaque(false);
+		infoPanel = new InfoPanel(panel);
+		rightPanel.add(panel = new JPanel());
+		panel.setOpaque(false);
+		historyPanel = new HistoryPanel(panel);
+
 		humanHand = new Hand(humanHandPanel, Colors.humansCard.getColor(),
 				Colors.tlo.getColor());
 		zombieHand = new Hand(zombieHandPanel, Colors.zombieCard.getColor(),
@@ -158,10 +171,6 @@ public class GUI {
 		board = new Board(boardPanel, Colors.boardsCard.getColor(),
 				Colors.boardsCard.getColor());
 
-		saveButton = new JButton("Save");
-		saveButton.setPreferredSize(new Dimension(120, 30));
-
-		frame.add(saveButton);
 		frame.pack();
 
 		board.registerToGlass(glass);
