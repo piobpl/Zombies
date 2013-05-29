@@ -1,10 +1,11 @@
 package game.view;
 
+import game.model.GameState;
 import game.model.Player;
 import game.view.GUI.Button;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -18,20 +19,27 @@ import utility.Pair;
 public class EventReceiver {
 
 	public static enum EventType {
-		BoardClicked, HandClicked, ButtonClicked;
+		BoardClicked, HandClicked, ButtonClicked, Trigger;
 	}
 
 	public abstract static class Event {
 		public final EventType type;
+
+		public Event(EventType type) {
+			this.type = type;
+		}
+	}
+
+	public abstract static class ClickEvent extends Event {
 		public final MouseEvent info;
 
-		public Event(EventType type, MouseEvent info) {
-			this.type = type;
+		public ClickEvent(EventType type, MouseEvent info) {
+			super(type);
 			this.info = info;
 		}
 	}
 
-	public static class BoardClickedEvent extends Event {
+	public static class BoardClickedEvent extends ClickEvent {
 		public final Pair<Integer, Integer> cardClicked;
 
 		public BoardClickedEvent(Pair<Integer, Integer> cardClicked,
@@ -41,7 +49,7 @@ public class EventReceiver {
 		}
 	}
 
-	public static class HandClickedEvent extends Event {
+	public static class HandClickedEvent extends ClickEvent {
 		public final Integer cardClicked;
 		public final Player player;
 
@@ -53,7 +61,7 @@ public class EventReceiver {
 		}
 	}
 
-	public static class ButtonClickedEvent extends Event {
+	public static class ButtonClickedEvent extends ClickEvent {
 		public final Button button;
 
 		public ButtonClickedEvent(Button button, MouseEvent info) {
@@ -62,36 +70,27 @@ public class EventReceiver {
 		}
 	}
 
-	private static class SimpleMouseListener implements MouseListener {
+	public abstract static class TriggerEvent extends Event {
 
-		@Override
-		public void mouseClicked(MouseEvent e) {
-
+		public TriggerEvent() {
+			super(EventType.Trigger);
 		}
 
-		@Override
-		public void mousePressed(MouseEvent e) {
-		}
+		public abstract void trigger(GameState gameState);
 
-		@Override
-		public void mouseReleased(MouseEvent e) {
-		}
+	}
 
-		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-		}
-
+	public static interface TriggerEventHandler {
+		public void receiveTriggerEvent(TriggerEvent e);
 	}
 
 	private final GUI gui;
 	private final BlockingQueue<Event> eventQueue;
+	private final TriggerEventHandler triggerHandler;
 
-	public EventReceiver(GUI gui) {
+	public EventReceiver(GUI gui, TriggerEventHandler triggerHandler) {
 		this.gui = gui;
+		this.triggerHandler = triggerHandler;
 		eventQueue = new ArrayBlockingQueue<>(32);
 		registerToHand(Player.HUMAN);
 		registerToHand(Player.ZOMBIE);
@@ -102,21 +101,18 @@ public class EventReceiver {
 	private void registerToHand(final Player player) {
 		for (int i = 0; i < 4; ++i) {
 			final int index = i;
-			gui.getHand(player).getCell(i)
-					.addMouseListener(new SimpleMouseListener() {
-						@Override
-						public void mouseClicked(MouseEvent e) {
-							try {
-								eventQueue.put(new HandClickedEvent(index,
-										player, e));
-								System.err.println("" + e.getButton()
-										+ " clicked: " + index + " on "
-										+ player + " hand");
-							} catch (InterruptedException e1) {
-								e1.printStackTrace();
-							}
-						}
-					});
+			gui.getHand(player).getCell(i).addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					try {
+						eventQueue.put(new HandClickedEvent(index, player, e));
+						System.err.println("" + e.getButton() + " clicked: "
+								+ index + " on " + player + " hand");
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
 		}
 	}
 
@@ -126,7 +122,7 @@ public class EventReceiver {
 			for (int j = 0; j < 3; j++) {
 				final int col = j;
 				gui.getBoard().getCell(row, col)
-						.addMouseListener(new SimpleMouseListener() {
+						.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
 								try {
@@ -149,7 +145,7 @@ public class EventReceiver {
 	private void registerToButtons() {
 		for (Button i : Button.values()) {
 			final Button button = i;
-			gui.addButtonMouseListener(button, new SimpleMouseListener() {
+			gui.addButtonMouseListener(button, new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					try {
@@ -170,28 +166,19 @@ public class EventReceiver {
 	 * Jeżeli zostanie przerwana, wypisuje o tym informacje na stderr i zwraca
 	 * null.
 	 */
-	public Event getNextEvent() {
+	public ClickEvent getNextClickEvent() {
 		try {
-			return eventQueue.take();
+			while (true) {
+				Event e = eventQueue.take();
+				if (e.type == EventType.Trigger)
+					triggerHandler.receiveTriggerEvent((TriggerEvent) e);
+				else
+					return (ClickEvent) e;
+			}
 		} catch (InterruptedException e) {
 			System.err.println("Waiting for next event interrupted");
 			e.printStackTrace();
 			return null;
-		}
-	}
-
-	/**
-	 * Funkcja czeka, aż użytkownik wciśnie podany button, ignorując pozostałe
-	 * eventy.
-	 */
-	public void waitForClick(Button button) {
-		Event event;
-		while (true) {
-			event = getNextEvent();
-			if (event.type == EventType.ButtonClicked
-					&& event.info.getButton() == MouseEvent.BUTTON1)
-				if (((ButtonClickedEvent) event).button == button)
-					break;
 		}
 	}
 

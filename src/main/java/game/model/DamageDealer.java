@@ -58,7 +58,7 @@ public abstract class DamageDealer {
 		EventReceiver events = gameState.gui.eventReceiver;
 		try {
 			while (true) {
-				Event e = events.getNextEvent();
+				Event e = events.getNextClickEvent();
 				if (e.type == EventType.ButtonClicked) {
 					if (((ButtonClickedEvent) e).button == Button.ApplySelection) {
 						gameState.getHand(Player.ZOMBIE).set(pos, null);

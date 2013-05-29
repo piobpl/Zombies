@@ -2,6 +2,8 @@ package game.controller;
 
 import game.model.GameState;
 import game.model.Player;
+import game.view.EventReceiver.TriggerEvent;
+import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI;
 import game.view.GUI.Button;
 
@@ -13,7 +15,7 @@ import java.nio.file.StandardOpenOption;
 
 import javax.swing.JFileChooser;
 
-public class LocalController {
+public class LocalController implements TriggerEventHandler {
 
 	public final GameState gameState;
 	public final GUI gui;
@@ -21,7 +23,7 @@ public class LocalController {
 
 	public LocalController() {
 		System.err.println("Creating Controller...");
-		gui = new GUI();
+		gui = new GUI(this);
 		gameState = new GameState(gui);
 		gui.saveButton.addMouseListener(new MouseListener() {
 
@@ -161,6 +163,11 @@ public class LocalController {
 			e.printStackTrace();
 		}
 		gui.exit();
+	}
+
+	@Override
+	public void receiveTriggerEvent(TriggerEvent e) {
+		e.trigger(gameState);
 	}
 
 	public static void main(String args[]) {

@@ -53,7 +53,7 @@ public class AdvancingStage implements Stage {
 		Pair<Integer, Integer> zombie = null, candidate;
 		try {
 			while (true) {
-				Event e = events.getNextEvent();
+				Event e = events.getNextClickEvent();
 				if (e.type == EventType.ButtonClicked) {
 					if (((ButtonClickedEvent) e).button == Button.ApplySelection
 							&& zombie != null) {
@@ -110,7 +110,7 @@ public class AdvancingStage implements Stage {
 				gameState.sendMessage("Time to move dogs");
 				gui.setButtonEnabled(Button.EndTurn, true);
 				while (true) {
-					event = gui.eventReceiver.getNextEvent();
+					event = gui.eventReceiver.getNextClickEvent();
 					if (event.type == EventType.ButtonClicked) {
 						b = (ButtonClickedEvent) event;
 						if (b.button != Button.EndTurn)

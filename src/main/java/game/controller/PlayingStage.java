@@ -7,7 +7,7 @@ import game.model.Hand;
 import game.model.Modifier.ModifierType;
 import game.model.Player;
 import game.view.EventReceiver.ButtonClickedEvent;
-import game.view.EventReceiver.Event;
+import game.view.EventReceiver.ClickEvent;
 import game.view.EventReceiver.EventType;
 import game.view.EventReceiver.HandClickedEvent;
 import game.view.GUI;
@@ -27,7 +27,7 @@ public class PlayingStage implements Stage {
 	}
 
 	public void perform(Player player) {
-		Event event;
+		ClickEvent event;
 		HandClickedEvent handClickedEvent;
 		Hand hand = gameState.getHand(player);
 		Card card;
@@ -45,7 +45,7 @@ public class PlayingStage implements Stage {
 				gameState.sendMessage("You have to end turn now.");
 				endWarning = true;
 			}
-			event = gui.eventReceiver.getNextEvent();
+			event = gui.eventReceiver.getNextClickEvent();
 			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
 			if (event.type == EventType.ButtonClicked) {

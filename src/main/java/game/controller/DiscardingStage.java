@@ -4,7 +4,7 @@ import game.model.GameState;
 import game.model.Hand;
 import game.model.Player;
 import game.view.EventReceiver.ButtonClickedEvent;
-import game.view.EventReceiver.Event;
+import game.view.EventReceiver.ClickEvent;
 import game.view.EventReceiver.EventType;
 import game.view.EventReceiver.HandClickedEvent;
 import game.view.GUI;
@@ -22,7 +22,7 @@ public class DiscardingStage implements Stage {
 	}
 
 	public void perform(Player player) {
-		Event event;
+		ClickEvent event;
 		Hand hand = gameState.getHand(player);
 		int pos = -1;
 		if (hand.isEmpty())
@@ -31,7 +31,7 @@ public class DiscardingStage implements Stage {
 		for (;;) {
 			gui.setButtonEnabled(Button.ApplySelection, pos != -1);
 			gui.setButtonEnabled(Button.CancelSelection, pos != -1);
-			event = gui.eventReceiver.getNextEvent();
+			event = gui.eventReceiver.getNextClickEvent();
 			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
 			if (event.type == EventType.ButtonClicked && pos!=-1) {

@@ -2,6 +2,7 @@ package game.view;
 
 import game.model.Modifier;
 import game.model.Player;
+import game.view.EventReceiver.TriggerEventHandler;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -33,7 +34,7 @@ public class GUI {
 	private InfoPanel infoPanel;
 	public JButton saveButton;
 
-	public GUI() {
+	public GUI(TriggerEventHandler triggerEventHandler) {
 		System.err.println("Creating GUI...");
 		try {
 			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
@@ -44,7 +45,7 @@ public class GUI {
 		} catch (InvocationTargetException | InterruptedException e) {
 			e.printStackTrace();
 		}
-		eventReceiver = new EventReceiver(this);
+		eventReceiver = new EventReceiver(this, triggerEventHandler);
 	}
 
 	public void setButtonEnabled(Button button, boolean aktywny) {

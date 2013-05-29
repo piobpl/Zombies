@@ -12,12 +12,12 @@ import game.model.GameState;
 import game.model.Player;
 import game.view.Board;
 import game.view.EventReceiver;
-import game.view.GUI;
 import game.view.EventReceiver.BoardClickedEvent;
 import game.view.EventReceiver.ButtonClickedEvent;
-import game.view.EventReceiver.Event;
+import game.view.EventReceiver.ClickEvent;
 import game.view.EventReceiver.EventType;
 import game.view.EventReceiver.HandClickedEvent;
+import game.view.GUI;
 import game.view.GUI.Button;
 
 import java.awt.event.MouseEvent;
@@ -58,7 +58,7 @@ public class Selector {
 			Selection current = null, candidate = null;
 			int currentRate = 0, candidateRate;
 			Board board = gui.getBoard();
-			Event e = null;
+			ClickEvent e = null;
 			BoardClickedEvent f = null;
 			HandClickedEvent g = null;
 			ButtonClickedEvent h = null;
@@ -68,7 +68,7 @@ public class Selector {
 			}
 			while (true) {
 				gui.setButtonEnabled(Button.ApplySelection, currentRate == 2);
-				e = eventReceiver.getNextEvent();
+				e = eventReceiver.getNextClickEvent();
 				if (e.type == EventType.ButtonClicked) {
 					if (e.info.getButton() != MouseEvent.BUTTON1)
 						continue;
