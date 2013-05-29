@@ -4,7 +4,6 @@ import game.model.Modifier;
 import game.model.Player;
 import game.view.EventReceiver.TriggerEventHandler;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,10 +12,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ToolTipManager;
 
 public class GUI {
 	public static enum Button {
@@ -92,6 +91,7 @@ public class GUI {
 	}
 
 	private void createWindow() {
+		ToolTipManager.sharedInstance().setDismissDelay(60000);
 		frame = new JFrame("Zombiaki");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridBagLayout());

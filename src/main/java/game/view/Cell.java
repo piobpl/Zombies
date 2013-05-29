@@ -39,9 +39,9 @@ public class Cell {
 		name.setHorizontalTextPosition(SwingConstants.CENTER);
 		name.setForeground(Colors.napisy.getColor());
 		panel.add(strength = new JLabel("Sila: 0"));
-		if(colorKarty.equals(Colors.zombieCard.getColor()))
+		if (colorKarty.equals(Colors.zombieCard.getColor()))
 			strength.setForeground(Colors.boardsCard.getColor());
-		if(colorKarty.equals(Colors.humansCard.getColor()))
+		if (colorKarty.equals(Colors.humansCard.getColor()))
 			strength.setForeground(Colors.margines.getColor());
 		else
 			strength.setForeground(Colors.boardsCard.getColor());
@@ -72,7 +72,7 @@ public class Cell {
 					panel.setToolTipText(card.getTooltipMessage());
 					name.setVisible(true);
 					name.setText(card.getName().toUpperCase());
-					if(card.getName().equalsIgnoreCase("Barrel"))
+					if (card.getName().equalsIgnoreCase("Barrel"))
 						name.setForeground(Colors.humansCard.getColor());
 					else
 						name.setForeground(Colors.napisy.getColor());
@@ -155,14 +155,14 @@ public class Cell {
 			}
 		});
 	}
-	
+
 	public void setRedHighlight(final boolean light) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				isHighlighted = light;
 				if (light) {
-					panel.setBorder(BorderFactory.createLineBorder(Color.red,
-							2));
+					panel.setBorder(BorderFactory
+							.createLineBorder(Color.red, 2));
 				} else {
 					panel.setBorder(BorderFactory.createLineBorder(
 							Colors.margines.getColor(), 1));
