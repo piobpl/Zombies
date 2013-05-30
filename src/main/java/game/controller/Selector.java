@@ -10,7 +10,6 @@ import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.GameState;
 import game.model.Player;
-import game.view.Board;
 import game.view.EventReceiver;
 import game.view.EventReceiver.BoardClickedEvent;
 import game.view.EventReceiver.ButtonClickedEvent;
@@ -18,6 +17,7 @@ import game.view.EventReceiver.ClickEvent;
 import game.view.EventReceiver.EventType;
 import game.view.EventReceiver.HandClickedEvent;
 import game.view.GUI;
+import game.view.GUI.Board;
 import game.view.GUI.Button;
 
 import java.awt.event.MouseEvent;
@@ -39,7 +39,7 @@ public class Selector {
 	public Selector(GameState gameState, GUI gui) {
 		this.gameState = gameState;
 		this.gui = gui;
-		this.eventReceiver = gui.eventReceiver;
+		this.eventReceiver = gui.getEventReceiver();
 		selectionMap = new EnumMap<SelectionType, Selection>(
 				SelectionType.class);
 		selectionMap.put(SelectionType.CELL, new CellSelection());

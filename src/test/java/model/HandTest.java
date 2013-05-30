@@ -6,7 +6,7 @@ import game.model.GameState;
 import game.model.Hand;
 import game.model.Player;
 import game.model.cards.zombies.Zombie;
-import game.view.GUI;
+import game.view.SimpleGUI;
 
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class HandTest {
 
 	@Test
 	public void test() {
-		Hand hand = new Hand(new GameState(new GUI(null)), Player.ZOMBIE);
+		Hand hand = new Hand(new GameState(new SimpleGUI(null)), Player.ZOMBIE);
 		for (int i = 0; i < 4; ++i)
 			assertEquals(null, hand.get(i));
 		Card[] cards = new Card[4];

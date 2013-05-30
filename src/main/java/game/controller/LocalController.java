@@ -6,6 +6,7 @@ import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI;
 import game.view.GUI.Button;
+import game.view.SimpleGUI;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,7 +24,7 @@ public class LocalController implements TriggerEventHandler {
 
 	public LocalController() {
 		System.err.println("Creating Controller...");
-		gui = new GUI(this);
+		gui = new SimpleGUI(this);
 		gameState = new GameState(gui);
 		gui.addButtonMouseListener(Button.Save, new MouseAdapter() {
 			@Override

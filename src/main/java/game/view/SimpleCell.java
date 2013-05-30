@@ -3,6 +3,7 @@ package game.view;
 import game.model.Card;
 import game.model.Modifier;
 import game.model.Trap;
+import game.view.GUI.Cell;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-public class Cell {
+public class SimpleCell implements Cell {
 
 	private JPanel panel;
 	private JLabel name;
@@ -29,7 +30,7 @@ public class Cell {
 	private boolean isHighlighted;
 	private JLabel onGlass;
 
-	public Cell(JPanel panel, Color colorKarty, Color colorTla) {
+	public SimpleCell(JPanel panel, Color colorKarty, Color colorTla) {
 		this.panel = panel;
 		this.colorKarty = colorKarty;
 		this.colorTla = colorTla;

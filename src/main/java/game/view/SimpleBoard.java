@@ -1,19 +1,22 @@
 package game.view;
 
+import game.view.GUI.Board;
+import game.view.GUI.Cell;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
-public class Board {
+public class SimpleBoard implements Board {
 
 	private Cell[][] cells = new Cell[5][3];
 
-	public Board(JPanel panel, Color colorKarty, Color colorTla) {
+	public SimpleBoard(JPanel panel, Color colorKarty, Color colorTla) {
 		panel.setLayout(new GridLayout(5, 3, 5, 5));
 		for (int i = 0; i < 15; ++i) {
 			JPanel cellPanel = new JPanel();
-			cells[i / 3][i % 3] = new Cell(cellPanel, colorKarty, colorTla);
+			cells[i / 3][i % 3] = new SimpleCell(cellPanel, colorKarty, colorTla);
 			panel.add(cellPanel);
 		}
 	}
@@ -53,7 +56,7 @@ public class Board {
 				cells[i][j].registerToGlass(glass);
 	}
 
-	public void clearGlassText(){
+	public void clearGlassText() {
 		for (int i = 0; i < 5; ++i)
 			for (int j = 0; j < 3; ++j)
 				cells[i][j].setGlassText("");

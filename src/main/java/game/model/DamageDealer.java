@@ -12,7 +12,7 @@ import game.view.GUI.Button;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
- * 
+ *
  * @author piob
  */
 
@@ -55,7 +55,7 @@ public abstract class DamageDealer {
 		GUI gui = gameState.gui;
 		gui.setButtonEnabled(Button.ApplySelection, true);
 		gui.setButtonEnabled(Button.CancelSelection, true);
-		EventReceiver events = gameState.gui.eventReceiver;
+		EventReceiver events = gameState.gui.getEventReceiver();
 		try {
 			while (true) {
 				Event e = events.getNextClickEvent();

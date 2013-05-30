@@ -31,7 +31,7 @@ public class DiscardingStage implements Stage {
 		for (;;) {
 			gui.setButtonEnabled(Button.ApplySelection, pos != -1);
 			gui.setButtonEnabled(Button.CancelSelection, pos != -1);
-			event = gui.eventReceiver.getNextClickEvent();
+			event = gui.getEventReceiver().getNextClickEvent();
 			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
 			if (event.type == EventType.ButtonClicked && pos!=-1) {

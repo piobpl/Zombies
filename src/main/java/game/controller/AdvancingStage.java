@@ -21,9 +21,9 @@ import utility.Pair;
 import utility.TypedSet;
 
 /**
- * 
+ *
  * @author Edoipi
- * 
+ *
  */
 public class AdvancingStage implements Stage {
 	public final GameState gameState;
@@ -49,7 +49,7 @@ public class AdvancingStage implements Stage {
 		gameState.sendMessage("Do you want to use not so fast?");
 		GUI gui = gameState.gui;
 		gui.setButtonEnabled(Button.CancelSelection, true);
-		EventReceiver events = gameState.gui.eventReceiver;
+		EventReceiver events = gameState.gui.getEventReceiver();
 		Pair<Integer, Integer> zombie = null, candidate;
 		try {
 			while (true) {
@@ -110,7 +110,7 @@ public class AdvancingStage implements Stage {
 				gameState.sendMessage("Time to move dogs");
 				gui.setButtonEnabled(Button.EndTurn, true);
 				while (true) {
-					event = gui.eventReceiver.getNextClickEvent();
+					event = gui.getEventReceiver().getNextClickEvent();
 					if (event.type == EventType.ButtonClicked) {
 						b = (ButtonClickedEvent) event;
 						if (b.button != Button.EndTurn)

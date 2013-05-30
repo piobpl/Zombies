@@ -45,7 +45,7 @@ public class PlayingStage implements Stage {
 				gameState.sendMessage("You have to end turn now.");
 				endWarning = true;
 			}
-			event = gui.eventReceiver.getNextClickEvent();
+			event = gui.getEventReceiver().getNextClickEvent();
 			if (event.info.getButton() != MouseEvent.BUTTON1)
 				continue;
 			if (event.type == EventType.ButtonClicked) {
