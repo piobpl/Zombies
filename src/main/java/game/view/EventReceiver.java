@@ -79,6 +79,15 @@ public class EventReceiver {
 		public abstract void trigger(GameState gameState);
 
 	}
+	
+	public static class BossEvent extends TriggerEvent {
+
+		@Override
+		public void trigger(GameState gameState) {
+			System.out.println("WHO'S DA BOSS??");
+		}
+		
+	}
 
 	public static interface TriggerEventHandler {
 		public void receiveTriggerEvent(TriggerEvent e);
@@ -149,7 +158,10 @@ public class EventReceiver {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					try {
-						eventQueue.put(new ButtonClickedEvent(button, e));
+						if(button == Button.Command)
+							eventQueue.put(new BossEvent());
+						else
+							eventQueue.put(new ButtonClickedEvent(button, e));
 						System.err.println("" + e.getButton() + " " + button
 								+ " clicked");
 					} catch (InterruptedException e1) {

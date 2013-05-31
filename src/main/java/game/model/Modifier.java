@@ -48,6 +48,11 @@ public class Modifier implements Typed<Modifier.ModifierType>, Serializable {
 			public String getDescription() {
 				return "boss";
 			}
+		},
+		COMMANDEDBYBOSS {
+			public String getDescription() {
+				return "commanded by Boss";
+			}
 		};
 		public abstract String getDescription();
 	}

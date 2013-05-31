@@ -22,6 +22,7 @@ public class InfoPanel {
 	private JButton applySelectionButton;
 	private JButton cancelSelectionButton;
 	private JButton endTurnButton;
+	private JButton commandButton;
 	private JTextArea textArea;
 	private JLabel modyfikator;
 	private JPanel panelBrazowy;
@@ -41,6 +42,10 @@ public class InfoPanel {
 		endTurnButton = new JButton("End turn");
 		endTurnButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(endTurnButton);
+		
+		commandButton = new JButton("Command");
+		commandButton.setPreferredSize(new Dimension(120, 30));
+		panel.add(commandButton);
 
 		panelBrazowy = new JPanel();
 		panelBrazowy.setBackground(Colors.margines.getColor());
@@ -107,6 +112,9 @@ public class InfoPanel {
 				case EndTurn:
 					endTurnButton.setEnabled(aktywny);
 					break;
+				case Command:
+					commandButton.setEnabled(aktywny);
+					break;
 				default:
 					throw new UnsupportedOperationException();
 				}
@@ -140,6 +148,9 @@ public class InfoPanel {
 					break;
 				case EndTurn:
 					endTurnButton.addMouseListener(a);
+					break;
+				case Command:
+					commandButton.addMouseListener(a);
 					break;
 				default:
 					throw new UnsupportedOperationException();

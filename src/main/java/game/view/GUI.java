@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public interface GUI {
 	public static enum Button {
-		ApplySelection, CancelSelection, EndTurn, Save;
+		ApplySelection, CancelSelection, EndTurn, Save, Command;
 	}
 
 	public void setButtonEnabled(Button button, boolean aktywny);
