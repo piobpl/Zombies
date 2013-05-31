@@ -43,6 +43,11 @@ public class Modifier implements Typed<Modifier.ModifierType>, Serializable {
 			public String getDescription() {
 				return "terror";
 			}
+		},
+		BOSS {
+			public String getDescription() {
+				return "boss";
+			}
 		};
 		public abstract String getDescription();
 	}
