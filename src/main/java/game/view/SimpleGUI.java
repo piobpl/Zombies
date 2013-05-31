@@ -164,10 +164,10 @@ public class SimpleGUI implements GUI {
 		panel.setOpaque(false);
 		historyPanel = new HistoryPanel(panel);
 
-		humanHand = new SimpleHand(humanHandPanel, Colors.humansCard.getColor(),
-				Colors.tlo.getColor());
-		zombieHand = new SimpleHand(zombieHandPanel, Colors.zombieCard.getColor(),
-				Colors.tlo.getColor());
+		humanHand = new SimpleHand(humanHandPanel,
+				Colors.humansCard.getColor(), Colors.tlo.getColor());
+		zombieHand = new SimpleHand(zombieHandPanel,
+				Colors.zombieCard.getColor(), Colors.tlo.getColor());
 		board = new SimpleBoard(boardPanel, Colors.boardsCard.getColor(),
 				Colors.boardsCard.getColor());
 
@@ -193,6 +193,9 @@ public class SimpleGUI implements GUI {
 		} catch (InvocationTargetException | InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setPlayer(Player player) {
 	}
 
 }

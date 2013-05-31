@@ -15,6 +15,8 @@ public interface GUI {
 		ApplySelection, CancelSelection, EndTurn, Save, Command;
 	}
 
+	public void setPlayer(Player player);
+
 	public void setButtonEnabled(Button button, boolean aktywny);
 
 	public Hand getHand(Player player);
