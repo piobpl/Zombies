@@ -28,8 +28,13 @@ public class Change extends Card {
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
-		if (cells.size() < 2) {
+		if (cells.size() == 0)
 			return 1;
+		if (cells.size() == 1) {
+			Pair<Integer, Integer> crds = cells.get(0);
+			if (gameState.getBoard().is(crds.first, crds.second, CardType.ZOMBIE))
+				return 1;
+			return 0;
 		}
 		if (cells.size() > 2) {
 			return 0;
