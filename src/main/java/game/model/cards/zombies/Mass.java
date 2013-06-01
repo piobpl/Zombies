@@ -73,11 +73,19 @@ public class Mass extends Card {
 				.getStrength()
 				+ gameState.getBoard().get(cell1.first, cell1.second)
 						.getStrength();
+		boolean human = (gameState.getBoard().get(cell1.first, cell1.second)
+				.getModifiers().contains(ModifierType.HUMAN) ||
+				gameState.getBoard().get(cell2.first, cell2.second)
+				.getModifiers().contains(ModifierType.HUMAN));
+			
 		System.err.println("Nowy zombiak z sila: " + newStrength);
 		gameState.getBoard().get(cell2.first, cell2.second)
 				.setStrength(newStrength);
 		gameState.getBoard().get(cell2.first, cell2.second).getModifiers()
 				.add(new Modifier(ModifierType.MOVEDONCE, 8));
+		if (human)
+			gameState.getBoard().get(cell2.first, cell2.second).getModifiers()
+					.add(new Modifier(ModifierType.HUMAN, Integer.MAX_VALUE));
 		gameState.getBoard().set(cell1.first, cell1.second, null);
 	}
 
