@@ -6,7 +6,7 @@ import game.model.Modifier.ModifierType;
 import utility.Pair;
 
 /**
- * Klasa wspomagaj��ca ruszanie zombich i ps��w po planszy.
+ * Klasa wspomagająca ruszanie zombich i psów po planszy.
  *
  * @author michal, Edoipi
  *

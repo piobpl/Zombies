@@ -21,9 +21,9 @@ import utility.Pair;
 import utility.TypedSet;
 
 /**
- *
+ * 
  * @author Edoipi
- *
+ * 
  */
 public class AdvancingStage implements Stage {
 	public final GameState gameState;
@@ -90,6 +90,11 @@ public class AdvancingStage implements Stage {
 		Board board = gameState.getBoard();
 		switch (player) {
 		case ZOMBIE:
+			if(gameState.getModifiers().contains(ModifierType.GLOBALBOSS))
+				gui.setButtonEnabled(Button.Command, true);
+			else
+				gui.setButtonEnabled(Button.Command, false);
+			
 			Pair<Integer, Integer> zombie = askForUseOfNotSoFast(gameState);
 
 			int flag = 0;
@@ -167,6 +172,8 @@ public class AdvancingStage implements Stage {
 
 			break;
 		case HUMAN:
+			gui.setButtonEnabled(Button.Command, false);
+			
 			for (int x = 0; x < 5; ++x)
 				for (int y = 0; y < 3; ++y)
 					if (board.is(x, y, CardType.BARREL)) {
@@ -180,9 +187,10 @@ public class AdvancingStage implements Stage {
 							} else if (traps.contains(TrapType.PIT)) {
 								traps.remove(TrapType.PIT);
 								board.set(x, y, null);
-							} else if (gameState.getBoard().get(x - 1, y)
-									.getModifiers()
-									.contains(ModifierType.HUMAN)) {
+							} else if (!gameState.getBoard().isEmpty(x - 1, y)
+									&& gameState.getBoard().get(x - 1, y)
+											.getModifiers()
+											.contains(ModifierType.HUMAN)) {
 								gameState.getBoard().get(x - 1, y)
 										.getModifiers()
 										.remove(ModifierType.HUMAN);

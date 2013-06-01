@@ -26,6 +26,7 @@ import game.model.cards.humans.Sniper;
 import game.model.cards.humans.StreetOnFire;
 import game.model.cards.humans.Wall;
 import game.model.cards.zombies.Bite;
+import game.model.cards.zombies.Boss;
 import game.model.cards.zombies.Change;
 import game.model.cards.zombies.Claws;
 import game.model.cards.zombies.Click;
@@ -62,6 +63,7 @@ public abstract class Card implements Typed<CardType>, Serializable {
 	public static List<Card> getCompleteDeck(Player player) {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		if (player == Player.ZOMBIE) {
+			cards.add(new Boss());
 			cards.add(new Zombie(5));
 			cards.add(new Zombie(4));
 			cards.add(new Zombie(3));

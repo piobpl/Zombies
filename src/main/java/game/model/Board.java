@@ -1,7 +1,9 @@
 package game.model;
 
 import game.model.Card.CardType;
+import game.model.Modifier.ModifierType;
 import game.model.Trap.TrapType;
+import game.view.GUI.Button;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -46,8 +48,23 @@ public class Board implements Serializable {
 	 *            second coordinate of the card
 	 */
 	public void remove(int x, int y) {
-		board[x][y] = null;
-		gameState.gui.getBoard().getCell(x, y).drawCard(null);
+		if(board[x][y] != null && board[x][y].getModifiers().contains(ModifierType.BOSS)) {
+			gameState.getModifiers().remove(ModifierType.GLOBALBOSS);
+			gameState.gui.setButtonEnabled(Button.Command, false);
+			board[x][y] = null;
+			gameState.gui.getBoard().getCell(x, y).drawCard(null);
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (gameState.getBoard().isEmpty(i, j))
+						continue;
+					MoveMaker.moveBackward(gameState, i, j);
+				}
+			}
+		}
+		else {
+			board[x][y] = null;
+			gameState.gui.getBoard().getCell(x, y).drawCard(null);
+		}
 	}
 
 	/**

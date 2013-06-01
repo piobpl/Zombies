@@ -1,7 +1,10 @@
 package game.view;
 
+import game.controller.Selection;
+import game.controller.Selector;
 import game.model.GameState;
 import game.model.Player;
+import game.model.cards.zombies.BossMover;
 import game.view.GUI.Button;
 
 import java.awt.event.MouseAdapter;
@@ -84,7 +87,15 @@ public class EventReceiver {
 
 		@Override
 		public void trigger(GameState gameState) {
-			System.out.println("WHO'S DA BOSS??");
+			gameState.gui.setButtonEnabled(Button.Command, false);
+			Selector selector = new Selector(gameState, gameState.gui);
+			BossMover mover = new BossMover();
+			Selection selection = selector.getSelection(mover);
+			if(selection != null)
+				mover.makeEffect(selection, gameState);
+			else
+				gameState.gui.setButtonEnabled(Button.Command, true);
+			gameState.gui.setHighlight(false);
 		}
 		
 	}

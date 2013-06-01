@@ -7,6 +7,7 @@ import game.model.Card;
 import game.model.GameState;
 import game.model.Modifier;
 import game.model.Modifier.ModifierType;
+import game.view.GUI.Button;
 
 /**
  * 
@@ -50,7 +51,8 @@ public class Boss extends Card {
 		Card c = gameState.getBoard().get(x, y);
 		c.getModifiers().add(
 				new Modifier(ModifierType.BOSS, Integer.MAX_VALUE));
-		
+		gameState.getModifiers().add(new Modifier(ModifierType.GLOBALBOSS, Integer.MAX_VALUE));
+		gameState.gui.setButtonEnabled(Button.Command, true);
 	}
 
 	@Override

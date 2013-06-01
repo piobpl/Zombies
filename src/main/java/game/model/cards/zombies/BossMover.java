@@ -8,6 +8,7 @@ import game.model.GameState;
 import game.model.Modifier;
 import game.model.Modifier.ModifierType;
 import game.model.MoveMaker;
+import game.model.SelectionTester;
 
 import java.util.List;
 
@@ -33,12 +34,13 @@ public class BossMover extends Card {
 		if(cells.isEmpty())
 			return 1;
 		Card card = gameState.getBoard().get(cells.get(0).first, cells.get(0).second);
-		if(card.getType() != CardType.ZOMBIE || card.getStrength() > 3 
+		if(card == null || card.getType() != CardType.ZOMBIE || card.getStrength() > 3 
 				|| card.getModifiers().contains(ModifierType.COMMANDEDBYBOSS))
 			return 0;
 		if(cells.size() == 1)
 			return 1;
-		if(MoveMaker.isMovePossible(gameState, cells.get(0), cells.get(1), card))
+		if(SelectionTester.areEdgeAdjacent(cells.get(0), cells.get(1)) &&
+				MoveMaker.isMovePossible(gameState, cells.get(0), cells.get(1), card))
 			return 2;
 		return 0;
 	}
