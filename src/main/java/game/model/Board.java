@@ -28,7 +28,7 @@ public class Board implements Serializable {
 		board = new Card[5][3];
 		this.gameState = gameState;
 		traps = new LinkedList<>();
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 20; i++)
 			traps.add(new TypedSet<Trap, TrapType>());
 	}
 
@@ -108,6 +108,7 @@ public class Board implements Serializable {
 	 * @return true if the specified position on the board is empty
 	 */
 	public boolean isEmpty(int x, int y) {
+		if (x > 4) return true;
 		return board[x][y] == null;
 	}
 
@@ -123,6 +124,7 @@ public class Board implements Serializable {
 	 *         contain any traps.
 	 */
 	public boolean isCompletelyEmpty(int x, int y) {
+		if (x > 4) return true;
 		return (board[x][y] == null && getTraps(x, y).isEmpty());
 	}
 
