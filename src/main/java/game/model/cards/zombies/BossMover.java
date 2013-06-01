@@ -35,7 +35,8 @@ public class BossMover extends Card {
 			return 1;
 		Card card = gameState.getBoard().get(cells.get(0).first, cells.get(0).second);
 		if(card == null || card.getType() != CardType.ZOMBIE || card.getStrength() > 3 
-				|| card.getModifiers().contains(ModifierType.COMMANDEDBYBOSS))
+				|| card.getModifiers().contains(ModifierType.COMMANDEDBYBOSS)
+				|| card.getModifiers().contains(ModifierType.BOSS))
 			return 0;
 		if(cells.size() == 1)
 			return 1;
