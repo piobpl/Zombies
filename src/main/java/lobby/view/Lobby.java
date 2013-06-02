@@ -3,12 +3,16 @@ package lobby.view;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -20,14 +24,14 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
@@ -40,13 +44,12 @@ import utility.Listener.Receiver;
 
 public class Lobby {
 
-	private JFrame frame;
 	public final String login;
+	private JFrame frame;
 	private JTextArea chat;
 	private Listener listener;
 	private JList<String> playersList;
 	private DefaultListModel<String> listModel;
-	private String invitedPlayer;
 	private JButton inviteButton;
 	private List<String> players;
 
@@ -76,7 +79,6 @@ public class Lobby {
 	 */
 	public Lobby(String login) {
 		this.login = login;
-		invitedPlayer = null;
 		players = new ArrayList<>();
 		try {
 			listener = new Listener(new Receiver() {
@@ -101,13 +103,15 @@ public class Lobby {
 						players.remove(lomsg.login);
 						updatePlayers();
 						break;
-					case INVITEMESSAGE:
-						// TODO + dodanie obslugi odpowiedzi i startu gry
+					case INVITE:
 						String whoInvites = ((InviteMessage) message).whoInvites;
-						System.err.println("Player: " + whoInvites
-								+ " invites You!");
-						JOptionPane.showMessageDialog(frame, "Player: "
-								+ whoInvites + " invites You!");
+						String[] options = { "Yes", "No, thanks" };
+						int n = JOptionPane.showOptionDialog(frame,
+								"Do you want to play with " + whoInvites + "?",
+								"Game", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE, null, options,
+								options[0]);
+						System.out.println("Wybrano: " + n);
 						break;
 					case PLAYERLIST:
 						players.clear();
@@ -146,39 +150,58 @@ public class Lobby {
 	private void initialize() {
 		frame = new JFrame("Lobby");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setVisible(true);
 
 		Container content = frame.getContentPane();
 
 		content.setLayout(new GridBagLayout());
-		content.setPreferredSize(new Dimension(600, 500));
 
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
+		GridBagConstraints gbc;
 
 		chat = new JTextArea(30, 40);
 		chat.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(chat);
 		scrollPane
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		c.gridx = 0;
-		c.gridy = 0;
-		content.add(scrollPane, c);
+		gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.insets = new Insets(10, 10, 10, 10);
+		content.add(scrollPane, gbc);
+
+		JPanel panel = new JPanel(new FlowLayout());
+		panel.setPreferredSize(new Dimension(80, 450));
+
+		JLabel label = new JLabel("Players:");
+		panel.add(label, gbc);
 
 		listModel = new DefaultListModel<String>();
 		playersList = new JList<String>(listModel);
 		playersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		ListSelectionModel listSelectionModel = playersList.getSelectionModel();
-		listSelectionModel
-				.addListSelectionListener(new PlayersListSelectionHandler());
-		c.gridx = 1;
-		c.gridy = 0;
-		content.add(playersList, c);
+		playersList.setPreferredSize(new Dimension(80, 424));
+		panel.add(playersList);
 
-		final JTextField text = new JTextField(40);
-		c.gridx = 0;
-		c.gridy = 1;
-		content.add(text, c);
+		gbc = new GridBagConstraints();
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.insets = new Insets(10, 0, 10, 10);
+		content.add(panel, gbc);
+
+		final JTextField text = new JTextField(41);
+		text.setPreferredSize(new Dimension(0, 24));
+		text.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (text.getText().length() == 40)
+					e.consume();
+			}
+		});
+		gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.insets = new Insets(0, 10, 10, 10);
+		content.add(text, gbc);
 		text.addActionListener(new ActionListener() {
 
 			@Override
@@ -189,35 +212,19 @@ public class Lobby {
 		});
 
 		inviteButton = new JButton("Invite");
-		c.gridx = 1;
-		c.gridy = 1;
-		inviteButton.addMouseListener(new MouseListener() {
-
-			@Override
+		inviteButton.setPreferredSize(new Dimension(80, 24));
+		inviteButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (invitedPlayer != null) {
-					listener.send(new InviteMessage(login, invitedPlayer));
-				}
+				if (playersList.getSelectedValue() != null)
+					listener.send(new InviteMessage(login, playersList
+							.getSelectedValue()));
 			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-
 		});
-		content.add(inviteButton, c);
+		gbc = new GridBagConstraints();
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		gbc.insets = new Insets(0, 0, 10, 10);
+		content.add(inviteButton, gbc);
 
 		frame.addWindowListener(new WindowAdapter() {
 
@@ -228,21 +235,6 @@ public class Lobby {
 		});
 
 		frame.pack();
-	}
-
-	class PlayersListSelectionHandler implements ListSelectionListener {
-		public void valueChanged(ListSelectionEvent e) {
-			ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-			boolean isAdjusting = e.getValueIsAdjusting();
-			if (isAdjusting) {
-				if (lsm.isSelectionEmpty()) {
-					invitedPlayer = null;
-				} else {
-					int index = lsm.getMinSelectionIndex();
-					invitedPlayer = listModel.elementAt(index);
-				}
-			}
-		}
 	}
 
 	void updatePlayers() {

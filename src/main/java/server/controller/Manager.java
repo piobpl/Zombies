@@ -38,7 +38,7 @@ public class Manager implements Receiver {
 			clientsMap
 					.put(listener, new Client(((LoginMessage) message).login));
 		} else {
-			if (message.getType() == Message.MessageType.INVITEMESSAGE) {
+			if (message.getType() == Message.MessageType.INVITE) {
 				sendToPlayer(((InviteMessage) message).whoIsInvited, message);
 			} else {
 				sendAll(message);
