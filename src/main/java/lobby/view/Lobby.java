@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -32,6 +33,7 @@ import server.controller.Message;
 import server.controller.Message.ChatMessage;
 import server.controller.Message.InviteMessage;
 import server.controller.Message.LoginMessage;
+import server.controller.Message.LogoutMessage;
 import server.controller.Message.PlayerListMessage;
 import utility.Listener;
 import utility.Listener.Receiver;
@@ -46,6 +48,7 @@ public class Lobby {
 	private DefaultListModel<String> listModel;
 	private String invitedPlayer;
 	private JButton inviteButton;
+	private List<String> players;
 
 	/**
 	 * Launch the application.
@@ -74,6 +77,7 @@ public class Lobby {
 	public Lobby(String login) {
 		this.login = login;
 		invitedPlayer = null;
+		players = new ArrayList<>();
 		try {
 			listener = new Listener(new Receiver() {
 				public void receive(Listener listener, Message message) {
@@ -86,23 +90,28 @@ public class Lobby {
 					case ERROR:
 						break;
 					case LOGIN:
-						LoginMessage lmsg = (LoginMessage) message;
-						chat.append(lmsg.login + " has logged in.\n");
+						LoginMessage limsg = (LoginMessage) message;
+						chat.append(limsg.login + " has logged in.\n");
+						players.add(limsg.login);
+						updatePlayers();
 						break;
-					case PLAYERLIST:
-						List<String> L = ((PlayerListMessage) message).playerList;
-						listModel.clear();
-						for (String s : L) {
-							listModel.addElement(s);
-						}
+					case LOGOUT:
+						LogoutMessage lomsg = (LogoutMessage) message;
+						chat.append(lomsg.login + " disconnected.\n");
+						players.remove(lomsg.login);
+						updatePlayers();
 						break;
 					case INVITEMESSAGE:
 						// TODO + dodanie obslugi odpowiedzi i startu gry
 						String whoInvites = ((InviteMessage) message).whoInvites;
-						System.err.println("Player: "
-								+ whoInvites + " invites You!");
+						System.err.println("Player: " + whoInvites
+								+ " invites You!");
 						JOptionPane.showMessageDialog(frame, "Player: "
 								+ whoInvites + " invites You!");
+						break;
+					case PLAYERLIST:
+						players.clear();
+						players.addAll(((PlayerListMessage) message).playerList);
 						break;
 					default:
 						break;
@@ -233,6 +242,13 @@ public class Lobby {
 					invitedPlayer = listModel.elementAt(index);
 				}
 			}
+		}
+	}
+
+	void updatePlayers() {
+		listModel.clear();
+		for (String s : players) {
+			listModel.addElement(s);
 		}
 	}
 }

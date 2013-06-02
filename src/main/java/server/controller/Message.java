@@ -16,7 +16,7 @@ public abstract class Message implements Serializable {
 	private static final long serialVersionUID = 4994144271876870878L;
 
 	public enum MessageType {
-		LOGIN, CHAT, ERROR, PLAYERLIST, INVITEMESSAGE;
+		LOGIN, LOGOUT, CHAT, ERROR, INVITEMESSAGE, PLAYERLIST;
 	}
 
 	public abstract MessageType getType();
@@ -34,6 +34,23 @@ public abstract class Message implements Serializable {
 		@Override
 		public MessageType getType() {
 			return MessageType.LOGIN;
+		}
+
+	}
+
+	public static class LogoutMessage extends Message {
+
+		private static final long serialVersionUID = -6175731736999075204L;
+
+		public final String login;
+
+		public LogoutMessage(String login) {
+			this.login = login;
+		}
+
+		@Override
+		public MessageType getType() {
+			return MessageType.LOGOUT;
 		}
 
 	}
@@ -74,23 +91,6 @@ public abstract class Message implements Serializable {
 
 	}
 
-	public static class PlayerListMessage extends Message {
-
-		private static final long serialVersionUID = 8002938395596238582L;
-
-		public final List<String> playerList;
-
-		public PlayerListMessage(List<String> playerList) {
-			this.playerList = playerList;
-		}
-
-		@Override
-		public MessageType getType() {
-			return MessageType.PLAYERLIST;
-		}
-
-	}
-
 	public static class InviteMessage extends Message {
 
 		private static final long serialVersionUID = -7977451951964451769L;
@@ -106,6 +106,23 @@ public abstract class Message implements Serializable {
 		@Override
 		public MessageType getType() {
 			return MessageType.INVITEMESSAGE;
+		}
+
+	}
+
+	public static class PlayerListMessage extends Message {
+
+		private static final long serialVersionUID = 8002938395596238582L;
+
+		public final List<String> playerList;
+
+		public PlayerListMessage(List<String> playerList) {
+			this.playerList = playerList;
+		}
+
+		@Override
+		public MessageType getType() {
+			return MessageType.PLAYERLIST;
 		}
 
 	}

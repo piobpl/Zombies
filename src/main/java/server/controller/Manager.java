@@ -9,6 +9,7 @@ import java.util.Map;
 
 import server.controller.Message.InviteMessage;
 import server.controller.Message.LoginMessage;
+import server.controller.Message.LogoutMessage;
 import server.controller.Message.PlayerListMessage;
 import utility.Listener;
 import utility.Listener.Receiver;
@@ -32,9 +33,10 @@ public class Manager implements Receiver {
 	@Override
 	public void receive(Listener listener, Message message) {
 		if (!clientsMap.containsKey(listener)) {
+			listener.send(new PlayerListMessage(getClientsNames()));
+			sendAll(message);
 			clientsMap
 					.put(listener, new Client(((LoginMessage) message).login));
-			sendAll(new PlayerListMessage(getClientsNames()));
 		} else {
 			if (message.getType() == Message.MessageType.INVITEMESSAGE) {
 				sendToPlayer(((InviteMessage) message).whoIsInvited, message);
@@ -49,7 +51,7 @@ public class Manager implements Receiver {
 		System.err.println(message);
 		for (Listener connector : clients) {
 			if (clientsMap.get(connector).getLogin().equals(name)) {
-				System.err.println("Name matched");				
+				System.err.println("Name matched");
 				connector.send(message);
 			}
 		}
@@ -79,9 +81,9 @@ public class Manager implements Receiver {
 	}
 
 	public synchronized void unregister(Listener connector) {
+		sendAll(new LogoutMessage(clientsMap.get(connector).getLogin()));
 		clients.remove(connector);
 		clientsMap.remove(connector);
-		sendAll(new PlayerListMessage(getClientsNames()));
 	}
 
 	public synchronized void close() {
