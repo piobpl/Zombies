@@ -215,7 +215,7 @@ public class Lobby {
 		inviteButton.setPreferredSize(new Dimension(80, 24));
 		inviteButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (playersList.getSelectedValue() != null)
+				if (playersList.getSelectedValue() != null && !playersList.getSelectedValue().equals(login))
 					listener.send(new InviteMessage(login, playersList
 							.getSelectedValue()));
 			}
