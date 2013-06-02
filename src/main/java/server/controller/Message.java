@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * Komunikaty, które Manager będzie wysyłał do poszczególnych klientów (a serwer
  * do managera).
- * 
+ *
  * @author michal
- * 
+ *
  */
 
 public abstract class Message implements Serializable {
@@ -16,7 +16,7 @@ public abstract class Message implements Serializable {
 	private static final long serialVersionUID = 4994144271876870878L;
 
 	public enum MessageType {
-		LOGIN, CHAT, ERROR, PLAYERLIST;
+		LOGIN, LOGOUT, CHAT, ERROR, PLAYERLIST;
 	}
 
 	public abstract MessageType getType();
@@ -34,6 +34,23 @@ public abstract class Message implements Serializable {
 		@Override
 		public MessageType getType() {
 			return MessageType.LOGIN;
+		}
+
+	}
+
+	public static class LogoutMessage extends Message {
+
+		private static final long serialVersionUID = -6175731736999075204L;
+
+		public final String login;
+
+		public LogoutMessage(String login) {
+			this.login = login;
+		}
+
+		@Override
+		public MessageType getType() {
+			return MessageType.LOGOUT;
 		}
 
 	}

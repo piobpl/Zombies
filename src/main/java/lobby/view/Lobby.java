@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -24,6 +25,7 @@ import javax.swing.JTextField;
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
 import server.controller.Message.LoginMessage;
+import server.controller.Message.LogoutMessage;
 import server.controller.Message.PlayerListMessage;
 import utility.Listener;
 import utility.Listener.Receiver;
@@ -35,6 +37,7 @@ public class Lobby {
 	private JTextArea chat;
 	private Listener listener;
 	private JLabel playersList;
+	private List<String> players;
 
 	/**
 	 * Launch the application.
@@ -62,6 +65,7 @@ public class Lobby {
 	 */
 	public Lobby(String login) {
 		this.login = login;
+		players = new ArrayList<>();
 		try {
 			listener = new Listener(new Receiver() {
 				public void receive(Listener listener, Message message) {
@@ -74,19 +78,20 @@ public class Lobby {
 					case ERROR:
 						break;
 					case LOGIN:
-						LoginMessage lmsg = (LoginMessage) message;
-						chat.append(lmsg.login + " has logged in.\n");
+						LoginMessage limsg = (LoginMessage) message;
+						chat.append(limsg.login + " has logged in.\n");
+						players.add(limsg.login);
+						updatePlayers();
+						break;
+					case LOGOUT:
+						LogoutMessage lomsg = (LogoutMessage) message;
+						chat.append(lomsg.login + " disconnected.\n");
+						players.remove(lomsg.login);
+						updatePlayers();
 						break;
 					case PLAYERLIST:
-						List<String> L = ((PlayerListMessage) message).playerList;
-						StringBuilder sb = new StringBuilder();
-						sb.append("<html>");
-						for (String s : L) {
-							sb.append(s);
-							sb.append("<br>");
-						}
-						sb.append("</html>");
-						playersList.setText(sb.toString());
+						players.clear();
+						players.addAll(((PlayerListMessage) message).playerList);
 					default:
 						break;
 					}
@@ -147,7 +152,7 @@ public class Lobby {
 		final JTextField text = new JTextField(40);
 		c.gridx = 0;
 		c.gridy = 1;
-		content.add(text,c);
+		content.add(text, c);
 		text.addActionListener(new ActionListener() {
 
 			@Override
@@ -166,5 +171,16 @@ public class Lobby {
 		});
 
 		frame.pack();
+	}
+
+	void updatePlayers() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<html>");
+		for (String s : players) {
+			sb.append(s);
+			sb.append("<br>");
+		}
+		sb.append("</html>");
+		playersList.setText(sb.toString());
 	}
 }

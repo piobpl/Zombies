@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 import server.controller.Message.LoginMessage;
+import server.controller.Message.LogoutMessage;
 import server.controller.Message.PlayerListMessage;
 import utility.Listener;
 import utility.Listener.Receiver;
 
 /**
  * Klasa pomocnicza do wysyłania komunikatów graczom.
- * 
+ *
  * @author michal
- * 
+ *
  */
 public class Manager implements Receiver {
 
@@ -31,9 +32,10 @@ public class Manager implements Receiver {
 	@Override
 	public void receive(Listener listener, Message message) {
 		if (!clientsMap.containsKey(listener)) {
+			listener.send(new PlayerListMessage(getClientsNames()));
+			sendAll(message);
 			clientsMap
 					.put(listener, new Client(((LoginMessage) message).login));
-			sendAll(new PlayerListMessage(getClientsNames()));
 		} else {
 			sendAll(message);
 		}
@@ -63,9 +65,9 @@ public class Manager implements Receiver {
 	}
 
 	public synchronized void unregister(Listener connector) {
+		sendAll(new LogoutMessage(clientsMap.get(connector).getLogin()));
 		clients.remove(connector);
 		clientsMap.remove(connector);
-		sendAll(new PlayerListMessage(getClientsNames()));
 	}
 
 	public synchronized void close() {
