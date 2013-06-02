@@ -12,7 +12,7 @@ import server.controller.Message;
 public class Listener implements Runnable {
 
 	public static interface Receiver {
-		public void receive(Message message);
+		public void receive(Listener listener, Message message);
 
 		public void unregister(Listener listener);
 	}
@@ -66,7 +66,7 @@ public class Listener implements Runnable {
 
 	public synchronized void receive(Message message) {
 		if (receiver != null)
-			receiver.receive(message);
+			receiver.receive(this, message);
 	}
 
 	public void send(Message message) {

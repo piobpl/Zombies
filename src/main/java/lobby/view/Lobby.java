@@ -3,7 +3,8 @@ package lobby.view;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -11,8 +12,10 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
+import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -21,6 +24,7 @@ import javax.swing.JTextField;
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
 import server.controller.Message.LoginMessage;
+import server.controller.Message.PlayerListMessage;
 import utility.Listener;
 import utility.Listener.Receiver;
 
@@ -30,6 +34,7 @@ public class Lobby {
 	public final String login;
 	private JTextArea chat;
 	private Listener listener;
+	private JLabel playersList;
 
 	/**
 	 * Launch the application.
@@ -59,7 +64,7 @@ public class Lobby {
 		this.login = login;
 		try {
 			listener = new Listener(new Receiver() {
-				public void receive(Message message) {
+				public void receive(Listener listener, Message message) {
 					switch (message.getType()) {
 					case CHAT:
 						ChatMessage cmsg = (ChatMessage) message;
@@ -72,6 +77,16 @@ public class Lobby {
 						LoginMessage lmsg = (LoginMessage) message;
 						chat.append(lmsg.login + " has logged in.\n");
 						break;
+					case PLAYERLIST:
+						List<String> L = ((PlayerListMessage) message).playerList;
+						StringBuilder sb = new StringBuilder();
+						sb.append("<html>");
+						for (String s : L) {
+							sb.append(s);
+							sb.append("<br>");
+						}
+						sb.append("</html>");
+						playersList.setText(sb.toString());
 					default:
 						break;
 					}
@@ -103,24 +118,36 @@ public class Lobby {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Lobby");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
 		Container content = frame.getContentPane();
 
-		content.setLayout(new FlowLayout());
-		content.setPreferredSize(new Dimension(500, 500));
+		content.setLayout(new GridBagLayout());
+		content.setPreferredSize(new Dimension(600, 500));
+
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
 
 		chat = new JTextArea(30, 40);
 		chat.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(chat);
 		scrollPane
 				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		content.add(scrollPane);
+		c.gridx = 0;
+		c.gridy = 0;
+		content.add(scrollPane, c);
+
+		playersList = new JLabel();
+		c.gridx = 1;
+		c.gridy = 0;
+		content.add(playersList, c);
 
 		final JTextField text = new JTextField(40);
-		content.add(text);
+		c.gridx = 0;
+		c.gridy = 1;
+		content.add(text,c);
 		text.addActionListener(new ActionListener() {
 
 			@Override

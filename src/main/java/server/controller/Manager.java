@@ -2,28 +2,41 @@ package server.controller;
 
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import server.controller.Message.LoginMessage;
+import server.controller.Message.PlayerListMessage;
 import utility.Listener;
 import utility.Listener.Receiver;
 
 /**
  * Klasa pomocnicza do wysyłania komunikatów graczom.
- *
+ * 
  * @author michal
- *
+ * 
  */
 public class Manager implements Receiver {
 
 	private List<Listener> clients;
+	private Map<Listener, Client> clientsMap;
 
 	public Manager() {
 		clients = new ArrayList<Listener>();
+		clientsMap = new HashMap<Listener, Client>();
 	}
 
 	@Override
-	public void receive(Message message) {
-		sendAll(message);
+	public void receive(Listener listener, Message message) {
+		if (!clientsMap.containsKey(listener)) {
+			clientsMap
+					.put(listener, new Client(((LoginMessage) message).login));
+			sendAll(new PlayerListMessage(getClientsNames()));
+		} else {
+			sendAll(message);
+		}
 	}
 
 	public synchronized void sendAll(Message message) {
@@ -41,8 +54,18 @@ public class Manager implements Receiver {
 		new Thread(connector).start();
 	}
 
+	public List<String> getClientsNames() {
+		List<String> L = new LinkedList<>();
+		for (Client tmp : clientsMap.values()) {
+			L.add(tmp.getLogin());
+		}
+		return L;
+	}
+
 	public synchronized void unregister(Listener connector) {
 		clients.remove(connector);
+		clientsMap.remove(connector);
+		sendAll(new PlayerListMessage(getClientsNames()));
 	}
 
 	public synchronized void close() {

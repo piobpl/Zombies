@@ -1,13 +1,14 @@
 package server.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Komunikaty, które Manager będzie wysyłał do poszczególnych klientów (a serwer
  * do managera).
- *
+ * 
  * @author michal
- *
+ * 
  */
 
 public abstract class Message implements Serializable {
@@ -15,7 +16,7 @@ public abstract class Message implements Serializable {
 	private static final long serialVersionUID = 4994144271876870878L;
 
 	public enum MessageType {
-		LOGIN, CHAT, ERROR;
+		LOGIN, CHAT, ERROR, PLAYERLIST;
 	}
 
 	public abstract MessageType getType();
@@ -69,6 +70,23 @@ public abstract class Message implements Serializable {
 		@Override
 		public MessageType getType() {
 			return MessageType.ERROR;
+		}
+
+	}
+
+	public static class PlayerListMessage extends Message {
+
+		private static final long serialVersionUID = 8002938395596238582L;
+
+		public final List<String> playerList;
+
+		public PlayerListMessage(List<String> playerList) {
+			this.playerList = playerList;
+		}
+
+		@Override
+		public MessageType getType() {
+			return MessageType.PLAYERLIST;
 		}
 
 	}
