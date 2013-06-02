@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import server.controller.Message.InviteMessage;
 import server.controller.Message.LoginMessage;
 import server.controller.Message.PlayerListMessage;
 import utility.Listener;
@@ -35,7 +36,22 @@ public class Manager implements Receiver {
 					.put(listener, new Client(((LoginMessage) message).login));
 			sendAll(new PlayerListMessage(getClientsNames()));
 		} else {
-			sendAll(message);
+			if (message.getType() == Message.MessageType.INVITEMESSAGE) {
+				sendToPlayer(((InviteMessage) message).whoIsInvited, message);
+			} else {
+				sendAll(message);
+			}
+		}
+	}
+
+	public synchronized void sendToPlayer(String name, Message message) {
+		System.err.println("Sending to " + name + ":");
+		System.err.println(message);
+		for (Listener connector : clients) {
+			if (clientsMap.get(connector).getLogin().equals(name)) {
+				System.err.println("Name matched");				
+				connector.send(message);
+			}
 		}
 	}
 

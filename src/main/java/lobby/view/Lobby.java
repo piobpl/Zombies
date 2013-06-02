@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -14,15 +16,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
+import server.controller.Message.InviteMessage;
 import server.controller.Message.LoginMessage;
 import server.controller.Message.PlayerListMessage;
 import utility.Listener;
@@ -34,7 +42,10 @@ public class Lobby {
 	public final String login;
 	private JTextArea chat;
 	private Listener listener;
-	private JLabel playersList;
+	private JList<String> playersList;
+	private DefaultListModel<String> listModel;
+	private String invitedPlayer;
+	private JButton inviteButton;
 
 	/**
 	 * Launch the application.
@@ -62,6 +73,7 @@ public class Lobby {
 	 */
 	public Lobby(String login) {
 		this.login = login;
+		invitedPlayer = null;
 		try {
 			listener = new Listener(new Receiver() {
 				public void receive(Listener listener, Message message) {
@@ -79,14 +91,19 @@ public class Lobby {
 						break;
 					case PLAYERLIST:
 						List<String> L = ((PlayerListMessage) message).playerList;
-						StringBuilder sb = new StringBuilder();
-						sb.append("<html>");
+						listModel.clear();
 						for (String s : L) {
-							sb.append(s);
-							sb.append("<br>");
+							listModel.addElement(s);
 						}
-						sb.append("</html>");
-						playersList.setText(sb.toString());
+						break;
+					case INVITEMESSAGE:
+						// TODO + dodanie obslugi odpowiedzi i startu gry
+						String whoInvites = ((InviteMessage) message).whoInvites;
+						System.err.println("Player: "
+								+ whoInvites + " invites You!");
+						JOptionPane.showMessageDialog(frame, "Player: "
+								+ whoInvites + " invites You!");
+						break;
 					default:
 						break;
 					}
@@ -139,7 +156,12 @@ public class Lobby {
 		c.gridy = 0;
 		content.add(scrollPane, c);
 
-		playersList = new JLabel();
+		listModel = new DefaultListModel<String>();
+		playersList = new JList<String>(listModel);
+		playersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ListSelectionModel listSelectionModel = playersList.getSelectionModel();
+		listSelectionModel
+				.addListSelectionListener(new PlayersListSelectionHandler());
 		c.gridx = 1;
 		c.gridy = 0;
 		content.add(playersList, c);
@@ -147,7 +169,7 @@ public class Lobby {
 		final JTextField text = new JTextField(40);
 		c.gridx = 0;
 		c.gridy = 1;
-		content.add(text,c);
+		content.add(text, c);
 		text.addActionListener(new ActionListener() {
 
 			@Override
@@ -156,6 +178,37 @@ public class Lobby {
 				text.setText("");
 			}
 		});
+
+		inviteButton = new JButton("Invite");
+		c.gridx = 1;
+		c.gridy = 1;
+		inviteButton.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (invitedPlayer != null) {
+					listener.send(new InviteMessage(login, invitedPlayer));
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+		});
+		content.add(inviteButton, c);
 
 		frame.addWindowListener(new WindowAdapter() {
 
@@ -166,5 +219,20 @@ public class Lobby {
 		});
 
 		frame.pack();
+	}
+
+	class PlayersListSelectionHandler implements ListSelectionListener {
+		public void valueChanged(ListSelectionEvent e) {
+			ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+			boolean isAdjusting = e.getValueIsAdjusting();
+			if (isAdjusting) {
+				if (lsm.isSelectionEmpty()) {
+					invitedPlayer = null;
+				} else {
+					int index = lsm.getMinSelectionIndex();
+					invitedPlayer = listModel.elementAt(index);
+				}
+			}
+		}
 	}
 }

@@ -16,7 +16,7 @@ public abstract class Message implements Serializable {
 	private static final long serialVersionUID = 4994144271876870878L;
 
 	public enum MessageType {
-		LOGIN, CHAT, ERROR, PLAYERLIST;
+		LOGIN, CHAT, ERROR, PLAYERLIST, INVITEMESSAGE;
 	}
 
 	public abstract MessageType getType();
@@ -87,6 +87,25 @@ public abstract class Message implements Serializable {
 		@Override
 		public MessageType getType() {
 			return MessageType.PLAYERLIST;
+		}
+
+	}
+
+	public static class InviteMessage extends Message {
+
+		private static final long serialVersionUID = -7977451951964451769L;
+
+		public final String whoInvites;
+		public final String whoIsInvited;
+
+		public InviteMessage(String login, String invitedPlayer) {
+			this.whoInvites = login;
+			this.whoIsInvited = invitedPlayer;
+		}
+
+		@Override
+		public MessageType getType() {
+			return MessageType.INVITEMESSAGE;
 		}
 
 	}
