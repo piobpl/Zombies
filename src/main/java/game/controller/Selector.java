@@ -85,9 +85,6 @@ public class Selector {
 				} else if (e.type == EventType.HandClicked) {
 					if (e.info.getButton() != MouseEvent.BUTTON1)
 						continue;
-					if (((HandClickedEvent) e).player == Player.ZOMBIE) {
-
-					}
 					if ((((HandClickedEvent) e).player == Player.ZOMBIE && gameState
 							.getHand(Player.ZOMBIE).get(
 									((HandClickedEvent) e).cardClicked) == card)
