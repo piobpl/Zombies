@@ -26,9 +26,9 @@ import java.util.EnumMap;
 import utility.Pair;
 
 /**
- *
+ * 
  * @author Edoipi, piob
- *
+ * 
  */
 public class Selector {
 	public final EventReceiver eventReceiver;
@@ -85,10 +85,15 @@ public class Selector {
 				} else if (e.type == EventType.HandClicked) {
 					if (e.info.getButton() != MouseEvent.BUTTON1)
 						continue;
-					if (gameState.getHand(Player.ZOMBIE).get(
-							((HandClickedEvent) e).cardClicked) == card
-							|| gameState.getHand(Player.HUMAN).get(
-									((HandClickedEvent) e).cardClicked) == card) {
+					if (((HandClickedEvent) e).player == Player.ZOMBIE) {
+
+					}
+					if ((((HandClickedEvent) e).player == Player.ZOMBIE && gameState
+							.getHand(Player.ZOMBIE).get(
+									((HandClickedEvent) e).cardClicked) == card)
+							|| (((HandClickedEvent) e).player == Player.HUMAN && gameState
+									.getHand(Player.HUMAN).get(
+											((HandClickedEvent) e).cardClicked) == card)) {
 						return null;
 					}
 					if (card.getSelectionType() != SelectionType.HAND)
