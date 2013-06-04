@@ -51,7 +51,7 @@ public class Modifier implements Typed<Modifier.ModifierType>, Serializable {
 		},
 		COMMANDEDBYBOSS {
 			public String getDescription() {
-				return "commanded by Boss";
+				return "commanded";
 			}
 		},
 		GLOBALBOSS {

@@ -36,8 +36,10 @@ public abstract class DamageDealer {
 			}
 			Card c = gameState.getBoard().get(x, y);
 			c.setStrength(c.getStrength() - dmg);
-			if (c.getStrength() <= 0)
-				c = null;
+			if (c.getStrength() <= 0) {
+				gameState.getBoard().remove(x, y);
+				return;
+			}
 			gameState.getBoard().set(x, y, c);
 		}
 	}
