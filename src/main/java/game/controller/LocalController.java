@@ -15,6 +15,9 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
 import javax.swing.JFileChooser;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class LocalController implements TriggerEventHandler {
 
@@ -32,6 +35,39 @@ public class LocalController implements TriggerEventHandler {
 				saveState();
 			}
 		});
+		gui.addSliderChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider) e.getSource();
+				if (!source.getValueIsAdjusting()) {
+					int choice = (int) source.getValue();
+					System.err.println("Selected: " + choice);
+					if (choice != (gameState.getPlayer() == Player.ZOMBIE ? gameState
+							.getTurn() * 2 : gameState.getTurn() * 2 + 1)) {
+						/*
+						 * byte[] previous = gameState.getSave(choice);
+						 * System.err.print("Setting previous version...");
+						 * //TODO przerysowanie GUI na wersje historyczna +
+						 * blokada GUI az suwak nie wroci na max pozycje
+						 * ByteArrayInputStream bin = new ByteArrayInputStream(
+						 * previous); ObjectInputStream in=null; GameState
+						 * previousGamestate=null; try { in = new
+						 * ObjectInputStream(bin); previousGamestate =
+						 * (GameState) in .readObject(); } catch
+						 * (ClassNotFoundException | IOException e1) {
+						 * e1.printStackTrace(); }
+						 */
+
+					} else {
+						// TODO przerysowanie do stanu aktualnego i odblokowanie
+						// GUI
+					}
+				}
+			}
+
+		});
+
 		System.err.println("Done");
 	}
 

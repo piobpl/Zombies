@@ -11,7 +11,6 @@ import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class HistoryPanel {
@@ -33,18 +32,6 @@ public class HistoryPanel {
 		historySlider.setPaintLabels(true);
 		historySlider.setForeground(Colors.napisy.getColor());
 		historySlider.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-		historySlider.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider) e.getSource();
-				if (!source.getValueIsAdjusting()) {
-					int choice = (int) source.getValue();
-					System.err.println("Selected: " + choice);
-				}
-			}
-
-		});
 
 		panel.add(historySlider);
 	}
@@ -55,6 +42,14 @@ public class HistoryPanel {
 		model.setValue(turn);
 		historySlider.setModel(model);
 		historySlider.setLabelTable(historySlider.createStandardLabels(1, 0));
+	}
+
+	public void addSliderChangeListener(final ChangeListener cl) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				historySlider.addChangeListener(cl);
+			}
+		});
 	}
 
 	public void addButtonMouseListener(final Button button,

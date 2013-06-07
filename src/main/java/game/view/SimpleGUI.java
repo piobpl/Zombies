@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
+import javax.swing.event.ChangeListener;
 
 public class SimpleGUI implements GUI {
 	private EventReceiver eventReceiver;
@@ -201,6 +202,15 @@ public class SimpleGUI implements GUI {
 	@Override
 	public void drawHistorySlider(int turn) {
 		historyPanel.setSliderRange(turn);
+	}
+
+	@Override
+	public void addSliderChangeListener(final ChangeListener cl) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				historyPanel.addSliderChangeListener(cl);
+			}
+		});
 	}
 
 }

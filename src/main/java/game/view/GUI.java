@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.event.ChangeListener;
 
 public interface GUI {
 	public static enum Button {
@@ -26,6 +27,8 @@ public interface GUI {
 	public EventReceiver getEventReceiver();
 
 	public void addButtonMouseListener(Button button, MouseListener a);
+	
+	public void addSliderChangeListener(ChangeListener cl);
 
 	public void setCardsLeft(Player player, int left);
 
