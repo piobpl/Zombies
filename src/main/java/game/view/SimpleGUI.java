@@ -4,6 +4,9 @@ import game.model.Modifier;
 import game.model.Player;
 import game.view.EventReceiver.TriggerEventHandler;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,6 +34,7 @@ public class SimpleGUI implements GUI {
 	private JPanel rightPanel;
 	private InfoPanel infoPanel;
 	private HistoryPanel historyPanel;
+	private JButton commandButton;
 
 	public SimpleGUI(TriggerEventHandler triggerEventHandler) {
 		System.err.println("Creating GUI...");
@@ -45,8 +50,21 @@ public class SimpleGUI implements GUI {
 		eventReceiver = new EventReceiver(this, triggerEventHandler);
 	}
 
-	public void setButtonEnabled(Button button, boolean aktywny) {
-		infoPanel.setButtonEnabled(button, aktywny);
+	public void setButtonEnabled(Button button, final boolean active) {
+		switch (button) {
+		case Save:
+			historyPanel.setButtonEnabled(button, active);
+		case Command:
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					commandButton.setEnabled(active);
+				}
+			});
+			break;
+		default:
+			infoPanel.setButtonEnabled(button, active);
+			break;
+		}
 	}
 
 	public Hand getHand(Player player) {
@@ -64,11 +82,21 @@ public class SimpleGUI implements GUI {
 		return eventReceiver;
 	}
 
-	public void addButtonMouseListener(Button button, MouseListener a) {
-		if (button == Button.Save) {
+	public void addButtonMouseListener(Button button, final MouseListener a) {
+		switch (button) {
+		case Save:
 			historyPanel.addButtonMouseListener(button, a);
-		} else
+		case Command:
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					commandButton.addMouseListener(a);
+				}
+			});
+			break;
+		default:
 			infoPanel.addButtonMouseListener(button, a);
+			break;
+		}
 	}
 
 	public void setCardsLeft(Player player, int left) {
@@ -92,6 +120,8 @@ public class SimpleGUI implements GUI {
 	}
 
 	private void createWindow() {
+		JPanel panel;
+
 		ToolTipManager.sharedInstance().setDismissDelay(60000);
 		frame = new JFrame("Zombiaki");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,12 +159,22 @@ public class SimpleGUI implements GUI {
 		boardPanel.setBackground(Colors.tlo.getColor());
 		frame.getContentPane().add(boardPanel, gbc);
 
-		zombieCardsLeft = new JLabel();
-		zombieCardsLeft.setForeground(Colors.margines.getColor());
+		panel = new JPanel();
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel.setOpaque(false);
+		panel.setAlignmentY(Component.LEFT_ALIGNMENT);
+		panel.setPreferredSize(new Dimension(400, 50));
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		gbc.insets = new Insets(10, 10, 10, 10);
-		frame.getContentPane().add(zombieCardsLeft, gbc);
+		frame.getContentPane().add(panel, gbc);
+		zombieCardsLeft = new JLabel();
+		zombieCardsLeft.setForeground(Colors.margines.getColor());
+		zombieCardsLeft.setPreferredSize(new Dimension(120, 30));
+		panel.add(zombieCardsLeft);
+		commandButton = new JButton("Command");
+		commandButton.setPreferredSize(new Dimension(120, 30));
+		panel.add(commandButton);
 
 		rightPanel = new JPanel();
 		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
@@ -145,19 +185,25 @@ public class SimpleGUI implements GUI {
 		gbc.insets = new Insets(10, 10, 10, 10);
 		frame.getContentPane().add(rightPanel, gbc);
 
-		humanCardsLeft = new JLabel();
-		humanCardsLeft.setForeground(Colors.margines.getColor());
+		panel = new JPanel();
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		panel.setOpaque(false);
+		panel.setAlignmentY(Component.LEFT_ALIGNMENT);
+		panel.setPreferredSize(new Dimension(400, 50));
 		gbc.gridx = 2;
 		gbc.gridy = 3;
 		gbc.insets = new Insets(10, 10, 10, 10);
-		frame.getContentPane().add(humanCardsLeft, gbc);
+		frame.getContentPane().add(panel, gbc);
+		humanCardsLeft = new JLabel();
+		humanCardsLeft.setForeground(Colors.margines.getColor());
+		humanCardsLeft.setPreferredSize(new Dimension(120, 30));
+		panel.add(humanCardsLeft);
 
 		frame.setVisible(true);
 
 		rightPanel.setBackground(Colors.boardsCard.getColor());
 		rightPanel.setForeground(Colors.boardsCard.getColor());
 
-		JPanel panel;
 		rightPanel.add(panel = new JPanel());
 		panel.setOpaque(false);
 		infoPanel = new InfoPanel(panel);

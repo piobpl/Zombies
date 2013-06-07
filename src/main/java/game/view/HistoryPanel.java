@@ -66,4 +66,18 @@ public class HistoryPanel {
 			}
 		});
 	}
+
+	public void setButtonEnabled(final Button button, final boolean active) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				switch (button) {
+				case Save:
+					saveButton.setEnabled(active);
+					break;
+				default:
+					throw new UnsupportedOperationException();
+				}
+			}
+		});
+	}
 }
