@@ -50,23 +50,6 @@ public class SimpleGUI implements GUI {
 		eventReceiver = new EventReceiver(this, triggerEventHandler);
 	}
 
-	public void setButtonEnabled(Button button, final boolean active) {
-		switch (button) {
-		case Save:
-			historyPanel.setButtonEnabled(button, active);
-		case Command:
-			javax.swing.SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					commandButton.setEnabled(active);
-				}
-			});
-			break;
-		default:
-			infoPanel.setButtonEnabled(button, active);
-			break;
-		}
-	}
-
 	public Hand getHand(Player player) {
 		if (player == Player.HUMAN)
 			return humanHand;
@@ -82,10 +65,29 @@ public class SimpleGUI implements GUI {
 		return eventReceiver;
 	}
 
+	public void setButtonEnabled(Button button, final boolean active) {
+		switch (button) {
+		case Save:
+			historyPanel.setButtonEnabled(button, active);
+			break;
+		case Command:
+			javax.swing.SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					commandButton.setEnabled(active);
+				}
+			});
+			break;
+		default:
+			infoPanel.setButtonEnabled(button, active);
+			break;
+		}
+	}
+
 	public void addButtonMouseListener(Button button, final MouseListener a) {
 		switch (button) {
 		case Save:
 			historyPanel.addButtonMouseListener(button, a);
+			break;
 		case Command:
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
