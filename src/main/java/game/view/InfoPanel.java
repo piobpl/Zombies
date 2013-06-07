@@ -42,7 +42,7 @@ public class InfoPanel {
 		endTurnButton = new JButton("End turn");
 		endTurnButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(endTurnButton);
-		
+
 		commandButton = new JButton("Command");
 		commandButton.setPreferredSize(new Dimension(120, 30));
 		panel.add(commandButton);

@@ -34,6 +34,8 @@ public interface GUI {
 	public void modelSendsAllMessages(final List<String> messages);
 
 	public void drawGlobalModifiers(final Iterable<Modifier> modifiers);
+	
+	public void drawHistorySlider(int turn);
 
 	public void setHighlight(boolean set);
 

@@ -88,6 +88,7 @@ public class AdvancingStage implements Stage {
 
 	public void perform(Player player) {
 		Board board = gameState.getBoard();
+		gameState.gui.drawHistorySlider(gameState.getTurn());
 		switch (player) {
 		case ZOMBIE:
 			if(gameState.getModifiers().contains(ModifierType.GLOBALBOSS))

@@ -198,4 +198,9 @@ public class SimpleGUI implements GUI {
 	public void setPlayer(Player player) {
 	}
 
+	@Override
+	public void drawHistorySlider(int turn) {
+		historyPanel.setSliderRange(turn);
+	}
+
 }
