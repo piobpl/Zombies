@@ -12,13 +12,13 @@ import game.view.GUI.Button;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
- * 
+ *
  * @author piob
  */
 
 public abstract class DamageDealer {
 	/**
-	 * 
+	 *
 	 * @param gameState
 	 * @param x
 	 * @param y
@@ -67,7 +67,7 @@ public abstract class DamageDealer {
 			return false;
 		Player actualPlayer = gameState.getPlayer();
 		gameState.setPlayer(Player.ZOMBIE);
-		gameState.sendMessage("Do you want to use click?");
+		gameState.sendMessage("Do you want to use card \"Click\"?");
 		gameState.setPlayer(actualPlayer);
 		GUI gui = gameState.gui;
 		gui.setButtonEnabled(Button.ApplySelection, true);
