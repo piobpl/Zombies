@@ -5,9 +5,9 @@ import game.controller.Selection.ColumnSelection;
 import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.DamageDealer;
+import game.model.DamageDealer.DamageEffect;
 import game.model.GameState;
 import game.model.MoveMaker;
-import game.model.Trap;
 import game.model.Trap.Trigger;
 
 /**
@@ -39,18 +39,13 @@ public class Shot extends Card {
 			return;
 		int column = ((ColumnSelection) selection).column;
 		for (int i = 4; i >= 0; i--) {
-			for(Trap trap : gameState.getBoard().getTraps(i, column))
-				if(trap.getTriggers().contains(Trigger.SHOT)) {
-					DamageDealer.dealDamage(gameState, i, column, strength, Trigger.SHOT);
-					return;
-				}
-			if (!gameState.getBoard().isEmpty(i, column) && !gameState.getBoard().is(i,column,CardType.BARREL)) {
-				boolean move = DamageDealer.dealDamage(gameState, i, column, strength,
-						Trigger.SHOT);
-				if (move)
-					MoveMaker.moveBackward(gameState, i, column);
-				break;
-			}
+			DamageEffect dm =  DamageDealer.dealDamage
+					(gameState, i, column, strength, Trigger.SHOT);
+			if (dm == DamageEffect.NOTHING)
+				continue;
+			if (dm == DamageEffect.DAMAGED)
+				MoveMaker.moveBackward(gameState, i, column);
+			break;
 		}
 	}
 

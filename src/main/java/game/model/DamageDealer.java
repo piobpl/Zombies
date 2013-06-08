@@ -17,22 +17,19 @@ import game.view.GUI.Button;
  */
 
 public abstract class DamageDealer {
-	/**
-	 *
-	 * @param gameState
-	 * @param x
-	 * @param y
-	 * @param dmg
-	 * @param type
-	 * @return true iff someone has been directly damaged, but not killed
-	 */
-	public static boolean dealDamage(GameState gameState, int x, int y,
+	
+	public static enum DamageEffect {
+		KILLED, DAMAGED, SHOT, ABSORBED, NOTHING;
+	}
+	
+	
+	public static DamageEffect dealDamage(GameState gameState, int x, int y,
 			int dmg, Trigger type) {
 		for (Trap t : gameState.getBoard().getTraps(x, y))
 			if (t.getTriggers().contains(type)) {
 				t.trigger();
 				if (type == Trigger.SHOT)
-					return false;
+					return DamageEffect.SHOT;
 			}
 		if (gameState.getBoard().get(x, y) != null
 				&& gameState.getBoard().get(x, y).getType() != CardType.BARREL) {
@@ -42,18 +39,18 @@ public abstract class DamageDealer {
 							.contains(ModifierType.HUMAN)) {
 				gameState.getBoard().get(x, y).getModifiers()
 						.remove(ModifierType.HUMAN);
-				return false;
+				return DamageEffect.ABSORBED;
 			}
 			Card c = gameState.getBoard().get(x, y);
 			c.setStrength(c.getStrength() - dmg);
 			if (c.getStrength() <= 0) {
 				gameState.getBoard().remove(x, y);
-				return false;
+				return DamageEffect.KILLED;
 			}
 			gameState.getBoard().set(x, y, c);
-			return true;
+			return DamageEffect.DAMAGED;
 		}
-		return false;
+		return DamageEffect.NOTHING;
 	}
 
 	public static boolean askForUseOfClick(GameState gameState) {

@@ -18,9 +18,7 @@ import utility.Pair;
  */
 public class Net extends Card {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -4606365008486993227L;
 
 	@Override
