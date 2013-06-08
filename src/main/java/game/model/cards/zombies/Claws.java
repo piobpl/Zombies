@@ -34,7 +34,7 @@ public class Claws extends Card {
 
 	@Override
 	public String getName() {
-		return "Nails";
+		return "Claws";
 	}
 
 	@Override
