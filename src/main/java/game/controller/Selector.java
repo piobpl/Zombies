@@ -199,7 +199,9 @@ public class Selector {
 					}
 					current = candidate;
 					currentRate = candidateRate;
-					if ((card.getSelectionType() == SelectionType.CELL)
+					if ((card.getSelectionType() == SelectionType.CELL
+							|| card.getSelectionType() == SelectionType.HAND || card
+							.getSelectionType() == SelectionType.COLUMN)
 							&& e.info.getClickCount() > 1 && currentRate == 2)
 						return current;
 				}
