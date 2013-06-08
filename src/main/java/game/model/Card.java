@@ -34,6 +34,7 @@ import game.model.cards.zombies.Dogs;
 import game.model.cards.zombies.Human;
 import game.model.cards.zombies.Hunger;
 import game.model.cards.zombies.Mass;
+import game.model.cards.zombies.Meat;
 import game.model.cards.zombies.NotSoFast;
 import game.model.cards.zombies.PickAxe;
 import game.model.cards.zombies.Terror;
@@ -57,53 +58,127 @@ public abstract class Card implements Typed<CardType>, Serializable {
 
 	private static final long serialVersionUID = -2663209980322004223L;
 
-	/*
-	 * Returns whole player's deck (temporarily not the same set as in rules).
-	 */
+	
 	public static List<Card> getCompleteDeck(Player player) {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		if (player == Player.ZOMBIE) {
-			cards.add(new Boss());
-			cards.add(new Zombie(5));
-			cards.add(new Zombie(4));
-			cards.add(new Zombie(3));
-			cards.add(new Zombie(2));
-			cards.add(new Zombie(4));
-			cards.add(new Zombie(3));
-			cards.add(new Zombie(2));
-			cards.add(new Bite());
-			cards.add(new Change());
-			cards.add(new Claws());
-			cards.add(new Click());
+			
 			cards.add(new Dogs());
-			cards.add(new Human());
-			cards.add(new Hunger());
-			cards.add(new Mass());
+			cards.add(new Dogs());
+			
 			cards.add(new NotSoFast());
+			cards.add(new NotSoFast());
+			
+			cards.add(new Zombie(2));
+			cards.add(new Zombie(2));
+			cards.add(new Zombie(2));
+			cards.add(new Zombie(2));
+			cards.add(new Zombie(2));
+			cards.add(new Zombie(2));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(3));
+			cards.add(new Zombie(4));
+			cards.add(new Zombie(4));
+			cards.add(new Zombie(4));
+			cards.add(new Zombie(5));
+
+			cards.add(new Human());
+			cards.add(new Human());
+			cards.add(new Human());
+			
 			cards.add(new PickAxe());
+			
+			cards.add(new Mass());
+			cards.add(new Mass());
+			
+			cards.add(new Hunger());
+			
+			cards.add(new Change());
+			cards.add(new Change());
+			
+			cards.add(new Bite());
+			
+			cards.add(new Boss());
+			
 			cards.add(new Terror());
+			cards.add(new Terror());
+			
+			cards.add(new Claws());
+			
+			cards.add(new Click());
+			cards.add(new Click());
+			
+			cards.add(new Meat());
+			
 		} else {
-			cards.add(new Blood());
-			cards.add(new BackOff());
-			cards.add(new Barrier());
-			cards.add(new Burst(2));
-			cards.add(new Car());
-			cards.add(new Freeze());
-			cards.add(new Gasoline());
-			cards.add(new GetOut());
-			cards.add(new HandGrenade());
+			
+			cards.add(new Pit(2));
+			cards.add(new Pit(1));
+			
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(1));
+			cards.add(new Shot(2));
+			cards.add(new Shot(2));
+			cards.add(new Shot(2));
+			
 			cards.add(new HighVoltage());
+			
 			cards.add(new Mine());
-			cards.add(new Pit(3));
-			cards.add(new Searchlight());
-			cards.add(new Shot(3));
-			cards.add(new Sniper());
+			
 			cards.add(new StreetOnFire());
+			
 			cards.add(new Wall(6));
-			cards.add(new Napalm());
-			cards.add(new Net());
+			cards.add(new Wall(5));
+			
+			cards.add(new Burst(3));
+			cards.add(new Burst(2));
+			
 			cards.add(new Flamethrower());
+			
+			cards.add(new Barrier());
+			cards.add(new Barrier());
+			cards.add(new Barrier());
+			
 			cards.add(new Barrel());
+			
+			cards.add(new BackOff());
+			
+			cards.add(new HandGrenade());
+			
+			cards.add(new Napalm());
+			
+			cards.add(new Car());
+			
+			cards.add(new Sniper());
+			
+			cards.add(new Blood());
+			
+			cards.add(new GetOut());
+			
+			cards.add(new Net());
+			
+			cards.add(new Gasoline());
+			
+			cards.add(new Searchlight());
+			
+			cards.add(new Freeze());
+			
 		}
 		return cards;
 	}
