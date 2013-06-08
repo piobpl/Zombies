@@ -44,8 +44,6 @@ public class DiscardingStage implements Stage {
 			} else if (event.type == EventType.HandClicked) {
 				if (((HandClickedEvent) event).player != player)
 					continue;
-				if (pos == ((HandClickedEvent) event).cardClicked)
-					break;
 				if (pos != -1)
 					gui.getHand(player).getCell(pos).setHighlight(false);
 				pos = ((HandClickedEvent) event).cardClicked;
