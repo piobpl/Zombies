@@ -14,14 +14,6 @@ import game.view.GUI;
 import game.view.GUI.Button;
 import game.view.SimpleGUI;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-
-import javax.swing.JFileChooser;
-
 public class NetController implements TriggerEventHandler {
 
 	public final GameState gameState;
@@ -37,32 +29,12 @@ public class NetController implements TriggerEventHandler {
 		gui = new SimpleGUI(this);
 		// gui = new DummyGUI(this); <- do zmiany jak tylko sie pojawi
 		gameState = new GameState(gui);
-		gui.addButtonMouseListener(Button.Save, new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				saveState();
-			}
-		});
 		System.err.println("Done");
-		//slidera zostawiam bardziej obcykanym w temacie
 	}
 
-	public void saveState() {
-		byte[] data = gameState.getLastSave();
-		JFileChooser fileChooser = new JFileChooser();
-		int result = fileChooser.showSaveDialog(null);
-		if (result == JFileChooser.APPROVE_OPTION) {
-			try {
-				Files.write(fileChooser.getSelectedFile().toPath(), data,
-						StandardOpenOption.CREATE);
-			} catch (IOException e) {
-				System.err.println("Error during saving process!");
-				e.printStackTrace();
-			}
-		}
-	}
+	
 
-	public void game(Player startingPlayer) {
+	public void game() {
 		turn = gameState.getTurn();
 		if (turn == 0) {
 			gameState.sendMessage("Zombies are controlled by " + zombiePlayer.getLogin());
@@ -84,32 +56,13 @@ public class NetController implements TriggerEventHandler {
 			gui.setButtonEnabled(Button.CancelSelection, false);
 		}
 		System.err.println("Game started");
-		if (startingPlayer == Player.HUMAN) {
-			try {
-				if (gameState.getPlayer() == Player.HUMAN) {
-					gameState.setTurn(turn);
-					gameState.sendMessage("Round #" + turn);
-					gameState.setLastSave(gameState.save());
-					gameState.sendMessage(gameState.getPlayer() + "'s turn.");
-					for (Stage s : stages) {
-						gameState.setStage(s.getStageType());
-						gameState.nextStage();
-						s.perform(gameState.getPlayer());
-					}
-					++turn;
-				}
-			} catch (GameOver gameOver) {
-				gameState.sendMessage(gameOver.won + " has won!");
-				//TODO jak nizej
-			}
-		}
 		try {
 			while (true) {
 				gameState.setTurn(turn);
 				gameState.sendMessage("Round #" + turn);
 				for (Player p : players) {
+					gui.setPlayer(p);
 					gameState.setPlayer(p);
-					gameState.setLastSave(gameState.save());
 					gameState.sendMessage(p + "'s turn.");
 					for (Stage s : stages) {
 						gameState.setStage(s.getStageType());

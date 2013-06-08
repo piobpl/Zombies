@@ -22,7 +22,6 @@ public class DiscardingStage implements Stage {
 	}
 
 	public void perform(Player player) {
-		gui.setPlayer(player);
 		ClickEvent event;
 		Hand hand = gameState.getHand(player);
 		int pos = -1;
