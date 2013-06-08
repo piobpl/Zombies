@@ -28,8 +28,6 @@ public interface EventReceiver {
 
 	public void removeFilter(Filter filter);
 
-	public boolean filter(Event event);
-
 	public List<Filter> filters = new ArrayList<>();
 
 	public static enum EventType {
