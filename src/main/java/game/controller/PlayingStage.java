@@ -27,6 +27,7 @@ public class PlayingStage implements Stage {
 	}
 
 	public void perform(Player player) {
+		gui.setPlayer(player);
 		ClickEvent event;
 		HandClickedEvent handClickedEvent;
 		Hand hand = gameState.getHand(player);

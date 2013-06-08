@@ -87,6 +87,7 @@ public class AdvancingStage implements Stage {
 	}
 
 	public void perform(Player player) {
+		gui.setPlayer(player);
 		Board board = gameState.getBoard();
 		gameState.gui.drawHistorySlider(player==Player.ZOMBIE?gameState.getTurn()*2:gameState.getTurn()*2+1);
 		switch (player) {
