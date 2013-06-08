@@ -47,7 +47,7 @@ public class SimpleGUI implements GUI {
 		} catch (InvocationTargetException | InterruptedException e) {
 			e.printStackTrace();
 		}
-		eventReceiver = new EventReceiver(this, triggerEventHandler);
+		eventReceiver = new SimpleEventReceiver(this, triggerEventHandler);
 	}
 
 	public Hand getHand(Player player) {
@@ -116,8 +116,9 @@ public class SimpleGUI implements GUI {
 	public void modelSendsAllMessages(final List<String> messages) {
 		infoPanel.sendAllMessages(messages);
 	}
-	
-	public void modelSetsAllMessages(final List<String> messages) {// nowa funkcja
+
+	public void modelSetsAllMessages(final List<String> messages) {// nowa
+																	// funkcja
 		infoPanel.setAllMessages(messages);
 	}
 
