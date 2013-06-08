@@ -19,7 +19,7 @@ import utility.Pair;
 public class WallTrap extends Trap {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -6959430938058829988L;
 
@@ -42,7 +42,7 @@ public class WallTrap extends Trap {
 
 	@Override
 	public String getName() {
-		return "Wall";
+		return "Wall (" + strength + ")";
 	}
 
 	@Override
