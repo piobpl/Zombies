@@ -53,7 +53,10 @@ public abstract class DamageDealer {
 		}
 		if (pos == -1)
 			return false;
+		Player actualPlayer=gameState.getPlayer();
+		gameState.setPlayer(Player.ZOMBIE);
 		gameState.sendMessage("Do you want to use click?");
+		gameState.setPlayer(actualPlayer);
 		GUI gui = gameState.gui;
 		gui.setButtonEnabled(Button.ApplySelection, true);
 		gui.setButtonEnabled(Button.CancelSelection, true);

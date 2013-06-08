@@ -46,7 +46,10 @@ public class AdvancingStage implements Stage {
 		}
 		if (pos == -1)
 			return null;
+		Player actualPlayer=gameState.getPlayer();
+		gameState.setPlayer(Player.ZOMBIE);
 		gameState.sendMessage("Do you want to use not so fast?");
+		gameState.setPlayer(actualPlayer);
 		GUI gui = gameState.gui;
 		gui.setButtonEnabled(Button.CancelSelection, true);
 		EventReceiver events = gameState.gui.getEventReceiver();
@@ -113,7 +116,10 @@ public class AdvancingStage implements Stage {
 				BoardClickedEvent c;
 				Selection selection;
 				DogsMover m;
+				Player actualPlayer=gameState.getPlayer();
+				gameState.setPlayer(Player.ZOMBIE);
 				gameState.sendMessage("Time to move dogs");
+				gameState.setPlayer(actualPlayer);
 				gui.setButtonEnabled(Button.EndTurn, true);
 				while (true) {
 					event = gui.getEventReceiver().getNextClickEvent();
