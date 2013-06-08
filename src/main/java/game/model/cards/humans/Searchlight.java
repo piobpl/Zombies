@@ -31,7 +31,7 @@ public class Searchlight extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		int column = ((ColumnSelection) selection).column;
 		for (int i = 1; i < 5; i++)
-			if (gameState.getBoard().get(i, column) != null
+			if (!gameState.getBoard().isEmpty(i, column)
 					&& gameState.getBoard().get(i, column).getType() != CardType.BARREL)
 				MoveMaker.moveBackward(gameState, i, column);
 	}
