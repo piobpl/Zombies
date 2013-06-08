@@ -22,7 +22,6 @@ public class DummyCell implements Cell{
 	
 	public DummyCell(Listener zombieListener, Listener humanListener,
 			int board, int row, int column) {
-		super();
 		this.zombieListener = zombieListener;
 		this.humanListener = humanListener;
 		this.board = board;

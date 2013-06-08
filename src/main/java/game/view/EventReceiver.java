@@ -15,7 +15,7 @@ import utility.Pair;
 
 /**
  * Klasa służaca do komunikacji z użytkownikiem.
- * 
+ *
  * @author piob
  */
 public interface EventReceiver {
@@ -43,15 +43,20 @@ public interface EventReceiver {
 	}
 
 	public abstract static class ClickEvent extends Event {
-		public final MouseEvent info;
+		public ClickEvent(EventType type) {
+			super(type);
+		}
+	}
 
-		public ClickEvent(EventType type, MouseEvent info) {
+	public abstract static class MouseClickEvent extends ClickEvent {
+		public final MouseEvent info;
+		public MouseClickEvent(EventType type, MouseEvent info) {
 			super(type);
 			this.info = info;
 		}
 	}
 
-	public static class BoardClickedEvent extends ClickEvent {
+	public static class BoardClickedEvent extends MouseClickEvent {
 		public final Pair<Integer, Integer> cardClicked;
 
 		public BoardClickedEvent(Pair<Integer, Integer> cardClicked,
@@ -61,7 +66,7 @@ public interface EventReceiver {
 		}
 	}
 
-	public static class HandClickedEvent extends ClickEvent {
+	public static class HandClickedEvent extends MouseClickEvent {
 		public final Integer cardClicked;
 		public final Player player;
 
@@ -76,8 +81,8 @@ public interface EventReceiver {
 	public static class ButtonClickedEvent extends ClickEvent {
 		public final Button button;
 
-		public ButtonClickedEvent(Button button, MouseEvent info) {
-			super(EventType.ButtonClicked, info);
+		public ButtonClickedEvent(Button button) {
+			super(EventType.ButtonClicked);
 			this.button = button;
 		}
 	}

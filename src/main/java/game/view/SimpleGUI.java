@@ -10,7 +10,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -83,20 +83,20 @@ public class SimpleGUI implements GUI {
 		}
 	}
 
-	public void addButtonMouseListener(Button button, final MouseListener a) {
+	public void addButtonListener(Button button, final ActionListener a) {
 		switch (button) {
 		case Save:
-			historyPanel.addButtonMouseListener(button, a);
+			historyPanel.addButtonListener(button, a);
 			break;
 		case Command:
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					commandButton.addMouseListener(a);
+					commandButton.addActionListener(a);
 				}
 			});
 			break;
 		default:
-			infoPanel.addButtonMouseListener(button, a);
+			infoPanel.addButtonListener(button, a);
 			break;
 		}
 	}
@@ -265,5 +265,4 @@ public class SimpleGUI implements GUI {
 			}
 		});
 	}
-
 }

@@ -7,13 +7,13 @@ import game.model.Card;
 import game.model.GameState;
 import utility.Pair;
 /**
- * 
+ *
  * @author Edoipi
  *
  */
 public class Pit extends Card {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 4359879097972378038L;
 	private Integer strength;

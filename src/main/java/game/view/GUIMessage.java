@@ -16,7 +16,8 @@ public abstract class GUIMessage extends Message {
 	
 	public enum GUIMessageType {
 		SetHandHighlight, DrawCellCard, DrawCellTraps, SetCellHighlight, SetCellRedHighlight,
-		ToggleCellHighlight;
+		ToggleCellHighlight, SetBoardHighlight, SetBoardColumnHighlight,
+		SetBoardRowHighlight, ClearBoardGlassText;
 	}
 	
 	public abstract GUIMessageType getSubType();
@@ -109,4 +110,49 @@ public abstract class GUIMessage extends Message {
 			this.column = column;
 		}
 	}	
+	
+	public static class SetBoardHighlightMessage extends GUIMessage{
+		private static final long serialVersionUID = 299264655882224002L;
+		public GUIMessageType getSubType() {
+			return GUIMessageType.SetBoardHighlight;
+		}
+		final boolean set;
+		public SetBoardHighlightMessage(boolean set) {
+			this.set = set;
+		}
+	}
+	
+	public static class SetBoardColumnHighlightMessage extends GUIMessage{
+		private static final long serialVersionUID = -1890773289050564141L;
+		public GUIMessageType getSubType() {
+			return GUIMessageType.SetBoardColumnHighlight;
+		}
+		final int j;
+		final boolean set;
+		public SetBoardColumnHighlightMessage(int j, boolean set) {
+			this.j = j;
+			this.set = set;
+		}
+	}
+	
+	public static class SetBoardRowHighlightMessage extends GUIMessage{
+		private static final long serialVersionUID = 7636608244592240363L;
+		public GUIMessageType getSubType() {
+			return GUIMessageType.SetBoardRowHighlight;
+		}
+		final boolean set;
+		final int i;
+		public SetBoardRowHighlightMessage(int i, boolean set) {
+			super();
+			this.set = set;
+			this.i = i;
+		}
+	}
+	
+	public static class ClearBoardGlassTextMessage extends GUIMessage{
+		private static final long serialVersionUID = 4336324652511904374L;
+		public GUIMessageType getSubType() {
+			return GUIMessageType.ClearBoardGlassText;
+		}	
+	}
 }

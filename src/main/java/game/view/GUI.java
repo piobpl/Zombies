@@ -5,6 +5,7 @@ import game.model.Modifier;
 import game.model.Player;
 import game.model.Trap;
 
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public interface GUI {
 
 	public EventReceiver getEventReceiver();
 
-	public void addButtonMouseListener(Button button, MouseListener a);
-	
+	public void addButtonListener(Button button, ActionListener a);
+
 	public void addSliderChangeListener(ChangeListener cl);
 
 	public void setCardsLeft(Player player, int left);
@@ -35,11 +36,11 @@ public interface GUI {
 	public void modelSendsMessage(final String message);
 
 	public void modelSendsAllMessages(final List<String> messages);
-	
+
 	public void modelSetsAllMessages(final List<String> messages);// nowa funkcja
 
 	public void drawGlobalModifiers(final Iterable<Modifier> modifiers);
-	
+
 	public void drawHistorySlider(int turn);
 
 	public void setHighlight(boolean set);

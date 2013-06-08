@@ -13,7 +13,6 @@ public class DummyHand implements Hand {
 
 	public DummyHand(Listener zombieListener, Listener humanListener,
 			Player player) {
-		super();
 		this.zombieListener = zombieListener;
 		this.humanListener = humanListener;
 		this.player = player;
