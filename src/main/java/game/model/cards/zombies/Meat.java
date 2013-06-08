@@ -7,11 +7,14 @@ import game.model.Card;
 import game.model.GameState;
 import game.model.Player;
 
+/**
+ * 
+ * @author jerzozwierz
+ *
+ */
 public class Meat extends Card {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 3709182122889686881L;
 
 	@Override

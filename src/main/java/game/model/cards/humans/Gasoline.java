@@ -12,11 +12,13 @@ import java.util.List;
 
 import utility.Pair;
 
+/**
+ * 
+ * @author jerzozwierz
+ *
+ */
 public class Gasoline extends Card {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7404283742318109948L;
 
 	@Override
