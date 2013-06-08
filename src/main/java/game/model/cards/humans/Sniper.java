@@ -28,8 +28,9 @@ public class Sniper extends Card {
 			return;
 		int x = ((CellSelection) selection).cell.first;
 		int y = ((CellSelection) selection).cell.second;
-		DamageDealer.dealDamage(gameState, x, y, 2, Trigger.SHOT);
-		MoveMaker.moveBackward(gameState, x, y);
+		boolean move = DamageDealer.dealDamage(gameState, x, y, 2, Trigger.SHOT);
+		if (move)
+			MoveMaker.moveBackward(gameState, x, y);
 
 	}
 
