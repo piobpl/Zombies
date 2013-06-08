@@ -91,7 +91,7 @@ public class SimpleCell implements Cell {
 						panel.setBackground(Colors.zombieCard.getColor());
 						break;
 					case DOGS:
-						panel.setBackground(Color.blue);
+						panel.setBackground(new Color(0,155,255));
 						break;
 					case BARREL:
 						panel.setBackground(Colors.margines.getColor());

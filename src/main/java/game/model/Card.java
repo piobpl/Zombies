@@ -58,17 +58,17 @@ public abstract class Card implements Typed<CardType>, Serializable {
 
 	private static final long serialVersionUID = -2663209980322004223L;
 
-	
+
 	public static List<Card> getCompleteDeck(Player player) {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		if (player == Player.ZOMBIE) {
-			
+
 			cards.add(new Dogs());
 			cards.add(new Dogs());
-			
+
 			cards.add(new NotSoFast());
 			cards.add(new NotSoFast());
-			
+
 			cards.add(new Zombie(2));
 			cards.add(new Zombie(2));
 			cards.add(new Zombie(2));
@@ -91,36 +91,36 @@ public abstract class Card implements Typed<CardType>, Serializable {
 			cards.add(new Human());
 			cards.add(new Human());
 			cards.add(new Human());
-			
+
 			cards.add(new PickAxe());
-			
+
 			cards.add(new Mass());
 			cards.add(new Mass());
-			
+
 			cards.add(new Hunger());
-			
+
 			cards.add(new Change());
 			cards.add(new Change());
-			
+
 			cards.add(new Bite());
-			
+
 			cards.add(new Boss());
-			
+
 			cards.add(new Terror());
 			cards.add(new Terror());
-			
+
 			cards.add(new Claws());
-			
+
 			cards.add(new Click());
 			cards.add(new Click());
-			
+
 			cards.add(new Meat());
-			
+
 		} else {
-			
+
 			cards.add(new Pit(2));
 			cards.add(new Pit(1));
-			
+
 			cards.add(new Shot(1));
 			cards.add(new Shot(1));
 			cards.add(new Shot(1));
@@ -136,49 +136,49 @@ public abstract class Card implements Typed<CardType>, Serializable {
 			cards.add(new Shot(2));
 			cards.add(new Shot(2));
 			cards.add(new Shot(2));
-			
+
 			cards.add(new HighVoltage());
-			
+
 			cards.add(new Mine());
-			
+
 			cards.add(new StreetOnFire());
-			
+
 			cards.add(new Wall(6));
 			cards.add(new Wall(5));
-			
+
 			cards.add(new Burst(3));
 			cards.add(new Burst(2));
-			
+
 			cards.add(new Flamethrower());
-			
+
 			cards.add(new Barrier());
 			cards.add(new Barrier());
 			cards.add(new Barrier());
-			
+
 			cards.add(new Barrel());
-			
+
 			cards.add(new BackOff());
-			
+
 			cards.add(new HandGrenade());
-			
+
 			cards.add(new Napalm());
-			
+
 			cards.add(new Car());
-			
+
 			cards.add(new Sniper());
-			
+
 			cards.add(new Blood());
-			
+
 			cards.add(new GetOut());
-			
+
 			cards.add(new Net());
-			
+
 			cards.add(new Gasoline());
-			
+
 			cards.add(new Searchlight());
-			
+
 			cards.add(new Freeze());
-			
+
 		}
 		return cards;
 	}
