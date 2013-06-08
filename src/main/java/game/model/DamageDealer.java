@@ -12,7 +12,7 @@ import game.view.GUI.Button;
 
 /**
  * Klasa wspomagająca wykonywanie działań na planszy.
- *
+ * 
  * @author piob
  */
 
@@ -26,8 +26,8 @@ public abstract class DamageDealer {
 	 * @param type
 	 * @return true iff someone has been directly damaged, but not killed
 	 */
-	public static boolean dealDamage(GameState gameState, int x, int y, int dmg,
-			Trigger type) {
+	public static boolean dealDamage(GameState gameState, int x, int y,
+			int dmg, Trigger type) {
 		for (Trap t : gameState.getBoard().getTraps(x, y))
 			if (t.getTriggers().contains(type)) {
 				t.trigger();
@@ -36,10 +36,12 @@ public abstract class DamageDealer {
 			}
 		if (gameState.getBoard().get(x, y) != null
 				&& gameState.getBoard().get(x, y).getType() != CardType.BARREL) {
-			if (dmg > 0 && gameState.getBoard().get(x, y).getType() == CardType.ZOMBIE
+			if (dmg > 0
+					&& gameState.getBoard().get(x, y).getType() == CardType.ZOMBIE
 					&& gameState.getBoard().get(x, y).getModifiers()
 							.contains(ModifierType.HUMAN)) {
-				gameState.getBoard().get(x, y).getModifiers().remove(ModifierType.HUMAN);
+				gameState.getBoard().get(x, y).getModifiers()
+						.remove(ModifierType.HUMAN);
 				return false;
 			}
 			Card c = gameState.getBoard().get(x, y);
@@ -63,7 +65,7 @@ public abstract class DamageDealer {
 		}
 		if (pos == -1)
 			return false;
-		Player actualPlayer=gameState.getPlayer();
+		Player actualPlayer = gameState.getPlayer();
 		gameState.setPlayer(Player.ZOMBIE);
 		gameState.sendMessage("Do you want to use click?");
 		gameState.setPlayer(actualPlayer);

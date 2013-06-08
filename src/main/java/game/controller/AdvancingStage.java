@@ -44,9 +44,10 @@ public class AdvancingStage implements Stage {
 			if (c != null && c.getType() == CardType.NOTSOFAST)
 				pos = i;
 		}
+
 		if (pos == -1)
 			return null;
-		Player actualPlayer=gameState.getPlayer();
+		Player actualPlayer = gameState.getPlayer();
 		gameState.setPlayer(Player.ZOMBIE);
 		gameState.sendMessage("Do you want to use not so fast?");
 		gameState.setPlayer(actualPlayer);
@@ -91,14 +92,15 @@ public class AdvancingStage implements Stage {
 
 	public void perform(Player player) {
 		Board board = gameState.getBoard();
-		gameState.gui.drawHistorySlider(player==Player.ZOMBIE?gameState.getTurn()*2:gameState.getTurn()*2+1);
+		gameState.gui.drawHistorySlider(player == Player.ZOMBIE ? gameState
+				.getTurn() * 2 : gameState.getTurn() * 2 + 1);
 		switch (player) {
 		case ZOMBIE:
-			if(gameState.getModifiers().contains(ModifierType.GLOBALBOSS))
+			if (gameState.getModifiers().contains(ModifierType.GLOBALBOSS))
 				gui.setButtonEnabled(Button.Command, true);
 			else
 				gui.setButtonEnabled(Button.Command, false);
-			
+
 			Pair<Integer, Integer> zombie = askForUseOfNotSoFast(gameState);
 
 			int flag = 0;
@@ -116,7 +118,7 @@ public class AdvancingStage implements Stage {
 				BoardClickedEvent c;
 				Selection selection;
 				DogsMover m;
-				Player actualPlayer=gameState.getPlayer();
+				Player actualPlayer = gameState.getPlayer();
 				gameState.setPlayer(Player.ZOMBIE);
 				gameState.sendMessage("Time to move dogs");
 				gameState.setPlayer(actualPlayer);
@@ -180,7 +182,7 @@ public class AdvancingStage implements Stage {
 			break;
 		case HUMAN:
 			gui.setButtonEnabled(Button.Command, false);
-			
+
 			for (int x = 0; x < 5; ++x)
 				for (int y = 0; y < 3; ++y)
 					if (board.is(x, y, CardType.BARREL)) {
