@@ -9,13 +9,13 @@ import game.model.SelectionTester;
 import game.model.traps.WallTrap;
 import utility.Pair;
 /**
- * 
+ *
  * @author Edoipi
  *
  */
 public class Wall extends Card {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6193720519039748685L;
 	Integer height;
@@ -54,7 +54,7 @@ public class Wall extends Card {
 
 	@Override
 	public String getName() {
-		return "Wall";
+		return "Wall (" + height + ")";
 	}
 
 	@Override
