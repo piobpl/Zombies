@@ -191,7 +191,7 @@ public class GameState implements Serializable {
 	 * gamestate's messages list.
 	 */
 	private void updateMessages() {
-		gui.modelSetsAllMessages(messages);
+		gui.modelSetsAllMessages(messages);//poprawka
 	}
 
 	/**
