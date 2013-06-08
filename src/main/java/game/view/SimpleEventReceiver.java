@@ -10,7 +10,7 @@ import java.util.concurrent.BlockingQueue;
 
 import utility.Pair;
 
-public class SimpleEventReceiver implements EventReceiver{
+public class SimpleEventReceiver implements EventReceiver {
 	private final GUI gui;
 	private final BlockingQueue<Event> eventQueue;
 	private final TriggerEventHandler triggerHandler;
@@ -32,9 +32,17 @@ public class SimpleEventReceiver implements EventReceiver{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					try {
-						eventQueue.put(new HandClickedEvent(index, player, e));
-						System.err.println("" + e.getButton() + " clicked: "
-								+ index + " on " + player + " hand");
+						if (filter(e)) {
+							eventQueue.put(new HandClickedEvent(index, player,
+									e));
+							System.err.println("" + e.getButton()
+									+ " clicked: " + index + " on " + player
+									+ " hand");
+						} else {
+							System.err.println("" + e.getButton()
+									+ " clicked: " + index + " on " + player
+									+ " hand" + " BLOCKED BY FILTER!");
+						}
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
@@ -53,13 +61,22 @@ public class SimpleEventReceiver implements EventReceiver{
 							@Override
 							public void mouseClicked(MouseEvent e) {
 								try {
-									eventQueue
-											.put(new BoardClickedEvent(
-													new Pair<Integer, Integer>(
-															row, col), e));
-									System.err.println("" + e.getButton()
-											+ " clicked board at (" + row
-											+ ", " + col + ")");
+									if (filter(e)) {
+										eventQueue.put(new BoardClickedEvent(
+												new Pair<Integer, Integer>(row,
+														col), e));
+										System.err.println("" + e.getButton()
+												+ " clicked board at (" + row
+												+ ", " + col + ")");
+									} else {
+										eventQueue.put(new BoardClickedEvent(
+												new Pair<Integer, Integer>(row,
+														col), e));
+										System.err.println("" + e.getButton()
+												+ " clicked board at (" + row
+												+ ", " + col + ")"
+												+ " BLOCKED BY FILTER!");
+									}
 								} catch (InterruptedException e1) {
 									e1.printStackTrace();
 								}
@@ -76,12 +93,19 @@ public class SimpleEventReceiver implements EventReceiver{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					try {
-						if (button == Button.Command)
-							eventQueue.put(new BossEvent());
-						else
-							eventQueue.put(new ButtonClickedEvent(button, e));
-						System.err.println("" + e.getButton() + " " + button
-								+ " clicked");
+						if (filter(e)) {
+							if (button == Button.Command)
+								eventQueue.put(new BossEvent());
+							else
+								eventQueue
+										.put(new ButtonClickedEvent(button, e));
+							System.err.println("" + e.getButton() + " "
+									+ button + " clicked");
+						} else {
+							System.err.println("" + e.getButton() + " "
+									+ button + " clicked"
+									+ " BLOCKED BY FILTER!");
+						}
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
@@ -110,6 +134,26 @@ public class SimpleEventReceiver implements EventReceiver{
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public void addFilter(Filter filter) {
+		filters.add(filter);
+	}
+
+	@Override
+	public void removeFilter(Filter filter) {
+		filters.remove(filter);
+	}
+
+	@Override
+	public boolean filter(MouseEvent event) {
+		for (Filter f : filters) {
+			if (!f.acceptable(event)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
