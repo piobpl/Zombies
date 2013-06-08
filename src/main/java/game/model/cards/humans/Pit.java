@@ -23,7 +23,7 @@ public class Pit extends Card {
 	}
 
 	public String getName() {
-		return "Pit (" + strength + ")";
+		return "Pit";
 	}
 
 	public SelectionType getSelectionType() {

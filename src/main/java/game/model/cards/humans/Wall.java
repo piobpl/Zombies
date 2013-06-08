@@ -54,7 +54,7 @@ public class Wall extends Card {
 
 	@Override
 	public String getName() {
-		return "Wall (" + height + ")";
+		return "Wall";
 	}
 
 	@Override
