@@ -36,7 +36,7 @@ public interface GUI {
 
 	public void modelSendsAllMessages(final List<String> messages);
 	
-	public void modelSetsAllMessages(final List<String> messages);//nowa funkcja
+	public void modelSetsAllMessages(final List<String> messages);// nowa funkcja
 
 	public void drawGlobalModifiers(final Iterable<Modifier> modifiers);
 	

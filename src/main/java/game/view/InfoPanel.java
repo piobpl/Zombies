@@ -127,7 +127,7 @@ public class InfoPanel {
 			sendMessage(message);
 	}
 
-	public void setAllMessages(final List<String> messages) {//nowa funkcja
+	public void setAllMessages(final List<String> messages) {// nowa funkcja
 		textArea.setText(null);
 		for (String message : messages)
 			sendMessage(message);

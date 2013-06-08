@@ -117,7 +117,7 @@ public class SimpleGUI implements GUI {
 		infoPanel.sendAllMessages(messages);
 	}
 	
-	public void modelSetsAllMessages(final List<String> messages) {//nowa funkcja
+	public void modelSetsAllMessages(final List<String> messages) {// nowa funkcja
 		infoPanel.setAllMessages(messages);
 	}
 
