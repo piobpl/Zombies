@@ -13,7 +13,11 @@ import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI;
 import game.view.GUI.Button;
 import game.view.SimpleGUI;
-
+/**
+ * 
+ * @author jerzozwierz
+ *
+ */
 public class NetController implements TriggerEventHandler {
 
 	public final GameState gameState;
@@ -90,5 +94,4 @@ public class NetController implements TriggerEventHandler {
 		e.trigger(gameState);
 	}
 	
-
 }
