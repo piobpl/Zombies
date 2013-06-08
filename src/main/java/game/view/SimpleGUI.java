@@ -116,6 +116,10 @@ public class SimpleGUI implements GUI {
 	public void modelSendsAllMessages(final List<String> messages) {
 		infoPanel.sendAllMessages(messages);
 	}
+	
+	public void modelSetsAllMessages(final List<String> messages) {
+		infoPanel.setAllMessages(messages);
+	}
 
 	public void drawGlobalModifiers(final Iterable<Modifier> modifiers) {
 		infoPanel.drawGlobalModifiers(modifiers);

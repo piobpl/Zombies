@@ -127,6 +127,12 @@ public class InfoPanel {
 			sendMessage(message);
 	}
 
+	public void setAllMessages(final List<String> messages) {
+		textArea.setText(null);
+		for (String message : messages)
+			sendMessage(message);
+	}
+	
 	public void addButtonMouseListener(final Button button,
 			final MouseListener a) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
