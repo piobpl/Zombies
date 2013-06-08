@@ -15,7 +15,7 @@ import utility.Pair;
 public class Barrel extends Card {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7728069181386672677L;
 
@@ -25,7 +25,7 @@ public class Barrel extends Card {
 		if (cell.first != 4)
 			return 0;
 		Board board = gameState.getBoard();
-		if(!board.isEmpty(cell.first, cell.second))
+		if(!board.isCompletelyEmpty(cell.first, cell.second))
 			return 0;
 		if(board.getTraps(cell.first, cell.second).containsAny(TrapType.BARRIER, TrapType.WALL))
 			return 0;
