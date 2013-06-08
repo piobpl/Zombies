@@ -21,14 +21,14 @@ import utility.Pair;
 public interface EventReceiver {
 
 	public interface Filter {
-		public boolean acceptable(MouseEvent event);
+		public boolean acceptable(Event event);
 	}
 
 	public void addFilter(Filter filter);
 
 	public void removeFilter(Filter filter);
 
-	public boolean filter(MouseEvent event);
+	public boolean filter(Event event);
 
 	public List<Filter> filters = new ArrayList<>();
 

@@ -31,20 +31,13 @@ public class SimpleEventReceiver implements EventReceiver {
 			gui.getHand(player).getCell(i).addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					try {
-						if (filter(e)) {
-							eventQueue.put(new HandClickedEvent(index, player,
-									e));
-							System.err.println("" + e.getButton()
-									+ " clicked: " + index + " on " + player
-									+ " hand");
-						} else {
-							System.err.println("" + e.getButton()
-									+ " clicked: " + index + " on " + player
-									+ " hand" + " BLOCKED BY FILTER!");
-						}
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
+					if (filter(new HandClickedEvent(index, player, e))) {
+						System.err.println("" + e.getButton() + " clicked: "
+								+ index + " on " + player + " hand");
+					} else {
+						System.err.println("" + e.getButton() + " clicked: "
+								+ index + " on " + player + " hand"
+								+ " BLOCKED BY FILTER!");
 					}
 				}
 			});
@@ -60,25 +53,16 @@ public class SimpleEventReceiver implements EventReceiver {
 						.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
-								try {
-									if (filter(e)) {
-										eventQueue.put(new BoardClickedEvent(
-												new Pair<Integer, Integer>(row,
-														col), e));
-										System.err.println("" + e.getButton()
-												+ " clicked board at (" + row
-												+ ", " + col + ")");
-									} else {
-										eventQueue.put(new BoardClickedEvent(
-												new Pair<Integer, Integer>(row,
-														col), e));
-										System.err.println("" + e.getButton()
-												+ " clicked board at (" + row
-												+ ", " + col + ")"
-												+ " BLOCKED BY FILTER!");
-									}
-								} catch (InterruptedException e1) {
-									e1.printStackTrace();
+								if (filter(new BoardClickedEvent(
+										new Pair<Integer, Integer>(row, col), e))) {
+									System.err.println("" + e.getButton()
+											+ " clicked board at (" + row
+											+ ", " + col + ")");
+								} else {
+									System.err.println("" + e.getButton()
+											+ " clicked board at (" + row
+											+ ", " + col + ")"
+											+ " BLOCKED BY FILTER!");
 								}
 							}
 						});
@@ -92,13 +76,8 @@ public class SimpleEventReceiver implements EventReceiver {
 			gui.addButtonMouseListener(button, new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					try {
-						if (filter(e)) {
-							if (button == Button.Command)
-								eventQueue.put(new BossEvent());
-							else
-								eventQueue
-										.put(new ButtonClickedEvent(button, e));
+					if (button == Button.Command) {
+						if (filter(new BossEvent())) {
 							System.err.println("" + e.getButton() + " "
 									+ button + " clicked");
 						} else {
@@ -106,8 +85,15 @@ public class SimpleEventReceiver implements EventReceiver {
 									+ button + " clicked"
 									+ " BLOCKED BY FILTER!");
 						}
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
+					} else {
+						if (filter(new ButtonClickedEvent(button, e))) {
+							System.err.println("" + e.getButton() + " "
+									+ button + " clicked");
+						} else {
+							System.err.println("" + e.getButton() + " "
+									+ button + " clicked"
+									+ " BLOCKED BY FILTER!");
+						}
 					}
 				}
 			});
@@ -147,11 +133,16 @@ public class SimpleEventReceiver implements EventReceiver {
 	}
 
 	@Override
-	public boolean filter(MouseEvent event) {
+	public boolean filter(Event event) {
 		for (Filter f : filters) {
 			if (!f.acceptable(event)) {
 				return false;
 			}
+		}
+		try {
+			eventQueue.put(event);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 		return true;
 	}
