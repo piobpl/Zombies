@@ -3,7 +3,11 @@ package game.view;
 import game.model.Card;
 import game.model.Trap;
 import game.view.GUI.Cell;
-import game.view.GUIMessage.DrawCellCard;
+import game.view.GUIMessage.DrawCellCardMessage;
+import game.view.GUIMessage.DrawCellTrapsMessage;
+import game.view.GUIMessage.SetCellHighlightMessage;
+import game.view.GUIMessage.SetCellRedHighlightMessage;
+import game.view.GUIMessage.ToggleCellHighlightMessage;
 
 import java.awt.event.MouseListener;
 
@@ -28,14 +32,14 @@ public class DummyCell implements Cell{
 
 	@Override
 	public void drawCard(Card card) {
-		zombieListener.send(new DrawCellCard(card, board, row, column));
-		humanListener.send(new DrawCellCard(card, board, row, column));
+		zombieListener.send(new DrawCellCardMessage(card, board, row, column));
+		humanListener.send(new DrawCellCardMessage(card, board, row, column));
 	}
 
 	@Override
 	public void drawTraps(Iterable<Trap> traps) {
-		// TODO Auto-generated method stub
-		
+		zombieListener.send(new DrawCellTrapsMessage(traps, board, row, column));
+		humanListener.send(new DrawCellTrapsMessage(traps, board, row, column));
 	}
 
 	@Override
@@ -45,32 +49,30 @@ public class DummyCell implements Cell{
 
 	@Override
 	public void setHighlight(boolean light) {
-		// TODO Auto-generated method stub
-		
+		zombieListener.send(new SetCellHighlightMessage(light, board, row, column));
+		humanListener.send(new SetCellHighlightMessage(light, board, row, column));
 	}
 
 	@Override
 	public void setRedHighlight(boolean light) {
-		// TODO Auto-generated method stub
-		
+		zombieListener.send(new SetCellRedHighlightMessage(light, board, row, column));
+		humanListener.send(new SetCellRedHighlightMessage(light, board, row, column));
 	}
 
 	@Override
 	public void toggleHighlight() {
-		// TODO Auto-generated method stub
-		
+		zombieListener.send(new ToggleCellHighlightMessage(board, row, column));
+		humanListener.send(new ToggleCellHighlightMessage(board, row, column));
 	}
 
 	@Override
 	public void registerToGlass(JPanel glass) {
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void setGlassText(String text) {
-		// TODO Auto-generated method stub
-		
+		throw new UnsupportedOperationException();
 	}
 
 }

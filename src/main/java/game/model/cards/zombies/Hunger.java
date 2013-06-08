@@ -8,11 +8,14 @@ import game.model.GameState;
 import game.model.MoveMaker;
 import utility.Pair;
 
+/**
+ * 
+ * @author jerzozwierz
+ *
+ */
 public class Hunger extends Card {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 7177818428693360268L;
 
 	@Override
