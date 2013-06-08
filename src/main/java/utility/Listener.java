@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import server.controller.Message;
@@ -21,7 +23,7 @@ public class Listener implements Runnable {
 	private ObjectOutputStream out;
 	private Socket socket;
 	private boolean running = true;
-	private Receiver receiver;
+	private List<Receiver> receivers;
 	private LinkedBlockingQueue<Message> outputBox;
 
 	private class Writer implements Runnable {
@@ -41,6 +43,7 @@ public class Listener implements Runnable {
 
 	public Listener(Socket socket) {
 		this.socket = socket;
+		receivers = new ArrayList<Receiver>();
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
 			in = new ObjectInputStream(socket.getInputStream());
@@ -55,17 +58,15 @@ public class Listener implements Runnable {
 
 	public Listener(Receiver receiver, Socket socket) {
 		this(socket);
-		this.receiver = receiver;
+		this.receivers.add(receiver);
 	}
 
 	public synchronized void setReceiver(Receiver receiver) {
-		if (this.receiver != null)
-			this.receiver.unregister(this);
-		this.receiver = receiver;
+		this.receivers.add(receiver);
 	}
 
 	public synchronized void receive(Message message) {
-		if (receiver != null)
+		for(Receiver receiver: receivers)
 			receiver.receive(this, message);
 	}
 
@@ -87,7 +88,8 @@ public class Listener implements Runnable {
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-		receiver.unregister(this);
+		for(Receiver receiver: receivers)
+			receiver.unregister(this);
 		try {
 			in.close();
 		} catch (IOException e) {

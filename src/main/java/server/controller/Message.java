@@ -16,7 +16,7 @@ public abstract class Message implements Serializable {
 	private static final long serialVersionUID = 4994144271876870878L;
 
 	public enum MessageType {
-		LOGIN, LOGOUT, CHAT, ERROR, INVITE, PLAYERLIST;
+		LOGIN, LOGOUT, CHAT, ERROR, INVITE, PLAYERLIST, GUI;
 	}
 
 	public abstract MessageType getType();
