@@ -10,8 +10,8 @@ import game.view.GUI;
 import game.view.GUI.Button;
 import game.view.SimpleGUI;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,25 +29,27 @@ public class LocalController implements TriggerEventHandler {
 	public final GUI gui;
 	private int turn;
 	private final Freeze myFilter;
-	private static class Freeze implements EventReceiver.Filter{
+
+	private static class Freeze implements EventReceiver.Filter {
 		@Override
 		public boolean acceptable(Event event) {
 			return false;
 		}
-		
-	
+
 	}
+
 	public LocalController() {
 		System.err.println("Creating Controller...");
-		myFilter=new Freeze();
+		myFilter = new Freeze();
 		gui = new SimpleGUI(this);
 		gameState = new GameState(gui);
-		gui.addButtonMouseListener(Button.Save, new MouseAdapter() {
+		gui.addButtonListener(Button.Save, new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				saveState();
 			}
 		});
+
 		gui.addSliderChangeListener(new ChangeListener() {
 
 			@Override
@@ -58,7 +60,7 @@ public class LocalController implements TriggerEventHandler {
 					System.err.println("Selected: " + choice);
 					if (choice != source.getMaximum()) {
 						System.err.print("Setting previous version...");
-						byte[] previous=gameState.getSave(choice);
+						byte[] previous = gameState.getSave(choice);
 						ByteArrayInputStream bin = new ByteArrayInputStream(
 								previous);
 						ObjectInputStream in = null;

@@ -46,13 +46,13 @@ public class PlayingStage implements Stage {
 				endWarning = true;
 			}
 			event = gui.getEventReceiver().getNextClickEvent();
-			if (event.info.getButton() != MouseEvent.BUTTON1)
-				continue;
 			if (event.type == EventType.ButtonClicked) {
 				if (((ButtonClickedEvent) event).button == Button.EndTurn)
 					break;
 			} else if (event.type == EventType.HandClicked && limit > 0) {
 				handClickedEvent = (HandClickedEvent) event;
+				if (handClickedEvent.info.getButton() != MouseEvent.BUTTON1)
+					continue;
 				if (handClickedEvent.player != player)
 					continue;
 				card = hand.get(handClickedEvent.cardClicked);

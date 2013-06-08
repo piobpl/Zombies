@@ -4,7 +4,7 @@ import game.view.GUI.Button;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultBoundedRangeModel;
@@ -52,13 +52,13 @@ public class HistoryPanel {
 		});
 	}
 
-	public void addButtonMouseListener(final Button button,
-			final MouseListener a) {
+	public void addButtonListener(final Button button,
+			final ActionListener a) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				switch (button) {
 				case Save:
-					saveButton.addMouseListener(a);
+					saveButton.addActionListener(a);
 					break;
 				default:
 					throw new UnsupportedOperationException();
