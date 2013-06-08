@@ -7,11 +7,14 @@ import game.model.Card;
 import game.model.GameState;
 import utility.Pair;
 
+/**
+ * 
+ * @author jerzozwierz
+ *
+ */
 public class Claws extends Card {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -4436359408178423837L;
 
 	@Override

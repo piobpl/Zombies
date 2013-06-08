@@ -26,9 +26,9 @@ import java.util.EnumMap;
 import utility.Pair;
 
 /**
- * 
+ *
  * @author Edoipi, piob
- * 
+ *
  */
 public class Selector {
 	public final EventReceiver eventReceiver;
@@ -199,6 +199,11 @@ public class Selector {
 					}
 					current = candidate;
 					currentRate = candidateRate;
+					if ((card.getSelectionType() == SelectionType.CELL
+							|| card.getSelectionType() == SelectionType.HAND || card
+							.getSelectionType() == SelectionType.COLUMN)
+							&& e.info.getClickCount() > 1 && currentRate == 2)
+						return current;
 				}
 			}
 		} finally {

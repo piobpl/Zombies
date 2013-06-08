@@ -10,7 +10,7 @@ import java.util.concurrent.BlockingQueue;
 
 import utility.Pair;
 
-public class SimpleEventReceiver implements EventReceiver{
+public class SimpleEventReceiver implements EventReceiver {
 	private final GUI gui;
 	private final BlockingQueue<Event> eventQueue;
 	private final TriggerEventHandler triggerHandler;
@@ -31,13 +31,7 @@ public class SimpleEventReceiver implements EventReceiver{
 			gui.getHand(player).getCell(i).addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					try {
-						eventQueue.put(new HandClickedEvent(index, player, e));
-						System.err.println("" + e.getButton() + " clicked: "
-								+ index + " on " + player + " hand");
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
+					filter(new HandClickedEvent(index, player, e));
 				}
 			});
 		}
@@ -52,17 +46,8 @@ public class SimpleEventReceiver implements EventReceiver{
 						.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
-								try {
-									eventQueue
-											.put(new BoardClickedEvent(
-													new Pair<Integer, Integer>(
-															row, col), e));
-									System.err.println("" + e.getButton()
-											+ " clicked board at (" + row
-											+ ", " + col + ")");
-								} catch (InterruptedException e1) {
-									e1.printStackTrace();
-								}
+								filter(new BoardClickedEvent(
+										new Pair<Integer, Integer>(row, col), e));
 							}
 						});
 			}
@@ -75,15 +60,10 @@ public class SimpleEventReceiver implements EventReceiver{
 			gui.addButtonMouseListener(button, new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					try {
-						if (button == Button.Command)
-							eventQueue.put(new BossEvent());
-						else
-							eventQueue.put(new ButtonClickedEvent(button, e));
-						System.err.println("" + e.getButton() + " " + button
-								+ " clicked");
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
+					if (button == Button.Command) {
+						filter(new BossEvent());
+					} else {
+						filter(new ButtonClickedEvent(button, e));
 					}
 				}
 			});
@@ -110,6 +90,35 @@ public class SimpleEventReceiver implements EventReceiver{
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public void addFilter(Filter filter) {
+		if(!filters.contains(filter))
+			filters.add(filter);
+	}
+
+	@Override
+	public void removeFilter(Filter filter) {
+		filters.remove(filter);
+		for(Filter f: filters){
+			System.err.print(f+" ");
+		}
+	}
+
+	private void filter(Event event) {
+		for (Filter f : filters) {
+			if (!f.acceptable(event)) {
+				System.err.println("BLOCKED BY FILTER!");
+				return;
+			}
+		}
+		try {
+			eventQueue.put(event);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return;
 	}
 
 }

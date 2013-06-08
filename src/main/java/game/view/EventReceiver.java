@@ -8,15 +8,27 @@ import game.model.cards.zombies.BossMover;
 import game.view.GUI.Button;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import utility.Pair;
 
 /**
  * Klasa służaca do komunikacji z użytkownikiem.
- *
+ * 
  * @author piob
  */
 public interface EventReceiver {
+
+	public interface Filter {
+		public boolean acceptable(Event event);
+	}
+
+	public void addFilter(Filter filter);
+
+	public void removeFilter(Filter filter);
+
+	public List<Filter> filters = new ArrayList<>();
 
 	public static enum EventType {
 		BoardClicked, HandClicked, ButtonClicked, Trigger;

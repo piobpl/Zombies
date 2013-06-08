@@ -2,6 +2,8 @@ package game.controller;
 
 import game.model.GameState;
 import game.model.Player;
+import game.view.EventReceiver;
+import game.view.EventReceiver.Event;
 import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI;
@@ -10,7 +12,9 @@ import game.view.SimpleGUI;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
@@ -24,9 +28,18 @@ public class LocalController implements TriggerEventHandler {
 	public final GameState gameState;
 	public final GUI gui;
 	private int turn;
-
+	private final Freeze myFilter;
+	private static class Freeze implements EventReceiver.Filter{
+		@Override
+		public boolean acceptable(Event event) {
+			return false;
+		}
+		
+	
+	}
 	public LocalController() {
 		System.err.println("Creating Controller...");
+		myFilter=new Freeze();
 		gui = new SimpleGUI(this);
 		gameState = new GameState(gui);
 		gui.addButtonMouseListener(Button.Save, new MouseAdapter() {
@@ -43,25 +56,32 @@ public class LocalController implements TriggerEventHandler {
 				if (!source.getValueIsAdjusting()) {
 					int choice = (int) source.getValue();
 					System.err.println("Selected: " + choice);
-					if (choice != (gameState.getPlayer() == Player.ZOMBIE ? gameState
-							.getTurn() * 2 : gameState.getTurn() * 2 + 1)) {
-						/*
-						 * byte[] previous = gameState.getSave(choice);
-						 * System.err.print("Setting previous version...");
-						 * //TODO przerysowanie GUI na wersje historyczna +
-						 * blokada GUI az suwak nie wroci na max pozycje
-						 * ByteArrayInputStream bin = new ByteArrayInputStream(
-						 * previous); ObjectInputStream in=null; GameState
-						 * previousGamestate=null; try { in = new
-						 * ObjectInputStream(bin); previousGamestate =
-						 * (GameState) in .readObject(); } catch
-						 * (ClassNotFoundException | IOException e1) {
-						 * e1.printStackTrace(); }
-						 */
-
+					if (choice != source.getMaximum()) {
+						System.err.print("Setting previous version...");
+						byte[] previous=gameState.getSave(choice);
+						ByteArrayInputStream bin = new ByteArrayInputStream(
+								previous);
+						ObjectInputStream in = null;
+						GameState previousGameState = null;
+						try {
+							in = new ObjectInputStream(bin);
+							previousGameState = (GameState) in.readObject();
+						} catch (ClassNotFoundException | IOException e1) {
+							e1.printStackTrace();
+						}
+						gui.getEventReceiver().addFilter(myFilter);
+						gui.setButtonEnabled(Button.Save, false);
+						previousGameState.setGUI(gui);
+						previousGameState.getBoard().update();
+						previousGameState.getHand(Player.HUMAN).update();
+						previousGameState.getHand(Player.ZOMBIE).update();
 					} else {
-						// TODO przerysowanie do stanu aktualnego i odblokowanie
-						// GUI
+						System.err.print("Reloading..");
+						gameState.getBoard().update();
+						gameState.getHand(Player.HUMAN).update();
+						gameState.getHand(Player.ZOMBIE).update();
+						gui.getEventReceiver().removeFilter(myFilter);
+						gui.setButtonEnabled(Button.Save, true);
 					}
 				}
 			}
