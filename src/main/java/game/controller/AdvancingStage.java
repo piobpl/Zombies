@@ -21,9 +21,9 @@ import utility.Pair;
 import utility.TypedSet;
 
 /**
- * 
+ *
  * @author Edoipi
- * 
+ *
  */
 public class AdvancingStage implements Stage {
 	public final GameState gameState;
@@ -49,7 +49,7 @@ public class AdvancingStage implements Stage {
 			return null;
 		Player actualPlayer = gameState.getPlayer();
 		gameState.setPlayer(Player.ZOMBIE);
-		gameState.sendMessage("Do you want to use not so fast?");
+		gameState.sendMessage("Do you want to use card \"Not so fast\"?");
 		gameState.setPlayer(actualPlayer);
 		GUI gui = gameState.gui;
 		gui.setButtonEnabled(Button.CancelSelection, true);
@@ -75,6 +75,10 @@ public class AdvancingStage implements Stage {
 							gui.getBoard().getCell(zombie.first, zombie.second)
 									.setHighlight(false);
 						zombie = candidate;
+						if (((BoardClickedEvent) e).info.getClickCount() > 1) {
+							gameState.getHand(Player.ZOMBIE).set(pos, null);
+							return zombie;
+						}
 						gui.getBoard().getCell(zombie.first, zombie.second)
 								.setHighlight(true);
 						gui.setButtonEnabled(Button.ApplySelection, true);

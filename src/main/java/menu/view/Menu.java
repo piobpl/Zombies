@@ -4,10 +4,12 @@ import game.controller.LocalController;
 import game.model.Player;
 
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
@@ -20,9 +22,9 @@ import lobby.view.Lobby;
 
 /**
  * A class representing a lobby.
- * 
+ *
  * @author krozycki
- * 
+ *
  */
 public class Menu {
 
@@ -54,7 +56,7 @@ public class Menu {
 		Container content = frame.getContentPane();
 
 		content.setLayout(new FlowLayout());
-		content.setPreferredSize(new Dimension(200, 150));
+		content.setPreferredSize(new Dimension(200, 180));
 
 		JButton button;
 
@@ -124,6 +126,20 @@ public class Menu {
 			}
 		});
 		content.add(button);
+
+		button = new JButton("Rules (PL)");
+		button.setPreferredSize(new Dimension(180, 30));
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Desktop.getDesktop().open(new File("rules.pdf"));
+				} catch (IOException f) {
+					f.printStackTrace();
+				}
+			}
+		});
+		frame.getContentPane().add(button);
 
 		button = new JButton("Exit");
 		button.setPreferredSize(new Dimension(180, 30));

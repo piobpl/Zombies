@@ -94,7 +94,4 @@ public class NetController implements TriggerEventHandler {
 		e.trigger(gameState);
 	}
 	
-	public static void main(String[] args) {
-		new NetController(new Client("jerz"), new Client("zajac")).game();
-	}
 }
