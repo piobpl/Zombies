@@ -100,6 +100,7 @@ public class NetController implements TriggerEventHandler {
 				}
 			} catch (GameOver gameOver) {
 				gameState.sendMessage(gameOver.won + " has won!");
+				//TODO jak nizej
 			}
 		}
 		try {
@@ -120,6 +121,8 @@ public class NetController implements TriggerEventHandler {
 			}
 		} catch (GameOver gameOver) {
 			gameState.sendMessage(gameOver.won + " has won!");
+			//TODO tutaj wysylamy komunikaty do graczy
+			//ewentualnie zmieniajac staty - ale na to pewnie nie bedzie czasu
 		}
 		try {
 			Thread.sleep(5000);
