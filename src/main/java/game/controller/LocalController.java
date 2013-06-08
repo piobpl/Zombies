@@ -3,6 +3,7 @@ package game.controller;
 import game.model.GameState;
 import game.model.Player;
 import game.view.EventReceiver;
+import game.view.EventReceiver.Event;
 import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI;
@@ -29,9 +30,8 @@ public class LocalController implements TriggerEventHandler {
 	private int turn;
 	private final Freeze myFilter;
 	private static class Freeze implements EventReceiver.Filter{
-
 		@Override
-		public boolean acceptable(MouseEvent event) {
+		public boolean acceptable(Event event) {
 			return false;
 		}
 		
