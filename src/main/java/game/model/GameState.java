@@ -64,7 +64,7 @@ public class GameState implements Serializable {
 
 	/**
 	 * Returns the board.
-	 * 
+	 *
 	 * @return a board
 	 */
 	public Board getBoard() {
@@ -73,10 +73,10 @@ public class GameState implements Serializable {
 
 	/**
 	 * Returns the player's deck.
-	 * 
+	 *
 	 * @param player
 	 *            a player whose deck is to be returned
-	 * 
+	 *
 	 * @return a player's deck
 	 */
 	public Deck getDeck(Player player) {
@@ -89,10 +89,10 @@ public class GameState implements Serializable {
 
 	/**
 	 * Returns the player's hand.
-	 * 
+	 *
 	 * @param player
 	 *            a player whose hand is to be returned
-	 * 
+	 *
 	 * @return a player's hand
 	 */
 	public Hand getHand(Player player) {
@@ -150,7 +150,7 @@ public class GameState implements Serializable {
 
 	/**
 	 * Return the zombie player account.
-	 * 
+	 *
 	 * @return zombie player account
 	 */
 	public PlayerAccount getZombiePlayerAccount() {
@@ -159,7 +159,7 @@ public class GameState implements Serializable {
 
 	/**
 	 * Returns the human player account.
-	 * 
+	 *
 	 * @return human player account
 	 */
 	public PlayerAccount getHumanPlayerAccount() {
@@ -168,7 +168,7 @@ public class GameState implements Serializable {
 
 	/**
 	 * Saves the current gamestate to byte array.
-	 * 
+	 *
 	 * @return byte array representing the saved gamestate
 	 */
 	public byte[] save() {
@@ -235,9 +235,12 @@ public class GameState implements Serializable {
 
 	public void setLastSave(byte[] lastSave) {
 		saveList.add(lastSave);
+		while (saveList.size() > 5)
+			saveList.remove(0);
+		gui.drawHistorySlider(saveList.size());
 	}
-	
-	public void setGUI(GUI gui){
-		this.gui=gui;
+
+	public void setGUI(GUI gui) {
+		this.gui = gui;
 	}
 }

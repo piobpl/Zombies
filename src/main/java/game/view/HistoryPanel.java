@@ -29,10 +29,8 @@ public class HistoryPanel {
 		historySlider = new JSlider(JSlider.HORIZONTAL);
 		historySlider.setPreferredSize(new Dimension(300, 30));
 		historySlider.setBackground(Colors.boardsCard.getColor());
-		historySlider.setPaintLabels(true);
 		historySlider.setForeground(Colors.napisy.getColor());
 		historySlider.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-
 		panel.add(historySlider);
 	}
 
@@ -41,7 +39,6 @@ public class HistoryPanel {
 		model.setMaximum(turn);
 		model.setValue(turn);
 		historySlider.setModel(model);
-		historySlider.setLabelTable(historySlider.createStandardLabels(1, 0));
 	}
 
 	public void addSliderChangeListener(final ChangeListener cl) {

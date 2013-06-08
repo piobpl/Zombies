@@ -135,6 +135,7 @@ public class LocalController implements TriggerEventHandler {
 						s.perform(gameState.getPlayer());
 					}
 					++turn;
+					gameState.setTurn(turn);
 				}
 			} catch (GameOver gameOver) {
 				gameState.sendMessage(gameOver.won + " has won!");
@@ -142,7 +143,6 @@ public class LocalController implements TriggerEventHandler {
 		}
 		try {
 			while (true) {
-				gameState.setTurn(turn);
 				gameState.sendMessage("Round #" + turn);
 				for (Player p : players) {
 					gameState.setPlayer(p);
@@ -155,6 +155,7 @@ public class LocalController implements TriggerEventHandler {
 					}
 				}
 				++turn;
+				gameState.setTurn(turn);
 			}
 		} catch (GameOver gameOver) {
 			gameState.sendMessage(gameOver.won + " has won!");
