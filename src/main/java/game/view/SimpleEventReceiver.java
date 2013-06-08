@@ -138,12 +138,16 @@ public class SimpleEventReceiver implements EventReceiver {
 
 	@Override
 	public void addFilter(Filter filter) {
-		filters.add(filter);
+		if(!filters.contains(filter))
+			filters.add(filter);
 	}
 
 	@Override
 	public void removeFilter(Filter filter) {
 		filters.remove(filter);
+		for(Filter f: filters){
+			System.err.print(f+" ");
+		}
 	}
 
 	@Override

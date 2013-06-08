@@ -21,7 +21,7 @@ import utility.TypedSet;
  */
 public class GameState implements Serializable {
 	private static final long serialVersionUID = 6067960933766278369L;
-	public transient final GUI gui;
+	public transient GUI gui;
 	private TypedSet<Modifier, ModifierType> modifiers = new TypedSet<>();
 	private Board board;
 	private Deck zombieDeck;
@@ -236,5 +236,8 @@ public class GameState implements Serializable {
 	public void setLastSave(byte[] lastSave) {
 		saveList.add(lastSave);
 	}
-
+	
+	public void setGUI(GUI gui){
+		this.gui=gui;
+	}
 }

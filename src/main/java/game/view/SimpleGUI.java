@@ -265,5 +265,4 @@ public class SimpleGUI implements GUI {
 			}
 		});
 	}
-
 }
