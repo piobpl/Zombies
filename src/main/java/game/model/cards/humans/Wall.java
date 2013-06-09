@@ -28,7 +28,7 @@ public class Wall extends Card {
 		Pair<Integer, Integer> p = ((CellSelection) selection).cell;
 		if (p.first == 4)
 			return 0;
-		if (!gameState.getBoard().isEmpty(p.first, p.second))
+		if (!gameState.getBoard().isCompletelyEmpty(p.first, p.second))
 			return 0;
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 3; j++) {
