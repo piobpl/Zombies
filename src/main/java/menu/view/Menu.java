@@ -96,10 +96,16 @@ public class Menu {
 					final byte[] finalSave = save;
 					new Thread(new Runnable() {
 						public void run() {
-							LocalController localController = new LocalController();
-							localController.gameState.load(finalSave);
-							localController.game(localController.gameState
-									.getPlayer());
+							try {
+								LocalController localController = new LocalController();
+								localController.gameState.load(finalSave);
+								localController.gameState.update();
+								localController.gameState.updateMessages();
+								localController.game(localController.gameState
+										.getPlayer());
+							} catch (ClassNotFoundException | IOException e) {
+								e.printStackTrace();
+							}
 						}
 					}).start();
 				}

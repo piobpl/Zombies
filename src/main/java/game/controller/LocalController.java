@@ -12,9 +12,7 @@ import game.view.SimpleGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
@@ -60,23 +58,17 @@ public class LocalController implements TriggerEventHandler {
 					System.err.println("Selected: " + choice);
 					if (choice != source.getMaximum()) {
 						System.err.print("Setting previous version...");
-						byte[] previous = gameState.getSave(choice);
-						ByteArrayInputStream bin = new ByteArrayInputStream(
-								previous);
-						ObjectInputStream in = null;
-						GameState previousGameState = null;
 						try {
-							in = new ObjectInputStream(bin);
-							previousGameState = (GameState) in.readObject();
+							byte[] previous = gameState.getSave(choice);
+							GameState previousGameState;
+							previousGameState = gameState.load(previous);
+							gui.getEventReceiver().addFilter(myFilter);
+							gui.setButtonEnabled(Button.Save, false);
+							previousGameState.setGUI(gui);
+							previousGameState.update();
 						} catch (ClassNotFoundException | IOException e1) {
 							e1.printStackTrace();
 						}
-						gui.getEventReceiver().addFilter(myFilter);
-						gui.setButtonEnabled(Button.Save, false);
-						previousGameState.setGUI(gui);
-						previousGameState.getBoard().update();
-						previousGameState.getHand(Player.HUMAN).update();
-						previousGameState.getHand(Player.ZOMBIE).update();
 					} else {
 						System.err.print("Reloading..");
 						gameState.getBoard().update();
@@ -127,7 +119,11 @@ public class LocalController implements TriggerEventHandler {
 				if (gameState.getPlayer() == Player.HUMAN) {
 					gameState.setTurn(turn);
 					gameState.sendMessage("Round #" + turn);
-					gameState.setLastSave(gameState.save());
+					try {
+						gameState.setLastSave(gameState.save());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					gameState.sendMessage(gameState.getPlayer() + "'s turn.");
 					for (Stage s : stages) {
 						gameState.setStage(s.getStageType());
@@ -146,7 +142,11 @@ public class LocalController implements TriggerEventHandler {
 				gameState.sendMessage("Round #" + turn);
 				for (Player p : players) {
 					gameState.setPlayer(p);
-					gameState.setLastSave(gameState.save());
+					try {
+						gameState.setLastSave(gameState.save());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					gameState.sendMessage(p + "'s turn.");
 					for (Stage s : stages) {
 						gameState.setStage(s.getStageType());

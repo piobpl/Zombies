@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import utility.Compressor;
 import utility.TypedSet;
 
 /**
@@ -170,59 +171,41 @@ public class GameState implements Serializable {
 	 * Saves the current gamestate to byte array.
 	 *
 	 * @return byte array representing the saved gamestate
+	 * @throws IOException
 	 */
-	public byte[] save() {
+	public byte[] save() throws IOException {
 		System.err.print("Saving...");
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(bytes);
-			out.writeObject(this);
-		} catch (IOException e) {
-			System.err.println("\tfailed.");
-			e.printStackTrace();
-			return null;
-		}
+		ObjectOutputStream out = new ObjectOutputStream(bytes);
+		out.writeObject(this);
+		out.flush();
+		out.close();
 		System.err.println("\tdone.");
-		return bytes.toByteArray();
+		return Compressor.compress(bytes.toByteArray());
 	}
 
 	/**
 	 * Sets the messages area in the gui according to the current state of the
 	 * gamestate's messages list.
 	 */
-	private void updateMessages() {
-		gui.modelSetsAllMessages(messages);// poprawka
+	public void updateMessages() {
+		gui.modelSetsAllMessages(messages);
 	}
 
 	/**
 	 * Loads the byte array representing the saved gamestate, to the gamestate.
+	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 */
-	public void load(byte[] bytes) {
+	public GameState load(byte[] bytes) throws IOException, ClassNotFoundException {
 		System.err.print("Loading...");
-		ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
-		try {
-			ObjectInputStream in = new ObjectInputStream(bin);
-			GameState save = (GameState) in.readObject();
-			modifiers = save.modifiers;
-			board.load(save.board);
-			zombieDeck.load(save.zombieDeck);
-			humanDeck.load(save.humanDeck);
-			zombieHand.load(save.zombieHand);
-			humanHand.load(save.humanHand);
-			random = save.random;
-			messages = save.messages;
-			turn = save.turn;
-			stage = save.stage;
-			player = save.player;
-			zombiePlayer = save.zombiePlayer;
-			humanPlayer = save.humanPlayer;
-			update();
-			updateMessages();
-			System.err.println("\tdone.");
-		} catch (IOException | ClassNotFoundException e) {
-			System.err.println("\tfailed.");
-			e.printStackTrace();
-		}
+		ByteArrayInputStream bin = new ByteArrayInputStream(
+				Compressor.decompress(bytes));
+		ObjectInputStream in = new ObjectInputStream(bin);
+		GameState save = (GameState) in.readObject();
+		save.gui = gui;
+		System.err.println("\tdone.");
+		return save;
 	}
 
 	public byte[] getLastSave() {
