@@ -49,7 +49,6 @@ public class AdvancingStage implements Stage {
 
 		if (pos == -1)
 			return null;
-		Player actualPlayer = gameState.getPlayer();
 		gameState.sendMessage("Do you want to use card \"Not so fast\"?");
 		GUI gui = gameState.gui;
 		gui.setButtonEnabled(Button.CancelSelection, true);
