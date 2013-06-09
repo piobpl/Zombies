@@ -37,28 +37,6 @@ public class Burst extends Card {
 		int column = ((ColumnSelection) selection).column;
 		int remaining = strength;
 		for (int i = 4; i >= 0; i--) {
-			/*for(Trap trap : gameState.getBoard().getTraps(i, column))
-				if(trap.getTriggers().contains(Trigger.SHOT)) {
-					DamageDealer.dealDamage(gameState, i, column, remaining, Trigger.SHOT);
-					return;
-				}
-			if (!gameState.getBoard().isEmpty(i, column)) {
-				card = gameState.getBoard().get(i, column);
-				if (card == null || card.getType() == CardType.BARREL)
-					continue;
-				if (card.getModifiers().contains(ModifierType.HUMAN)) {
-					card.getModifiers().remove(ModifierType.HUMAN);
-					return;
-				}
-				int damage = Math.min(remaining,
-						gameState.getBoard().get(i, column).getStrength());
-				remaining -= damage;
-				DamageDealer.dealDamage(gameState, i, column, damage,
-						Trigger.SHOT);
-				MoveMaker.moveBackward(gameState, i, column);
-				if (remaining == 0)
-					break;
-			}*/
 			switch (DamageDealer.dealDamage(gameState, i, column, 1, Trigger.SHOT)) {
 			
 			case ABSORBED:

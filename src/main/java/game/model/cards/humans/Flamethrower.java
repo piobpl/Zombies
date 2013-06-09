@@ -18,9 +18,7 @@ import utility.Pair;
  */
 public class Flamethrower extends Card {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 6438987840937959001L;
 
 	@Override

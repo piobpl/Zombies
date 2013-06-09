@@ -18,9 +18,7 @@ import utility.Pair;
  */
 public class Blood extends Card {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -4987020517835308841L;
 
 	@Override

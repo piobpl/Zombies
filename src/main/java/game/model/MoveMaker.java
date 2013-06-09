@@ -21,9 +21,9 @@ public abstract class MoveMaker {
 	public static boolean isFrozen(Card card) {
 		return card.getModifiers().contains(ModifierType.FROZEN);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * Przy założeniu że na obu polach stoją zombiaki, funkcja sprawdza czy mogą się połączyć
 	 * (potrzebne w kartach Mass, Change)
 	 */
@@ -62,6 +62,7 @@ public abstract class MoveMaker {
 		for (Trap t : gameState.getBoard().getTraps(to.first, to.second)) {
 			t.movedOn(card);
 		}
+		gameState.update();
 		return true;
 	}
 

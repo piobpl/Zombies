@@ -53,6 +53,6 @@ public class NotSoFast extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "";
+		return "You can play this card just before a zombie’s move.<br>One single zombie will not make his obligatory move this turn.";
 	}
 }

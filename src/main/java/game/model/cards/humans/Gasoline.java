@@ -38,26 +38,21 @@ public class Gasoline extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
 		int remainingStrength = 4;
-		for (Pair<Integer, Integer> cell : cells) {
+		for (int i=0; i<cells.size(); i++) {
 			if (remainingStrength == 0)
 				return;
-			Integer x = cell.first;
-			Integer y = cell.second;
-			if (gameState.getBoard().isEmpty(x, y)) {
-				DamageDealer.dealDamage(gameState, x, y, 1, Trigger.FIRE);
+			Integer x = cells.get(i).first;
+			Integer y = cells.get(i).second;
+			switch (DamageDealer.dealDamage(gameState, x, y, 1, Trigger.FIRE)) {
+			
+			case ABSORBED:
+				return;
+			case DAMAGED:
+				--i;
+			case KILLED:
+			case NOTHING:
+			case SHOT:
 				--remainingStrength;
-			} else {
-				int zombieStrength = gameState.getBoard().get(x, y)
-						.getStrength();
-				if (remainingStrength >= zombieStrength) {
-					game.model.DamageDealer.dealDamage(gameState, x, y,
-							zombieStrength, Trigger.FIRE);
-					remainingStrength -= zombieStrength;
-				} else {
-					game.model.DamageDealer.dealDamage(gameState, x, y,
-							remainingStrength, Trigger.FIRE);
-					remainingStrength = 0;
-				}
 			}
 		}
 	}
