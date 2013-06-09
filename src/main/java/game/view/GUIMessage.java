@@ -6,6 +6,10 @@ import game.model.Player;
 import game.model.Trap;
 import game.view.EventReceiver.Event;
 import game.view.GUI.Button;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import server.controller.Message;
 
 public abstract class GUIMessage extends Message {
@@ -18,7 +22,7 @@ public abstract class GUIMessage extends Message {
 	}
 
 	public enum GUIMessageType {
-		SetHandHighlight, DrawCellCard, DrawCellTraps, SetCellHighlight, SetCellRedHighlight, ToggleCellHighlight, SetBoardHighlight, SetBoardColumnHighlight, SetBoardRowHighlight, ClearBoardGlassText, SetGUIButtonEnabled, SetGUICardsLeft, ModelGUISends, DrawGlobalModifiers, SetGUIHighlight, ExitGUI, EventGUI;
+		SetHandHighlight, DrawCellCard, DrawCellTraps, SetCellHighlight, SetCellGlassText, SetCellRedHighlight, ToggleCellHighlight, SetBoardHighlight, SetBoardColumnHighlight, SetBoardRowHighlight, ClearBoardGlassText, SetGUIButtonEnabled, SetGUICardsLeft, ModelGUISends, DrawGlobalModifiers, SetGUIHighlight, ExitGUI, EventGUI;
 	}
 
 	public abstract GUIMessageType getSubType();
@@ -64,12 +68,14 @@ public abstract class GUIMessage extends Message {
 			return GUIMessageType.DrawCellTraps;
 		}
 
-		final Iterable<Trap> traps;
+		final List<Trap> traps;
 		final int board, row, column;
 
 		public DrawCellTrapsMessage(Iterable<Trap> traps, int board, int row,
 				int column) {
-			this.traps = traps;
+			this.traps = new ArrayList<>();
+			for (Trap t : traps)
+				this.traps.add(t);
 			this.board = board;
 			this.row = row;
 			this.column = column;
@@ -128,6 +134,25 @@ public abstract class GUIMessage extends Message {
 			this.board = board;
 			this.row = row;
 			this.column = column;
+		}
+	}
+
+	public static class SetCellGlassTextMessage extends GUIMessage {
+		private static final long serialVersionUID = -7682005361397176355L;
+
+		public GUIMessageType getSubType() {
+			return GUIMessageType.SetCellGlassText;
+		}
+
+		final int board, row, column;
+		final String text;
+
+		public SetCellGlassTextMessage(int board, int row, int column,
+				String text) {
+			this.board = board;
+			this.row = row;
+			this.column = column;
+			this.text = text;
 		}
 	}
 
@@ -239,10 +264,12 @@ public abstract class GUIMessage extends Message {
 			return GUIMessageType.DrawGlobalModifiers;
 		}
 
-		final Iterable<Modifier> modifiers;
+		final List<Modifier> modifiers;
 
 		public DrawGUIGlobalModifiersMessage(Iterable<Modifier> modifiers) {
-			this.modifiers = modifiers;
+			this.modifiers = new ArrayList<>();
+			for (Modifier m : modifiers)
+				this.modifiers.add(m);
 		}
 	}
 

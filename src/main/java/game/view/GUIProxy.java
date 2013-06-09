@@ -1,6 +1,7 @@
 package game.view;
 
 import game.model.Player;
+import game.model.Trap;
 import game.view.EventReceiver.Event;
 import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
@@ -12,6 +13,7 @@ import game.view.GUIMessage.ModelGUISendsMessage;
 import game.view.GUIMessage.SetBoardColumnHighlightMessage;
 import game.view.GUIMessage.SetBoardHighlightMessage;
 import game.view.GUIMessage.SetBoardRowHighlightMessage;
+import game.view.GUIMessage.SetCellGlassTextMessage;
 import game.view.GUIMessage.SetCellHighlightMessage;
 import game.view.GUIMessage.SetCellRedHighlightMessage;
 import game.view.GUIMessage.SetGUIButtonEnabledMessage;
@@ -76,6 +78,11 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
 			break;
 		case DrawCellTraps:
 			DrawCellTrapsMessage drawCellTrapsMessage = (DrawCellTrapsMessage) guiMessage;
+			System.out.println("Rysuje trapy: " + drawCellTrapsMessage.board
+					+ " " + drawCellTrapsMessage.column + " "
+					+ drawCellTrapsMessage.row);
+			for (Trap t : drawCellTrapsMessage.traps)
+				System.out.println(t.getName());
 			switch (drawCellTrapsMessage.board) {
 			case 0:
 				gui.getHand(Player.ZOMBIE).getCell(drawCellTrapsMessage.column)
@@ -124,6 +131,26 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
 				gui.getHand(Player.HUMAN)
 						.getCell(setCellHighlightMessage.column)
 						.setHighlight(setCellHighlightMessage.light);
+			}
+			break;
+		case SetCellGlassText:
+			SetCellGlassTextMessage setCellGlassTextMessage = (SetCellGlassTextMessage) guiMessage;
+			switch (setCellGlassTextMessage.board) {
+			case 0:
+				gui.getHand(Player.ZOMBIE)
+						.getCell(setCellGlassTextMessage.column)
+						.setGlassText(setCellGlassTextMessage.text);
+				break;
+			case 1:
+				gui.getBoard()
+						.getCell(setCellGlassTextMessage.row,
+								setCellGlassTextMessage.column)
+						.setGlassText(setCellGlassTextMessage.text);
+				break;
+			case 2:
+				gui.getHand(Player.HUMAN)
+						.getCell(setCellGlassTextMessage.column)
+						.setGlassText(setCellGlassTextMessage.text);
 			}
 			break;
 		case SetCellRedHighlight:

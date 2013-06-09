@@ -1,9 +1,6 @@
 package server.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,12 +10,8 @@ public class Server implements Runnable {
 	Manager manager;
 
 	public static void main(String[] args) {
-		try {
-			System.setErr(new PrintStream(new File("Server.log")));
-			new Server().run();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		// System.setErr(new PrintStream(new File("Server.log")));
+		new Server().run();
 	}
 
 	public Server() {

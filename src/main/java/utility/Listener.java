@@ -34,7 +34,6 @@ public class Listener implements Runnable {
 					Object o = outputBox.take();
 					out.writeObject(o);
 					out.flush();
-					System.err.println("Wysylamy: " + o);
 				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -65,27 +64,15 @@ public class Listener implements Runnable {
 
 	public void addReceiver(Receiver receiver) {
 		receivers.add(receiver);
-		System.err.println("(added) Current receivers:");
-		for (Receiver r : receivers)
-			System.err.println("\t" + r);
 	}
 
 	public void removeReceiver(Receiver receiver) {
 		receivers.remove(receiver);
-		System.err.println("(removed) Current receivers:");
-		for (Receiver r : receivers)
-			System.err.println("\t" + r);
 	}
 
 	public void receive(Message message) {
-		System.err.println("(received) Current receivers:");
-		for (Receiver r : receivers)
-			System.err.println("\t" + r);
-		for (Receiver receiver : receivers){
-			System.err.println("Listener " + this + " Przekazuje do " + receiver);
+		for (Receiver receiver : receivers)
 			receiver.receive(this, message);
-			System.err.println("Listener " + this + " przekazane");
-		}
 	}
 
 	public void send(Message message) {
@@ -104,9 +91,7 @@ public class Listener implements Runnable {
 	public void run() {
 		try {
 			while (running) {
-				System.err.println("Listener " + this + " czekam na msg!");
 				Message msg = (Message) in.readObject();
-				System.err.println("Listener " + this + " dostalem: " + msg);
 				receive(msg);
 			}
 		} catch (EOFException e) {
