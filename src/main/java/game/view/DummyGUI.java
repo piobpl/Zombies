@@ -208,6 +208,12 @@ public class DummyGUI implements GUI, Receiver {
 
 	@Override
 	public void unregister(Listener listener) {
-
+		modelSendsMessage("Your opponent has disconnected.");
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		exit();
 	}
 }

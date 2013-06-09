@@ -22,7 +22,6 @@ public abstract class DamageDealer {
 		KILLED, DAMAGED, SHOT, ABSORBED, NOTHING;
 	}
 
-
 	public static DamageEffect dealDamage(GameState gameState, int x, int y,
 			int dmg, Trigger type) {
 		for (Trap t : gameState.getBoard().getTraps(x, y).asList())
@@ -65,7 +64,6 @@ public abstract class DamageDealer {
 		Player actualPlayer = gameState.getPlayer();
 		gameState.setPlayer(Player.ZOMBIE);
 		gameState.sendMessage("Do you want to use card \"Click\"?");
-		gameState.setPlayer(actualPlayer);
 		GUI gui = gameState.gui;
 		gui.setButtonEnabled(Button.ApplySelection, true);
 		gui.setButtonEnabled(Button.CancelSelection, true);
@@ -85,6 +83,7 @@ public abstract class DamageDealer {
 		} finally {
 			gui.setButtonEnabled(Button.ApplySelection, false);
 			gui.setButtonEnabled(Button.CancelSelection, false);
+			gameState.setPlayer(actualPlayer);
 		}
 	}
 }

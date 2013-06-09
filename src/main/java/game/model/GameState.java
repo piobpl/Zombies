@@ -135,6 +135,7 @@ public class GameState implements Serializable {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+		gui.setPlayer(player);
 	}
 
 	/**
@@ -164,10 +165,12 @@ public class GameState implements Serializable {
 
 	/**
 	 * Loads the byte array representing the saved gamestate, to the gamestate.
+	 *
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public GameState load(byte[] bytes) throws IOException, ClassNotFoundException {
+	public GameState load(byte[] bytes) throws IOException,
+			ClassNotFoundException {
 		System.err.print("Loading...");
 		ByteArrayInputStream bin = new ByteArrayInputStream(
 				Compressor.decompress(bytes));

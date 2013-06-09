@@ -32,6 +32,7 @@ public class Listener implements Runnable {
 			while (running) {
 				try {
 					Object o = outputBox.take();
+					out.reset();
 					out.writeObject(o);
 					out.flush();
 				} catch (IOException | InterruptedException e) {
