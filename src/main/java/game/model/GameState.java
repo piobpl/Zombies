@@ -35,7 +35,7 @@ public class GameState implements Serializable {
 	private Player player;
 	private PlayerAccount zombiePlayer;
 	private PlayerAccount humanPlayer;
-	private List<byte[]> saveList;
+	private transient List<byte[]> saveList;
 
 	/**
 	 * Creates a new gamestate.
