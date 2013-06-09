@@ -29,7 +29,7 @@ public class NetController implements TriggerEventHandler, Runnable {
 		this.humanPlayer = humanPlayer;
 		this.zombieNick = zombieNick;
 		this.humanNick = humanNick;
-		gui = new DummyGUI(zombiePlayer, humanPlayer, this);
+		gui = new DummyGUI(zombiePlayer, humanPlayer, this, zombieNick, humanNick);
 	}
 
 	public void game() {

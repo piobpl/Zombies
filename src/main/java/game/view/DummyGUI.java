@@ -29,11 +29,12 @@ public class DummyGUI implements GUI, Receiver {
 	boolean zombiePlayerReady, humanPlayerReady;
 	EnumSet<Button> activeButtons;
 	Player currentPlayer;
-	
+	String zombieNick, humanNick;
+
 	public DummyGUI(Listener zombieListener, Listener humanListener,
-			TriggerEventHandler triggerEventHandler) {
-		System.err.println("Dummy gui " + zombieListener + " "
-				+ humanListener);
+			TriggerEventHandler triggerEventHandler, String zombieNick,
+			String humanNick) {
+		System.err.println("Dummy gui " + zombieListener + " " + humanListener);
 		this.zombieListener = zombieListener;
 		this.humanListener = humanListener;
 		zombieListener.addReceiver(this);
@@ -43,6 +44,8 @@ public class DummyGUI implements GUI, Receiver {
 		zombiePlayerReady = humanPlayerReady = false;
 		activeButtons = EnumSet.noneOf(Button.class);
 		currentPlayer = Player.ZOMBIE;
+		this.zombieNick = zombieNick;
+		this.humanNick = humanNick;
 	}
 
 	public synchronized void waitTillPlayersAreReady() {
@@ -69,31 +72,43 @@ public class DummyGUI implements GUI, Receiver {
 	public synchronized void setPlayer(Player player) {
 		dummyEventReceiver.setPlayer(player);
 		currentPlayer = player;
-		for(Button button: Button.values()){
-			if(currentPlayer == Player.ZOMBIE){
-				if(activeButtons.contains(button))
-					zombieListener.send(new SetGUIButtonEnabledMessage(button, true));
+		for (Button button : Button.values()) {
+			if (currentPlayer == Player.ZOMBIE) {
+				if (activeButtons.contains(button))
+					zombieListener.send(new SetGUIButtonEnabledMessage(button,
+							true));
 				else
-					zombieListener.send(new SetGUIButtonEnabledMessage(button, false));
-				humanListener.send(new SetGUIButtonEnabledMessage(button, false));
-			} else{
-				if(activeButtons.contains(button))
-					humanListener.send(new SetGUIButtonEnabledMessage(button, true));
+					zombieListener.send(new SetGUIButtonEnabledMessage(button,
+							false));
+				humanListener
+						.send(new SetGUIButtonEnabledMessage(button, false));
+			} else {
+				if (activeButtons.contains(button))
+					humanListener.send(new SetGUIButtonEnabledMessage(button,
+							true));
 				else
-					humanListener.send(new SetGUIButtonEnabledMessage(button, false));
-				zombieListener.send(new SetGUIButtonEnabledMessage(button, false));
+					humanListener.send(new SetGUIButtonEnabledMessage(button,
+							false));
+				zombieListener.send(new SetGUIButtonEnabledMessage(button,
+						false));
 			}
+		}
+		if (currentPlayer == Player.ZOMBIE) {
+			modelSendsMessage(zombieNick + " is playing now.");
+		} else {
+			modelSendsMessage(humanNick + " is playing now.");
 		}
 	}
 
 	@Override
 	public synchronized void setButtonEnabled(Button button, boolean aktywny) {
-		if(currentPlayer == Player.ZOMBIE)
-			zombieListener.send(new SetGUIButtonEnabledMessage(button, aktywny));
+		if (currentPlayer == Player.ZOMBIE)
+			zombieListener
+					.send(new SetGUIButtonEnabledMessage(button, aktywny));
 		else
 			humanListener.send(new SetGUIButtonEnabledMessage(button, aktywny));
 	}
-	
+
 	@Override
 	public synchronized boolean isButtonEnabled(Button button) {
 		throw new UnsupportedOperationException();
