@@ -53,6 +53,6 @@ public class Click extends Card {
 
 	@Override
 	public String getTooltipMessage() {
-		return "";
+		return "This card can be played in human phase as response to shot, burst or sniper.<br>It counters these cards.";
 	}
 }
