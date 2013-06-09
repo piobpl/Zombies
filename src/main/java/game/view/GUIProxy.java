@@ -5,11 +5,16 @@ import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUIMessage.DrawCellCardMessage;
 import game.view.GUIMessage.DrawCellTrapsMessage;
+import game.view.GUIMessage.DrawGUIGlobalModifiersMessage;
+import game.view.GUIMessage.ModelGUISendsMessage;
 import game.view.GUIMessage.SetBoardColumnHighlightMessage;
 import game.view.GUIMessage.SetBoardHighlightMessage;
 import game.view.GUIMessage.SetBoardRowHighlightMessage;
 import game.view.GUIMessage.SetCellHighlightMessage;
 import game.view.GUIMessage.SetCellRedHighlightMessage;
+import game.view.GUIMessage.SetGUIButtonEnabledMessage;
+import game.view.GUIMessage.SetGUICardsLeftMessage;
+import game.view.GUIMessage.SetGUIHighlightMessage;
 import game.view.GUIMessage.SetHandHighlightMessage;
 import game.view.GUIMessage.ToggleCellHighlightMessage;
 import server.controller.Message;
@@ -156,7 +161,28 @@ public class GUIProxy implements Receiver, TriggerEventHandler {
 						.toggleHighlight();
 			}
 			break;
-		default:
+		case DrawGlobalModifiers:
+			DrawGUIGlobalModifiersMessage drawGUIGlobalModifiersMessage = (DrawGUIGlobalModifiersMessage) guiMessage;
+			gui.drawGlobalModifiers(drawGUIGlobalModifiersMessage.modifiers);
+			break;
+		case ExitGUI:
+			gui.exit();
+			break;
+		case ModelGUISends:
+			ModelGUISendsMessage modelGUISendsMessage = (ModelGUISendsMessage) guiMessage;
+			gui.modelSendsMessage(modelGUISendsMessage.message);
+			break;
+		case SetGUIButtonEnabled:
+			SetGUIButtonEnabledMessage setGUIButtonEnabledMessage = (SetGUIButtonEnabledMessage) guiMessage;
+			gui.setButtonEnabled(setGUIButtonEnabledMessage.button, setGUIButtonEnabledMessage.aktywny);
+			break;
+		case SetGUICardsLeft:
+			SetGUICardsLeftMessage setGUICardsLeftMessage = (SetGUICardsLeftMessage) guiMessage;
+			gui.setCardsLeft(setGUICardsLeftMessage.player, setGUICardsLeftMessage.left);
+			break;
+		case SetGUIHighlight:
+			SetGUIHighlightMessage setGUIHighlightMessage = (SetGUIHighlightMessage) guiMessage;
+			gui.setHighlight(setGUIHighlightMessage.set);
 			break;
 		}
 	}

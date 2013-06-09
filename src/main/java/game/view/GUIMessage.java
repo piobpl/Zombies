@@ -19,8 +19,8 @@ public abstract class GUIMessage extends Message {
 	public enum GUIMessageType {
 		SetHandHighlight, DrawCellCard, DrawCellTraps, SetCellHighlight, SetCellRedHighlight,
 		ToggleCellHighlight, SetBoardHighlight, SetBoardColumnHighlight, SetBoardRowHighlight,
-		ClearBoardGlassText, SetGUIButtonEnabled, SetGUICardsLeft, ModelGUISendsMessage,
-		DrawGlobalModifiers, SetGUIHighlight, ExitGUIMessage;
+		ClearBoardGlassText, SetGUIButtonEnabled, SetGUICardsLeft, ModelGUISends,
+		DrawGlobalModifiers, SetGUIHighlight, ExitGUI;
 	}
 
 	public abstract GUIMessageType getSubType();
@@ -224,7 +224,7 @@ public abstract class GUIMessage extends Message {
 		private static final long serialVersionUID = 7715462650421718336L;
 
 		public GUIMessageType getSubType() {
-			return GUIMessageType.ModelGUISendsMessage;
+			return GUIMessageType.ModelGUISends;
 		}
 
 		final String message;
@@ -267,7 +267,7 @@ public abstract class GUIMessage extends Message {
 		private static final long serialVersionUID = 3525530383546619224L;
 
 		public GUIMessageType getSubType() {
-			return GUIMessageType.ExitGUIMessage;
+			return GUIMessageType.ExitGUI;
 		}		
 	}
 }
