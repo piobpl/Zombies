@@ -37,7 +37,8 @@ public class Manager implements Receiver {
 
 	private boolean loginTaken(String login) {
 		for (Listener connector : clients) {
-			if (clientsMap.get(connector) != null && clientsMap.get(connector).getLogin().equals(login)) {
+			if (clientsMap.get(connector) != null
+					&& clientsMap.get(connector).getLogin().equals(login)) {
 				return true;
 			}
 		}
@@ -46,7 +47,8 @@ public class Manager implements Receiver {
 
 	public synchronized Listener getListener(String login) {
 		for (Listener connector : clients)
-			if (clientsMap.get(connector) != null && clientsMap.get(connector).getLogin().equals(login))
+			if (clientsMap.get(connector) != null
+					&& clientsMap.get(connector).getLogin().equals(login))
 				return connector;
 		return null;
 	}
@@ -84,8 +86,14 @@ public class Manager implements Receiver {
 				else
 					new Thread(new NetController(getListener(gsm.whoIsInvited),
 							getListener(gsm.whoInvites))).start();
-				getListener(gsm.whoInvites).removeReceiver(this);
-				getListener(gsm.whoIsInvited).removeReceiver(this);
+				Listener client = getListener(gsm.whoInvites);
+				client.removeReceiver(this);
+				clients.remove(client);
+				clientsMap.remove(client);
+				client = getListener(gsm.whoIsInvited);
+				client.removeReceiver(this);
+				clients.remove(client);
+				clientsMap.remove(client);
 			} else {
 				sendAll(message);
 			}
