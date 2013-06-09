@@ -8,6 +8,8 @@ import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI;
 import game.view.GUI.Button;
+import game.view.HistoryPanel;
+import game.view.InfoPanel;
 import game.view.SimpleGUI;
 
 import java.awt.event.ActionEvent;
@@ -53,12 +55,24 @@ public class LocalController implements TriggerEventHandler {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider) e.getSource();
+				HistoryPanel history = gui.getHistory();
+				InfoPanel infoPanel = gui.getInfoPanel();
 				if (!source.getValueIsAdjusting()) {
 					int choice = (int) source.getValue();
 					System.err.println("Selected: " + choice);
 					if (choice != source.getMaximum()) {
 						System.err.print("Setting previous version...");
 						try {
+							if (history.isUpToDate()) {
+								history.setUpToDate(false);
+								for (Button button : new Button[] {
+										Button.ApplySelection,
+										Button.CancelSelection, Button.EndTurn }){
+									history.setInfoButtonEnabled(button,
+											infoPanel.isButtonEnabled(button));
+									infoPanel.setButtonEnabled(button, false);
+								}
+							}
 							byte[] previous = gameState.getSave(choice);
 							GameState previousGameState;
 							previousGameState = gameState.load(previous);
@@ -75,6 +89,12 @@ public class LocalController implements TriggerEventHandler {
 						gameState.getHand(Player.ZOMBIE).update();
 						gui.getEventReceiver().removeFilter(myFilter);
 						gui.setButtonEnabled(Button.Save, true);
+						for (Button button : new Button[] {
+								Button.ApplySelection,
+								Button.CancelSelection, Button.EndTurn })
+							infoPanel.setButtonEnabled(button,
+									history.isInfoButtonEnabled(button));
+						history.setUpToDate(true);
 					}
 				}
 			}

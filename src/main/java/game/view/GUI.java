@@ -24,6 +24,10 @@ public interface GUI {
 	public Hand getHand(Player player);
 
 	public Board getBoard();
+	
+	public HistoryPanel getHistory();
+	
+	public InfoPanel getInfoPanel();
 
 	public EventReceiver getEventReceiver();
 

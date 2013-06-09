@@ -140,6 +140,19 @@ public class InfoPanel {
 			}
 		});
 	}
+	
+	public boolean isButtonEnabled(Button button) {
+		switch(button) {
+		case ApplySelection:
+			return applySelectionButton.isEnabled();
+		case CancelSelection:
+			return cancelSelectionButton.isEnabled();
+		case EndTurn:
+			return endTurnButton.isEnabled();
+		default:
+			throw new UnsupportedOperationException();
+		}
+	}
 
 	public void sendMessage(final String message) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
