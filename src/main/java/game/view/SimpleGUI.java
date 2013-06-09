@@ -35,7 +35,8 @@ public class SimpleGUI implements GUI {
 	private JLabel humanCardsLeft;
 	private JPanel rightPanel;
 	private InfoPanel infoPanel;
-	private HistoryPanel historyPanel;
+	private HistoryPanel history;
+	private JPanel historyPanel;
 	private JButton commandButton;
 
 	public SimpleGUI(TriggerEventHandler triggerEventHandler) {
@@ -70,7 +71,7 @@ public class SimpleGUI implements GUI {
 	public void setButtonEnabled(Button button, final boolean active) {
 		switch (button) {
 		case Save:
-			historyPanel.setButtonEnabled(button, active);
+			history.setButtonEnabled(button, active);
 			break;
 		case Command:
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -88,7 +89,7 @@ public class SimpleGUI implements GUI {
 	public void addButtonListener(Button button, final ActionListener a) {
 		switch (button) {
 		case Save:
-			historyPanel.addButtonListener(button, a);
+			history.addButtonListener(button, a);
 			break;
 		case Command:
 			javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -224,9 +225,9 @@ public class SimpleGUI implements GUI {
 		rightPanel.add(panel = new JPanel());
 		panel.setOpaque(false);
 		infoPanel = new InfoPanel(panel);
-		rightPanel.add(panel = new JPanel());
-		panel.setOpaque(false);
-		historyPanel = new HistoryPanel(panel);
+		rightPanel.add(historyPanel = new JPanel());
+		historyPanel.setOpaque(false);
+		history = new HistoryPanel(historyPanel);
 
 		humanHand = new SimpleHand(humanHandPanel,
 				Colors.humansCard.getColor(), Colors.tlo.getColor());
@@ -264,20 +265,25 @@ public class SimpleGUI implements GUI {
 
 	@Override
 	public void drawHistorySlider(int turn) {
-		historyPanel.setSliderRange(turn);
+		history.setSliderRange(turn);
 	}
 
 	@Override
 	public void addSliderChangeListener(final ChangeListener cl) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				historyPanel.addSliderChangeListener(cl);
+				history.addSliderChangeListener(cl);
 			}
 		});
 	}
 
 	private void showHelp() {
 		JOptionPane.showMessageDialog(null, new JLabel(Help.helpText), "Help", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void hideHistoryPanel(){
+		rightPanel.remove(historyPanel);
+		frame.pack();
 	}
 
 }

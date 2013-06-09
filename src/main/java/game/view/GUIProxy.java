@@ -27,10 +27,11 @@ import utility.Listener.Receiver;
 public class GUIProxy implements Receiver, TriggerEventHandler, Runnable {
 
 	final Listener listener;
-	final GUI gui;
+	final SimpleGUI gui;
 
 	public GUIProxy(Listener listener) {
 		gui = new SimpleGUI(this);
+		gui.hideHistoryPanel();
 		this.listener = listener;
 		listener.addReceiver(this);
 	}
