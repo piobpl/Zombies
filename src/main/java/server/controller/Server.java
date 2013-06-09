@@ -22,49 +22,49 @@ public class Server implements Runnable {
 	}
 
 	public Server() {
-		System.out.println("Creating server...");
+		System.err.println("Creating server...");
 		manager = new Manager();
-		System.out.println("Done");
+		System.err.println("Done");
 	}
 
 	public void run() {
 		ServerSocket serverSocket = null;
 		try {
-			System.out.println("Starting server...");
-			System.out
+			System.err.println("Starting server...");
+			System.err
 					.print("Creating server socket on port " + port + "...\t");
 			try {
 				serverSocket = new ServerSocket(8888);
 			} catch (IOException e) {
-				System.out.println("failed, aborting.");
+				System.err.println("failed, aborting.");
 				e.printStackTrace();
 				return;
 			}
-			System.out.println("done.");
+			System.err.println("done.");
 			while (true) {
 				try {
-					System.out.print("Waiting for next client...\t");
+					System.err.print("Waiting for next client...\t");
 					Socket client = serverSocket.accept();
-					System.out.println("done.");
+					System.err.println("done.");
 					manager.addClient(client);
 				} catch (IOException e) {
-					System.out.println("failed, aborting.");
+					System.err.println("failed, aborting.");
 					e.printStackTrace();
 					return;
 				}
 			}
 		} finally {
-			System.out.println("Closing server...\t");
+			System.err.println("Closing server...\t");
 			manager.close();
 			if (serverSocket != null)
 				try {
 					serverSocket.close();
 				} catch (IOException e) {
-					System.out.println("failed, aborting. (~big trouble)");
+					System.err.println("failed, aborting. (~big trouble)");
 					e.printStackTrace();
 					return;
 				}
-			System.out.println("done.");
+			System.err.println("done.");
 		}
 	}
 }
