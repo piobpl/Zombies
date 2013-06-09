@@ -21,13 +21,17 @@ public abstract class MoveMaker {
 	public static boolean isFrozen(Card card) {
 		return card.getModifiers().contains(ModifierType.FROZEN);
 	}
-
-	public static boolean isMovePossible(GameState gameState,
+	
+	/**
+	 * 
+	 * Przy założeniu że na obu polach stoją zombiaki, funkcja sprawdza czy mogą się połączyć
+	 * (potrzebne w kartach Mass, Change)
+	 */
+	public static boolean isMergePossible(GameState gameState,
 			Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card) {
 		if (isFrozen(gameState))
 			return false;
-		if(!gameState.getBoard().isEmpty(to.first, to.second))
-			return false;
+		
 		if (card == null)
 			card = gameState.getBoard().get(from.first, from.second);
 		if (card == null)
@@ -42,6 +46,13 @@ public abstract class MoveMaker {
 			}
 		}
 		return true;
+	}
+
+	public static boolean isMovePossible(GameState gameState,
+			Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card) {
+		if(!gameState.getBoard().isEmpty(to.first, to.second))
+			return false;
+		return isMergePossible(gameState, from, to, card);
 	}
 
 	public static boolean moveTo(GameState gameState,
