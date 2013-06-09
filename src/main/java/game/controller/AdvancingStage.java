@@ -3,12 +3,14 @@ package game.controller;
 import game.model.Board;
 import game.model.Card;
 import game.model.Card.CardType;
+import game.model.DamageDealer;
 import game.model.GameState;
 import game.model.Modifier.ModifierType;
 import game.model.MoveMaker;
 import game.model.Player;
 import game.model.Trap;
 import game.model.Trap.TrapType;
+import game.model.Trap.Trigger;
 import game.model.cards.zombies.DogsMover;
 import game.view.EventReceiver;
 import game.view.EventReceiver.BoardClickedEvent;
@@ -21,9 +23,9 @@ import utility.Pair;
 import utility.TypedSet;
 
 /**
- *
+ * 
  * @author Edoipi
- *
+ * 
  */
 public class AdvancingStage implements Stage {
 	public final GameState gameState;
@@ -198,26 +200,20 @@ public class AdvancingStage implements Stage {
 							} else if (traps.contains(TrapType.PIT)) {
 								traps.remove(TrapType.PIT);
 								board.set(x, y, null);
-							} else if (!gameState.getBoard().isEmpty(x - 1, y)
-									&& gameState.getBoard().get(x - 1, y)
-											.getModifiers()
-											.contains(ModifierType.HUMAN)) {
-								gameState.getBoard().get(x - 1, y)
-										.getModifiers()
-										.remove(ModifierType.HUMAN);
+							} else if (!board.isEmpty(x - 1, y)
+									&& MoveMaker
+											.isMergePossible(gameState,
+													new Pair<Integer, Integer>(
+															x, y),
+													new Pair<Integer, Integer>(
+															x - 1, y), null)) {
 								board.set(x, y, null);
+								DamageDealer.dealDamage(gameState, x - 1, y,
+										Integer.MAX_VALUE, Trigger.EXPLOSION);
 							} else {
-								Card temp = gameState.getBoard().get(x - 1, y);
-								gameState.getBoard().remove(x - 1, y);
-								if (MoveMaker.isMovePossible(gameState,
-										new Pair<Integer, Integer>(x, y),
-										new Pair<Integer, Integer>(x - 1, y),
-										null)) {
-									MoveMaker.moveBackward(gameState, x, y);
-									if (temp != null)
-										gameState.getBoard().remove(x - 1, y);
-								} else
-									gameState.getBoard().set(x - 1, y, temp);
+								Card temp = board.get(x, y);
+								gameState.getBoard().set(x - 1, y, temp);
+								board.set(x, y, null);
 							}
 						}
 					}
