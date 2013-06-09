@@ -35,6 +35,8 @@ public class Mass extends Card {
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
+		if(cells.size() == 0)
+			return 1;
 		if (cells.size() == 1) {
 			Pair<Integer, Integer> cell = cells.get(0);
 			if (gameState.getBoard().is(cell.first, cell.second,

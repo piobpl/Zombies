@@ -6,6 +6,7 @@ import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.GameState;
 import game.model.Modifier;
+import game.model.MoveMaker;
 import game.model.SelectionTester;
 import game.model.Modifier.ModifierType;
 
@@ -15,7 +16,7 @@ import utility.Pair;
 
 /**
  * 
- * @author krozycki
+ * @author krozycki, zajac
  *
  */
 public class Change extends Card {
@@ -39,23 +40,18 @@ public class Change extends Card {
 		if (cells.size() > 2) {
 			return 0;
 		}
-		for (int i = 1; i < cells.size(); i++) {
-			if (!SelectionTester
-					.areEdgeAdjacent(cells.get(i), cells.get(i - 1))) {
-				return 0;
-			}
-		}
-		for (int i = 0; i < cells.size(); i++) {
-			int x = cells.get(i).first;
-			int y = cells.get(i).second;
-			if (gameState.getBoard().isEmpty(x, y)
-					|| gameState.getBoard().get(x, y).getType() != CardType.ZOMBIE
-					|| gameState.getBoard().get(x, y).getModifiers()
-							.contains(ModifierType.MOVEDONCE)) {
-				return 0;
-			}
-		}
-		return 2;
+		Pair<Integer, Integer> cell1 = cells.get(0);
+		Pair<Integer, Integer> cell2 = cells.get(1);
+		if(!SelectionTester.areEdgeAdjacent(cell1, cell2))
+			return 0;
+		if(gameState.getBoard().is(cell1.first, cell1.second, CardType.ZOMBIE))
+			return 0;
+		if(gameState.getBoard().is(cell2.first, cell2.second, CardType.ZOMBIE))
+			return 0;
+		if(MoveMaker.isMergePossible(gameState, cell1, cell2, null) &&
+				MoveMaker.isMergePossible(gameState, cell2, cell1, null))
+			return 2;
+		return 0;
 	}
 
 	@Override
