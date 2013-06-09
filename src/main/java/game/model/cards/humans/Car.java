@@ -13,9 +13,7 @@ import utility.Pair;
  */
 public class Car extends Card {
 
-	/**
-	 *
-	 */
+	
 	private static final long serialVersionUID = 7988782437542268453L;
 
 	@Override

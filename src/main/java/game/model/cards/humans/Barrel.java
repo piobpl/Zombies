@@ -14,9 +14,7 @@ import utility.Pair;
  */
 public class Barrel extends Card {
 
-	/**
-	 *
-	 */
+	
 	private static final long serialVersionUID = -7728069181386672677L;
 
 	@Override
