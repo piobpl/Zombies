@@ -64,7 +64,6 @@ public class LocalController implements TriggerEventHandler {
 							previousGameState = gameState.load(previous);
 							gui.getEventReceiver().addFilter(myFilter);
 							gui.setButtonEnabled(Button.Save, false);
-							previousGameState.setGUI(gui);
 							previousGameState.update();
 						} catch (ClassNotFoundException | IOException e1) {
 							e1.printStackTrace();
