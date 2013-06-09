@@ -11,15 +11,13 @@ import game.model.Trap.Trigger;
 
 /**
  *
- * @author michal
+ * @author michal, jerzozwierz
  *
  */
 
 public class Burst extends Card {
 
-	/**
-	 *
-	 */
+	
 	private static final long serialVersionUID = -6308527386433743150L;
 	private Integer strength;
 
