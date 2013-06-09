@@ -20,14 +20,14 @@ public interface GUI {
 	public void setPlayer(Player player);
 
 	public void setButtonEnabled(Button button, boolean aktywny);
+	
+	public boolean isButtonEnabled(Button button);
 
 	public Hand getHand(Player player);
 
 	public Board getBoard();
 	
 	public HistoryPanel getHistory();
-	
-	public InfoPanel getInfoPanel();
 
 	public EventReceiver getEventReceiver();
 

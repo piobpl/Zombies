@@ -81,6 +81,15 @@ public class HistoryPanel {
 		});
 	}
 	
+	public boolean isButtonEnabled(Button button) {
+		switch(button) {
+		case Save:
+			return saveButton.isEnabled();
+		default:
+			throw new UnsupportedOperationException();
+		}
+	}
+	
 	public boolean isInfoButtonEnabled(Button button) {
 		return enabledInfoButtons.contains(button);
 	}

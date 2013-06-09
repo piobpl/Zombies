@@ -70,6 +70,11 @@ public class DummyGUI implements GUI, Receiver {
 		zombieListener.send(new SetGUIButtonEnabledMessage(button, aktywny));
 		humanListener.send(new SetGUIButtonEnabledMessage(button, aktywny));
 	}
+	
+	@Override
+	public synchronized boolean isButtonEnabled(Button button) {
+		throw new UnsupportedOperationException();
+	}
 
 	@Override
 	public synchronized Hand getHand(Player player) {
@@ -83,11 +88,6 @@ public class DummyGUI implements GUI, Receiver {
 
 	@Override
 	public synchronized HistoryPanel getHistory() {
-		throw new UnsupportedOperationException();
-	}
-	
-	@Override
-	public synchronized InfoPanel getInfoPanel() {
 		throw new UnsupportedOperationException();
 	}
 
