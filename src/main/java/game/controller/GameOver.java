@@ -13,13 +13,14 @@ public class GameOver extends RuntimeException {
 	public GameOver(Player won, GameState gameState) {
 		this.won = won;
 		this.gameState = gameState;
-		gameState.getHumanPlayerAccount().incrementGamesPlayed();
+		//TODO
+		/*gameState.getHumanPlayerAccount().incrementGamesPlayed();
 		gameState.getHumanPlayerAccount().incrementGamesPlayed();
 		if (won.equals(Player.ZOMBIE)) {
 			gameState.getZombiePlayerAccount().incrementGamesWon();
 		} else {
 			gameState.getHumanPlayerAccount().incrementGamesWon();
-		}
+		}*/
 	}
 
 }
