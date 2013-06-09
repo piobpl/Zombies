@@ -10,11 +10,9 @@ import game.view.GUI;
 import game.view.GUI.Button;
 import game.view.SimpleGUI;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.ByteArrayInputStream;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
@@ -29,25 +27,27 @@ public class LocalController implements TriggerEventHandler {
 	public final GUI gui;
 	private int turn;
 	private final Freeze myFilter;
-	private static class Freeze implements EventReceiver.Filter{
+
+	private static class Freeze implements EventReceiver.Filter {
 		@Override
 		public boolean acceptable(Event event) {
 			return false;
 		}
-		
-	
+
 	}
+
 	public LocalController() {
 		System.err.println("Creating Controller...");
-		myFilter=new Freeze();
+		myFilter = new Freeze();
 		gui = new SimpleGUI(this);
 		gameState = new GameState(gui);
-		gui.addButtonMouseListener(Button.Save, new MouseAdapter() {
+		gui.addButtonListener(Button.Save, new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				saveState();
 			}
 		});
+
 		gui.addSliderChangeListener(new ChangeListener() {
 
 			@Override
@@ -58,23 +58,16 @@ public class LocalController implements TriggerEventHandler {
 					System.err.println("Selected: " + choice);
 					if (choice != source.getMaximum()) {
 						System.err.print("Setting previous version...");
-						byte[] previous=gameState.getSave(choice);
-						ByteArrayInputStream bin = new ByteArrayInputStream(
-								previous);
-						ObjectInputStream in = null;
-						GameState previousGameState = null;
 						try {
-							in = new ObjectInputStream(bin);
-							previousGameState = (GameState) in.readObject();
+							byte[] previous = gameState.getSave(choice);
+							GameState previousGameState;
+							previousGameState = gameState.load(previous);
+							gui.getEventReceiver().addFilter(myFilter);
+							gui.setButtonEnabled(Button.Save, false);
+							previousGameState.update();
 						} catch (ClassNotFoundException | IOException e1) {
 							e1.printStackTrace();
 						}
-						gui.getEventReceiver().addFilter(myFilter);
-						gui.setButtonEnabled(Button.Save, false);
-						previousGameState.setGUI(gui);
-						previousGameState.getBoard().update();
-						previousGameState.getHand(Player.HUMAN).update();
-						previousGameState.getHand(Player.ZOMBIE).update();
 					} else {
 						System.err.print("Reloading..");
 						gameState.getBoard().update();
@@ -125,7 +118,11 @@ public class LocalController implements TriggerEventHandler {
 				if (gameState.getPlayer() == Player.HUMAN) {
 					gameState.setTurn(turn);
 					gameState.sendMessage("Round #" + turn);
-					gameState.setLastSave(gameState.save());
+					try {
+						gameState.setLastSave(gameState.save());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					gameState.sendMessage(gameState.getPlayer() + "'s turn.");
 					for (Stage s : stages) {
 						gameState.setStage(s.getStageType());
@@ -133,6 +130,7 @@ public class LocalController implements TriggerEventHandler {
 						s.perform(gameState.getPlayer());
 					}
 					++turn;
+					gameState.setTurn(turn);
 				}
 			} catch (GameOver gameOver) {
 				gameState.sendMessage(gameOver.won + " has won!");
@@ -140,11 +138,14 @@ public class LocalController implements TriggerEventHandler {
 		}
 		try {
 			while (true) {
-				gameState.setTurn(turn);
 				gameState.sendMessage("Round #" + turn);
 				for (Player p : players) {
 					gameState.setPlayer(p);
-					gameState.setLastSave(gameState.save());
+					try {
+						gameState.setLastSave(gameState.save());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					gameState.sendMessage(p + "'s turn.");
 					for (Stage s : stages) {
 						gameState.setStage(s.getStageType());
@@ -153,6 +154,7 @@ public class LocalController implements TriggerEventHandler {
 					}
 				}
 				++turn;
+				gameState.setTurn(turn);
 			}
 		} catch (GameOver gameOver) {
 			gameState.sendMessage(gameOver.won + " has won!");

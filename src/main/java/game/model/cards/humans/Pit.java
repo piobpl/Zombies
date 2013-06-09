@@ -12,9 +12,8 @@ import utility.Pair;
  *
  */
 public class Pit extends Card {
-	/**
-	 * 
-	 */
+	
+	
 	private static final long serialVersionUID = 4359879097972378038L;
 	private Integer strength;
 

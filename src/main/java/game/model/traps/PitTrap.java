@@ -18,7 +18,7 @@ import utility.Pair;
 public class PitTrap extends Trap {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1288151484980952784L;
 
@@ -37,7 +37,7 @@ public class PitTrap extends Trap {
 
 	@Override
 	public String getName() {
-		return "Pit";
+		return "Pit (" + strength + ")";
 	}
 
 	@Override

@@ -7,12 +7,14 @@ import game.model.Card;
 import game.model.GameState;
 import game.model.Player;
 
+/**
+ * 
+ * @author michal
+ * 
+ */
 public class GetOut extends Card {
 
-	/**
-	 * 
-	 * @author michal
-	 */
+	
 	private static final long serialVersionUID = 6937977890429113269L;
 
 	@Override

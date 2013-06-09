@@ -4,6 +4,7 @@ import game.controller.Selection;
 import game.controller.Selection.GroupSelection;
 import game.controller.Selection.SelectionType;
 import game.model.Card;
+import game.model.DamageDealer;
 import game.model.GameState;
 import game.model.SelectionTester;
 import game.model.Trap.Trigger;
@@ -43,6 +44,7 @@ public class Gasoline extends Card {
 			Integer x = cell.first;
 			Integer y = cell.second;
 			if (gameState.getBoard().isEmpty(x, y)) {
+				DamageDealer.dealDamage(gameState, x, y, 1, Trigger.FIRE);
 				--remainingStrength;
 			} else {
 				int zombieStrength = gameState.getBoard().get(x, y)

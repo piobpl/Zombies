@@ -5,6 +5,7 @@ import game.controller.Selection.CellSelection;
 import game.controller.Selection.SelectionType;
 import game.model.Card;
 import game.model.DamageDealer;
+import game.model.DamageDealer.DamageEffect;
 import game.model.GameState;
 import game.model.MoveMaker;
 import game.model.Trap.Trigger;
@@ -28,10 +29,9 @@ public class Sniper extends Card {
 			return;
 		int x = ((CellSelection) selection).cell.first;
 		int y = ((CellSelection) selection).cell.second;
-		boolean move = DamageDealer.dealDamage(gameState, x, y, 2, Trigger.SHOT);
-		if (move)
+		if (DamageDealer.dealDamage(gameState, x, y, 2, Trigger.SHOT) ==
+				DamageEffect.DAMAGED)
 			MoveMaker.moveBackward(gameState, x, y);
-
 	}
 
 	@Override

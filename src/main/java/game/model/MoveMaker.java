@@ -21,13 +21,17 @@ public abstract class MoveMaker {
 	public static boolean isFrozen(Card card) {
 		return card.getModifiers().contains(ModifierType.FROZEN);
 	}
-
-	public static boolean isMovePossible(GameState gameState,
+	
+	/**
+	 * 
+	 * Przy założeniu że na obu polach stoją zombiaki, funkcja sprawdza czy mogą się połączyć
+	 * (potrzebne w kartach Mass, Change)
+	 */
+	public static boolean isMergePossible(GameState gameState,
 			Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card) {
 		if (isFrozen(gameState))
 			return false;
-		if(!gameState.getBoard().isEmpty(to.first, to.second))
-			return false;
+		
 		if (card == null)
 			card = gameState.getBoard().get(from.first, from.second);
 		if (card == null)
@@ -44,6 +48,13 @@ public abstract class MoveMaker {
 		return true;
 	}
 
+	public static boolean isMovePossible(GameState gameState,
+			Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card) {
+		if(!gameState.getBoard().isEmpty(to.first, to.second))
+			return false;
+		return isMergePossible(gameState, from, to, card);
+	}
+
 	public static boolean moveTo(GameState gameState,
 			Pair<Integer, Integer> from, Pair<Integer, Integer> to) {
 		Card card = gameState.getBoard().get(from.first, from.second);
@@ -58,7 +69,7 @@ public abstract class MoveMaker {
 	public static boolean moveForward(GameState gameState, int x, int y) {
 		Card current = gameState.getBoard().get(x, y);
 		if (x == 4 && current != null && current.getType() == CardType.ZOMBIE)
-			throw new GameOver(Player.ZOMBIE,gameState);
+			throw new GameOver(Player.ZOMBIE);
 		if (!isMovePossible(gameState, new Pair<Integer, Integer>(x, y),
 				new Pair<Integer, Integer>(x + 1, y), null))
 			return false;

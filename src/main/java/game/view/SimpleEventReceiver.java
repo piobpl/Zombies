@@ -3,6 +3,8 @@ package game.view;
 import game.model.Player;
 import game.view.GUI.Button;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -57,13 +59,13 @@ public class SimpleEventReceiver implements EventReceiver {
 	private void registerToButtons() {
 		for (Button i : Button.values()) {
 			final Button button = i;
-			gui.addButtonMouseListener(button, new MouseAdapter() {
+			gui.addButtonListener(button, new ActionListener() {
 				@Override
-				public void mouseClicked(MouseEvent e) {
+				public void actionPerformed(ActionEvent e) {
 					if (button == Button.Command) {
 						filter(new BossEvent());
 					} else {
-						filter(new ButtonClickedEvent(button, e));
+						filter(new ButtonClickedEvent(button));
 					}
 				}
 			});

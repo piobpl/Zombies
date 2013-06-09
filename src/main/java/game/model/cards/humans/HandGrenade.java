@@ -4,14 +4,17 @@ import game.controller.Selection;
 import game.controller.Selection.CellSelection;
 import game.controller.Selection.SelectionType;
 import game.model.Card;
+import game.model.DamageDealer;
+import game.model.DamageDealer.DamageEffect;
 import game.model.GameState;
-
+import game.model.Trap.Trigger;
+/**
+ * 
+ * @author michal
+ */
 public class HandGrenade extends Card {
 
-	/**
-	 * 
-	 * @author michal
-	 */
+	
 	private static final long serialVersionUID = -8319798427023734570L;
 
 	public String getName() {
@@ -39,7 +42,13 @@ public class HandGrenade extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		Integer x = ((CellSelection) selection).cell.first;
 		Integer y = ((CellSelection) selection).cell.second;
-		gameState.getBoard().remove(x, y);
+		//gameState.getBoard().remove(x, y);
+		//gameState.getBoard().getTraps(x, y).clear();
+		DamageEffect dm = DamageDealer.dealDamage(gameState, x, y, 
+				Integer.MAX_VALUE, Trigger.EXPLOSION);
+		if (dm == DamageEffect.ABSORBED)
+			DamageDealer.dealDamage(gameState, x, y, 
+					Integer.MAX_VALUE, Trigger.EXPLOSION);
 		gameState.getBoard().getTraps(x, y).clear();
 	}
 

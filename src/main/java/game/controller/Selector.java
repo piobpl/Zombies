@@ -16,6 +16,7 @@ import game.view.EventReceiver.ButtonClickedEvent;
 import game.view.EventReceiver.ClickEvent;
 import game.view.EventReceiver.EventType;
 import game.view.EventReceiver.HandClickedEvent;
+import game.view.EventReceiver.MouseClickEvent;
 import game.view.GUI;
 import game.view.GUI.Board;
 import game.view.GUI.Button;
@@ -70,8 +71,6 @@ public class Selector {
 				gui.setButtonEnabled(Button.ApplySelection, currentRate == 2);
 				e = eventReceiver.getNextClickEvent();
 				if (e.type == EventType.ButtonClicked) {
-					if (e.info.getButton() != MouseEvent.BUTTON1)
-						continue;
 					h = (ButtonClickedEvent) e;
 					if (h.button == Button.ApplySelection) {
 						if (currentRate == 2)
@@ -83,7 +82,7 @@ public class Selector {
 					else
 						continue;
 				} else if (e.type == EventType.HandClicked) {
-					if (e.info.getButton() != MouseEvent.BUTTON1)
+					if (((HandClickedEvent) e).info.getButton() != MouseEvent.BUTTON1)
 						continue;
 					if ((((HandClickedEvent) e).player == Player.ZOMBIE && gameState
 							.getHand(Player.ZOMBIE).get(
@@ -103,7 +102,7 @@ public class Selector {
 						continue;
 					f = (BoardClickedEvent) e;
 					if (card.getSelectionType() == SelectionType.MULTIGROUP) {
-						if (e.info.getButton() == MouseEvent.BUTTON1) {
+						if (f.info.getButton() == MouseEvent.BUTTON1) {
 							if (current == null)
 								candidate = selectionMap.get(
 										card.getSelectionType()).add(
@@ -120,7 +119,7 @@ public class Selector {
 										.remove(f.cardClicked);
 						}
 					} else {
-						if (e.info.getButton() != MouseEvent.BUTTON1)
+						if (f.info.getButton() != MouseEvent.BUTTON1)
 							continue;
 						if (current == null)
 							candidate = selectionMap.get(
@@ -202,7 +201,9 @@ public class Selector {
 					if ((card.getSelectionType() == SelectionType.CELL
 							|| card.getSelectionType() == SelectionType.HAND || card
 							.getSelectionType() == SelectionType.COLUMN)
-							&& e.info.getClickCount() > 1 && currentRate == 2)
+							&& (e.type == EventType.BoardClicked || e.type == EventType.HandClicked)
+							&& ((MouseClickEvent) e).info.getClickCount() > 1
+							&& currentRate == 2)
 						return current;
 				}
 			}

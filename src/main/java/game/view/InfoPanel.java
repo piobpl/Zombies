@@ -5,7 +5,7 @@ import game.view.GUI.Button;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -132,20 +132,20 @@ public class InfoPanel {
 		for (String message : messages)
 			sendMessage(message);
 	}
-	
-	public void addButtonMouseListener(final Button button,
-			final MouseListener a) {
+
+	public void addButtonListener(final Button button,
+			final ActionListener a) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				switch (button) {
 				case ApplySelection:
-					applySelectionButton.addMouseListener(a);
+					applySelectionButton.addActionListener(a);
 					break;
 				case CancelSelection:
-					cancelSelectionButton.addMouseListener(a);
+					cancelSelectionButton.addActionListener(a);
 					break;
 				case EndTurn:
-					endTurnButton.addMouseListener(a);
+					endTurnButton.addActionListener(a);
 					break;
 				default:
 					throw new UnsupportedOperationException();
