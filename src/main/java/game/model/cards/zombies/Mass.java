@@ -13,6 +13,7 @@ import game.model.SelectionTester;
 import java.util.List;
 
 import utility.Pair;
+import utility.TypedSet;
 
 /**
  * Card, which is not put into the board. Requires two-element group of cells as
@@ -20,7 +21,7 @@ import utility.Pair;
  * zombie from first cell is merged to zombie from second cell. Eventually,
  * bigger zombie remains on second cell, first cell is cleared.
  * 
- * @author jerzozwierz
+ * @author jerzozwierz, zajac
  * 
  */
 
@@ -53,14 +54,9 @@ public class Mass extends Card {
 		if (!gameState.getBoard()
 				.is(cell2.first, cell2.second, CardType.ZOMBIE))
 			return 0;
-		Card temp = gameState.getBoard().get(cell2.first, cell2.second);
-		gameState.getBoard().remove(cell2.first, cell2.second);
-		if (!MoveMaker.isMovePossible(gameState, cell1, cell2, null)) {
-			gameState.getBoard().set(cell2.first, cell2.second, temp);
-			return 0;
-		}
-		gameState.getBoard().set(cell2.first, cell2.second, temp);
-		return 2;
+		if (MoveMaker.isMergePossible(gameState, cell1, cell2, null))
+			return 2;
+		return 0;
 	}
 
 	@Override
@@ -73,19 +69,16 @@ public class Mass extends Card {
 				.getStrength()
 				+ gameState.getBoard().get(cell1.first, cell1.second)
 						.getStrength();
-		boolean human = (gameState.getBoard().get(cell1.first, cell1.second)
-				.getModifiers().contains(ModifierType.HUMAN) ||
-				gameState.getBoard().get(cell2.first, cell2.second)
-				.getModifiers().contains(ModifierType.HUMAN));
-			
 		System.err.println("Nowy zombiak z sila: " + newStrength);
 		gameState.getBoard().get(cell2.first, cell2.second)
 				.setStrength(newStrength);
-		gameState.getBoard().get(cell2.first, cell2.second).getModifiers()
-				.add(new Modifier(ModifierType.MOVEDONCE, 8));
-		if (human)
-			gameState.getBoard().get(cell2.first, cell2.second).getModifiers()
-					.add(new Modifier(ModifierType.HUMAN, Integer.MAX_VALUE));
+		TypedSet<Modifier, ModifierType> modifiers1 = gameState.getBoard().get(
+				cell1.first, cell1.second).getModifiers();
+		TypedSet<Modifier, ModifierType> modifiers2 = gameState.getBoard().get(
+				cell2.first, cell2.second).getModifiers();
+		for(Modifier m : modifiers1)
+			if(m.getType() != ModifierType.HUMAN || !modifiers2.contains(ModifierType.HUMAN))
+				modifiers2.add(m);
 		gameState.getBoard().set(cell1.first, cell1.second, null);
 	}
 
