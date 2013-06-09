@@ -67,10 +67,6 @@ public class SimpleGUI implements GUI {
 	public HistoryPanel getHistory() {
 		return history;
 	}
-	
-	public InfoPanel getInfoPanel() {
-		return infoPanel;
-	}
 
 	public EventReceiver getEventReceiver() {
 		return eventReceiver;
@@ -91,6 +87,17 @@ public class SimpleGUI implements GUI {
 		default:
 			infoPanel.setButtonEnabled(button, active);
 			break;
+		}
+	}
+	
+	public boolean isButtonEnabled(Button button) {
+		switch(button) {
+		case Save:
+			return history.isButtonEnabled(button);
+		case Command:
+			return commandButton.isEnabled();
+		default:
+			return infoPanel.isButtonEnabled(button);
 		}
 	}
 
