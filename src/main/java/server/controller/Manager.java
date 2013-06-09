@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import server.controller.Message.ErrorMessage;
-import server.controller.Message.GameStartMessage;
+import server.controller.Message.InvitationAcceptMessage;
 import server.controller.Message.InviteMessage;
 import server.controller.Message.LoginMessage;
 import server.controller.Message.LogoutMessage;
@@ -20,9 +20,9 @@ import utility.Listener.Receiver;
 
 /**
  * Klasa pomocnicza do wysyłania komunikatów graczom.
- * 
+ *
  * @author michal
- * 
+ *
  */
 public class Manager implements Receiver {
 
@@ -61,8 +61,10 @@ public class Manager implements Receiver {
 	@Override
 	public synchronized void receive(Listener listener, Message message) {
 		if (!clientsMap.containsKey(listener)) {
+			System.err.println("Czekam na login!");
 			if (message.getType() != Message.MessageType.LOGIN)
 				return;
+			System.err.println("Login odebrany");
 			LoginMessage m = ((LoginMessage) message);
 			if (loginTaken(m.login)) {
 				listener.send(new ErrorMessage("This login is already taken."));
@@ -75,23 +77,20 @@ public class Manager implements Receiver {
 		} else {
 			if (message.getType() == Message.MessageType.INVITE) {
 				sendToPlayer(((InviteMessage) message).whoIsInvited, message);
-			} else if (message.getType() == Message.MessageType.GAMESTART) {
-				GameStartMessage gsm = (GameStartMessage) message;
+			} else if (message.getType() == Message.MessageType.INVITATIONACCEPT) {
+				InvitationAcceptMessage gsm = (InvitationAcceptMessage) message;
 				Listener clientA = getListener(gsm.whoInvites);
 				Listener clientB = getListener(gsm.whoIsInvited);
-				clientA.pause();
-				clientB.pause();
-				clientA.send(message);
-				clientB.send(message);
 				clientA.removeReceiver(this);
 				clientB.removeReceiver(this);
 				clients.remove(clientA);
 				clients.remove(clientB);
 				clientsMap.remove(clientA);
 				clientsMap.remove(clientB);
-				// Random random = new Random();
-				System.err.println("zombiak = " + gsm.whoInvites + " " + clientB);
-				System.err.println("human = " + gsm.whoIsInvited + " " + clientA);
+				System.err.println("zombiak = " + gsm.whoInvites + " "
+						+ clientB);
+				System.err.println("human = " + gsm.whoIsInvited + " "
+						+ clientA);
 				new Thread(new NetController(clientB, clientA)).start();
 			} else {
 				sendAll(message);

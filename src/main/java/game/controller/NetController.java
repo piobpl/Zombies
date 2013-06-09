@@ -7,22 +7,25 @@ import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI.Button;
 import utility.Listener;
+
 /**
- * 
+ *
  * @author jerzozwierz
  *
  */
 public class NetController implements TriggerEventHandler, Runnable {
 
-	public final GameState gameState;
-	public final DummyGUI gui;
+	public GameState gameState;
+	public DummyGUI gui;
 	private int turn;
+	Listener zombiePlayer, humanPlayer;
 
 	public NetController(Listener zombiePlayer, Listener humanPlayer) {
-		System.err.println("Creating net controller...");
+		System.err.println("Creating net controller... " + zombiePlayer + " "
+				+ humanPlayer);
+		this.zombiePlayer = zombiePlayer;
+		this.humanPlayer = humanPlayer;
 		gui = new DummyGUI(zombiePlayer, humanPlayer, this);
-		gameState = new GameState(gui);
-		System.err.println("Done");
 	}
 
 	public void game() {
@@ -76,7 +79,10 @@ public class NetController implements TriggerEventHandler, Runnable {
 
 	@Override
 	public void run() {
+		gui.waitTillPlayersAreReady();
+		gameState = new GameState(gui);
+		System.err.println("Done");
 		game();
 	}
-	
+
 }

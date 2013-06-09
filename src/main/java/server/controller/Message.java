@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * Komunikaty, które Manager będzie wysyłał do poszczególnych klientów (a serwer
  * do managera).
- * 
+ *
  * @author michal
- * 
+ *
  */
 
 public abstract class Message implements Serializable {
@@ -16,7 +16,7 @@ public abstract class Message implements Serializable {
 	private static final long serialVersionUID = 4994144271876870878L;
 
 	public enum MessageType {
-		LOGIN, LOGOUT, CHAT, ERROR, INVITE, PLAYERLIST, GUI, GAMESTART, READYFORGAME;
+		LOGIN, LOGOUT, CHAT, ERROR, INVITE, PLAYERLIST, GUI, INVITATIONACCEPT, GAMESTART, READYFORGAME;
 	}
 
 	public abstract MessageType getType();
@@ -110,17 +110,28 @@ public abstract class Message implements Serializable {
 
 	}
 
-	public static class GameStartMessage extends Message {
+	public static class InvitationAcceptMessage extends Message {
 
 		private static final long serialVersionUID = -7977451951964451769L;
 
 		public final String whoInvites;
 		public final String whoIsInvited;
 
-		public GameStartMessage(String whoInvites, String whoIsInvited) {
+		public InvitationAcceptMessage(String whoInvites, String whoIsInvited) {
 			this.whoInvites = whoInvites;
 			this.whoIsInvited = whoIsInvited;
 		}
+
+		@Override
+		public MessageType getType() {
+			return MessageType.INVITATIONACCEPT;
+		}
+
+	}
+
+	public static class GameStartMessage extends Message {
+
+		private static final long serialVersionUID = -7977451951964451769L;
 
 		@Override
 		public MessageType getType() {

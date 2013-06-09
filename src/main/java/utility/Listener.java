@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import server.controller.Message;
@@ -24,9 +23,8 @@ public class Listener implements Runnable {
 	private ObjectOutputStream out;
 	private Socket socket;
 	private boolean running = true;
-	private List<Receiver> receivers;
+	private CopyOnWriteArrayList<Receiver> receivers;
 	private LinkedBlockingQueue<Message> outputBox;
-	private boolean isPaused;
 
 	private class Writer implements Runnable {
 		@Override
@@ -34,9 +32,9 @@ public class Listener implements Runnable {
 			while (running) {
 				try {
 					Object o = outputBox.take();
-					System.err.println("Wysylamy: " + o);
 					out.writeObject(o);
 					out.flush();
+					System.err.println("Wysylamy: " + o);
 				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -47,7 +45,7 @@ public class Listener implements Runnable {
 
 	public Listener(Socket socket) {
 		this.socket = socket;
-		receivers = new ArrayList<Receiver>();
+		receivers = new CopyOnWriteArrayList<Receiver>();
 		try {
 			out = new ObjectOutputStream(socket.getOutputStream());
 			in = new ObjectInputStream(socket.getInputStream());
@@ -62,20 +60,32 @@ public class Listener implements Runnable {
 
 	public Listener(Receiver receiver, Socket socket) {
 		this(socket);
-		this.receivers.add(receiver);
+		receivers.add(receiver);
 	}
 
 	public void addReceiver(Receiver receiver) {
-		this.receivers.add(receiver);
+		receivers.add(receiver);
+		System.err.println("(added) Current receivers:");
+		for (Receiver r : receivers)
+			System.err.println("\t" + r);
 	}
 
 	public void removeReceiver(Receiver receiver) {
-		this.receivers.remove(receiver);
+		receivers.remove(receiver);
+		System.err.println("(removed) Current receivers:");
+		for (Receiver r : receivers)
+			System.err.println("\t" + r);
 	}
 
 	public void receive(Message message) {
-		for (Receiver receiver : receivers)
+		System.err.println("(received) Current receivers:");
+		for (Receiver r : receivers)
+			System.err.println("\t" + r);
+		for (Receiver receiver : receivers){
+			System.err.println("Listener " + this + " Przekazuje do " + receiver);
 			receiver.receive(this, message);
+			System.err.println("Listener " + this + " przekazane");
+		}
 	}
 
 	public void send(Message message) {
@@ -91,36 +101,20 @@ public class Listener implements Runnable {
 		}
 	}
 
-	public synchronized void pause() {
-		isPaused = true;
-		System.err.println("pauza = " + isPaused);
-	}
-
-	public synchronized void play() {
-		isPaused = false;
-		System.err.println("pauza = " + isPaused);
-		notifyAll();
-	}
-
 	public void run() {
 		try {
 			while (running) {
+				System.err.println("Listener " + this + " czekam na msg!");
 				Message msg = (Message) in.readObject();
-				System.err.println("Dostalem: " + msg);
-				synchronized (this) {
-					while (isPaused)
-						wait();
-				}
-				System.err.println("Odbieram: " + msg);
+				System.err.println("Listener " + this + " dostalem: " + msg);
 				receive(msg);
 			}
 		} catch (EOFException e) {
-			System.err.println("Client disconnected");
+			e.printStackTrace();
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
+		System.err.println("!!!!!!!!Client disconnected!!!!!!!!");
 		for (Receiver receiver : receivers)
 			receiver.unregister(this);
 		try {
@@ -142,6 +136,10 @@ public class Listener implements Runnable {
 
 	public void close() {
 		running = false;
+	}
+
+	public void finalize() {
+		System.err.println("KTOS NAM KASUJE LISTENER");
 	}
 
 }

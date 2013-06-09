@@ -40,7 +40,6 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
 		this.listener = listener;
 		this.login = login;
 		listener.addReceiver(this);
-		listener.play();
 		listener.send(new ReadyForGameMessage());
 	}
 

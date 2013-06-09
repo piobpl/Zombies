@@ -37,7 +37,7 @@ import javax.swing.ListSelectionModel;
 
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
-import server.controller.Message.GameStartMessage;
+import server.controller.Message.InvitationAcceptMessage;
 import server.controller.Message.InviteMessage;
 import server.controller.Message.LoginMessage;
 import server.controller.Message.LogoutMessage;
@@ -115,11 +115,10 @@ public class Lobby {
 								JOptionPane.QUESTION_MESSAGE, null, options,
 								options[0]);
 						if (n == 0)
-							listener.send(new GameStartMessage(whoInvites,
-									Lobby.this.login));
+							listener.send(new InvitationAcceptMessage(
+									whoInvites, Lobby.this.login));
 						break;
 					case GAMESTART:
-						listener.pause();
 						listener.removeReceiver(this);
 						new Thread(new GUIProxy(listener, Lobby.this.login))
 								.start();

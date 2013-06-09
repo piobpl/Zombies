@@ -47,26 +47,34 @@ public class DummyEventReceiver implements EventReceiver, Receiver {
 
 	@Override
 	public synchronized void receive(Listener listener, Message message) {
-		Listener current;
-		if (currentPlayer == Player.ZOMBIE)
-			current = zombieListener;
-		else
-			current = humanListener;
-		if (listener != current)
-			return;
 		System.err.println("Przyszedl message moze event: " + message);
 		if (message.getType() == Message.MessageType.GUI) {
+			System.err.println("\t Krok 1.");
 			GUIMessage gm = (GUIMessage) message;
 			if (gm.getSubType() == GUIMessageType.EventGUI) {
+				System.err.println("\t Krok 2.");
+				Listener current;
+				if (currentPlayer == Player.ZOMBIE)
+					current = zombieListener;
+				else
+					current = humanListener;
+				System.err.println("\t Krok 3.");
+				if (listener != current){
+					System.err.println("\t Koniec A");
+					return;
+				}
+				System.err.println("\t Krok 4.");
 				EventGUIMessage egm = (EventGUIMessage) gm;
 				if (filter(egm.event))
 					try {
+						System.err.println("\t Krok 5.");
 						eventQueue.put(egm.event);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 			}
 		}
+		System.err.println("\t Koniec B");
 	}
 
 	@Override
@@ -85,7 +93,7 @@ public class DummyEventReceiver implements EventReceiver, Receiver {
 	}
 
 	@Override
-	public synchronized ClickEvent getNextClickEvent() {
+	public ClickEvent getNextClickEvent() {
 		try {
 			while (true) {
 				Event e = eventQueue.take();

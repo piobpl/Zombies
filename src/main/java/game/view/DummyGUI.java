@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.event.ChangeListener;
 
 import server.controller.Message;
+import server.controller.Message.GameStartMessage;
 import server.controller.Message.MessageType;
 import utility.Listener;
 import utility.Listener.Receiver;
@@ -28,6 +29,8 @@ public class DummyGUI implements GUI, Receiver {
 
 	public DummyGUI(Listener zombieListener, Listener humanListener,
 			TriggerEventHandler triggerEventHandler) {
+		System.err.println("Dummy gui " + zombieListener + " "
+				+ humanListener);
 		this.zombieListener = zombieListener;
 		this.humanListener = humanListener;
 		zombieListener.addReceiver(this);
@@ -35,14 +38,20 @@ public class DummyGUI implements GUI, Receiver {
 		dummyEventReceiver = new DummyEventReceiver(zombieListener,
 				humanListener, triggerEventHandler);
 		zombiePlayerReady = humanPlayerReady = false;
-		zombieListener.play();
-		humanListener.play();
-		waitTillPlayersAreReady();
 	}
 
-	public synchronized void waitTillPlayersAreReady(){
-		System.err.println("czekam na graczy " + zombieListener + " " + humanListener);
-		while(!zombiePlayerReady || !humanPlayerReady)
+	public synchronized void waitTillPlayersAreReady() {
+		System.err.println("czekam na graczy " + zombieListener + " "
+				+ humanListener);
+		zombieListener.send(new GameStartMessage());
+		while (!zombiePlayerReady)
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		humanListener.send(new GameStartMessage());
+		while (!humanPlayerReady)
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -50,7 +59,7 @@ public class DummyGUI implements GUI, Receiver {
 			}
 		System.err.println("gotowe");
 	}
-	
+
 	@Override
 	public synchronized void setPlayer(Player player) {
 		dummyEventReceiver.setPlayer(player);
@@ -139,7 +148,8 @@ public class DummyGUI implements GUI, Receiver {
 				zombiePlayerReady = true;
 			if (listener == humanListener)
 				humanPlayerReady = true;
-			System.err.println("gotowi? " + zombiePlayerReady + " " + humanPlayerReady);
+			System.err.println("gotowi? " + zombiePlayerReady + " "
+					+ humanPlayerReady);
 			notifyAll();
 		} else if (message.getType() == MessageType.CHAT) {
 			System.err.println("Rozsylamy chat message: " + message);
