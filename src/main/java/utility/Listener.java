@@ -1,5 +1,6 @@
 package utility;
 
+import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,7 +16,6 @@ public class Listener implements Runnable {
 
 	public static interface Receiver {
 		public void receive(Listener listener, Message message);
-
 		public void unregister(Listener listener);
 	}
 
@@ -61,10 +61,14 @@ public class Listener implements Runnable {
 		this.receivers.add(receiver);
 	}
 
-	public synchronized void setReceiver(Receiver receiver) {
+	public synchronized void addReceiver(Receiver receiver) {
 		this.receivers.add(receiver);
 	}
 
+	public synchronized void removeReceiver(Receiver receiver) {
+		this.receivers.remove(receiver);
+	}
+	
 	public synchronized void receive(Message message) {
 		for(Receiver receiver: receivers)
 			receiver.receive(this, message);
@@ -72,8 +76,13 @@ public class Listener implements Runnable {
 
 	public void send(Message message) {
 		try {
+			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(bytes);
+			out.writeObject(message);
 			outputBox.put(message);
 		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

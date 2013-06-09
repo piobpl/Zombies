@@ -1,50 +1,33 @@
-package server.controller;
+package game.controller;
 
-import game.controller.AdvancingStage;
-import game.controller.DiscardingStage;
-import game.controller.DrawingStage;
-import game.controller.GameOver;
-import game.controller.PlayingStage;
-import game.controller.Stage;
 import game.model.GameState;
 import game.model.Player;
+import game.view.DummyGUI;
 import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUI;
 import game.view.GUI.Button;
-import game.view.SimpleGUI;
+import utility.Listener;
 /**
  * 
  * @author jerzozwierz
  *
  */
-public class NetController implements TriggerEventHandler {
+public class NetController implements TriggerEventHandler, Runnable {
 
 	public final GameState gameState;
 	public final GUI gui;
 	private int turn;
-	private Client zombiePlayer;
-	private Client humanPlayer;
 
-	public NetController(Client zombiePlayer, Client humanPlayer) {
+	public NetController(Listener zombiePlayer, Listener humanPlayer) {
 		System.err.println("Creating net controller...");
-		this.zombiePlayer = zombiePlayer;
-		this.humanPlayer = humanPlayer;
-		gui = new SimpleGUI(this);
-		// gui = new DummyGUI(this); <- do zmiany jak tylko sie pojawi
+		gui = new DummyGUI(zombiePlayer, humanPlayer, this);
 		gameState = new GameState(gui);
 		System.err.println("Done");
 	}
 
-	
-
 	public void game() {
 		turn = gameState.getTurn();
-		if (turn == 0) {
-			gameState.sendMessage("Zombies are controlled by " + zombiePlayer.getLogin());
-			gameState.sendMessage("Humans are controlled by " + humanPlayer.getLogin());
-			gameState.sendMessage("Time to begin, good luck!");
-		}
 		Stage[] stages = new Stage[4];
 		stages[0] = new AdvancingStage(gameState, gui);
 		stages[1] = new DrawingStage(gameState, gui);
@@ -92,6 +75,11 @@ public class NetController implements TriggerEventHandler {
 	@Override
 	public void receiveTriggerEvent(TriggerEvent e) {
 		e.trigger(gameState);
+	}
+
+	@Override
+	public void run() {
+		game();
 	}
 	
 }

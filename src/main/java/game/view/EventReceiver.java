@@ -8,8 +8,7 @@ import game.model.cards.zombies.BossMover;
 import game.view.GUI.Button;
 
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import utility.Pair;
 
@@ -28,13 +27,12 @@ public interface EventReceiver {
 
 	public void removeFilter(Filter filter);
 
-	public List<Filter> filters = new ArrayList<>();
-
 	public static enum EventType {
 		BoardClicked, HandClicked, ButtonClicked, Trigger;
 	}
 
-	public abstract static class Event {
+	public abstract static class Event implements Serializable {
+		private static final long serialVersionUID = 4132830855233184395L;
 		public final EventType type;
 
 		public Event(EventType type) {
@@ -43,12 +41,14 @@ public interface EventReceiver {
 	}
 
 	public abstract static class ClickEvent extends Event {
+		private static final long serialVersionUID = 4132830855233184395L;
 		public ClickEvent(EventType type) {
 			super(type);
 		}
 	}
 
 	public abstract static class MouseClickEvent extends ClickEvent {
+		private static final long serialVersionUID = 4132830855233184395L;
 		public final MouseEvent info;
 		public MouseClickEvent(EventType type, MouseEvent info) {
 			super(type);
@@ -57,6 +57,7 @@ public interface EventReceiver {
 	}
 
 	public static class BoardClickedEvent extends MouseClickEvent {
+		private static final long serialVersionUID = 4132830855233184395L;
 		public final Pair<Integer, Integer> cardClicked;
 
 		public BoardClickedEvent(Pair<Integer, Integer> cardClicked,
@@ -67,6 +68,7 @@ public interface EventReceiver {
 	}
 
 	public static class HandClickedEvent extends MouseClickEvent {
+		private static final long serialVersionUID = 4132830855233184395L;
 		public final Integer cardClicked;
 		public final Player player;
 
@@ -79,6 +81,7 @@ public interface EventReceiver {
 	}
 
 	public static class ButtonClickedEvent extends ClickEvent {
+		private static final long serialVersionUID = 4132830855233184395L;
 		public final Button button;
 
 		public ButtonClickedEvent(Button button) {
@@ -88,6 +91,7 @@ public interface EventReceiver {
 	}
 
 	public abstract static class TriggerEvent extends Event {
+		private static final long serialVersionUID = 4132830855233184395L;
 
 		public TriggerEvent() {
 			super(EventType.Trigger);
@@ -98,6 +102,7 @@ public interface EventReceiver {
 	}
 
 	public static class BossEvent extends TriggerEvent {
+		private static final long serialVersionUID = 4132830855233184395L;
 
 		@Override
 		public void trigger(GameState gameState) {

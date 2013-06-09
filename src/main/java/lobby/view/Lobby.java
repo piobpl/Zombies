@@ -1,5 +1,7 @@
 package lobby.view;
 
+import game.view.GUIProxy;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -35,6 +37,7 @@ import javax.swing.ListSelectionModel;
 
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
+import server.controller.Message.GameStartMessage;
 import server.controller.Message.InviteMessage;
 import server.controller.Message.LoginMessage;
 import server.controller.Message.LogoutMessage;
@@ -111,7 +114,17 @@ public class Lobby {
 								"Game", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE, null, options,
 								options[0]);
-						System.out.println("Wybrano: " + n);
+						if(n == 0){
+							listener.send(new GameStartMessage(whoInvites, Lobby.this.login));
+							new Thread(new GUIProxy(listener)).start();
+							listener.removeReceiver(this);
+							frame.dispose();
+						}
+						break;
+					case GAMESTART:
+						new Thread(new GUIProxy(listener)).start();
+						listener.removeReceiver(this);
+						frame.dispose();
 						break;
 					case PLAYERLIST:
 						players.clear();

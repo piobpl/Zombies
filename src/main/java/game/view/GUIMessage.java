@@ -4,6 +4,7 @@ import game.model.Card;
 import game.model.Modifier;
 import game.model.Player;
 import game.model.Trap;
+import game.view.EventReceiver.Event;
 import game.view.GUI.Button;
 import server.controller.Message;
 
@@ -17,10 +18,7 @@ public abstract class GUIMessage extends Message {
 	}
 
 	public enum GUIMessageType {
-		SetHandHighlight, DrawCellCard, DrawCellTraps, SetCellHighlight, SetCellRedHighlight,
-		ToggleCellHighlight, SetBoardHighlight, SetBoardColumnHighlight, SetBoardRowHighlight,
-		ClearBoardGlassText, SetGUIButtonEnabled, SetGUICardsLeft, ModelGUISends,
-		DrawGlobalModifiers, SetGUIHighlight, ExitGUI;
+		SetHandHighlight, DrawCellCard, DrawCellTraps, SetCellHighlight, SetCellRedHighlight, ToggleCellHighlight, SetBoardHighlight, SetBoardColumnHighlight, SetBoardRowHighlight, ClearBoardGlassText, SetGUIButtonEnabled, SetGUICardsLeft, ModelGUISends, DrawGlobalModifiers, SetGUIHighlight, ExitGUI, EventGUI;
 	}
 
 	public abstract GUIMessageType getSubType();
@@ -268,6 +266,19 @@ public abstract class GUIMessage extends Message {
 
 		public GUIMessageType getSubType() {
 			return GUIMessageType.ExitGUI;
-		}		
+		}
+	}
+
+	public static class EventGUIMessage extends GUIMessage {
+		private static final long serialVersionUID = -2595768761154346307L;
+		public final Event event;
+
+		public EventGUIMessage(Event event) {
+			this.event = event;
+		}
+
+		public GUIMessageType getSubType() {
+			return GUIMessageType.EventGUI;
+		}
 	}
 }

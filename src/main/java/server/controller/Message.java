@@ -16,7 +16,7 @@ public abstract class Message implements Serializable {
 	private static final long serialVersionUID = 4994144271876870878L;
 
 	public enum MessageType {
-		LOGIN, LOGOUT, CHAT, ERROR, INVITE, PLAYERLIST, GUI;
+		LOGIN, LOGOUT, CHAT, ERROR, INVITE, PLAYERLIST, GUI, GAMESTART;
 	}
 
 	public abstract MessageType getType();
@@ -110,6 +110,25 @@ public abstract class Message implements Serializable {
 
 	}
 
+	public static class GameStartMessage extends Message {
+
+		private static final long serialVersionUID = -7977451951964451769L;
+
+		public final String whoInvites;
+		public final String whoIsInvited;
+
+		public GameStartMessage(String whoInvites, String whoIsInvited) {
+			this.whoInvites = whoInvites;
+			this.whoIsInvited = whoIsInvited;
+		}
+
+		@Override
+		public MessageType getType() {
+			return MessageType.GAMESTART;
+		}
+
+	}
+	
 	public static class PlayerListMessage extends Message {
 
 		private static final long serialVersionUID = 8002938395596238582L;

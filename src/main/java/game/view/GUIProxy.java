@@ -1,11 +1,13 @@
 package game.view;
 
 import game.model.Player;
+import game.view.EventReceiver.Event;
 import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUIMessage.DrawCellCardMessage;
 import game.view.GUIMessage.DrawCellTrapsMessage;
 import game.view.GUIMessage.DrawGUIGlobalModifiersMessage;
+import game.view.GUIMessage.EventGUIMessage;
 import game.view.GUIMessage.ModelGUISendsMessage;
 import game.view.GUIMessage.SetBoardColumnHighlightMessage;
 import game.view.GUIMessage.SetBoardHighlightMessage;
@@ -22,12 +24,15 @@ import server.controller.Message.MessageType;
 import utility.Listener;
 import utility.Listener.Receiver;
 
-public class GUIProxy implements Receiver, TriggerEventHandler {
+public class GUIProxy implements Receiver, TriggerEventHandler, Runnable {
 
+	final Listener listener;
 	final GUI gui;
 
 	public GUIProxy(Listener listener) {
 		gui = new SimpleGUI(this);
+		this.listener = listener;
+		listener.addReceiver(this);
 	}
 
 	@Override
@@ -174,16 +179,20 @@ public class GUIProxy implements Receiver, TriggerEventHandler {
 			break;
 		case SetGUIButtonEnabled:
 			SetGUIButtonEnabledMessage setGUIButtonEnabledMessage = (SetGUIButtonEnabledMessage) guiMessage;
-			gui.setButtonEnabled(setGUIButtonEnabledMessage.button, setGUIButtonEnabledMessage.aktywny);
+			gui.setButtonEnabled(setGUIButtonEnabledMessage.button,
+					setGUIButtonEnabledMessage.aktywny);
 			break;
 		case SetGUICardsLeft:
 			SetGUICardsLeftMessage setGUICardsLeftMessage = (SetGUICardsLeftMessage) guiMessage;
-			gui.setCardsLeft(setGUICardsLeftMessage.player, setGUICardsLeftMessage.left);
+			gui.setCardsLeft(setGUICardsLeftMessage.player,
+					setGUICardsLeftMessage.left);
 			break;
 		case SetGUIHighlight:
 			SetGUIHighlightMessage setGUIHighlightMessage = (SetGUIHighlightMessage) guiMessage;
 			gui.setHighlight(setGUIHighlightMessage.set);
 			break;
+		case EventGUI:
+			throw new UnsupportedOperationException();
 		}
 	}
 
@@ -194,7 +203,14 @@ public class GUIProxy implements Receiver, TriggerEventHandler {
 
 	@Override
 	public void receiveTriggerEvent(TriggerEvent e) {
-		// TODO Auto-generated method stub
+		listener.send(new EventGUIMessage(e));
 	}
 
+	@Override
+	public void run() {
+		while (true) {
+			Event e = gui.getEventReceiver().getNextClickEvent();
+			listener.send(new EventGUIMessage(e));
+		}
+	}
 }

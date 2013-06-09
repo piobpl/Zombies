@@ -34,8 +34,6 @@ public class GameState implements Serializable {
 	private int turn;
 	private StageType stage;
 	private Player player;
-	private PlayerAccount zombiePlayer;
-	private PlayerAccount humanPlayer;
 	private transient List<byte[]> saveList;
 
 	/**
@@ -51,16 +49,6 @@ public class GameState implements Serializable {
 		humanHand = new Hand(this, Player.HUMAN);
 		messages = new ArrayList<String>();
 		saveList = new ArrayList<byte[]>();
-	}
-
-	/**
-	 * Creates a new gamestate using specified players' accounts.
-	 */
-	public GameState(GUI gui, PlayerAccount zombieAccount,
-			PlayerAccount humanAccount) {
-		this(gui);
-		this.zombiePlayer = zombieAccount;
-		this.humanPlayer = humanAccount;
 	}
 
 	/**
@@ -147,24 +135,6 @@ public class GameState implements Serializable {
 
 	public void setPlayer(Player player) {
 		this.player = player;
-	}
-
-	/**
-	 * Return the zombie player account.
-	 *
-	 * @return zombie player account
-	 */
-	public PlayerAccount getZombiePlayerAccount() {
-		return zombiePlayer;
-	}
-
-	/**
-	 * Returns the human player account.
-	 *
-	 * @return human player account
-	 */
-	public PlayerAccount getHumanPlayerAccount() {
-		return humanPlayer;
 	}
 
 	/**

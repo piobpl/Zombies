@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -16,11 +18,13 @@ public class SimpleEventReceiver implements EventReceiver {
 	private final GUI gui;
 	private final BlockingQueue<Event> eventQueue;
 	private final TriggerEventHandler triggerHandler;
+	private final List<Filter> filters;
 
 	public SimpleEventReceiver(GUI gui, TriggerEventHandler triggerHandler) {
 		this.gui = gui;
 		this.triggerHandler = triggerHandler;
 		eventQueue = new ArrayBlockingQueue<>(32);
+		filters = new ArrayList<>();
 		registerToHand(Player.HUMAN);
 		registerToHand(Player.ZOMBIE);
 		registerToBoard();

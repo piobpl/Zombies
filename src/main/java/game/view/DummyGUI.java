@@ -2,6 +2,7 @@ package game.view;
 
 import game.model.Modifier;
 import game.model.Player;
+import game.view.EventReceiver.TriggerEventHandler;
 import game.view.GUIMessage.DrawGUIGlobalModifiersMessage;
 import game.view.GUIMessage.ExitGUIMessage;
 import game.view.GUIMessage.ModelGUISendsMessage;
@@ -19,15 +20,17 @@ import utility.Listener;
 public class DummyGUI implements GUI {
 
 	Listener zombieListener, humanListener;
-
-	public DummyGUI(Listener zombieListener, Listener humanListener) {
+	DummyEventReceiver dummyEventReceiver;
+	
+	public DummyGUI(Listener zombieListener, Listener humanListener, TriggerEventHandler triggerEventHandler) {
 		this.zombieListener = zombieListener;
 		this.humanListener = humanListener;
+		dummyEventReceiver = new DummyEventReceiver(zombieListener, humanListener, triggerEventHandler);
 	}
 
 	@Override
 	public void setPlayer(Player player) {
-		throw new UnsupportedOperationException();
+		dummyEventReceiver.setPlayer(player);
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class DummyGUI implements GUI {
 
 	@Override
 	public EventReceiver getEventReceiver() {
-		throw new UnsupportedOperationException();
+		return dummyEventReceiver;
 	}
 
 	@Override
