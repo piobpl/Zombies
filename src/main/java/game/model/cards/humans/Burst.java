@@ -72,7 +72,7 @@ public class Burst extends Card {
 				--remaining;
 				if (remaining == 0)
 					MoveMaker.moveBackward(gameState, i, column);
-				--i;
+				++i;
 			case NOTHING:
 			}
 			if (remaining == 0)
