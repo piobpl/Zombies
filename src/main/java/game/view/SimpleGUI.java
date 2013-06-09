@@ -10,6 +10,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
 import javax.swing.event.ChangeListener;
@@ -203,8 +205,16 @@ public class SimpleGUI implements GUI {
 		frame.getContentPane().add(panel, gbc);
 		humanCardsLeft = new JLabel();
 		humanCardsLeft.setForeground(Colors.margines.getColor());
-		humanCardsLeft.setPreferredSize(new Dimension(120, 30));
+		humanCardsLeft.setPreferredSize(new Dimension(220, 30));
 		panel.add(humanCardsLeft);
+		JButton helpButton = new JButton("Help");
+		helpButton.setPreferredSize(new Dimension(120, 30));
+		panel.add(helpButton);
+		helpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showHelp();
+			}
+		});
 
 		frame.setVisible(true);
 
@@ -265,4 +275,9 @@ public class SimpleGUI implements GUI {
 			}
 		});
 	}
+
+	private void showHelp() {
+		JOptionPane.showMessageDialog(null, new JLabel(Help.helpText), "Help", JOptionPane.INFORMATION_MESSAGE);
+	}
+
 }
