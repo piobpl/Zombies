@@ -20,49 +20,60 @@ import utility.Listener.Receiver;
 public class GUIProxy implements Receiver, TriggerEventHandler {
 
 	final GUI gui;
-	
-	public GUIProxy(Listener listener){
+
+	public GUIProxy(Listener listener) {
 		gui = new SimpleGUI(this);
 	}
-	
+
 	@Override
 	public void receive(Listener listener, Message message) {
-		if(message.getType() != MessageType.GUI)
+		if (message.getType() != MessageType.GUI)
 			return;
 		GUIMessage guiMessage = (GUIMessage) message;
-		switch(guiMessage.getSubType()){
+		switch (guiMessage.getSubType()) {
 		case ClearBoardGlassText:
 			gui.getBoard().clearGlassText();
 			break;
 		case DrawCellCard:
 			DrawCellCardMessage drawCellCardMessage = (DrawCellCardMessage) guiMessage;
-			switch(drawCellCardMessage.board){
+			switch (drawCellCardMessage.board) {
 			case 0:
-				gui.getHand(Player.ZOMBIE).getCell(drawCellCardMessage.column).drawCard(drawCellCardMessage.card);
+				gui.getHand(Player.ZOMBIE).getCell(drawCellCardMessage.column)
+						.drawCard(drawCellCardMessage.card);
 				break;
 			case 1:
-				gui.getBoard().getCell(drawCellCardMessage.row, drawCellCardMessage.column).drawCard(drawCellCardMessage.card);
+				gui.getBoard()
+						.getCell(drawCellCardMessage.row,
+								drawCellCardMessage.column)
+						.drawCard(drawCellCardMessage.card);
 				break;
 			case 2:
-				gui.getHand(Player.HUMAN).getCell(drawCellCardMessage.column).drawCard(drawCellCardMessage.card);
+				gui.getHand(Player.HUMAN).getCell(drawCellCardMessage.column)
+						.drawCard(drawCellCardMessage.card);
 			}
 			break;
 		case DrawCellTraps:
 			DrawCellTrapsMessage drawCellTrapsMessage = (DrawCellTrapsMessage) guiMessage;
-			switch(drawCellTrapsMessage.board){
-			case 0: 
-				gui.getHand(Player.ZOMBIE).getCell(drawCellTrapsMessage.column).drawTraps(drawCellTrapsMessage.traps);
+			switch (drawCellTrapsMessage.board) {
+			case 0:
+				gui.getHand(Player.ZOMBIE).getCell(drawCellTrapsMessage.column)
+						.drawTraps(drawCellTrapsMessage.traps);
 				break;
 			case 1:
-				gui.getBoard().getCell(drawCellTrapsMessage.row, drawCellTrapsMessage.column).drawTraps(drawCellTrapsMessage.traps);
+				gui.getBoard()
+						.getCell(drawCellTrapsMessage.row,
+								drawCellTrapsMessage.column)
+						.drawTraps(drawCellTrapsMessage.traps);
 				break;
 			case 2:
-				gui.getHand(Player.HUMAN).getCell(drawCellTrapsMessage.column).drawTraps(drawCellTrapsMessage.traps);
-			}	
+				gui.getHand(Player.HUMAN).getCell(drawCellTrapsMessage.column)
+						.drawTraps(drawCellTrapsMessage.traps);
+			}
 			break;
 		case SetBoardColumnHighlight:
 			SetBoardColumnHighlightMessage setBoardColumnHighlightMessage = (SetBoardColumnHighlightMessage) guiMessage;
-			gui.getBoard().setColumnHighlight(setBoardColumnHighlightMessage.j, setBoardColumnHighlightMessage.set);
+			gui.getBoard().setColumnHighlight(setBoardColumnHighlightMessage.j,
+					setBoardColumnHighlightMessage.set);
 			break;
 		case SetBoardHighlight:
 			SetBoardHighlightMessage setBoardHighlightMessage = (SetBoardHighlightMessage) guiMessage;
@@ -70,55 +81,79 @@ public class GUIProxy implements Receiver, TriggerEventHandler {
 			break;
 		case SetBoardRowHighlight:
 			SetBoardRowHighlightMessage setBoardRowHighlightMessage = (SetBoardRowHighlightMessage) guiMessage;
-			gui.getBoard().setRowHighlight(setBoardRowHighlightMessage.i, setBoardRowHighlightMessage.set);
+			gui.getBoard().setRowHighlight(setBoardRowHighlightMessage.i,
+					setBoardRowHighlightMessage.set);
 			break;
 		case SetCellHighlight:
 			SetCellHighlightMessage setCellHighlightMessage = (SetCellHighlightMessage) guiMessage;
-			switch(setCellHighlightMessage.board){
+			switch (setCellHighlightMessage.board) {
 			case 0:
-				gui.getHand(Player.ZOMBIE).getCell(setCellHighlightMessage.column).setHighlight(setCellHighlightMessage.light);
+				gui.getHand(Player.ZOMBIE)
+						.getCell(setCellHighlightMessage.column)
+						.setHighlight(setCellHighlightMessage.light);
 				break;
 			case 1:
-				gui.getBoard().getCell(setCellHighlightMessage.row, setCellHighlightMessage.column).setHighlight(setCellHighlightMessage.light);
+				gui.getBoard()
+						.getCell(setCellHighlightMessage.row,
+								setCellHighlightMessage.column)
+						.setHighlight(setCellHighlightMessage.light);
 				break;
 			case 2:
-				gui.getHand(Player.HUMAN).getCell(setCellHighlightMessage.column).setHighlight(setCellHighlightMessage.light);
+				gui.getHand(Player.HUMAN)
+						.getCell(setCellHighlightMessage.column)
+						.setHighlight(setCellHighlightMessage.light);
 			}
 			break;
 		case SetCellRedHighlight:
 			SetCellRedHighlightMessage setCellRedHighlightMessage = (SetCellRedHighlightMessage) guiMessage;
-			switch(setCellRedHighlightMessage.board){
+			switch (setCellRedHighlightMessage.board) {
 			case 0:
-				gui.getHand(Player.ZOMBIE).getCell(setCellRedHighlightMessage.column).setRedHighlight(setCellRedHighlightMessage.light);
+				gui.getHand(Player.ZOMBIE)
+						.getCell(setCellRedHighlightMessage.column)
+						.setRedHighlight(setCellRedHighlightMessage.light);
 				break;
 			case 1:
-				gui.getBoard().getCell(setCellRedHighlightMessage.row, setCellRedHighlightMessage.column).setRedHighlight(setCellRedHighlightMessage.light);
+				gui.getBoard()
+						.getCell(setCellRedHighlightMessage.row,
+								setCellRedHighlightMessage.column)
+						.setRedHighlight(setCellRedHighlightMessage.light);
 				break;
 			case 2:
-				gui.getHand(Player.HUMAN).getCell(setCellRedHighlightMessage.column).setRedHighlight(setCellRedHighlightMessage.light);
+				gui.getHand(Player.HUMAN)
+						.getCell(setCellRedHighlightMessage.column)
+						.setRedHighlight(setCellRedHighlightMessage.light);
 			}
 			break;
 		case SetHandHighlight:
 			SetHandHighlightMessage setHandHighlightMessage = (SetHandHighlightMessage) guiMessage;
-			switch(setHandHighlightMessage.player){
+			switch (setHandHighlightMessage.player) {
 			case ZOMBIE:
-				gui.getHand(Player.ZOMBIE).setHighlight(setHandHighlightMessage.set);
+				gui.getHand(Player.ZOMBIE).setHighlight(
+						setHandHighlightMessage.set);
 				break;
 			case HUMAN:
-				gui.getHand(Player.HUMAN).setHighlight(setHandHighlightMessage.set);
+				gui.getHand(Player.HUMAN).setHighlight(
+						setHandHighlightMessage.set);
 			}
 			break;
 		case ToggleCellHighlight:
 			ToggleCellHighlightMessage toggleCellHighlightMessage = (ToggleCellHighlightMessage) guiMessage;
-			switch(toggleCellHighlightMessage.board){
+			switch (toggleCellHighlightMessage.board) {
 			case 0:
-				gui.getHand(Player.ZOMBIE).getCell(toggleCellHighlightMessage.column).toggleHighlight();
+				gui.getHand(Player.ZOMBIE)
+						.getCell(toggleCellHighlightMessage.column)
+						.toggleHighlight();
 				break;
 			case 1:
-				gui.getBoard().getCell(toggleCellHighlightMessage.row, toggleCellHighlightMessage.column).toggleHighlight();
+				gui.getBoard()
+						.getCell(toggleCellHighlightMessage.row,
+								toggleCellHighlightMessage.column)
+						.toggleHighlight();
 				break;
 			case 2:
-				gui.getHand(Player.HUMAN).getCell(toggleCellHighlightMessage.column).toggleHighlight();
+				gui.getHand(Player.HUMAN)
+						.getCell(toggleCellHighlightMessage.column)
+						.toggleHighlight();
 			}
 			break;
 		}
