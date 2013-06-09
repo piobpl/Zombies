@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import server.controller.Message.ErrorMessage;
 import server.controller.Message.InvitationAcceptMessage;
@@ -91,7 +92,11 @@ public class Manager implements Receiver {
 						+ clientB);
 				System.err.println("human = " + gsm.whoIsInvited + " "
 						+ clientA);
-				new Thread(new NetController(clientB, clientA)).start();
+				Random random = new Random();
+				if(random.nextBoolean())
+					new Thread(new NetController(clientA, gsm.whoInvites, clientB, gsm.whoIsInvited)).start();
+				else
+					new Thread(new NetController(clientB, gsm.whoIsInvited, clientA, gsm.whoInvites)).start();
 			} else {
 				sendAll(message);
 			}

@@ -19,12 +19,16 @@ public class NetController implements TriggerEventHandler, Runnable {
 	public DummyGUI gui;
 	private int turn;
 	Listener zombiePlayer, humanPlayer;
+	String zombieNick, humanNick;
 
-	public NetController(Listener zombiePlayer, Listener humanPlayer) {
+	public NetController(Listener zombiePlayer, String zombieNick,
+			Listener humanPlayer, String humanNick) {
 		System.err.println("Creating net controller... " + zombiePlayer + " "
 				+ humanPlayer);
 		this.zombiePlayer = zombiePlayer;
 		this.humanPlayer = humanPlayer;
+		this.zombieNick = zombieNick;
+		this.humanNick = humanNick;
 		gui = new DummyGUI(zombiePlayer, humanPlayer, this);
 	}
 
@@ -80,6 +84,7 @@ public class NetController implements TriggerEventHandler, Runnable {
 	@Override
 	public void run() {
 		gui.waitTillPlayersAreReady();
+		gui.modelSendsMessage(zombieNick + " becomes a zombie!");
 		gameState = new GameState(gui);
 		System.err.println("Done");
 		game();
