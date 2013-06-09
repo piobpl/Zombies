@@ -156,6 +156,8 @@ public class GUIProxy implements Receiver, TriggerEventHandler {
 						.toggleHighlight();
 			}
 			break;
+		default:
+			break;
 		}
 	}
 
