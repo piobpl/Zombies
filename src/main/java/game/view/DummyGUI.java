@@ -82,6 +82,16 @@ public class DummyGUI implements GUI, Receiver {
 	}
 
 	@Override
+	public synchronized HistoryPanel getHistory() {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public synchronized InfoPanel getInfoPanel() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public synchronized EventReceiver getEventReceiver() {
 		return dummyEventReceiver;
 	}

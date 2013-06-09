@@ -5,6 +5,7 @@ import game.view.GUI.Button;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.util.EnumSet;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultBoundedRangeModel;
@@ -17,6 +18,8 @@ public class HistoryPanel {
 
 	private JButton saveButton;
 	private JSlider historySlider;
+	private boolean upToDate = true;
+	private EnumSet<Button> enabledInfoButtons = EnumSet.noneOf(Button.class);
 
 	public HistoryPanel(JPanel panel) {
 		panel.setLayout(new FlowLayout());
@@ -76,5 +79,24 @@ public class HistoryPanel {
 				}
 			}
 		});
+	}
+	
+	public boolean isInfoButtonEnabled(Button button) {
+		return enabledInfoButtons.contains(button);
+	}
+	
+	public void setInfoButtonEnabled(Button button, boolean active) {
+		if(active)
+			enabledInfoButtons.add(button);
+		else
+			enabledInfoButtons.remove(button);
+	}
+	
+	public boolean isUpToDate() {
+		return upToDate;
+	}
+	
+	public void setUpToDate(boolean upToDate) {
+		this.upToDate = upToDate;
 	}
 }

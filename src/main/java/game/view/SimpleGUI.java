@@ -63,6 +63,14 @@ public class SimpleGUI implements GUI {
 	public Board getBoard() {
 		return board;
 	}
+	
+	public HistoryPanel getHistory() {
+		return history;
+	}
+	
+	public InfoPanel getInfoPanel() {
+		return infoPanel;
+	}
 
 	public EventReceiver getEventReceiver() {
 		return eventReceiver;
