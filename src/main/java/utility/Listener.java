@@ -16,6 +16,7 @@ public class Listener implements Runnable {
 
 	public static interface Receiver {
 		public void receive(Listener listener, Message message);
+
 		public void unregister(Listener listener);
 	}
 
@@ -25,13 +26,16 @@ public class Listener implements Runnable {
 	private boolean running = true;
 	private List<Receiver> receivers;
 	private LinkedBlockingQueue<Message> outputBox;
+	private boolean isPaused;
 
 	private class Writer implements Runnable {
 		@Override
 		public void run() {
 			while (running) {
 				try {
-					out.writeObject(outputBox.take());
+					Object o = outputBox.take();
+					System.err.println("Wysylamy: " + o);
+					out.writeObject(o);
 					out.flush();
 				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
@@ -61,16 +65,16 @@ public class Listener implements Runnable {
 		this.receivers.add(receiver);
 	}
 
-	public synchronized void addReceiver(Receiver receiver) {
+	public void addReceiver(Receiver receiver) {
 		this.receivers.add(receiver);
 	}
 
-	public synchronized void removeReceiver(Receiver receiver) {
+	public void removeReceiver(Receiver receiver) {
 		this.receivers.remove(receiver);
 	}
-	
-	public synchronized void receive(Message message) {
-		for(Receiver receiver: receivers)
+
+	public void receive(Message message) {
+		for (Receiver receiver : receivers)
 			receiver.receive(this, message);
 	}
 
@@ -87,17 +91,37 @@ public class Listener implements Runnable {
 		}
 	}
 
+	public synchronized void pause() {
+		isPaused = true;
+		System.err.println("pauza = " + isPaused);
+	}
+
+	public synchronized void play() {
+		isPaused = false;
+		System.err.println("pauza = " + isPaused);
+		notifyAll();
+	}
+
 	public void run() {
 		try {
 			while (running) {
-				receive((Message) in.readObject());
+				Message msg = (Message) in.readObject();
+				System.err.println("Dostalem: " + msg);
+				synchronized (this) {
+					while (isPaused)
+						wait();
+				}
+				System.err.println("Odbieram: " + msg);
+				receive(msg);
 			}
 		} catch (EOFException e) {
 			System.err.println("Client disconnected");
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		for(Receiver receiver: receivers)
+		for (Receiver receiver : receivers)
 			receiver.unregister(this);
 		try {
 			in.close();

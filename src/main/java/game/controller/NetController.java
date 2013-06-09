@@ -5,7 +5,6 @@ import game.model.Player;
 import game.view.DummyGUI;
 import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
-import game.view.GUI;
 import game.view.GUI.Button;
 import utility.Listener;
 /**
@@ -16,7 +15,7 @@ import utility.Listener;
 public class NetController implements TriggerEventHandler, Runnable {
 
 	public final GameState gameState;
-	public final GUI gui;
+	public final DummyGUI gui;
 	private int turn;
 
 	public NetController(Listener zombiePlayer, Listener humanPlayer) {
@@ -61,8 +60,6 @@ public class NetController implements TriggerEventHandler, Runnable {
 			}
 		} catch (GameOver gameOver) {
 			gameState.sendMessage(gameOver.won + " has won!");
-			//TODO tutaj wysylamy komunikaty do graczy
-			//ewentualnie zmieniajac staty - ale na to pewnie nie bedzie czasu
 		}
 		try {
 			Thread.sleep(5000);

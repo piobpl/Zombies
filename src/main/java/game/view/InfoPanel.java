@@ -5,7 +5,10 @@ import game.view.GUI.Button;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -15,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class InfoPanel {
@@ -26,9 +30,12 @@ public class InfoPanel {
 	private JLabel modyfikator;
 	private JPanel panelBrazowy;
 
-	InfoPanel(JPanel panel) {
+	InfoPanel(JPanel panel, final ChatProxy chatProxy) {
 		panel.setLayout(new FlowLayout());
-		panel.setPreferredSize(new Dimension(390, 290));
+		if (chatProxy != null)
+			panel.setPreferredSize(new Dimension(390, 320));
+		else
+			panel.setPreferredSize(new Dimension(390, 290));
 
 		applySelectionButton = new JButton("Apply");
 		applySelectionButton.setPreferredSize(new Dimension(120, 30));
@@ -75,6 +82,26 @@ public class InfoPanel {
 				Colors.humansCard.getColor()));
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
+
+		if (chatProxy != null) {
+			final JTextField text = new JTextField(12);
+			text.setPreferredSize(new Dimension(0, 24));
+			text.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					if (text.getText().length() == 40)
+						e.consume();
+				}
+			});
+			text.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					chatProxy.send(text.getText());
+					text.setText("");
+				}
+			});
+			panelBrazowy.add(text);
+		}
 	}
 
 	public void drawGlobalModifiers(final Iterable<Modifier> modifiers) {
@@ -133,8 +160,7 @@ public class InfoPanel {
 			sendMessage(message);
 	}
 
-	public void addButtonListener(final Button button,
-			final ActionListener a) {
+	public void addButtonListener(final Button button, final ActionListener a) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				switch (button) {

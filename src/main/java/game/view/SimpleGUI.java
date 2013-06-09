@@ -39,12 +39,12 @@ public class SimpleGUI implements GUI {
 	private JPanel historyPanel;
 	private JButton commandButton;
 
-	public SimpleGUI(TriggerEventHandler triggerEventHandler) {
+	public SimpleGUI(TriggerEventHandler triggerEventHandler, final ChatProxy chatProxy) {
 		System.err.println("Creating GUI...");
 		try {
 			javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
 				public void run() {
-					createWindow();
+					createWindow(chatProxy);
 				}
 			});
 		} catch (InvocationTargetException | InterruptedException e) {
@@ -129,7 +129,7 @@ public class SimpleGUI implements GUI {
 		infoPanel.drawGlobalModifiers(modifiers);
 	}
 
-	private void createWindow() {
+	private void createWindow(ChatProxy chatProxy) {
 		JPanel panel;
 
 		ToolTipManager.sharedInstance().setDismissDelay(60000);
@@ -224,7 +224,7 @@ public class SimpleGUI implements GUI {
 
 		rightPanel.add(panel = new JPanel());
 		panel.setOpaque(false);
-		infoPanel = new InfoPanel(panel);
+		infoPanel = new InfoPanel(panel, chatProxy);
 		rightPanel.add(historyPanel = new JPanel());
 		historyPanel.setOpaque(false);
 		history = new HistoryPanel(historyPanel);

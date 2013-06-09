@@ -39,7 +39,7 @@ public class LocalController implements TriggerEventHandler {
 	public LocalController() {
 		System.err.println("Creating Controller...");
 		myFilter = new Freeze();
-		gui = new SimpleGUI(this);
+		gui = new SimpleGUI(this, null);
 		gameState = new GameState(gui);
 		gui.addButtonListener(Button.Save, new ActionListener() {
 			@Override

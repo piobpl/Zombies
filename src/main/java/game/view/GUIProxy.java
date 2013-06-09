@@ -20,24 +20,36 @@ import game.view.GUIMessage.SetGUIHighlightMessage;
 import game.view.GUIMessage.SetHandHighlightMessage;
 import game.view.GUIMessage.ToggleCellHighlightMessage;
 import server.controller.Message;
+import server.controller.Message.ChatMessage;
 import server.controller.Message.MessageType;
+import server.controller.Message.ReadyForGameMessage;
 import utility.Listener;
 import utility.Listener.Receiver;
 
-public class GUIProxy implements Receiver, TriggerEventHandler, Runnable {
+public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
+		ChatProxy {
 
+	final String login;
 	final Listener listener;
 	final SimpleGUI gui;
 
-	public GUIProxy(Listener listener) {
-		gui = new SimpleGUI(this);
+	public GUIProxy(Listener listener, String login) {
+		System.err.println("Proxy gracza: " + login);
+		gui = new SimpleGUI(this, this);
 		gui.hideHistoryPanel();
 		this.listener = listener;
+		this.login = login;
 		listener.addReceiver(this);
+		listener.play();
+		listener.send(new ReadyForGameMessage());
 	}
 
 	@Override
-	public void receive(Listener listener, Message message) {
+	public synchronized void receive(Listener listener, Message message) {
+		if (message.getType() == MessageType.CHAT) {
+			ChatMessage cm = (ChatMessage) message;
+			gui.modelSendsMessage(cm.from + " writes: " + cm.message);
+		}
 		if (message.getType() != MessageType.GUI)
 			return;
 		GUIMessage guiMessage = (GUIMessage) message;
@@ -203,7 +215,7 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable {
 	}
 
 	@Override
-	public void receiveTriggerEvent(TriggerEvent e) {
+	public synchronized void receiveTriggerEvent(TriggerEvent e) {
 		listener.send(new EventGUIMessage(e));
 	}
 
@@ -213,5 +225,11 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable {
 			Event e = gui.getEventReceiver().getNextClickEvent();
 			listener.send(new EventGUIMessage(e));
 		}
+	}
+
+	@Override
+	public synchronized void send(String message) {
+		System.err.println("Przesylamy chat message w gore: " + message);
+		listener.send(new ChatMessage(login, message));
 	}
 }

@@ -15,7 +15,7 @@ public class HandTest {
 
 	@Test
 	public void test() {
-		Hand hand = new Hand(new GameState(new SimpleGUI(null)), Player.ZOMBIE);
+		Hand hand = new Hand(new GameState(new SimpleGUI(null, null)), Player.ZOMBIE);
 		for (int i = 0; i < 4; ++i)
 			assertEquals(null, hand.get(i));
 		Card[] cards = new Card[4];

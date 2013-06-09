@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import server.controller.Message.ErrorMessage;
 import server.controller.Message.GameStartMessage;
@@ -78,22 +77,22 @@ public class Manager implements Receiver {
 				sendToPlayer(((InviteMessage) message).whoIsInvited, message);
 			} else if (message.getType() == Message.MessageType.GAMESTART) {
 				GameStartMessage gsm = (GameStartMessage) message;
-				sendToPlayer(gsm.whoInvites, message);
-				Random random = new Random();
-				if (random.nextBoolean())
-					new Thread(new NetController(getListener(gsm.whoInvites),
-							getListener(gsm.whoIsInvited))).start();
-				else
-					new Thread(new NetController(getListener(gsm.whoIsInvited),
-							getListener(gsm.whoInvites))).start();
-				Listener client = getListener(gsm.whoInvites);
-				client.removeReceiver(this);
-				clients.remove(client);
-				clientsMap.remove(client);
-				client = getListener(gsm.whoIsInvited);
-				client.removeReceiver(this);
-				clients.remove(client);
-				clientsMap.remove(client);
+				Listener clientA = getListener(gsm.whoInvites);
+				Listener clientB = getListener(gsm.whoIsInvited);
+				clientA.pause();
+				clientB.pause();
+				clientA.send(message);
+				clientB.send(message);
+				clientA.removeReceiver(this);
+				clientB.removeReceiver(this);
+				clients.remove(clientA);
+				clients.remove(clientB);
+				clientsMap.remove(clientA);
+				clientsMap.remove(clientB);
+				// Random random = new Random();
+				System.err.println("zombiak = " + gsm.whoInvites + " " + clientB);
+				System.err.println("human = " + gsm.whoIsInvited + " " + clientA);
+				new Thread(new NetController(clientB, clientA)).start();
 			} else {
 				sendAll(message);
 			}
@@ -115,7 +114,7 @@ public class Manager implements Receiver {
 		new Thread(connector).start();
 	}
 
-	public List<String> getClientsNames() {
+	public synchronized List<String> getClientsNames() {
 		List<String> L = new LinkedList<>();
 		for (Client tmp : clientsMap.values()) {
 			L.add(tmp.getLogin());

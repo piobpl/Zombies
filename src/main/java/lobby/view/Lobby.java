@@ -114,16 +114,15 @@ public class Lobby {
 								"Game", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE, null, options,
 								options[0]);
-						if(n == 0){
-							listener.send(new GameStartMessage(whoInvites, Lobby.this.login));
-							new Thread(new GUIProxy(listener)).start();
-							listener.removeReceiver(this);
-							frame.dispose();
-						}
+						if (n == 0)
+							listener.send(new GameStartMessage(whoInvites,
+									Lobby.this.login));
 						break;
 					case GAMESTART:
-						new Thread(new GUIProxy(listener)).start();
+						listener.pause();
 						listener.removeReceiver(this);
+						new Thread(new GUIProxy(listener, Lobby.this.login))
+								.start();
 						frame.dispose();
 						break;
 					case PLAYERLIST:
@@ -228,7 +227,8 @@ public class Lobby {
 		inviteButton.setPreferredSize(new Dimension(80, 24));
 		inviteButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (playersList.getSelectedValue() != null && !playersList.getSelectedValue().equals(login))
+				if (playersList.getSelectedValue() != null
+						&& !playersList.getSelectedValue().equals(login))
 					listener.send(new InviteMessage(login, playersList
 							.getSelectedValue()));
 			}
