@@ -31,7 +31,6 @@ public abstract class MoveMaker {
 			Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card) {
 		if (isFrozen(gameState))
 			return false;
-		
 		if (card == null)
 			card = gameState.getBoard().get(from.first, from.second);
 		if (card == null)
