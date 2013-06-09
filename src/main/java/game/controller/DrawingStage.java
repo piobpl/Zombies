@@ -22,7 +22,7 @@ public class DrawingStage implements Stage {
 			if (hand.get(i) == null) {
 				if (deck.isEmpty()) {
 					if (player == Player.ZOMBIE)
-						throw new GameOver(Player.HUMAN,gameState);
+						throw new GameOver(Player.HUMAN);
 					else
 						return;
 				} else {

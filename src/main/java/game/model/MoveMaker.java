@@ -58,7 +58,7 @@ public abstract class MoveMaker {
 	public static boolean moveForward(GameState gameState, int x, int y) {
 		Card current = gameState.getBoard().get(x, y);
 		if (x == 4 && current != null && current.getType() == CardType.ZOMBIE)
-			throw new GameOver(Player.ZOMBIE,gameState);
+			throw new GameOver(Player.ZOMBIE);
 		if (!isMovePossible(gameState, new Pair<Integer, Integer>(x, y),
 				new Pair<Integer, Integer>(x + 1, y), null))
 			return false;
