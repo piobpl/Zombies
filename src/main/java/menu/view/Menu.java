@@ -10,7 +10,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 
 import javax.swing.JButton;
@@ -35,7 +37,12 @@ public class Menu {
 	private static JFrame frame;
 
 	public static void main(String args[]) {
-		new Menu();
+		try {
+			System.setErr(new PrintStream(new File("Main.log")));
+			new Menu();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

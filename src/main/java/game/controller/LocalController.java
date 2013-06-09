@@ -13,7 +13,10 @@ import game.view.SimpleGUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
@@ -192,7 +195,12 @@ public class LocalController implements TriggerEventHandler {
 	}
 
 	public static void main(String args[]) {
-		new LocalController().game(Player.ZOMBIE);
+		try {
+			System.setErr(new PrintStream(new File("LocalController.log")));
+			new LocalController().game(Player.ZOMBIE);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
