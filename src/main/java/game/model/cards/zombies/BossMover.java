@@ -14,15 +14,15 @@ import java.util.List;
 
 import utility.Pair;
 /**
- * 
+ *
  * @author michal
  *
  */
 public class BossMover extends Card {
-	
-	
+
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -4494245466288635858L;
 
@@ -34,7 +34,7 @@ public class BossMover extends Card {
 		if(cells.isEmpty())
 			return 1;
 		Card card = gameState.getBoard().get(cells.get(0).first, cells.get(0).second);
-		if(card == null || card.getType() != CardType.ZOMBIE || card.getStrength() > 3 
+		if(card == null || card.getType() != CardType.ZOMBIE || card.getStrength() > 3
 				|| card.getModifiers().contains(ModifierType.COMMANDEDBYBOSS)
 				|| card.getModifiers().contains(ModifierType.BOSS))
 			return 0;
@@ -51,7 +51,7 @@ public class BossMover extends Card {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
 		Card card = gameState.getBoard().get(cells.get(0).first, cells.get(0).second);
 		card.getModifiers().add(new Modifier(ModifierType.COMMANDEDBYBOSS, Integer.MAX_VALUE));
-		MoveMaker.moveTo(gameState, cells.get(0), cells.get(1));
+		MoveMaker.moveTo(gameState, cells.get(0), cells.get(1), false);
 	}
 
 	@Override

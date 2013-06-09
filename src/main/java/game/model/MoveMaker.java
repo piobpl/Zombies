@@ -24,8 +24,8 @@ public abstract class MoveMaker {
 
 	/**
 	 *
-	 * Przy założeniu że na obu polach stoją zombiaki, funkcja sprawdza czy mogą się połączyć
-	 * (potrzebne w kartach Mass, Change)
+	 * Przy założeniu że na obu polach stoją zombiaki, funkcja sprawdza czy mogą
+	 * się połączyć (potrzebne w kartach Mass, Change)
 	 */
 	public static boolean isMergePossible(GameState gameState,
 			Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card) {
@@ -49,24 +49,27 @@ public abstract class MoveMaker {
 
 	public static boolean isMovePossible(GameState gameState,
 			Pair<Integer, Integer> from, Pair<Integer, Integer> to, Card card) {
-		if(!gameState.getBoard().isEmpty(to.first, to.second))
+		if (!gameState.getBoard().isEmpty(to.first, to.second))
 			return false;
 		return isMergePossible(gameState, from, to, card);
 	}
 
 	public static boolean moveTo(GameState gameState,
-			Pair<Integer, Integer> from, Pair<Integer, Integer> to) {
+			Pair<Integer, Integer> from, Pair<Integer, Integer> to,
+			boolean hollow) {
 		Card card = gameState.getBoard().get(from.first, from.second);
 		gameState.getBoard().set(to.first, to.second, card);
 		gameState.getBoard().set(from.first, from.second, null);
-		for (Trap t : gameState.getBoard().getTraps(to.first, to.second)) {
-			t.movedOn(card);
-		}
+		if (!hollow)
+			for (Trap t : gameState.getBoard().getTraps(to.first, to.second)) {
+				t.movedOn(card);
+			}
 		gameState.update();
 		return true;
 	}
 
-	public static boolean moveForward(GameState gameState, int x, int y) {
+	public static boolean moveForward(GameState gameState, int x, int y,
+			boolean hollow) {
 		Card current = gameState.getBoard().get(x, y);
 		if (x == 4 && current != null && current.getType() == CardType.ZOMBIE)
 			throw new GameOver(Player.ZOMBIE);
@@ -94,7 +97,7 @@ public abstract class MoveMaker {
 		if (next != null)
 			return false;
 		moveTo(gameState, new Pair<Integer, Integer>(x, y),
-				new Pair<Integer, Integer>(x + 1, y));
+				new Pair<Integer, Integer>(x + 1, y), hollow);
 		return true;
 	}
 
@@ -123,18 +126,18 @@ public abstract class MoveMaker {
 		if (next != null)
 			return false;
 		moveTo(gameState, new Pair<Integer, Integer>(x, y),
-				new Pair<Integer, Integer>(x - 1, y));
+				new Pair<Integer, Integer>(x - 1, y), false);
 		return true;
 	}
 
 	public static boolean moveLeft(GameState gameState, int x, int y) {
 		if (!isMovePossible(gameState, new Pair<Integer, Integer>(x, y),
-				new Pair<Integer, Integer>(x, y-1), null))
+				new Pair<Integer, Integer>(x, y - 1), null))
 			return false;
 		if (y == 0 || !gameState.getBoard().isEmpty(x, y - 1))
 			return false;
 		moveTo(gameState, new Pair<Integer, Integer>(x, y),
-				new Pair<Integer, Integer>(x, y - 1));
+				new Pair<Integer, Integer>(x, y - 1), false);
 		return true;
 	}
 
@@ -145,7 +148,7 @@ public abstract class MoveMaker {
 		if (y == 2 || !gameState.getBoard().isEmpty(x, y + 1))
 			return false;
 		moveTo(gameState, new Pair<Integer, Integer>(x, y),
-				new Pair<Integer, Integer>(x, y + 1));
+				new Pair<Integer, Integer>(x, y + 1), false);
 		return true;
 	}
 }

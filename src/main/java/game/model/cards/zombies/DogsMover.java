@@ -12,13 +12,13 @@ import java.util.LinkedList;
 
 import utility.Pair;
 /**
- * 
+ *
  * @author Edoipi
  *
  */
 public class DogsMover extends Card {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 919581198806578413L;
 	private Pair<Integer, Integer> myDogs;
@@ -59,7 +59,7 @@ public class DogsMover extends Card {
 		for(Pair<Integer, Integer> to : ((GroupSelection) selection).cells){
 			if(gameState.getBoard().isEmpty(from.first, from.second))
 				break;
-			MoveMaker.moveTo(gameState, from, to);
+			MoveMaker.moveTo(gameState, from, to, false);
 			from=to;
 		}
 		endOfPath=from;

@@ -23,9 +23,9 @@ import utility.Pair;
 import utility.TypedSet;
 
 /**
- * 
+ *
  * @author Edoipi
- * 
+ *
  */
 public class AdvancingStage implements Stage {
 	public final GameState gameState;
@@ -176,13 +176,25 @@ public class AdvancingStage implements Stage {
 					}
 				}
 			}
+			boolean moved[][] = new boolean[5][3];
+			for (int x = 4; x >= 0; --x)
+				for (int y = 0; y < 3; ++y)
+					moved[x][y] = false;
 			for (int x = 4; x >= 0; --x)
 				for (int y = 0; y < 3; ++y) {
 					if (board.is(x, y, CardType.ZOMBIE)
 							&& (zombie == null || zombie.first != x || zombie.second != y))
-						MoveMaker.moveForward(gameState, x, y);
+						if (MoveMaker.moveForward(gameState, x, y, true))
+							moved[x + 1][y] = true;
 				}
-
+			for (int x = 4; x >= 0; --x)
+				for (int y = 0; y < 3; ++y)
+					for (Trap t : gameState.getBoard().getTraps(x, y)) {
+						Card c = gameState.getBoard().get(x, y);
+						if (c != null && moved[x][y])
+							t.movedOn(c);
+						gameState.update();
+					}
 			break;
 		case HUMAN:
 			gui.setButtonEnabled(Button.Command, false);

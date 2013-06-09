@@ -181,9 +181,9 @@ public class Board implements Serializable {
 		board[x1][y1] = null;
 		board[x2][y2] = null;
 		board[x1][y1] = tmpCard1;
-		MoveMaker.moveTo(gameState, p1, p2);
+		MoveMaker.moveTo(gameState, p1, p2, false);
 		board[x2][y2] = tmpCard2;
-		MoveMaker.moveTo(gameState, p2, p1);
+		MoveMaker.moveTo(gameState, p2, p1, false);
 		board[x2][y2] = tmpCard1;
 		update(x1, y1);
 		update(x2, y2);

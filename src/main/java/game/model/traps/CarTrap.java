@@ -20,7 +20,7 @@ import utility.Pair;
 public class CarTrap extends Trap {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -95970333080133434L;
 
@@ -60,7 +60,8 @@ public class CarTrap extends Trap {
 	}
 
 	public EnumSet<Trigger> getTriggers() {
-		return EnumSet.complementOf(EnumSet.of(Trigger.VOLTAGE));
+		return EnumSet
+				.complementOf(EnumSet.of(Trigger.VOLTAGE, Trigger.HOLLOW));
 	}
 
 	public void trigger() {
@@ -75,6 +76,7 @@ public class CarTrap extends Trap {
 				}
 			}
 		}
+		gameState.update();
 	}
 
 	@Override

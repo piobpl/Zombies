@@ -9,7 +9,7 @@ import game.model.MoveMaker;
 import utility.Pair;
 
 /**
- * 
+ *
  * @author jerzozwierz
  *
  */
@@ -37,7 +37,7 @@ public class Hunger extends Card {
 	public void makeEffect(Selection selection, GameState gameState) {
 		int x = ((CellSelection) selection).cell.first;
 		int y = ((CellSelection) selection).cell.second;
-		MoveMaker.moveForward(gameState, x, y);
+		MoveMaker.moveForward(gameState, x, y, false);
 	}
 
 	@Override
