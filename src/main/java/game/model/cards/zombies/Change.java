@@ -17,7 +17,7 @@ import utility.Pair;
 /**
  * 
  * @author krozycki, zajac
- *
+ * 
  */
 public class Change extends Card {
 
@@ -33,7 +33,8 @@ public class Change extends Card {
 			return 1;
 		if (cells.size() == 1) {
 			Pair<Integer, Integer> crds = cells.get(0);
-			if (gameState.getBoard().is(crds.first, crds.second, CardType.ZOMBIE))
+			if (gameState.getBoard().is(crds.first, crds.second,
+					CardType.ZOMBIE))
 				return 1;
 			return 0;
 		}
@@ -42,14 +43,14 @@ public class Change extends Card {
 		}
 		Pair<Integer, Integer> cell1 = cells.get(0);
 		Pair<Integer, Integer> cell2 = cells.get(1);
-		if(!SelectionTester.areEdgeAdjacent(cell1, cell2))
+		if (!SelectionTester.areEdgeAdjacent(cell1, cell2))
 			return 0;
-		if(gameState.getBoard().is(cell1.first, cell1.second, CardType.ZOMBIE))
+		if (!gameState.getBoard().is(cell1.first, cell1.second, CardType.ZOMBIE))
 			return 0;
-		if(gameState.getBoard().is(cell2.first, cell2.second, CardType.ZOMBIE))
+		if (!gameState.getBoard().is(cell2.first, cell2.second, CardType.ZOMBIE))
 			return 0;
-		if(MoveMaker.isMergePossible(gameState, cell1, cell2, null) &&
-				MoveMaker.isMergePossible(gameState, cell2, cell1, null))
+		if (MoveMaker.isMergePossible(gameState, cell1, cell2, null)
+				&& MoveMaker.isMergePossible(gameState, cell2, cell1, null))
 			return 2;
 		return 0;
 	}
@@ -61,12 +62,12 @@ public class Change extends Card {
 		int y1 = cells.get(0).second;
 		int x2 = cells.get(1).first;
 		int y2 = cells.get(1).second;
-		if (gameState.getBoard().exchangeContent(x1, y1, x2, y2)) {
-			gameState.getBoard().get(x1, y1).getModifiers()
-					.add(new Modifier(ModifierType.MOVEDONCE, 8));
-			gameState.getBoard().get(x2, y2).getModifiers()
-					.add(new Modifier(ModifierType.MOVEDONCE, 8));
-		}
+		gameState.getBoard().exchangeContent(x1, y1, x2, y2);
+		gameState.getBoard().get(x1, y1).getModifiers()
+				.add(new Modifier(ModifierType.MOVEDONCE, 8));
+		gameState.getBoard().get(x2, y2).getModifiers()
+				.add(new Modifier(ModifierType.MOVEDONCE, 8));
+
 	}
 
 	@Override

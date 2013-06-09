@@ -7,21 +7,17 @@ import game.model.Card;
 import game.model.DamageDealer;
 import game.model.GameState;
 import game.model.MoveMaker;
-import game.model.Trap;
-import game.model.Modifier.ModifierType;
 import game.model.Trap.Trigger;
 
 /**
  *
- * @author michal
+ * @author michal, jerzozwierz
  *
  */
 
 public class Burst extends Card {
 
-	/**
-	 *
-	 */
+	
 	private static final long serialVersionUID = -6308527386433743150L;
 	private Integer strength;
 
@@ -40,9 +36,8 @@ public class Burst extends Card {
 			return;
 		int column = ((ColumnSelection) selection).column;
 		int remaining = strength;
-		Card card;
 		for (int i = 4; i >= 0; i--) {
-			for(Trap trap : gameState.getBoard().getTraps(i, column))
+			/*for(Trap trap : gameState.getBoard().getTraps(i, column))
 				if(trap.getTriggers().contains(Trigger.SHOT)) {
 					DamageDealer.dealDamage(gameState, i, column, remaining, Trigger.SHOT);
 					return;
@@ -63,7 +58,25 @@ public class Burst extends Card {
 				MoveMaker.moveBackward(gameState, i, column);
 				if (remaining == 0)
 					break;
+			}*/
+			switch (DamageDealer.dealDamage(gameState, i, column, 1, Trigger.SHOT)) {
+			
+			case ABSORBED:
+				remaining = 0;
+				break;
+			case SHOT:
+			case KILLED:
+				--remaining;
+				break;
+			case DAMAGED:
+				--remaining;
+				if (remaining == 0)
+					MoveMaker.moveBackward(gameState, i, column);
+				++i;
+			case NOTHING:
 			}
+			if (remaining == 0)
+				break;
 		}
 	}
 
