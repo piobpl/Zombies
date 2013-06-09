@@ -37,7 +37,7 @@ public abstract class MoveMaker {
 			return false;
 		if (isFrozen(card))
 			return false;
-		for (Trap t : gameState.getBoard().getTraps(to.first, to.second)) {
+		for (Trap t : gameState.getBoard().getTraps(to.first, to.second).asList()) {
 			if (!t.isMovePossible(card, from)) {
 				System.err.println("Trap " + t
 						+ "says you can't go here if you are " + card);
@@ -61,7 +61,7 @@ public abstract class MoveMaker {
 		gameState.getBoard().set(to.first, to.second, card);
 		gameState.getBoard().set(from.first, from.second, null);
 		if (!hollow)
-			for (Trap t : gameState.getBoard().getTraps(to.first, to.second)) {
+			for (Trap t : gameState.getBoard().getTraps(to.first, to.second).asList()) {
 				t.movedOn(card);
 			}
 		gameState.update();

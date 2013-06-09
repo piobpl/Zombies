@@ -20,13 +20,13 @@ public interface GUI {
 	public void setPlayer(Player player);
 
 	public void setButtonEnabled(Button button, boolean aktywny);
-	
+
 	public boolean isButtonEnabled(Button button);
 
 	public Hand getHand(Player player);
 
 	public Board getBoard();
-	
+
 	public HistoryPanel getHistory();
 
 	public EventReceiver getEventReceiver();
@@ -43,7 +43,7 @@ public interface GUI {
 
 	public void modelSetsAllMessages(final List<String> messages);// nowa funkcja
 
-	public void drawGlobalModifiers(final Iterable<Modifier> modifiers);
+	public void drawGlobalModifiers(final List<Modifier> modifiers);
 
 	public void drawHistorySlider(int turn);
 
@@ -74,7 +74,7 @@ public interface GUI {
 	public static interface Cell {
 		public void drawCard(final Card card);
 
-		public void drawTraps(final Iterable<Trap> traps);
+		public void drawTraps(final List<Trap> traps);
 
 		public void addMouseListener(final MouseListener a);
 

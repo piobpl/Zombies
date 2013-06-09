@@ -1,7 +1,6 @@
 package game.view;
 
 import game.model.Player;
-import game.model.Trap;
 import game.view.EventReceiver.Event;
 import game.view.EventReceiver.TriggerEvent;
 import game.view.EventReceiver.TriggerEventHandler;
@@ -78,11 +77,6 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
 			break;
 		case DrawCellTraps:
 			DrawCellTrapsMessage drawCellTrapsMessage = (DrawCellTrapsMessage) guiMessage;
-			System.out.println("Rysuje trapy: " + drawCellTrapsMessage.board
-					+ " " + drawCellTrapsMessage.column + " "
-					+ drawCellTrapsMessage.row);
-			for (Trap t : drawCellTrapsMessage.traps)
-				System.out.println(t.getName());
 			switch (drawCellTrapsMessage.board) {
 			case 0:
 				gui.getHand(Player.ZOMBIE).getCell(drawCellTrapsMessage.column)
@@ -135,6 +129,11 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
 			break;
 		case SetCellGlassText:
 			SetCellGlassTextMessage setCellGlassTextMessage = (SetCellGlassTextMessage) guiMessage;
+			System.out.println("setCellGlassTextMessage "
+					+ setCellGlassTextMessage.board + " "
+					+ setCellGlassTextMessage.column + " "
+					+ setCellGlassTextMessage.row + " "
+					+ setCellGlassTextMessage.text);
 			switch (setCellGlassTextMessage.board) {
 			case 0:
 				gui.getHand(Player.ZOMBIE)

@@ -1,22 +1,18 @@
 package model.cards;
 
 import static org.junit.Assert.assertEquals;
-
 import game.controller.LocalController;
 import game.model.Trap;
 import game.model.Trap.TrapType;
 import game.model.cards.humans.Mine;
 import game.model.cards.zombies.Zombie;
 
-import java.util.Iterator;
-
-
 import org.junit.Test;
 
 import controller.ForTestsOnly;
 
 /**
- * 
+ *
  * @author krozycki
  *
  */
@@ -33,13 +29,10 @@ public class MineTest {
 		mine.makeEffect(ForTestsOnly.getNewCellSelection(3, 2),
 				controller.gameState);
 		int a = 0;
-		Iterator<Trap> it = controller.gameState.getBoard().getTraps(3, 2)
-				.iterator();
-		while (it.hasNext()) {
-			if (it.next().getType() == TrapType.MINE) {
+		for (Trap t : controller.gameState.getBoard().getTraps(3, 2).asList())
+			if (t.getType() == TrapType.MINE) {
 				a++;
 			}
-		}
 		assertEquals(1, a);
 		assertEquals(
 				0,

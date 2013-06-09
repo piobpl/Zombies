@@ -48,7 +48,8 @@ public class Board implements Serializable {
 	 *            second coordinate of the card
 	 */
 	public void remove(int x, int y) {
-		if(board[x][y] != null && board[x][y].getModifiers().contains(ModifierType.BOSS)) {
+		if (board[x][y] != null
+				&& board[x][y].getModifiers().contains(ModifierType.BOSS)) {
 			gameState.getModifiers().remove(ModifierType.GLOBALBOSS);
 			gameState.gui.setButtonEnabled(Button.Command, false);
 			board[x][y] = null;
@@ -60,8 +61,7 @@ public class Board implements Serializable {
 					MoveMaker.moveBackward(gameState, i, j);
 				}
 			}
-		}
-		else {
+		} else {
 			board[x][y] = null;
 			gameState.gui.getBoard().getCell(x, y).drawCard(null);
 		}
@@ -92,7 +92,8 @@ public class Board implements Serializable {
 	 */
 	public void update(int x, int y) {
 		gameState.gui.getBoard().getCell(x, y).drawCard(board[x][y]);
-		gameState.gui.getBoard().getCell(x, y).drawTraps(traps.get(x * 3 + y));
+		gameState.gui.getBoard().getCell(x, y)
+				.drawTraps(traps.get(x * 3 + y).asList());
 	}
 
 	public void update() {
@@ -125,7 +126,8 @@ public class Board implements Serializable {
 	 * @return true if the specified position on the board is empty
 	 */
 	public boolean isEmpty(int x, int y) {
-		if (x > 4) return true;
+		if (x > 4)
+			return true;
 		return board[x][y] == null;
 	}
 
@@ -141,7 +143,8 @@ public class Board implements Serializable {
 	 *         contain any traps.
 	 */
 	public boolean isCompletelyEmpty(int x, int y) {
-		if (x > 4) return true;
+		if (x > 4)
+			return true;
 		return (board[x][y] == null && getTraps(x, y).isEmpty());
 	}
 

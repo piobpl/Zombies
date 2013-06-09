@@ -36,10 +36,10 @@ public abstract class Trap implements Typed<Trap.TrapType>, Serializable {
 
 	public static void nextStage(TypedSet<Trap, TrapType> traps) {
 		TypedSet<Trap, TrapType> backup = new TypedSet<>();
-		for (Trap t : traps) {
+		for (Trap t : traps.asList()) {
 			backup.add(t);
 		}
-		for (Trap t : backup) {
+		for (Trap t : backup.asList()) {
 			t.decreaseTime();
 			if (t.getTime() <= 0)
 				traps.remove(t);

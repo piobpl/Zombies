@@ -17,15 +17,15 @@ import game.view.GUI.Button;
  */
 
 public abstract class DamageDealer {
-	
+
 	public static enum DamageEffect {
 		KILLED, DAMAGED, SHOT, ABSORBED, NOTHING;
 	}
-	
-	
+
+
 	public static DamageEffect dealDamage(GameState gameState, int x, int y,
 			int dmg, Trigger type) {
-		for (Trap t : gameState.getBoard().getTraps(x, y))
+		for (Trap t : gameState.getBoard().getTraps(x, y).asList())
 			if (t.getTriggers().contains(type)) {
 				t.trigger();
 				if (type == Trigger.SHOT)

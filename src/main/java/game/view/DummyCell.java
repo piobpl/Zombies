@@ -11,6 +11,7 @@ import game.view.GUIMessage.SetCellRedHighlightMessage;
 import game.view.GUIMessage.ToggleCellHighlightMessage;
 
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -37,10 +38,7 @@ public class DummyCell implements Cell {
 	}
 
 	@Override
-	public void drawTraps(Iterable<Trap> traps) {
-		System.out.println("Trapy do narysowania:");
-		for (Trap t : traps)
-			System.out.println(t);
+	public void drawTraps(List<Trap> traps) {
 		zombieListener
 				.send(new DrawCellTrapsMessage(traps, board, row, column));
 		humanListener.send(new DrawCellTrapsMessage(traps, board, row, column));

@@ -201,7 +201,7 @@ public abstract class Card implements Typed<CardType>, Serializable {
 
 	public void nextStage() {
 		TypedSet<Modifier, ModifierType> futureModifiers = new TypedSet<>();
-		for (Modifier m : futureModifiers) {
+		for (Modifier m : futureModifiers.asList()) {
 			m.decreaseTime();
 			if (m.getTime() > 0)
 				futureModifiers.add(m);

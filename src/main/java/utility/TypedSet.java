@@ -1,8 +1,9 @@
 package utility;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.List;
 
 /**
  * Typowany set, mozna dodawac elementy z typem i sprawdzac czy istnieje element
@@ -12,8 +13,7 @@ import java.util.Iterator;
  *
  */
 
-public class TypedSet<T extends Typed<S>, S> implements Iterable<T>,
-		Serializable {
+public class TypedSet<T extends Typed<S>, S> implements Serializable {
 
 	private static final long serialVersionUID = -433195257299471873L;
 	private HashSet<T> set = new HashSet<T>();
@@ -54,28 +54,11 @@ public class TypedSet<T extends Typed<S>, S> implements Iterable<T>,
 		set.remove(element);
 	}
 
-	@Override
-	public Iterator<T> iterator() {
-		return new Iterator<T>() {
-
-			Iterator<T> iterator = set.iterator();
-
-			@Override
-			public boolean hasNext() {
-				return iterator.hasNext();
-			}
-
-			@Override
-			public T next() {
-				return iterator.next();
-			}
-
-			@Override
-			public void remove() {
-				iterator.remove();
-			}
-
-		};
+	public List<T> asList(){
+		List<T> list = new ArrayList<>();
+		for(T elem : set)
+			list.add(elem);
+		return list;
 	}
 
 	public boolean isEmpty() {

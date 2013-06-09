@@ -63,7 +63,7 @@ public class SimpleGUI implements GUI {
 	public Board getBoard() {
 		return board;
 	}
-	
+
 	public HistoryPanel getHistory() {
 		return history;
 	}
@@ -89,7 +89,7 @@ public class SimpleGUI implements GUI {
 			break;
 		}
 	}
-	
+
 	public boolean isButtonEnabled(Button button) {
 		switch(button) {
 		case Save:
@@ -140,7 +140,7 @@ public class SimpleGUI implements GUI {
 		infoPanel.setAllMessages(messages);
 	}
 
-	public void drawGlobalModifiers(final Iterable<Modifier> modifiers) {
+	public void drawGlobalModifiers(final List<Modifier> modifiers) {
 		infoPanel.drawGlobalModifiers(modifiers);
 	}
 
@@ -295,7 +295,7 @@ public class SimpleGUI implements GUI {
 	private void showHelp() {
 		JOptionPane.showMessageDialog(null, new JLabel(Help.helpText), "Help", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	public void hideHistoryPanel(){
 		rightPanel.remove(historyPanel);
 		frame.pack();

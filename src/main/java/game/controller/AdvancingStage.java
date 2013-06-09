@@ -189,7 +189,7 @@ public class AdvancingStage implements Stage {
 				}
 			for (int x = 4; x >= 0; --x)
 				for (int y = 0; y < 3; ++y)
-					for (Trap t : gameState.getBoard().getTraps(x, y)) {
+					for (Trap t : gameState.getBoard().getTraps(x, y).asList()) {
 						Card c = gameState.getBoard().get(x, y);
 						if (c != null && moved[x][y])
 							t.movedOn(c);

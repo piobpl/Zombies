@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -79,7 +80,7 @@ public class SimpleCell implements Cell {
 						name.setForeground(Colors.napisy.getColor());
 					String s = "";
 					boolean first = true;
-					for (Modifier m : card.getModifiers()) {
+					for (Modifier m : card.getModifiers().asList()) {
 						if (!first)
 							s += "<br>";
 						s += m.getName();
@@ -114,7 +115,7 @@ public class SimpleCell implements Cell {
 		});
 	}
 
-	public void drawTraps(final Iterable<Trap> traps) {
+	public void drawTraps(final List<Trap> traps) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				String trap = "";

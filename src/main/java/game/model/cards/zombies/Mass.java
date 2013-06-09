@@ -20,9 +20,9 @@ import utility.TypedSet;
  * selection: cells must be adjacent and placed in the same row. In effect,
  * zombie from first cell is merged to zombie from second cell. Eventually,
  * bigger zombie remains on second cell, first cell is cleared.
- * 
+ *
  * @author jerzozwierz, zajac
- * 
+ *
  */
 
 public class Mass extends Card {
@@ -78,7 +78,7 @@ public class Mass extends Card {
 				cell1.first, cell1.second).getModifiers();
 		TypedSet<Modifier, ModifierType> modifiers2 = gameState.getBoard().get(
 				cell2.first, cell2.second).getModifiers();
-		for(Modifier m : modifiers1)
+		for(Modifier m : modifiers1.asList())
 			if(m.getType() != ModifierType.HUMAN || !modifiers2.contains(ModifierType.HUMAN))
 				modifiers2.add(m);
 		gameState.getBoard().set(cell1.first, cell1.second, null);

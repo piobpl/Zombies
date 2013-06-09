@@ -8,19 +8,19 @@ import game.model.GameState;
 import game.model.Trap;
 import game.model.Trap.TrapType;
 
-import java.util.Iterator;
+import java.util.List;
 
 import utility.TypedSet;
 
 /**
- * 
+ *
  * @author krozycki
  *
  */
 public class PickAxe extends Card {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -2191600406340397278L;
 
@@ -39,13 +39,11 @@ public class PickAxe extends Card {
 		int x = ((CellSelection) selection).cell.first;
 		int y = ((CellSelection) selection).cell.second;
 		TypedSet<Trap, TrapType> traps = gameState.getBoard().getTraps(x, y);
-		Iterator<Trap> it = traps.iterator();
-		while (it.hasNext()) {
-			Trap tmpTrap = it.next();
-			if (!(tmpTrap.getType() == TrapType.PIT || tmpTrap.getType() == TrapType.BARRIER)) {
-				it.remove();
+		List<Trap> list = traps.asList();
+		for (Trap t : list)
+			if (!(t.getType() == TrapType.PIT || t.getType() == TrapType.BARRIER)) {
+				traps.remove(t);
 			}
-		}
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import utility.Pair;
 
 public class Bite extends Card {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 3398347028843618011L;
 
@@ -62,7 +62,7 @@ public class Bite extends Card {
 		tmp = cells.get(1);
 		Card card = new Zombie(1);
 		gameState.getBoard().set(tmp.first, tmp.second, card);
-		for (Trap t : gameState.getBoard().getTraps(tmp.first, tmp.second)) {
+		for (Trap t : gameState.getBoard().getTraps(tmp.first, tmp.second).asList()) {
 			t.movedOn(card);
 		}
 	}

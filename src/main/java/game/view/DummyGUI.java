@@ -167,7 +167,7 @@ public class DummyGUI implements GUI, Receiver {
 	}
 
 	@Override
-	public synchronized void drawGlobalModifiers(Iterable<Modifier> modifiers) {
+	public synchronized void drawGlobalModifiers(List<Modifier> modifiers) {
 		zombieListener.send(new DrawGUIGlobalModifiersMessage(modifiers));
 		humanListener.send(new DrawGUIGlobalModifiersMessage(modifiers));
 	}

@@ -96,7 +96,7 @@ public class GameState implements Serializable {
 		board.update();
 		humanHand.update();
 		zombieHand.update();
-		gui.drawGlobalModifiers(modifiers);
+		gui.drawGlobalModifiers(modifiers.asList());
 	}
 
 	public TypedSet<Modifier, ModifierType> getModifiers() {

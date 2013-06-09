@@ -104,7 +104,7 @@ public class InfoPanel {
 		}
 	}
 
-	public void drawGlobalModifiers(final Iterable<Modifier> modifiers) {
+	public void drawGlobalModifiers(final List<Modifier> modifiers) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				String modifier = "";
@@ -140,7 +140,7 @@ public class InfoPanel {
 			}
 		});
 	}
-	
+
 	public boolean isButtonEnabled(Button button) {
 		switch(button) {
 		case ApplySelection:

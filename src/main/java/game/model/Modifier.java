@@ -89,10 +89,10 @@ public class Modifier implements Typed<Modifier.ModifierType>, Serializable {
 
 	public static void nextStage(TypedSet<Modifier, ModifierType> modifiers) {
 		TypedSet<Modifier, ModifierType> backup = new TypedSet<>();
-		for (Modifier m : modifiers) {
+		for (Modifier m : modifiers.asList()) {
 			backup.add(m);
 		}
-		for (Modifier m : backup) {
+		for (Modifier m : backup.asList()) {
 			m.decreaseTime();
 			if (m.getTime() <= 0)
 				modifiers.remove(m);

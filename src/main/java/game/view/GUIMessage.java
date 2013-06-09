@@ -71,7 +71,7 @@ public abstract class GUIMessage extends Message {
 		final List<Trap> traps;
 		final int board, row, column;
 
-		public DrawCellTrapsMessage(Iterable<Trap> traps, int board, int row,
+		public DrawCellTrapsMessage(List<Trap> traps, int board, int row,
 				int column) {
 			this.traps = new ArrayList<>();
 			for (Trap t : traps)
@@ -266,7 +266,7 @@ public abstract class GUIMessage extends Message {
 
 		final List<Modifier> modifiers;
 
-		public DrawGUIGlobalModifiersMessage(Iterable<Modifier> modifiers) {
+		public DrawGUIGlobalModifiersMessage(List<Modifier> modifiers) {
 			this.modifiers = new ArrayList<>();
 			for (Modifier m : modifiers)
 				this.modifiers.add(m);
