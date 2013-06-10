@@ -11,20 +11,21 @@ import game.model.SelectionTester;
 import java.util.List;
 
 import utility.Pair;
+
 /**
- * 
+ *
  * @author Edoipi
  *
  */
 public class Blood extends Card {
 
-	
 	private static final long serialVersionUID = -4987020517835308841L;
 
 	@Override
 	public int rateSelection(GameState gameState, Selection selection) {
 		List<Pair<Integer, Integer>> cells = ((GroupSelection) selection).cells;
 		Pair<Integer, Integer> tmp;
+		System.err.println("Sprawdzamy blood " + cells.size());
 		switch (cells.size()) {
 		case 2:
 			tmp = cells.get(0);
@@ -32,11 +33,17 @@ public class Blood extends Card {
 					CardType.ZOMBIE) || gameState.getBoard().is(tmp.first,
 					tmp.second, CardType.DOGS)))
 				return 0;
+			System.err.println("1. cell ok");
 			Pair<Integer, Integer> tmp2 = cells.get(1);
+			System.err.println(""
+					+ gameState.getBoard().isEmpty(tmp2.first, tmp2.second)
+					+ " " + SelectionTester.areEdgeAdjacent(tmp, tmp2) + " "
+					+ tmp2.first + " != " + tmp.first);
 			if (!gameState.getBoard().isEmpty(tmp2.first, tmp2.second)
 					|| !SelectionTester.areEdgeAdjacent(tmp, tmp2)
-					|| tmp2.first != tmp.first)
+					|| (!tmp2.first.equals(tmp.first)))
 				return 0;
+			System.err.println("2. cell ok");
 			return 2;
 		case 1:
 			tmp = cells.get(0);
