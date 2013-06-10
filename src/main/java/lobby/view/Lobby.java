@@ -40,6 +40,7 @@ import javax.swing.ListSelectionModel;
 
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
+import server.controller.Message.ErrorMessage;
 import server.controller.Message.InvitationAcceptMessage;
 import server.controller.Message.InviteMessage;
 import server.controller.Message.LoginMessage;
@@ -68,27 +69,38 @@ public class Lobby {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					final String login = (String) JOptionPane.showInputDialog(
-							null, "Login:", "Log in",
-							JOptionPane.PLAIN_MESSAGE, null, null, null);
-					if (login != null) {
+		connect();
+	}
+
+	public static void connect() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				String loginhost = (String) JOptionPane.showInputDialog(null,
+						"login@hostname:", "Log in", JOptionPane.PLAIN_MESSAGE,
+						null, null, "player@localhost");
+				if (loginhost != null) {
+					if (loginhost.matches(".+@.+")) {
+						final String login = loginhost.split("@")[0];
+						final String host = loginhost.split("@")[1];
 						new Thread(new Runnable() {
 							@Override
 							public void run() {
-								new Lobby(login);
+								new Lobby(login, host);
 							}
 						}).start();
+					}else{
+						System.out.print("Wrong input format");
+						System.err.print("Wrong input format");
 					}
 				}
-			});
+			}
+		});
 	}
 
 	/**
 	 * Create the application.
 	 */
-	public Lobby(String login) {
+	public Lobby(String login, String host) {
 		this.login = login;
 		players = new ArrayList<>();
 		try {
@@ -101,6 +113,9 @@ public class Lobby {
 								+ "\n");
 						break;
 					case ERROR:
+						System.out.print(((ErrorMessage) message).message);
+						System.err.print(((ErrorMessage) message).message);
+						listener.close();
 						break;
 					case LOGIN:
 						LoginMessage limsg = (LoginMessage) message;
@@ -146,9 +161,10 @@ public class Lobby {
 					frame.dispose();
 				}
 
-			}, new Socket("localhost", 8888));
+			}, new Socket(host, 8888));
 		} catch (IOException e) {
 			e.printStackTrace();
+			e.printStackTrace(System.out);
 		}
 		listener.sendAndWait(new LoginMessage(login));
 		try {

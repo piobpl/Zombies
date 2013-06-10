@@ -18,7 +18,6 @@ import java.nio.file.Files;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import lobby.view.Lobby;
 
@@ -125,17 +124,7 @@ public class Menu {
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				final String login = (String) JOptionPane.showInputDialog(null,
-						"Login:", "Log in", JOptionPane.PLAIN_MESSAGE, null,
-						null, null);
-				if (login != null) {
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							new Lobby(login);
-						}
-					}).start();
-				}
+				Lobby.connect();
 			}
 		});
 		content.add(button);

@@ -30,17 +30,21 @@ public class Server implements Runnable {
 	public void run() {
 		ServerSocket serverSocket = null;
 		try {
+			System.out.println("Starting server...");
 			System.err.println("Starting server...");
+			System.out
+					.print("Creating server socket on port " + port + "...\t");
 			System.err
 					.print("Creating server socket on port " + port + "...\t");
 			try {
 				serverSocket = new ServerSocket(8888);
 			} catch (IOException e) {
 				System.err.println("failed, aborting.");
+				e.printStackTrace(System.out);
 				e.printStackTrace();
 				return;
 			}
-			System.err.println("done.");
+			System.out.println("done.");
 			while (true) {
 				try {
 					System.err.print("Waiting for next client...\t");
@@ -54,6 +58,7 @@ public class Server implements Runnable {
 				}
 			}
 		} finally {
+			System.out.println("Closing server...\t");
 			System.err.println("Closing server...\t");
 			manager.close();
 			if (serverSocket != null)
@@ -64,7 +69,8 @@ public class Server implements Runnable {
 					e.printStackTrace();
 					return;
 				}
-			System.err.println("done.");
+			System.out.println("done.");
+			System.err.println("Closing server...\t");
 		}
 	}
 }
