@@ -116,7 +116,7 @@ public class Lobby {
 								JOptionPane.QUESTION_MESSAGE, null, options,
 								options[0]);
 						if (n == 0)
-							listener.send(new InvitationAcceptMessage(
+							listener.sendAndWait(new InvitationAcceptMessage(
 									whoInvites, Lobby.this.login));
 						break;
 					case GAMESTART:
@@ -143,7 +143,7 @@ public class Lobby {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		listener.send(new LoginMessage(login));
+		listener.sendAndWait(new LoginMessage(login));
 		try {
 			EventQueue.invokeAndWait(new Runnable() {
 				public void run() {
@@ -218,7 +218,7 @@ public class Lobby {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				listener.send(new ChatMessage(login, text.getText()));
+				listener.sendAndWait(new ChatMessage(login, text.getText()));
 				text.setText("");
 			}
 		});
@@ -229,7 +229,7 @@ public class Lobby {
 			public void mouseClicked(MouseEvent e) {
 				if (playersList.getSelectedValue() != null
 						&& !playersList.getSelectedValue().equals(login))
-					listener.send(new InviteMessage(login, playersList
+					listener.sendAndWait(new InviteMessage(login, playersList
 							.getSelectedValue()));
 			}
 		});

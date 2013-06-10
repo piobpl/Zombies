@@ -51,14 +51,14 @@ public class DummyGUI implements GUI, Receiver {
 	public synchronized void waitTillPlayersAreReady() {
 		System.err.println("czekam na graczy " + zombieListener + " "
 				+ humanListener);
-		zombieListener.send(new GameStartMessage());
+		zombieListener.sendAndWait(new GameStartMessage());
 		while (!zombiePlayerReady)
 			try {
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		humanListener.send(new GameStartMessage());
+		humanListener.sendAndWait(new GameStartMessage());
 		while (!humanPlayerReady)
 			try {
 				wait();
@@ -75,21 +75,21 @@ public class DummyGUI implements GUI, Receiver {
 		for (Button button : Button.values()) {
 			if (currentPlayer == Player.ZOMBIE) {
 				if (activeButtons.contains(button))
-					zombieListener.send(new SetGUIButtonEnabledMessage(button,
+					zombieListener.sendAndWait(new SetGUIButtonEnabledMessage(button,
 							true));
 				else
-					zombieListener.send(new SetGUIButtonEnabledMessage(button,
+					zombieListener.sendAndWait(new SetGUIButtonEnabledMessage(button,
 							false));
 				humanListener
-						.send(new SetGUIButtonEnabledMessage(button, false));
+						.sendAndWait(new SetGUIButtonEnabledMessage(button, false));
 			} else {
 				if (activeButtons.contains(button))
-					humanListener.send(new SetGUIButtonEnabledMessage(button,
+					humanListener.sendAndWait(new SetGUIButtonEnabledMessage(button,
 							true));
 				else
-					humanListener.send(new SetGUIButtonEnabledMessage(button,
+					humanListener.sendAndWait(new SetGUIButtonEnabledMessage(button,
 							false));
-				zombieListener.send(new SetGUIButtonEnabledMessage(button,
+				zombieListener.sendAndWait(new SetGUIButtonEnabledMessage(button,
 						false));
 			}
 		}
@@ -104,9 +104,9 @@ public class DummyGUI implements GUI, Receiver {
 	public synchronized void setButtonEnabled(Button button, boolean aktywny) {
 		if (currentPlayer == Player.ZOMBIE)
 			zombieListener
-					.send(new SetGUIButtonEnabledMessage(button, aktywny));
+					.sendAndWait(new SetGUIButtonEnabledMessage(button, aktywny));
 		else
-			humanListener.send(new SetGUIButtonEnabledMessage(button, aktywny));
+			humanListener.sendAndWait(new SetGUIButtonEnabledMessage(button, aktywny));
 	}
 
 	@Override
@@ -146,14 +146,14 @@ public class DummyGUI implements GUI, Receiver {
 
 	@Override
 	public synchronized void setCardsLeft(Player player, int left) {
-		zombieListener.send(new SetGUICardsLeftMessage(player, left));
-		humanListener.send(new SetGUICardsLeftMessage(player, left));
+		zombieListener.sendAndWait(new SetGUICardsLeftMessage(player, left));
+		humanListener.sendAndWait(new SetGUICardsLeftMessage(player, left));
 	}
 
 	@Override
 	public synchronized void modelSendsMessage(String message) {
-		zombieListener.send(new ModelGUISendsMessage(message));
-		humanListener.send(new ModelGUISendsMessage(message));
+		zombieListener.sendAndWait(new ModelGUISendsMessage(message));
+		humanListener.sendAndWait(new ModelGUISendsMessage(message));
 	}
 
 	@Override
@@ -168,8 +168,8 @@ public class DummyGUI implements GUI, Receiver {
 
 	@Override
 	public synchronized void drawGlobalModifiers(List<Modifier> modifiers) {
-		zombieListener.send(new DrawGUIGlobalModifiersMessage(modifiers));
-		humanListener.send(new DrawGUIGlobalModifiersMessage(modifiers));
+		zombieListener.sendAndWait(new DrawGUIGlobalModifiersMessage(modifiers));
+		humanListener.sendAndWait(new DrawGUIGlobalModifiersMessage(modifiers));
 	}
 
 	@Override
@@ -179,14 +179,14 @@ public class DummyGUI implements GUI, Receiver {
 
 	@Override
 	public synchronized void setHighlight(boolean set) {
-		zombieListener.send(new SetGUIHighlightMessage(set));
-		humanListener.send(new SetGUIHighlightMessage(set));
+		zombieListener.sendAndWait(new SetGUIHighlightMessage(set));
+		humanListener.sendAndWait(new SetGUIHighlightMessage(set));
 	}
 
 	@Override
 	public synchronized void exit() {
-		zombieListener.send(new ExitGUIMessage());
-		humanListener.send(new ExitGUIMessage());
+		zombieListener.sendAndWait(new ExitGUIMessage());
+		humanListener.sendAndWait(new ExitGUIMessage());
 	}
 
 	@Override
@@ -201,8 +201,8 @@ public class DummyGUI implements GUI, Receiver {
 			notifyAll();
 		} else if (message.getType() == MessageType.CHAT) {
 			System.err.println("Rozsylamy chat message: " + message);
-			zombieListener.send(message);
-			humanListener.send(message);
+			zombieListener.sendAndWait(message);
+			humanListener.sendAndWait(message);
 		}
 	}
 

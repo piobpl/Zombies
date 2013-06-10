@@ -27,20 +27,20 @@ public class DummyBoard implements Board{
 
 	@Override
 	public void setHighlight(boolean set) {
-		zombieListener.send(new SetBoardHighlightMessage(set));
-		humanListener.send(new SetBoardHighlightMessage(set));
+		zombieListener.sendAndWait(new SetBoardHighlightMessage(set));
+		humanListener.sendAndWait(new SetBoardHighlightMessage(set));
 	}
 
 	@Override
 	public void setColumnHighlight(int j, boolean set) {
-		zombieListener.send(new SetBoardColumnHighlightMessage(j, set));
-		humanListener.send(new SetBoardColumnHighlightMessage(j, set));
+		zombieListener.sendAndWait(new SetBoardColumnHighlightMessage(j, set));
+		humanListener.sendAndWait(new SetBoardColumnHighlightMessage(j, set));
 	}
 
 	@Override
 	public void setRowHighlight(int i, boolean set) {
-		zombieListener.send(new SetBoardRowHighlightMessage(i, set));
-		humanListener.send(new SetBoardRowHighlightMessage(i, set));
+		zombieListener.sendAndWait(new SetBoardRowHighlightMessage(i, set));
+		humanListener.sendAndWait(new SetBoardRowHighlightMessage(i, set));
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class DummyBoard implements Board{
 
 	@Override
 	public void clearGlassText() {
-		zombieListener.send(new ClearBoardGlassTextMessage());
-		humanListener.send(new ClearBoardGlassTextMessage());
+		zombieListener.sendAndWait(new ClearBoardGlassTextMessage());
+		humanListener.sendAndWait(new ClearBoardGlassTextMessage());
 	}
 }

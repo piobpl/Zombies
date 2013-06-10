@@ -1,6 +1,5 @@
 package utility;
 
-import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -52,7 +51,7 @@ public class Listener implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		outputBox = new LinkedBlockingQueue<Message>();
+		outputBox = new LinkedBlockingQueue<Message>(1);
 		Thread writer = new Thread(new Writer());
 		writer.setDaemon(true);
 		writer.start();
@@ -76,15 +75,10 @@ public class Listener implements Runnable {
 			receiver.receive(this, message);
 	}
 
-	public void send(Message message) {
+	public void sendAndWait(Message message) {
 		try {
-			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(bytes);
-			out.writeObject(message);
 			outputBox.put(message);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

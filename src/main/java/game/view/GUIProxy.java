@@ -40,18 +40,18 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
 	final SimpleGUI gui;
 
 	public GUIProxy(Listener listener, String login) {
-		try {
-			System.setErr(new PrintStream(new File("GUIProxy.log")));
+		/*try {
+			//System.setErr(new PrintStream(new File("GUIProxy.log")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
+		}*/
 		System.err.println("Proxy gracza: " + login);
 		gui = new SimpleGUI(this, this);
 		gui.hideHistoryPanel();
 		this.listener = listener;
 		this.login = login;
 		listener.addReceiver(this);
-		listener.send(new ReadyForGameMessage());
+		listener.sendAndWait(new ReadyForGameMessage());
 	}
 
 	@Override
@@ -246,20 +246,20 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
 
 	@Override
 	public synchronized void receiveTriggerEvent(TriggerEvent e) {
-		listener.send(new EventGUIMessage(e));
+		listener.sendAndWait(new EventGUIMessage(e));
 	}
 
 	@Override
 	public void run() {
 		while (true) {
 			Event e = gui.getEventReceiver().getNextClickEvent();
-			listener.send(new EventGUIMessage(e));
+			listener.sendAndWait(new EventGUIMessage(e));
 		}
 	}
 
 	@Override
 	public synchronized void send(String message) {
 		System.err.println("Przesylamy chat message w gore: " + message);
-		listener.send(new ChatMessage(login, message));
+		listener.sendAndWait(new ChatMessage(login, message));
 	}
 }

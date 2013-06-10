@@ -33,15 +33,15 @@ public class DummyCell implements Cell {
 
 	@Override
 	public void drawCard(Card card) {
-		zombieListener.send(new DrawCellCardMessage(card, board, row, column));
-		humanListener.send(new DrawCellCardMessage(card, board, row, column));
+		zombieListener.sendAndWait(new DrawCellCardMessage(card, board, row, column));
+		humanListener.sendAndWait(new DrawCellCardMessage(card, board, row, column));
 	}
 
 	@Override
 	public void drawTraps(List<Trap> traps) {
 		zombieListener
-				.send(new DrawCellTrapsMessage(traps, board, row, column));
-		humanListener.send(new DrawCellTrapsMessage(traps, board, row, column));
+				.sendAndWait(new DrawCellTrapsMessage(traps, board, row, column));
+		humanListener.sendAndWait(new DrawCellTrapsMessage(traps, board, row, column));
 	}
 
 	@Override
@@ -51,24 +51,24 @@ public class DummyCell implements Cell {
 
 	@Override
 	public void setHighlight(boolean light) {
-		zombieListener.send(new SetCellHighlightMessage(light, board, row,
+		zombieListener.sendAndWait(new SetCellHighlightMessage(light, board, row,
 				column));
-		humanListener.send(new SetCellHighlightMessage(light, board, row,
+		humanListener.sendAndWait(new SetCellHighlightMessage(light, board, row,
 				column));
 	}
 
 	@Override
 	public void setRedHighlight(boolean light) {
-		zombieListener.send(new SetCellRedHighlightMessage(light, board, row,
+		zombieListener.sendAndWait(new SetCellRedHighlightMessage(light, board, row,
 				column));
-		humanListener.send(new SetCellRedHighlightMessage(light, board, row,
+		humanListener.sendAndWait(new SetCellRedHighlightMessage(light, board, row,
 				column));
 	}
 
 	@Override
 	public void toggleHighlight() {
-		zombieListener.send(new ToggleCellHighlightMessage(board, row, column));
-		humanListener.send(new ToggleCellHighlightMessage(board, row, column));
+		zombieListener.sendAndWait(new ToggleCellHighlightMessage(board, row, column));
+		humanListener.sendAndWait(new ToggleCellHighlightMessage(board, row, column));
 	}
 
 	@Override
@@ -78,10 +78,10 @@ public class DummyCell implements Cell {
 
 	@Override
 	public void setGlassText(String text) {
-		zombieListener.send(new SetCellGlassTextMessage(board, row, column,
+		zombieListener.sendAndWait(new SetCellGlassTextMessage(board, row, column,
 				text));
 		humanListener
-				.send(new SetCellGlassTextMessage(board, row, column, text));
+				.sendAndWait(new SetCellGlassTextMessage(board, row, column, text));
 	}
 
 }

@@ -56,7 +56,7 @@ public class Manager implements Receiver {
 	public synchronized void sendToPlayer(String name, Message message) {
 		System.err.println("Sending to " + name + ":");
 		System.err.println(message);
-		getListener(name).send(message);
+		getListener(name).sendAndWait(message);
 	}
 
 	@Override
@@ -68,10 +68,10 @@ public class Manager implements Receiver {
 			System.err.println("Login odebrany");
 			LoginMessage m = ((LoginMessage) message);
 			if (loginTaken(m.login)) {
-				listener.send(new ErrorMessage("This login is already taken."));
+				listener.sendAndWait(new ErrorMessage("This login is already taken."));
 				return;
 			}
-			listener.send(new PlayerListMessage(getClientsNames()));
+			listener.sendAndWait(new PlayerListMessage(getClientsNames()));
 			sendAll(message);
 			clientsMap
 					.put(listener, new Client(((LoginMessage) message).login));
@@ -107,7 +107,7 @@ public class Manager implements Receiver {
 		System.err.println("Sending to all:");
 		System.err.println(message);
 		for (Listener connector : clients)
-			connector.send(message);
+			connector.sendAndWait(message);
 	}
 
 	// ta funkcja powinna byc "szybka" - wywoluje ja serwer, ktory nie powinien

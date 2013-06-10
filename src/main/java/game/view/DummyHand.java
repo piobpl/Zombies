@@ -30,7 +30,7 @@ public class DummyHand implements Hand {
 
 	@Override
 	public void setHighlight(boolean set) {
-		zombieListener.send(new SetHandHighlightMessage(player,set));
-		zombieListener.send(new SetHandHighlightMessage(player,set));
+		zombieListener.sendAndWait(new SetHandHighlightMessage(player,set));
+		zombieListener.sendAndWait(new SetHandHighlightMessage(player,set));
 	}
 }

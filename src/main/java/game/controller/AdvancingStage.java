@@ -119,7 +119,7 @@ public class AdvancingStage implements Stage {
 				BoardClickedEvent c;
 				Selection selection;
 				DogsMover m;
-				gameState.sendMessage("Time to move dogs");
+				gameState.sendMessage("Time to move dogs, if you want some dogs to stay in place just hit EndTurn button.");
 				gui.setButtonEnabled(Button.EndTurn, true);
 				while (true) {
 					event = gui.getEventReceiver().getNextClickEvent();
@@ -170,6 +170,7 @@ public class AdvancingStage implements Stage {
 					}
 				}
 			}
+			gui.setButtonEnabled(Button.EndTurn, false);
 			boolean moved[][] = new boolean[5][3];
 			for (int x = 4; x >= 0; --x)
 				for (int y = 0; y < 3; ++y)
