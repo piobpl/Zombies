@@ -106,6 +106,7 @@ public class GameState implements Serializable {
 	public void nextStage() {
 		Modifier.nextStage(modifiers);
 		board.nextStage();
+		update();
 	}
 
 	public void sendMessage(String message) {
