@@ -20,6 +20,11 @@ import game.view.GUIMessage.SetGUICardsLeftMessage;
 import game.view.GUIMessage.SetGUIHighlightMessage;
 import game.view.GUIMessage.SetHandHighlightMessage;
 import game.view.GUIMessage.ToggleCellHighlightMessage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
 import server.controller.Message;
 import server.controller.Message.ChatMessage;
 import server.controller.Message.MessageType;
@@ -35,11 +40,11 @@ public class GUIProxy implements Receiver, TriggerEventHandler, Runnable,
 	final SimpleGUI gui;
 
 	public GUIProxy(Listener listener, String login) {
-		/*try {
-			//System.setErr(new PrintStream(new File("GUIProxy.log")));
+		try {
+			System.setErr(new PrintStream(new File("GUIProxy.log")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}*/
+		}
 		System.err.println("Proxy gracza: " + login);
 		gui = new SimpleGUI(this, this);
 		gui.hideHistoryPanel();

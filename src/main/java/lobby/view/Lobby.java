@@ -17,7 +17,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -60,7 +63,11 @@ public class Lobby {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-			//System.setErr(new PrintStream(new File("Lobby.log")));
+		try {
+			System.setErr(new PrintStream(new File("Lobby.log")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					final String login = (String) JOptionPane.showInputDialog(
