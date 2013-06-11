@@ -208,7 +208,6 @@ public class Selector {
 				}
 			}
 		} finally {
-			gui.setButtonEnabled(Button.EndTurn, true);
 			gui.setButtonEnabled(Button.ApplySelection, false);
 			gui.setButtonEnabled(Button.CancelSelection, false);
 			gui.getBoard().clearGlassText();
