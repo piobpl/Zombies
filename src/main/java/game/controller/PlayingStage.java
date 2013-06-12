@@ -38,8 +38,8 @@ public class PlayingStage implements Stage {
 				&& gameState.getModifiers().contains(ModifierType.TERROR))
 			limit = 1;
 		gameState.sendMessage("Choose cards to play or end turn.");
-		gui.setButtonEnabled(Button.EndTurn, true);
 		while (true) {
+			gui.setButtonEnabled(Button.EndTurn, true);
 			if ((limit == 0 || gameState.getHand(player).isEmpty())
 					&& !endWarning) {
 				gameState.sendMessage("You have to end turn now.");
